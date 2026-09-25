@@ -1,0 +1,145 @@
+{
+  "benchmark_version": "jinguiyaolue_holdout_v01-m9",
+  "dataset_name": "jinguiyaolue_holdout_v01",
+  "book": "金匮要略",
+  "generated_at": "2026-09-25T01:48:04.828148+00:00",
+  "production_snapshot": "jinguiyaolue_holdout_v01-m9",
+  "text_file": "/Users/gdhu/projects/ancientbookreading/realbooks/jinguiyaolue_holdout_v01.txt",
+  "gold_file": "/Users/gdhu/projects/ancientbookreading/realbooks/jinguiyaolue_gold_v01.json",
+  "git_commit_sha": "unavailable: workspace is not a git worktree",
+  "analyzer_version": "0.3.0",
+  "worker_python_version": "3.12.13",
+  "pypinyin_version": "0.55.0",
+  "benchmark_runner_version": "0.4.0-m9",
+  "resource_manifest": {
+    "medical_lexicon_v3.json": "sha256:ff02b6e84c16b845f87efbcbb8124f78d238eae2ef7f976ea20e60aebfbd2a06",
+    "classical_lexicon_v3.json": "sha256:cd22c2ea87231cf732216f4e7ab6e3ac41d24d8f50403d7099d675a7cf12a7cb",
+    "context_rules_v3.json": "sha256:0b84b6bd2c89b1939eaa9faa265ec7b4fced6be13098ec7a1a05d0d30c002f61",
+    "context_pronunciation_rules.json": "sha256:15696afc5f493dec319baeb886f30f6f4f71c866e2e6286f999e3a7af9a8132e",
+    "high_risk_polyphones.json": "sha256:74d02172a82d405fbdec0c33ab23061ff716d403555ba21cdc94b22e1a1299d8",
+    "known_rare_characters.json": "sha256:04e5611784c1f97b1ddd07ee6f19726fb027d27c9fe67fdf86721b74dbeceee2",
+    "variant_characters.json": "sha256:2f688b5858f7224da12446d130ab5889606c2439c179c4068fbf75775acfd194"
+  },
+  "domain_lexicon_version": "0.3.0",
+  "chapters": 5,
+  "production_chapters": 2,
+  "chapter_alignment": {
+    "applied": true,
+    "source_chapters": 2,
+    "projected_chapters": 5,
+    "titles": [
+      "脏腑经络先后病脉证第一",
+      "痉湿暍病脉证并治第二",
+      "百合狐惑阴阳毒病脉证治第三",
+      "疟病脉证并治第四",
+      "中风历节病脉证并治第五"
+    ],
+    "prediction_crossings": 0
+  },
+  "segments": 52,
+  "production_segments": 52,
+  "han_characters": 2040,
+  "production_snapshot_han_characters": 2029,
+  "gold_entries": 48,
+  "hard_gold_entries": 45,
+  "review_required_entries": 3,
+  "hard_gold_occurrences": 53,
+  "detected": 50,
+  "detection_recall": 0.9433962264150944,
+  "pronunciation_evaluated": 50,
+  "default_exact": 50,
+  "default_accuracy": 1.0,
+  "candidate_contains_gold": 50,
+  "candidate_coverage": 1.0,
+  "missed": 3,
+  "wrong_default": 0,
+  "candidate_missing": 0,
+  "extra_predictions": 35,
+  "review_required_occurrences": 3,
+  "review_detected": 0,
+  "gold_occurrences_crossing_segment_boundary": 0,
+  "context_not_found": [],
+  "full_span_pronunciation_evaluated": 38,
+  "full_span_default_exact": 38,
+  "prediction_annotation_count": 86,
+  "prediction_by_source": {
+    "context_semantic": 13,
+    "high_risk_polyphone": 6,
+    "medical_lexicon_v3": 53,
+    "rare_classical_lexicon": 14
+  },
+  "source_contribution": {
+    "context_semantic": {
+      "predictions": 13,
+      "correct_gold_hits": 7,
+      "extra_predictions": 6
+    },
+    "high_risk_polyphone": {
+      "predictions": 6,
+      "correct_gold_hits": 0,
+      "extra_predictions": 6
+    },
+    "medical_lexicon_v3": {
+      "predictions": 53,
+      "correct_gold_hits": 30,
+      "extra_predictions": 22
+    },
+    "rare_classical_lexicon": {
+      "predictions": 14,
+      "correct_gold_hits": 13,
+      "extra_predictions": 1
+    }
+  },
+  "extra_by_risk": {
+    "classical_term": 1,
+    "context_pronunciation": 6,
+    "medical_term": 22,
+    "polyphone": 6
+  },
+  "extra_by_source": {
+    "context_semantic": 6,
+    "high_risk_polyphone": 6,
+    "medical_lexicon_v3": 22,
+    "rare_classical_lexicon": 1
+  },
+  "extra_classification_counts": {
+    "bug": 0,
+    "unclear": 0,
+    "unnecessary": 0,
+    "useful": 35
+  },
+  "app_version": "0.1.0",
+  "extra_predictions_per_1000_han": 17.156862745098042,
+  "risk_type_recall": {
+    "classical_usage": {
+      "total": 3,
+      "detected": 3,
+      "recall": 1.0
+    },
+    "medical_polyphone": {
+      "total": 10,
+      "detected": 10,
+      "recall": 1.0
+    },
+    "medical_term": {
+      "total": 27,
+      "detected": 24,
+      "recall": 0.8888888888888888
+    },
+    "rare_character": {
+      "total": 4,
+      "detected": 4,
+      "recall": 1.0
+    },
+    "rare_or_classical": {
+      "total": 7,
+      "detected": 7,
+      "recall": 1.0
+    },
+    "semantic_polyphone": {
+      "total": 2,
+      "detected": 2,
+      "recall": 1.0
+    }
+  }
+}

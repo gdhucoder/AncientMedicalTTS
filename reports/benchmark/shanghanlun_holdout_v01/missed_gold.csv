@@ -1,0 +1,51 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,risk_type,system_default,system_candidates,possible_reason
+SHL-G001,辨太阳病脉证并治（上）,太阳之为病，脉浮，头项强痛而恶寒。,恶寒,恶,wu4 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G001,辨太阳病脉证并治（上）,太阳之为病，脉浮，头项强痛而恶寒。,恶寒,恶,wu4 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G001,辨太阳病脉证并治（上）,太阳之为病，脉浮，头项强痛而恶寒。,恶寒,恶,wu4 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G001,辨太阳病脉证并治（上）,太阳之为病，脉浮，头项强痛而恶寒。,恶寒,恶,wu4 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G001,辨太阳病脉证并治（上）,太阳之为病，脉浮，头项强痛而恶寒。,恶寒,恶,wu4 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G001,辨太阳病脉证并治（上）,太阳之为病，脉浮，头项强痛而恶寒。,恶寒,恶,wu4 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G002,辨太阳病脉证并治（上）,太阳病，发热，汗出，恶风，脉缓者，名为中风。,中风,中,zhong4 feng1,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G002,辨太阳病脉证并治（上）,太阳病，发热，汗出，恶风，脉缓者，名为中风。,中风,中,zhong4 feng1,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G004,辨太阳病脉证并治（上）,若被下者，小便不利，直视失溲；,失溲,溲,shi1 sou1,rare_or_classical,,,rare_character_not_detected
+SHL-G005,辨太阳病脉证并治（上）,若被火者，微发黄色，剧则如惊痫，时瘈疭；,惊痫,痫,jing1 xian2,medical_term,,,medical_term_dictionary_missing
+SHL-G006,辨太阳病脉证并治（上）,若被火者，微发黄色，剧则如惊痫，时瘈疭；,瘈疭,瘈疭,chi4 zong4,medical_term,,,medical_term_dictionary_missing
+SHL-G009,辨太阳病脉证并治（上）,啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。,啬啬,啬啬,se4 se4,rare_or_classical,,,rare_character_not_detected
+SHL-G010,辨太阳病脉证并治（上）,啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。,淅淅,淅淅,xi1 xi1,rare_or_classical,,,rare_character_not_detected
+SHL-G011,辨太阳病脉证并治（上）,啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。,翕翕,翕翕,xi1 xi1,rare_or_classical,,,rare_character_not_detected
+SHL-G013,辨太阳病脉证并治（上）,太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。,葛根汤,葛,ge2 gen1 tang1,medical_term,,,medical_term_dictionary_missing
+SHL-G014,辨太阳病脉证并治（上）,太阳病三日，已发汗，若吐、若下、若温针，仍不解者，此为坏病，桂枝不中与之也。,温针,针,wen1 zhen1,medical_term,,,medical_term_dictionary_missing
+SHL-G015,辨太阳病脉证并治（上）,喘家作桂枝汤，加厚朴杏子佳。,厚朴,朴,hou4 po4,medical_term,,,medical_term_dictionary_missing
+SHL-G016,辨太阳病脉证并治（中）,服之则厥逆，筋惕肉瞤，此为逆也。,厥逆,厥,jue2 ni4,medical_term,,,medical_term_dictionary_missing
+SHL-G017,辨太阳病脉证并治（中）,服之则厥逆，筋惕肉瞤，此为逆也。,筋惕,惕,jin1 ti4,medical_term,,,medical_term_dictionary_missing
+SHL-G019,辨太阳病脉证并治（中）,服药已微除，其人发烦目瞑，剧者必衄，衄乃解。,目瞑,瞑,mu4 ming2,rare_or_classical,,,rare_character_not_detected
+SHL-G022,辨阳明病脉证并治,阳明病，不能食，攻其热必哕。,攻其热必哕,哕,gong1 qi2 re4 bi4 yue3,medical_term,,,medical_term_dictionary_missing
+SHL-G022,辨阳明病脉证并治,阳明病，不能食，攻其热必哕。,攻其热必哕,哕,gong1 qi2 re4 bi4 yue3,medical_term,,,medical_term_dictionary_missing
+SHL-G023,辨阳明病脉证并治,手足濈然汗出者，此大便已硬也，大承气汤主之。,濈然汗出,濈,ji2 ran2 han4 chu1,rare_or_classical,,,rare_character_not_detected
+SHL-G025,辨少阳病脉证并治,少阳不可发汗，发汗则谵语，此属胃。,谵语,谵,zhan1 yu3,medical_term,,,medical_term_dictionary_missing
+SHL-G026,辨少阳病脉证并治,少阳中风，两耳无所闻，目赤，胸中满而烦者，不可吐下，吐下则悸而惊。,悸而惊,悸,ji4 er2 jing1,medical_term,,,medical_term_dictionary_missing
+SHL-G027,辨少阳病脉证并治,本太阳病不解，转入少阳者，胁下硬满，干呕不能食，往来寒热，尚未吐下，脉沉紧者，与小柴胡汤。,胁下硬满,胁,xie2 xia4 ying4 man3,medical_term,,,medical_term_dictionary_missing
+SHL-G028,辨少阳病脉证并治,本太阳病不解，转入少阳者，胁下硬满，干呕不能食，往来寒热，尚未吐下，脉沉紧者，与小柴胡汤。,小柴胡汤,柴,xiao3 chai2 hu2 tang1,medical_term,,,medical_term_dictionary_missing
+SHL-G029,辨太阴病脉证并治,太阴之为病，腹满而吐，食不下，自利益甚，时腹自痛。,太阴,太阴,tai4 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G029,辨太阴病脉证并治,太阴之为病，腹满而吐，食不下，自利益甚，时腹自痛。,太阴,太阴,tai4 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G029,辨太阴病脉证并治,太阴之为病，腹满而吐，食不下，自利益甚，时腹自痛。,太阴,太阴,tai4 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G029,辨太阴病脉证并治,太阴之为病，腹满而吐，食不下，自利益甚，时腹自痛。,太阴,太阴,tai4 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G030,辨太阴病脉证并治,自利不渴者，属太阴，以其脏有寒故也，当温之，宜服四逆辈。,四逆辈,逆,si4 ni4 bei4,medical_term,,,medical_term_dictionary_missing
+SHL-G031,辨太阴病脉证并治,自利不渴者，属太阴，以其脏有寒故也，当温之，宜服四逆辈。,其脏有寒,脏,qi2 zang4 you3 han2,medical_polyphone,,,medical_term_dictionary_missing
+SHL-G033,辨少阴病脉证并治,少阴之为病，脉微细，但欲寐也。,欲寐,寐,yu4 mei4,rare_or_classical,,,rare_character_not_detected
+SHL-G033,辨少阴病脉证并治,少阴之为病，脉微细，但欲寐也。,欲寐,寐,yu4 mei4,rare_or_classical,,,rare_character_not_detected
+SHL-G034,辨少阴病脉证并治,小便白者，以下焦虚有寒，不能制水，故令色白也。,下焦,焦,xia4 jiao1,medical_term,,,medical_term_dictionary_missing
+SHL-G036,辨少阴病脉证并治,阳已虚，尺脉弱涩者，复不可下之。,弱涩,涩,ruo4 se4,medical_term,,,medical_term_dictionary_missing
+SHL-G037,辨厥阴病脉证并治,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,厥阴,厥,jue2 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G037,辨厥阴病脉证并治,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,厥阴,厥,jue2 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G037,辨厥阴病脉证并治,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,厥阴,厥,jue2 yin1,medical_term,,,medical_term_dictionary_missing
+SHL-G038,辨厥阴病脉证并治,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,消渴,渴,xiao1 ke3,medical_term,,,medical_term_dictionary_missing
+SHL-G039,辨厥阴病脉证并治,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,吐蛔,蛔,tu3 hui2,medical_term,,,medical_term_dictionary_missing
+SHL-G040,辨厥阴病脉证并治,伤寒，脉迟六七日，而反与黄芩汤彻其热。,黄芩汤,芩,huang2 qin2 tang1,medical_term,,,medical_term_dictionary_missing
+SHL-G040,辨厥阴病脉证并治,伤寒，脉迟六七日，而反与黄芩汤彻其热。,黄芩汤,芩,huang2 qin2 tang1,medical_term,,,medical_term_dictionary_missing
+SHL-G041,辨厥阴病脉证并治,脉迟为寒，今与黄芩汤，复除其热，腹中应冷，当不能食，今反能食，此名除中，必死。,除中,中,chu2 zhong1,medical_term,,,medical_term_dictionary_missing
+SHL-G041,辨厥阴病脉证并治,脉迟为寒，今与黄芩汤，复除其热，腹中应冷，当不能食，今反能食，此名除中，必死。,除中,中,chu2 zhong1,medical_term,,,medical_term_dictionary_missing
+SHL-G042,辨厥阴病脉证并治,食以索饼，不发热者，知胃气尚在，必愈。,索饼,索,suo3 bing3,classical_term,,,pypinyin_single_reading
+SHL-G043,辨太阳病脉证并治（中）,伤寒脉浮缓，身不疼但重，乍有轻时，无少阴证者，大青龙汤发之。,乍有轻时,乍,zha4 you3 qing1 shi2,rare_or_classical,,,rare_character_not_detected
+SHL-G045,辨阳明病脉证并治,阳明病，脉迟，虽汗出不恶寒者，其身必重，短气腹满而喘，有潮热者，此外欲解，可攻里也。,潮热,潮,chao2 re4,medical_term,,,medical_term_dictionary_missing
+SHL-G046,辨阳明病脉证并治,手足濈然汗出者，此大便已硬也，大承气汤主之。,大承气汤,承,da4 cheng2 qi4 tang1,medical_term,,,medical_term_dictionary_missing

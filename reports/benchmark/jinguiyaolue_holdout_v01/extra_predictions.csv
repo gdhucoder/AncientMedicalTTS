@@ -1,0 +1,21 @@
+chapter,segment_id,segment_order,context,surface_text,default_pinyin,candidates,risk_type,source,annotation_id,review_classification,classification_reason
+脏腑经络先后病脉证第一,01a0d61b-5efb-7329-af64-e7451712bd53:chapter:0:4,4,"肝气盛。故实脾，则肝自愈，此治肝补脾之要妙也。
+
+夫人禀五常，因风气而生长。风气虽能生万物，亦能害万物，如水能浮舟，亦能覆舟。若五脏元真通畅，人即",长,zhang3,chang2 | zhang3,polyphone,high_risk_polyphone,01a0d61b-5f55-7611-9a98-89a192715d61,useful,命中版本化高风险多音字表，属于可解释的复核提示
+脏腑经络先后病脉证第一,01a0d61b-5efb-7329-af64-e7484a8ceda8:chapter:0:7,7,多死。千般疢难，不越三条：一者，经络受邪，入脏腑，为内所因也；二者，四肢九窍，血脉相传，壅塞不通，为外皮肤所中也；三者，房室、金刃、虫兽所伤。以此详,九窍,jiu3 qiao4,jiu1 qiao4 | jiu3 qiao4,medical_term,medical_lexicon,01a0d61b-5f5b-725e-ba35-27f217094787,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+脏腑经络先后病脉证第一,01a0d61b-5efb-7329-af64-e7496838b171:chapter:0:8,8,经络，未流传脏腑，即医治之；四肢才觉重滞，即导引、吐纳、针灸、膏摩，勿令九窍闭塞；更能无犯王法、禽兽灾伤；房室勿令竭乏；服食节其冷热苦酸辛甘，不遗形,九窍,jiu3 qiao4,jiu1 qiao4 | jiu3 qiao4,medical_term,medical_lexicon,01a0d61b-5f5d-712a-8835-6414ead250fa,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+脏腑经络先后病脉证第一,01a0d61b-5efb-7329-af64-e7496838b171:chapter:0:8,8,传脏腑，即医治之；四肢才觉重滞，即导引、吐纳、针灸、膏摩，勿令九窍闭塞；更能无犯王法、禽兽灾伤；房室勿令竭乏；服食节其冷热苦酸辛甘，不遗形体有衰，,更,geng4,geng1 | geng4,polyphone,high_risk_polyphone,01a0d61b-5f5d-712a-8835-641574ce30d9,useful,命中版本化高风险多音字表，属于可解释的复核提示
+脏腑经络先后病脉证第一,01a0d61b-5efb-7329-af64-e74c66a2ca34:chapter:0:11,11,"人语声寂然喜惊呼者，骨节间病；语声喑喑然不彻者，心膈间病；语声啾啾然细而长者，头中病。一作痛。
+
+师曰：息摇肩者，心中坚；息引胸中上气者，咳；息张",长,zhang3,chang2 | zhang3,polyphone,high_risk_polyphone,01a0d61b-5f65-71e9-813f-9c52f5bd3414,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d61b-5efb-7329-af64-e752eb515a97:chapter:1:2,2,"复发汗，必拘急。
+
+疮家虽身疼痛，不可发汗，汗出则痉。病者身热足寒，颈项强急，恶寒，时头热，面赤，目赤，独头动摇，卒口噤，背反张者，痉病也。若发其",强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,01a0d61b-5f70-71cf-97d6-36d1010293e2,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d61b-5efb-7329-af64-e754e72151fb:chapter:1:4,4,"夫痉脉，按之紧如弦，直上下行。痉病有灸疮，难治。
+
+太阳病，其证备，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。太阳病，无汗而小便反少，气上",强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,01a0d61b-5f75-72c0-9cff-7e0d37bb6c24,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d61b-5efb-7329-af64-e7551e710aca:chapter:1:5,5,，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。太阳病，无汗而小便反少，气上冲胸，口噤不得语，欲作刚痉，葛根汤主之。痉为病，胸满口噤，卧不着席,少,shao3,shao3 | shao4,polyphone,high_risk_polyphone,01a0d61b-5f76-73e2-ac3d-272611d1448b,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d61b-5efb-7329-af64-e75a1ed0fb38:chapter:1:10,10,其小便。湿家之为病，一身尽疼，发热，身色如熏黄也。湿家，其人但头汗出，背强，欲得被覆向火。若下之早则哕，或胸满，小便不利，舌上如胎者，以丹田有热，,强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,01a0d61b-5f7c-7762-b00e-1859fa755b90,useful,命中版本化高风险多音字表，属于可解释的复核提示
+百合狐惑阴阳毒病脉证治第三,01a0d61b-5efc-7001-968a-169e905be0b1:chapter:2:8,8,，甘草泻心汤主之；蚀于下部则咽干，苦参汤洗之；蚀于肛者，雄黄熏之。病者脉数，无热微烦，默默但欲卧，汗出，初得之三四日，目赤如鸠眼；七八日，目四眦黑,数,shu4,shu3 | shu4 | shuo4,polyphone,high_risk_polyphone,01a0d61b-5f96-722b-b5d0-ca9806649898,useful,命中版本化高风险多音字表，属于可解释的复核提示
+疟病脉证并治第四,01a0d61b-5efc-7001-968a-16a4d6346588:chapter:3:3,3,结为癥瘕，名曰疟母，急治之，宜鳖甲煎丸。师曰：阴气孤绝，阳气独发，则热而少气烦冤，手足热而欲呕，名曰瘅疟。若但热不寒者，邪气内藏于心，外舍分肉之间,少,shao3,shao3 | shao4,polyphone,high_risk_polyphone,01a0d61b-5fa0-70b8-85f1-d10bc0ad0138,useful,命中版本化高风险多音字表，属于可解释的复核提示
+疟病脉证并治第四,01a0d61b-5efc-7001-968a-16a520a32ce4:chapter:3:4,4,，阳气独发，则热而少气烦冤，手足热而欲呕，名曰瘅疟。若但热不寒者，邪气内藏于心，外舍分肉之间，令人消铄脱肉。温疟者，其脉如平，身无寒但热，骨节疼烦,藏,cang2,cang2 | zang1 | zang4,polyphone,high_risk_polyphone,01a0d61b-5fa2-76ce-aaa0-02987828a094,useful,命中版本化高风险多音字表，属于可解释的复核提示

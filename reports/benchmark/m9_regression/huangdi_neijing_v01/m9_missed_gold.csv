@@ -1,0 +1,2 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,risk_type,system_default,system_candidates,possible_reason
+HNSW-G022,四气调神大论篇第二,恶气不发，风雨不节，白露不下，则菀稿不荣。,菀稿,菀稿,wan3 gao3,text_variant,,,text_variant

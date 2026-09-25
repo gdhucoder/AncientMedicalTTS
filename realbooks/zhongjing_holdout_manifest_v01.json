@@ -1,0 +1,56 @@
+{
+  "name": "AncientMedicalTTS Zhongjing independent hold-out benchmarks v0.1",
+  "created_for": "AncientMedicalTTS pronunciation analyzer validation",
+  "policy": {
+    "max_book_scope": "<=5000 Han characters per project",
+    "language": "Modern Standard Mandarin",
+    "historical_reconstruction": false,
+    "gold_leakage_prohibited": true
+  },
+  "datasets": [
+    {
+      "book": "伤寒论",
+      "text": "shanghanlun_holdout_v01.txt",
+      "gold_json": "shanghanlun_gold_v01.json",
+      "gold_csv": "shanghanlun_gold_v01.csv",
+      "readme": "shanghanlun_gold_v01_README.md",
+      "han_character_count_including_title_headings": 1735,
+      "entry_count": 46,
+      "hard_gold_entries": 43,
+      "review_required_entries": 3,
+      "chapter_count": 7,
+      "risk_type_counts": {
+        "medical_polyphone": 7,
+        "rare_or_classical": 8,
+        "medical_term": 24,
+        "semantic_polyphone": 3,
+        "textual_or_pronunciation_dispute": 1,
+        "pronunciation_dispute": 1,
+        "classical_term": 1,
+        "pronunciation_policy": 1
+      }
+    },
+    {
+      "book": "金匮要略",
+      "text": "jinguiyaolue_holdout_v01.txt",
+      "gold_json": "jinguiyaolue_gold_v01.json",
+      "gold_csv": "jinguiyaolue_gold_v01.csv",
+      "readme": "jinguiyaolue_gold_v01_README.md",
+      "han_character_count_including_title_headings": 2040,
+      "entry_count": 48,
+      "hard_gold_entries": 45,
+      "review_required_entries": 3,
+      "chapter_count": 5,
+      "risk_type_counts": {
+        "medical_polyphone": 6,
+        "semantic_polyphone": 2,
+        "rare_or_classical": 7,
+        "medical_term": 24,
+        "classical_usage": 2,
+        "textual_or_pronunciation_dispute": 1,
+        "rare_character": 4,
+        "pronunciation_dispute": 2
+      }
+    }
+  ]
+}

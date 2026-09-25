@@ -1,0 +1,47 @@
+id,chapter,match_text,focus_text,gold_pinyin,focus_pinyin,status,risk_type,confidence,occurrence_count_in_chapter,context,text_source_url,pronunciation_source_url,note
+SHL-G001,辨太阳病脉证并治（上）,恶寒,恶,wu4 han2,wu4,gold,medical_polyphone,high_for_engineering_benchmark,6,太阳之为病，脉浮，头项强痛而恶寒。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,“恶寒”中“恶”读 wu4。
+SHL-G002,辨太阳病脉证并治（上）,中风,中,zhong4 feng1,zhong4,gold,medical_polyphone,high_for_engineering_benchmark,2,太阳病，发热，汗出，恶风，脉缓者，名为中风。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,病名/受邪义，“中”读 zhong4。
+SHL-G003,辨太阳病脉证并治（上）,脉数急,数,mai4 shuo4 ji2,shuo4,gold,medical_polyphone,high_for_engineering_benchmark,1,颇欲吐，若躁烦，脉数急者，为传也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,脉象“数”读 shuo4。
+SHL-G004,辨太阳病脉证并治（上）,失溲,溲,shi1 sou1,sou1,gold,rare_or_classical,high_for_engineering_benchmark,1,若被下者，小便不利，直视失溲；,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,“溲”读 sou1。
+SHL-G005,辨太阳病脉证并治（上）,惊痫,痫,jing1 xian2,xian2,gold,medical_term,high_for_engineering_benchmark,1,若被火者，微发黄色，剧则如惊痫，时瘈疭；,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,痫读 xian2。
+SHL-G006,辨太阳病脉证并治（上）,瘈疭,瘈疭,chi4 zong4,chi4 zong4,gold,medical_term,high_for_engineering_benchmark,1,若被火者，微发黄色，剧则如惊痫，时瘈疭；,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,https://www.zdic.net/hans/%E7%98%88%E7%98%B2,现代工程口径采用 chì zòng。
+SHL-G007,辨太阳病脉证并治（上）,阳数七,数,yang2 shu4 qi1,shu4,gold,semantic_polyphone,high_for_engineering_benchmark,1,发于阳七日愈，发于阴六日愈，以阳数七，阴数六故也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,此处“数”为数目，读 shu4。
+SHL-G008,辨太阳病脉证并治（上）,阴数六,数,yin1 shu4 liu4,shu4,gold,semantic_polyphone,high_for_engineering_benchmark,1,发于阳七日愈，发于阴六日愈，以阳数七，阴数六故也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,此处“数”为数目，读 shu4。
+SHL-G009,辨太阳病脉证并治（上）,啬啬,啬啬,se4 se4,se4 se4,gold,rare_or_classical,high_for_engineering_benchmark,1,啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,叠词。
+SHL-G010,辨太阳病脉证并治（上）,淅淅,淅淅,xi1 xi1,xi1 xi1,gold,rare_or_classical,high_for_engineering_benchmark,1,啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,叠词。
+SHL-G011,辨太阳病脉证并治（上）,翕翕,翕翕,xi1 xi1,xi1 xi1,gold,rare_or_classical,high_for_engineering_benchmark,1,啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,叠词。
+SHL-G012,辨太阳病脉证并治（上）,项背强几几,几几,,,review_required,textual_or_pronunciation_dispute,review,1,太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,“几几”历来有 shū shū、jī jī 等读法争议，本集不硬判。
+SHL-G013,辨太阳病脉证并治（上）,葛根汤,葛,ge2 gen1 tang1,ge2,gold,medical_term,high_for_engineering_benchmark,1,太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,“葛根”读 ge2 gen1。
+SHL-G014,辨太阳病脉证并治（上）,温针,针,wen1 zhen1,zhen1,gold,medical_term,high_for_engineering_benchmark,1,太阳病三日，已发汗，若吐、若下、若温针，仍不解者，此为坏病，桂枝不中与之也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,针读 zhen1。
+SHL-G015,辨太阳病脉证并治（上）,厚朴,朴,hou4 po4,po4,gold,medical_term,high_for_engineering_benchmark,1,喘家作桂枝汤，加厚朴杏子佳。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,药名“厚朴”读 hou4 po4。
+SHL-G016,辨太阳病脉证并治（中）,厥逆,厥,jue2 ni4,jue2,gold,medical_term,high_for_engineering_benchmark,1,服之则厥逆，筋惕肉瞤，此为逆也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,厥读 jue2。
+SHL-G017,辨太阳病脉证并治（中）,筋惕,惕,jin1 ti4,ti4,gold,medical_term,high_for_engineering_benchmark,1,服之则厥逆，筋惕肉瞤，此为逆也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,惕读 ti4。
+SHL-G018,辨太阳病脉证并治（中）,肉瞤,瞤,,,review_required,pronunciation_dispute,review,1,服之则厥逆，筋惕肉瞤，此为逆也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,“瞤”有 run2/shun4 等读法，经典医籍语境需另定项目口径。
+SHL-G019,辨太阳病脉证并治（中）,目瞑,瞑,mu4 ming2,ming2,gold,rare_or_classical,high_for_engineering_benchmark,1,服药已微除，其人发烦目瞑，剧者必衄，衄乃解。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,瞑读 ming2。
+SHL-G020,辨太阳病脉证并治（中）,必衄,衄,bi4 nv4,nv4,gold,medical_term,high_for_engineering_benchmark,1,服药已微除，其人发烦目瞑，剧者必衄，衄乃解。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,衄读 nv4。
+SHL-G021,辨阳明病脉证并治,不更衣,更,bu4 geng1 yi1,geng1,gold,semantic_polyphone,high_for_engineering_benchmark,1,不更衣，内实，大便难者，此名阳明也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,https://zdic.net/hans/%E6%9B%B4%E8%A1%A3,“更衣”作如厕义，读 geng1 yi1。
+SHL-G022,辨阳明病脉证并治,攻其热必哕,哕,gong1 qi2 re4 bi4 yue3,yue3,gold,medical_term,high_for_engineering_benchmark,2,阳明病，不能食，攻其热必哕。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,哕作呕吐/呃逆义，读 yue3。
+SHL-G023,辨阳明病脉证并治,濈然汗出,濈,ji2 ran2 han4 chu1,ji2,gold,rare_or_classical,high_for_engineering_benchmark,1,手足濈然汗出者，此大便已硬也，大承气汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,https://zdic.net/hans/%E6%BF%88,“濈然”汗出貌，濈读 ji2。
+SHL-G024,辨少阳病脉证并治,少阳,少,shao4 yang2,shao4,gold,medical_polyphone,high_for_engineering_benchmark,5,少阳之为病，口苦，咽干，目眩也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,经名“少阳”读 shao4。
+SHL-G025,辨少阳病脉证并治,谵语,谵,zhan1 yu3,zhan1,gold,medical_term,high_for_engineering_benchmark,1,少阳不可发汗，发汗则谵语，此属胃。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,谵读 zhan1。
+SHL-G026,辨少阳病脉证并治,悸而惊,悸,ji4 er2 jing1,ji4,gold,medical_term,high_for_engineering_benchmark,1,少阳中风，两耳无所闻，目赤，胸中满而烦者，不可吐下，吐下则悸而惊。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,悸读 ji4。
+SHL-G027,辨少阳病脉证并治,胁下硬满,胁,xie2 xia4 ying4 man3,xie2,gold,medical_term,high_for_engineering_benchmark,1,本太阳病不解，转入少阳者，胁下硬满，干呕不能食，往来寒热，尚未吐下，脉沉紧者，与小柴胡汤。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,胁读 xie2。
+SHL-G028,辨少阳病脉证并治,小柴胡汤,柴,xiao3 chai2 hu2 tang1,chai2,gold,medical_term,high_for_engineering_benchmark,1,本太阳病不解，转入少阳者，胁下硬满，干呕不能食，往来寒热，尚未吐下，脉沉紧者，与小柴胡汤。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,柴胡读 chai2 hu2。
+SHL-G029,辨太阴病脉证并治,太阴,太阴,tai4 yin1,tai4 yin1,gold,medical_term,high_for_engineering_benchmark,4,太阴之为病，腹满而吐，食不下，自利益甚，时腹自痛。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,经名。
+SHL-G030,辨太阴病脉证并治,四逆辈,逆,si4 ni4 bei4,ni4,gold,medical_term,high_for_engineering_benchmark,1,自利不渴者，属太阴，以其脏有寒故也，当温之，宜服四逆辈。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,四逆读 si4 ni4。
+SHL-G031,辨太阴病脉证并治,其脏有寒,脏,qi2 zang4 you3 han2,zang4,gold,medical_polyphone,high_for_engineering_benchmark,1,自利不渴者，属太阴，以其脏有寒故也，当温之，宜服四逆辈。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,脏腑义读 zang4。
+SHL-G032,辨少阴病脉证并治,少阴,少,shao4 yin1,shao4,gold,medical_polyphone,high_for_engineering_benchmark,7,少阴之为病，脉微细，但欲寐也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,经名“少阴”读 shao4。
+SHL-G033,辨少阴病脉证并治,欲寐,寐,yu4 mei4,mei4,gold,rare_or_classical,high_for_engineering_benchmark,2,少阴之为病，脉微细，但欲寐也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,寐读 mei4。
+SHL-G034,辨少阴病脉证并治,下焦,焦,xia4 jiao1,jiao1,gold,medical_term,high_for_engineering_benchmark,1,小便白者，以下焦虚有寒，不能制水，故令色白也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,三焦之下焦。
+SHL-G035,辨少阴病脉证并治,脉细沉数,数,mai4 xi4 chen2 shuo4,shuo4,gold,medical_polyphone,high_for_engineering_benchmark,1,少阴病，脉细沉数，病为在里，不可发汗。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,脉象“数”读 shuo4。
+SHL-G036,辨少阴病脉证并治,弱涩,涩,ruo4 se4,se4,gold,medical_term,high_for_engineering_benchmark,1,阳已虚，尺脉弱涩者，复不可下之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,涩脉之涩读 se4。
+SHL-G037,辨厥阴病脉证并治,厥阴,厥,jue2 yin1,jue2,gold,medical_term,high_for_engineering_benchmark,3,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,经名。
+SHL-G038,辨厥阴病脉证并治,消渴,渴,xiao1 ke3,ke3,gold,medical_term,high_for_engineering_benchmark,1,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,病证名。
+SHL-G039,辨厥阴病脉证并治,吐蛔,蛔,tu3 hui2,hui2,gold,medical_term,high_for_engineering_benchmark,1,厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,蛔读 hui2。
+SHL-G040,辨厥阴病脉证并治,黄芩汤,芩,huang2 qin2 tang1,qin2,gold,medical_term,high_for_engineering_benchmark,2,伤寒，脉迟六七日，而反与黄芩汤彻其热。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,黄芩读 huang2 qin2。
+SHL-G041,辨厥阴病脉证并治,除中,中,chu2 zhong1,zhong1,gold,medical_term,high_for_engineering_benchmark,2,脉迟为寒，今与黄芩汤，复除其热，腹中应冷，当不能食，今反能食，此名除中，必死。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,病证名“除中”，中读 zhong1。
+SHL-G042,辨厥阴病脉证并治,索饼,索,suo3 bing3,suo3,gold,classical_term,high_for_engineering_benchmark,1,食以索饼，不发热者，知胃气尚在，必愈。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,索饼读 suo3 bing3。
+SHL-G043,辨太阳病脉证并治（中）,乍有轻时,乍,zha4 you3 qing1 shi2,zha4,gold,rare_or_classical,high_for_engineering_benchmark,1,伤寒脉浮缓，身不疼但重，乍有轻时，无少阴证者，大青龙汤发之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,乍读 zha4。
+SHL-G044,辨太阳病脉证并治（中）,少腹满,少,,,review_required,pronunciation_policy,review,1,伤寒表不解，心下有水气，干呕，发热而咳，或渴，或利，或噎，或小便不利、少腹满，或喘者，小青龙汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,“少腹”读法建议按项目采用的权威中医辞书固定，暂不硬判。
+SHL-G045,辨阳明病脉证并治,潮热,潮,chao2 re4,chao2,gold,medical_term,high_for_engineering_benchmark,1,阳明病，脉迟，虽汗出不恶寒者，其身必重，短气腹满而喘，有潮热者，此外欲解，可攻里也。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,病证名。
+SHL-G046,辨阳明病脉证并治,大承气汤,承,da4 cheng2 qi4 tang1,cheng2,gold,medical_term,high_for_engineering_benchmark,1,手足濈然汗出者，此大便已硬也，大承气汤主之。,https://zh.wikisource.org/zh-hans/%E5%82%B7%E5%AF%92%E8%AB%96,,方名。

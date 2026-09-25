@@ -1,0 +1,19 @@
+[
+  {"character":"緛","reason":"古籍生僻字，pypinyin 结果需人工复核"},
+  {"character":"皶","reason":"古籍生僻/异体字，建议结合底本复核"},
+  {"character":"鼽","reason":"古典病名用字，建议人工复核"},
+  {"character":"衄","reason":"古典病名用字，建议人工复核"},
+  {"character":"坼","reason":"古籍生僻字，建议人工复核"},
+  {"character":"恚","reason":"古籍情志类生僻字，建议人工复核"},
+  {"character":"嗔","reason":"古籍情志类字，建议结合语境复核"},
+  {"character":"彘","reason":"古籍生僻字，建议人工复核"},
+  {"character":"谿","reason":"古籍异体/生僻字，建议人工复核"},
+  {"character":"徇","reason":"古籍词语用字，建议结合词语复核"},
+  {"character":"挈","reason":"古籍生僻字，建议人工复核"},
+  {"character":"痎","reason":"古典病名用字，建议人工复核"},
+  {"character":"飧","reason":"古典病名用字，建议人工复核"},
+  {"character":"澼","reason":"古典病名用字，建议人工复核"},
+  {"character":"鍼","reason":"针灸古籍异体字，建议人工复核"},
+  {"character":"欬","reason":"古籍咳嗽相关异体字，建议人工复核"},
+  {"character":"荧","reason":"古典星名用字，建议结合完整词复核"}
+]

@@ -1,0 +1,32 @@
+id,occurrence_index,chapter,context,match_text,focus_text,gold_pinyin,gold_focus_pinyin,system_default,system_candidates,gold_in_candidate,risk_type
+HNSW-G003,1,上古天真论篇第一,岐伯曰：“女子七岁，肾气盛，齿更发长。,齿更,更,chi3 geng1,geng1,geng4,geng1 | geng4,True,polyphone
+HNSW-G003,2,上古天真论篇第一,岐伯曰：“女子七岁，肾气盛，齿更发长。,齿更,更,chi3 geng1,geng1,geng4,geng1 | geng4,True,polyphone
+HNSW-G008,1,上古天真论篇第一,七八，肝气衰，筋不能动，天癸竭，精少，肾藏衰，形体皆极；,肾藏,藏,shen4 zang4,zang4,cang2,cang2 | zang1 | zang4,True,polyphone
+HNSW-G009,1,上古天真论篇第一,肾者主水，受五藏六府之精而藏之，故五藏盛乃能写。,五藏,藏,wu3 zang4,zang4,cang2,cang2 | zang1 | zang4,True,medical_polyphone
+HNSW-G009,2,上古天真论篇第一,肾者主水，受五藏六府之精而藏之，故五藏盛乃能写。,五藏,藏,wu3 zang4,zang4,cang2,cang2 | zang1 | zang4,True,medical_polyphone
+HNSW-G009,3,上古天真论篇第一,肾者主水，受五藏六府之精而藏之，故五藏盛乃能写。,五藏,藏,wu3 zang4,zang4,cang2,cang2 | zang1 | zang4,True,medical_polyphone
+HNSW-G015,1,四气调神大论篇第二,夏三月，此谓蕃秀。,蕃秀,蕃,fan2 xiu4,fan2,fan1,bo1 | fan1 | fan2 | pi2,True,polyphone
+HNSW-G023,1,四气调神大论篇第二,贼风数至，暴雨数起，天地四时不相保，与道相失，则未央绝灭。,数至,数,shuo4 zhi4,shuo4,shu4,shu3 | shu4 | shuo4,True,polyphone
+HNSW-G024,1,四气调神大论篇第二,贼风数至，暴雨数起，天地四时不相保，与道相失，则未央绝灭。,数起,数,shuo4 qi3,shuo4,shu4,shu3 | shu4 | shuo4,True,polyphone
+HNSW-G025,1,四气调神大论篇第二,逆春气，则少阳不生，肝气内变。,少阳,少,shao4 yang2,shao4,shao3,shao3 | shao4,True,medical_polyphone
+HNSW-G026,1,四气调神大论篇第二,逆秋气，则少阴不收，肺气焦满。,少阴,少,shao4 yin1,shao4,shao3,shao3 | shao4,True,medical_polyphone
+HNSW-G029,1,生气通天论篇第三,其生五，其气三，数犯此者，则邪气伤人，此寿命之本也。,数犯,数,shuo4 fan4,shuo4,shu4,shu3 | shu4 | shuo4,True,polyphone
+HNSW-G035,1,生气通天论篇第三,因于湿，首如裹，湿热不攘，大筋緛短，小筋弛长，緛短为拘，弛长为痿。,弛长,长,chi2 chang2,chang2,zhang3,chang2 | zhang3,True,polyphone
+HNSW-G035,2,生气通天论篇第三,因于湿，首如裹，湿热不攘，大筋緛短，小筋弛长，緛短为拘，弛长为痿。,弛长,长,chi2 chang2,chang2,zhang3,chang2 | zhang3,True,polyphone
+HNSW-G038,1,生气通天论篇第三,阳气者，大怒则形气绝，而血菀于上，使人薄厥。,血菀,菀,xue4 yun4,yun4,wan3,wan3 | yu4 | yun4,True,rare_or_classical
+HNSW-G039,1,生气通天论篇第三,阳气者，大怒则形气绝，而血菀于上，使人薄厥。,薄厥,薄,bo2 jue2,bo2,bao2,bao2 | bo2 | bo4 | bu4,True,medical_term
+HNSW-G047,1,生气通天论篇第三,俞气化薄，传为善畏，及为惊骇。,俞气,俞,shu4 qi4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G050,1,生气通天论篇第三,魄汗未尽，形弱而气烁，穴俞以闭，发为风疟。,穴俞,俞,xue2 shu4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G053,1,生气通天论篇第三,故阳畜积病死，而阳气当隔，隔者当写，不亟正治，粗乃败之。,畜积,畜,xu4 ji1,xu4,chu4,chu4 | xu4,True,polyphone
+HNSW-G055,1,生气通天论篇第三,岐伯曰：阴者，藏精而起亟也；,起亟,亟,qi3 qi4,qi4,ji2,ji2 | qi4,True,polyphone
+HNSW-G057,1,生气通天论篇第三,因而强力，肾气乃伤，高骨乃坏。,强力,强,qiang3 li4,qiang3,qiang2,jiang4 | qiang2 | qiang3,True,polyphone
+HNSW-G061,1,金匮真言论篇第四,所谓四时之胜也，东风生于春，病在肝，俞在颈项；,俞在,俞,shu4 zai4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G061,2,金匮真言论篇第四,所谓四时之胜也，东风生于春，病在肝，俞在颈项；,俞在,俞,shu4 zai4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G061,3,金匮真言论篇第四,所谓四时之胜也，东风生于春，病在肝，俞在颈项；,俞在,俞,shu4 zai4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G061,4,金匮真言论篇第四,所谓四时之胜也，东风生于春，病在肝，俞在颈项；,俞在,俞,shu4 zai4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G061,5,金匮真言论篇第四,所谓四时之胜也，东风生于春，病在肝，俞在颈项；,俞在,俞,shu4 zai4,shu4,yu2,shu4 | yu2,True,medical_polyphone
+HNSW-G062,1,金匮真言论篇第四,故春气者病在头，夏气者病在藏，秋气者病在肩背，冬气者病在四支。,病在藏,藏,bing4 zai4 zang4,zang4,cang2,cang2 | zang1 | zang4,True,medical_polyphone
+HNSW-G065,1,金匮真言论篇第四,故冬不按𫏋，春不鼽衄；,按𫏋,𫏋,an4 qiao1,qiao1,jue1,jue1 | qiao1,True,simplified_variant
+HNSW-G066,1,金匮真言论篇第四,言人身之藏府中阴阳。,藏府,藏,zang4 fu3,zang4,cang2,cang2 | zang1 | zang4,True,medical_polyphone
+HNSW-G068,1,金匮真言论篇第四,此皆阴阳、表里、内外、雌雄相输应也，故以应天之阴阳也。,雌雄相输应,应,ci2 xiong2 xiang1 shu1 ying4,ying4,ying1,ying1 | ying4,True,classical_usage
+HNSW-G070,1,金匮真言论篇第四,东方青色，入通于肝，开窍于目，藏精于肝，其病发惊骇，其味酸，其类草木，其畜鸡，其谷麦，其应四时，上为岁星，是以春气在头也，其音角，其数八，是以知病之在筋也，其臭臊。,其音角,角,qi2 yin1 jue2,jue2,jiao3,gu3 | jiao3 | jue2 | lu4,True,semantic_polyphone

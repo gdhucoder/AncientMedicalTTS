@@ -1,0 +1,6 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,risk_type,system_default,system_candidates,possible_reason
+HNSW-G022,四气调神大论篇第二,恶气不发，风雨不节，白露不下，则菀稿不荣。,菀稿,菀稿,wan3 gao3,text_variant,,,text_variant
+HNSW-G033,生气通天论篇第三,因于暑，汗，烦则喘喝，静则多言，体若燔炭，汗出而散。,燔炭,燔,fan2 tan4,rare_or_classical,,,rare_character_not_detected
+HNSW-G049,生气通天论篇第三,魄汗未尽，形弱而气烁，穴俞以闭，发为风疟。,魄汗,魄,po4 han4,classical_usage,,,classical_usage_not_detected
+HNSW-G052,生气通天论篇第三,故风者，百病之始也，清静则肉腠闭拒，虽有大风苛毒，弗之能害，此因时之序也。,苛毒,苛,ke1 du2,classical_usage,,,classical_usage_not_detected
+HNSW-G073,金匮真言论篇第四,中央黄色，入通于脾，开窍于口，藏精于脾，故病在舌本，其味甘，其类土，其畜牛，其谷稷，其应四时，上为镇星，是以知病之在肉也，其音宫，其数五，其臭香。,稷,稷,ji4,rare_or_classical,,,rare_character_not_detected

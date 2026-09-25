@@ -1,0 +1,7 @@
+id,occurrence_index,chapter,context,match_text,focus_text,gold_pinyin,gold_focus_pinyin,system_default,system_candidates,gold_in_candidate,risk_type
+JGYL-G009,1,脏腑经络先后病脉证第一,师曰：吸而微数，其病在中焦，实也，当下之即愈；,微数,数,wei1 shuo4,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone
+JGYL-G022,1,痉湿暍病脉证并治第二,数下之，则淋甚。,数下之,数,shuo4 xia4 zhi1,shuo4,shu4,shu3 | shu4 | shuo4,True,semantic_polyphone
+JGYL-G023,1,百合狐惑阴阳毒病脉证治第三,意欲食复不能食，常默默，欲卧不能卧，欲行不能行，饮食或有美时，或有不用闻食臭时，如寒无寒，如热无热，口苦，小便赤，诸药不能治，得药则剧吐利，如有神灵者，身形如和，其脉微数。,其脉微数,数,qi2 mai4 wei1 shuo4,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone
+JGYL-G035,1,疟病脉证并治第四,师曰：疟脉自弦，弦数者多热，弦迟者多寒。,弦数者,数,xian2 shuo4 zhe3,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone
+JGYL-G035,2,疟病脉证并治第四,师曰：疟脉自弦，弦数者多热，弦迟者多寒。,弦数者,数,xian2 shuo4 zhe3,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone
+JGYL-G045,1,中风历节病脉证并治第五,脉微而数，中风使然。,脉微而数,数,mai4 wei1 er2 shuo4,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone

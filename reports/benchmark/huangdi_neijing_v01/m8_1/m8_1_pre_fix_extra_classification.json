@@ -1,0 +1,10 @@
+{
+  "source": "reports/benchmark/huangdi_neijing_v01/m8/m8_extra_predictions.csv",
+  "total": 79,
+  "counts": {
+    "useful": 69,
+    "unnecessary": 0,
+    "bug": 10,
+    "unclear": 0
+  }
+}

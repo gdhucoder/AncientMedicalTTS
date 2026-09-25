@@ -1,0 +1,97 @@
+{
+  "benchmark_version": "huangdi_neijing_v01-m8",
+  "generated_at": "2026-09-25T00:14:26.962670+00:00",
+  "production_snapshot": "huangdi_neijing_v01-m8",
+  "text_file": "/Users/gdhu/projects/ancientbookreading/realbooks/huangdi_neijing_test_v01.txt",
+  "gold_file": "/Users/gdhu/projects/ancientbookreading/realbooks/huangdi_neijing_gold_v01.json",
+  "chapters": 4,
+  "segments": 85,
+  "han_characters": 3273,
+  "gold_entries": 78,
+  "hard_gold_entries": 74,
+  "review_required_entries": 4,
+  "hard_gold_occurrences": 102,
+  "detected": 97,
+  "detection_recall": 0.9509803921568627,
+  "pronunciation_evaluated": 97,
+  "default_exact": 97,
+  "default_accuracy": 1.0,
+  "candidate_contains_gold": 97,
+  "candidate_coverage": 1.0,
+  "missed": 5,
+  "wrong_default": 0,
+  "candidate_missing": 0,
+  "extra_predictions": 79,
+  "review_required_occurrences": 4,
+  "review_detected": 1,
+  "gold_occurrences_crossing_segment_boundary": 0,
+  "context_not_found": [],
+  "full_span_pronunciation_evaluated": 94,
+  "full_span_default_exact": 94,
+  "prediction_annotation_count": 177,
+  "extra_by_risk": {
+    "context_pronunciation": 9,
+    "medical_term": 12,
+    "polyphone": 48,
+    "rare_character": 10
+  },
+  "analyzer_version": "0.2.0",
+  "app_version": "0.1.0",
+  "risk_type_recall": {
+    "classical_pronunciation": {
+      "total": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "classical_term": {
+      "total": 3,
+      "detected": 3,
+      "recall": 1.0
+    },
+    "classical_usage": {
+      "total": 7,
+      "detected": 5,
+      "recall": 0.7142857142857143
+    },
+    "medical_polyphone": {
+      "total": 14,
+      "detected": 14,
+      "recall": 1.0
+    },
+    "medical_term": {
+      "total": 33,
+      "detected": 33,
+      "recall": 1.0
+    },
+    "polyphone": {
+      "total": 21,
+      "detected": 21,
+      "recall": 1.0
+    },
+    "rare_character": {
+      "total": 5,
+      "detected": 5,
+      "recall": 1.0
+    },
+    "rare_or_classical": {
+      "total": 9,
+      "detected": 7,
+      "recall": 0.7777777777777778
+    },
+    "semantic_polyphone": {
+      "total": 6,
+      "detected": 6,
+      "recall": 1.0
+    },
+    "simplified_variant": {
+      "total": 2,
+      "detected": 2,
+      "recall": 1.0
+    },
+    "text_variant": {
+      "total": 1,
+      "detected": 0,
+      "recall": 0.0
+    }
+  }
+}

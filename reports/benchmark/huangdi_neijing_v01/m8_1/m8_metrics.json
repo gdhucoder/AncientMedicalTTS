@@ -1,0 +1,142 @@
+{
+  "benchmark_version": "huangdi_neijing_v01-m8",
+  "dataset_name": "huangdi_neijing_v01",
+  "book": "黄帝内经·素问",
+  "generated_at": "2026-09-25T01:07:26.884552+00:00",
+  "production_snapshot": "huangdi_neijing_v01-m8",
+  "text_file": "/Users/gdhu/projects/ancientbookreading/realbooks/huangdi_neijing_test_v01.txt",
+  "gold_file": "/Users/gdhu/projects/ancientbookreading/realbooks/huangdi_neijing_gold_v01.json",
+  "git_commit_sha": "unavailable: workspace is not a git worktree",
+  "analyzer_version": "0.2.1",
+  "worker_python_version": "3.12.13",
+  "pypinyin_version": "0.55.0",
+  "benchmark_runner_version": "0.3.0-holdout",
+  "resource_manifest": {
+    "medical_terms_v2.json": "sha256:3c1b73c45cbd7f9ad5193c69d85ab72b7543bfba6896e8df6cb82e0e40383eb5",
+    "context_pronunciation_rules.json": "sha256:15696afc5f493dec319baeb886f30f6f4f71c866e2e6286f999e3a7af9a8132e",
+    "high_risk_polyphones.json": "sha256:74d02172a82d405fbdec0c33ab23061ff716d403555ba21cdc94b22e1a1299d8",
+    "known_rare_characters.json": "sha256:04e5611784c1f97b1ddd07ee6f19726fb027d27c9fe67fdf86721b74dbeceee2",
+    "variant_characters.json": "sha256:2f688b5858f7224da12446d130ab5889606c2439c179c4068fbf75775acfd194"
+  },
+  "chapters": 4,
+  "production_chapters": 4,
+  "chapter_alignment": {
+    "applied": false,
+    "source_chapters": 4,
+    "projected_chapters": 4,
+    "titles": [
+      "上古天真论篇第一",
+      "四气调神大论篇第二",
+      "生气通天论篇第三",
+      "金匮真言论篇第四"
+    ]
+  },
+  "segments": 85,
+  "production_segments": 85,
+  "han_characters": 3315,
+  "production_snapshot_han_characters": 3273,
+  "gold_entries": 78,
+  "hard_gold_entries": 74,
+  "review_required_entries": 4,
+  "hard_gold_occurrences": 102,
+  "detected": 97,
+  "detection_recall": 0.9509803921568627,
+  "pronunciation_evaluated": 97,
+  "default_exact": 97,
+  "default_accuracy": 1.0,
+  "candidate_contains_gold": 97,
+  "candidate_coverage": 1.0,
+  "missed": 5,
+  "wrong_default": 0,
+  "candidate_missing": 0,
+  "extra_predictions": 69,
+  "review_required_occurrences": 4,
+  "review_detected": 1,
+  "gold_occurrences_crossing_segment_boundary": 0,
+  "context_not_found": [],
+  "full_span_pronunciation_evaluated": 94,
+  "full_span_default_exact": 94,
+  "prediction_annotation_count": 167,
+  "prediction_by_source": {
+    "context_rule_v2": 50,
+    "high_risk_polyphone": 48,
+    "medical_lexicon": 61,
+    "rare_character": 6,
+    "variant_mapping": 2
+  },
+  "extra_by_risk": {
+    "context_pronunciation": 9,
+    "medical_term": 12,
+    "polyphone": 48
+  },
+  "extra_by_source": {
+    "context_rule_v2": 9,
+    "high_risk_polyphone": 48,
+    "medical_lexicon": 12
+  },
+  "extra_classification_counts": {
+    "bug": 0,
+    "unclear": 0,
+    "unnecessary": 0,
+    "useful": 69
+  },
+  "app_version": "0.1.0",
+  "extra_predictions_per_1000_han": 20.81447963800905,
+  "risk_type_recall": {
+    "classical_pronunciation": {
+      "total": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "classical_term": {
+      "total": 3,
+      "detected": 3,
+      "recall": 1.0
+    },
+    "classical_usage": {
+      "total": 7,
+      "detected": 5,
+      "recall": 0.7142857142857143
+    },
+    "medical_polyphone": {
+      "total": 14,
+      "detected": 14,
+      "recall": 1.0
+    },
+    "medical_term": {
+      "total": 33,
+      "detected": 33,
+      "recall": 1.0
+    },
+    "polyphone": {
+      "total": 21,
+      "detected": 21,
+      "recall": 1.0
+    },
+    "rare_character": {
+      "total": 5,
+      "detected": 5,
+      "recall": 1.0
+    },
+    "rare_or_classical": {
+      "total": 9,
+      "detected": 7,
+      "recall": 0.7777777777777778
+    },
+    "semantic_polyphone": {
+      "total": 6,
+      "detected": 6,
+      "recall": 1.0
+    },
+    "simplified_variant": {
+      "total": 2,
+      "detected": 2,
+      "recall": 1.0
+    },
+    "text_variant": {
+      "total": 1,
+      "detected": 0,
+      "recall": 0.0
+    }
+  }
+}

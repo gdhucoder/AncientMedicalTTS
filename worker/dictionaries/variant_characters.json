@@ -1,0 +1,7 @@
+[
+  {"surface":"征","canonical":"徵","context":"其音征","reason":"征/徵为文本异体提示；仅用于分析匹配，保留原文“征”"},
+  {"surface":"𫏋","canonical":"蹻","reason":"𫏋/蹻为文本异体提示；仅用于分析匹配，保留原文表面"},
+  {"surface":"痱","canonical":"疿","context":"痤痱","reason":"痱/疿为病名文本异体提示，完整词由医学词典负责"},
+  {"surface":"皶","canonical":"齇","reason":"皶/齇为文本异体提示，读音仍需人工复核"},
+  {"surface":"汨汨","canonical":"汩汩","review_only":true,"reason":"汨汨/汩汩属于底本文字异文，保留原文并提示复核，不自动改写"}
+]

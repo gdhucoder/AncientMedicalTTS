@@ -1,0 +1,33 @@
+{
+  "name": "ancient-medical-tts",
+  "private": true,
+  "version": "0.1.0-rc1",
+  "packageManager": "pnpm@11.13.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 1420",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "tauri": "node scripts/tauri-cli.mjs",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "node scripts/tauri-cli.mjs build",
+    "worker:build": "node scripts/prepare-worker.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.8.0",
+    "@tauri-apps/plugin-dialog": "^2.7.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.8.4",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.5",
+    "vitest": "^3.2.4"
+  }
+}

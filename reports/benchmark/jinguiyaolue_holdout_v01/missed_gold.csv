@@ -1,0 +1,48 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,risk_type,system_default,system_candidates,possible_reason
+JGYL-G001,脏腑经络先后病脉证第一,千般疢难，不越三条：一者，经络受邪，入脏腑，为内所因也；,脏腑,脏,zang4 fu3,medical_polyphone,,,medical_term_dictionary_missing
+JGYL-G001,脏腑经络先后病脉证第一,千般疢难，不越三条：一者，经络受邪，入脏腑，为内所因也；,脏腑,脏,zang4 fu3,medical_polyphone,,,medical_term_dictionary_missing
+JGYL-G001,脏腑经络先后病脉证第一,千般疢难，不越三条：一者，经络受邪，入脏腑，为内所因也；,脏腑,脏,zang4 fu3,medical_polyphone,,,medical_term_dictionary_missing
+JGYL-G002,脏腑经络先后病脉证第一,客气邪风，中人多死。,中人多死,中,zhong4 ren2 duo1 si3,semantic_polyphone,,,classical_usage_not_detected
+JGYL-G003,脏腑经络先后病脉证第一,千般疢难，不越三条：一者，经络受邪，入脏腑，为内所因也；,疢难,疢,chen4 nan4,rare_or_classical,,,rare_character_not_detected
+JGYL-G004,脏腑经络先后病脉证第一,若人能养慎，不令邪风干忤经络；,干忤,忤,gan1 wu3,rare_or_classical,,,rare_character_not_detected
+JGYL-G005,脏腑经络先后病脉证第一,服食节其冷热苦酸辛甘，不遗形体有衰，病则无由入其腠理。,腠理,腠,cou4 li3,medical_term,,,medical_term_dictionary_missing
+JGYL-G006,脏腑经络先后病脉证第一,语声喑喑然不彻者，心膈间病；,喑喑然,喑喑,yin1 yin1 ran2,rare_or_classical,,,rare_character_not_detected
+JGYL-G007,脏腑经络先后病脉证第一,语声啾啾然细而长者，头中病。,啾啾然,啾啾,jiu1 jiu1 ran2,rare_or_classical,,,rare_character_not_detected
+JGYL-G008,脏腑经络先后病脉证第一,息张口短气者，肺痿唾沫。,肺痿,痿,fei4 wei3,medical_term,,,medical_term_dictionary_missing
+JGYL-G010,脏腑经络先后病脉证第一,师曰：寸口脉动者，因其旺时而动，假令肝旺色青，四时各随其色。,寸口脉,寸口,cun4 kou3 mai4,medical_term,,,medical_term_dictionary_missing
+JGYL-G011,痉湿暍病脉证并治第二,太阳病，发热无汗，反恶寒者，名曰刚痉。,刚痉,痉,gang1 jing4,medical_term,,,medical_term_dictionary_missing
+JGYL-G011,痉湿暍病脉证并治第二,太阳病，发热无汗，反恶寒者，名曰刚痉。,刚痉,痉,gang1 jing4,medical_term,,,medical_term_dictionary_missing
+JGYL-G012,痉湿暍病脉证并治第二,太阳病，发热汗出，而不恶寒，名曰柔痉。,柔痉,痉,rou2 jing4,medical_term,,,medical_term_dictionary_missing
+JGYL-G013,痉湿暍病脉证并治第二,病者身热足寒，颈项强急，恶寒，时头热，面赤，目赤，独头动摇，卒口噤，背反张者，痉病也。,卒口噤,卒,cu4 kou3 jin4,classical_usage,,,classical_usage_not_detected
+JGYL-G015,痉湿暍病脉证并治第二,太阳病，其证备，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。,栝蒌桂枝汤,栝蒌,gua1 lou2 gui4 zhi1 tang1,medical_term,,,medical_term_dictionary_missing
+JGYL-G016,痉湿暍病脉证并治第二,痉为病，胸满口噤，卧不着席，脚挛急，必齘齿，可与大承气汤。,脚挛急,挛,jiao3 luan2 ji2,medical_term,,,medical_term_dictionary_missing
+JGYL-G017,痉湿暍病脉证并治第二,痉为病，胸满口噤，卧不着席，脚挛急，必齘齿，可与大承气汤。,齘齿,齘,xie4 chi3,rare_character,,,rare_character_not_detected
+JGYL-G018,痉湿暍病脉证并治第二,太阳病，关节疼痛而烦，脉沉而细者，此名湿痹。,湿痹,痹,shi1 bi4,medical_term,,,medical_term_dictionary_missing
+JGYL-G018,痉湿暍病脉证并治第二,太阳病，关节疼痛而烦，脉沉而细者，此名湿痹。,湿痹,痹,shi1 bi4,medical_term,,,medical_term_dictionary_missing
+JGYL-G019,痉湿暍病脉证并治第二,若下之早则哕，或胸满，小便不利，舌上如胎者，以丹田有热，胸上有寒，渴欲得饮而不能，则口燥烦也。,则哕,哕,ze2 yue3,medical_term,,,medical_term_dictionary_missing
+JGYL-G020,痉湿暍病脉证并治第二,太阳中暍，发热恶寒，身重而疼痛，其脉弦细芤迟，小便已，洒洒然毛耸，手足逆冷，小有劳身即热，口开，前板齿燥。,太阳中暍,暍,tai4 yang2 zhong4 ye1,rare_character,,,rare_character_not_detected
+JGYL-G021,痉湿暍病脉证并治第二,太阳中暍，发热恶寒，身重而疼痛，其脉弦细芤迟，小便已，洒洒然毛耸，手足逆冷，小有劳身即热，口开，前板齿燥。,弦细芤迟,芤,xian2 xi4 kou1 chi2,rare_character,,,rare_character_not_detected
+JGYL-G024,百合狐惑阴阳毒病脉证治第三,若溺时头不痛，淅然者，四十日愈；,淅然,淅,xi1 ran2,rare_or_classical,,,rare_character_not_detected
+JGYL-G025,百合狐惑阴阳毒病脉证治第三,若溺快然，但头眩者，二十日愈。,头眩,眩,tou2 xuan4,medical_term,,,medical_term_dictionary_missing
+JGYL-G026,百合狐惑阴阳毒病脉证治第三,百合病，下之后者，滑石代赭汤主之。,滑石代赭汤,赭,hua2 shi2 dai4 zhe3 tang1,medical_term,,,medical_term_dictionary_missing
+JGYL-G027,百合狐惑阴阳毒病脉证治第三,百合病渴不差者，栝蒌牡蛎散主之。,栝蒌牡蛎散,栝蒌,gua1 lou2 mu3 li4 san3,medical_term,,,medical_term_dictionary_missing
+JGYL-G028,百合狐惑阴阳毒病脉证治第三,狐惑之为病，状如伤寒，默默欲眠，目不得闭，卧起不安。,狐惑,狐惑,hu2 huo4,medical_term,,,medical_term_dictionary_missing
+JGYL-G029,百合狐惑阴阳毒病脉证治第三,蚀于喉为惑，蚀于阴为狐。,蚀于喉,蚀,shi2 yu2 hou2,medical_term,,,medical_term_dictionary_missing
+JGYL-G031,百合狐惑阴阳毒病脉证治第三,七八日，目四眦黑。,目四眦黑,眦,mu4 si4 zi4 hei1,rare_or_classical,,,rare_character_not_detected
+JGYL-G032,百合狐惑阴阳毒病脉证治第三,若能食者，脓已成也，赤小豆当归散主之。,脓已成,脓,nong2 yi3 cheng2,medical_term,,,medical_term_dictionary_missing
+JGYL-G033,百合狐惑阴阳毒病脉证治第三,阴阳毒，阳毒之为病，面赤斑斑如锦纹，咽喉痛，唾脓血，五日可治，七日不可治，升麻鳖甲汤主之。,鳖甲汤,鳖,bie1 jia3 tang1,medical_term,,,medical_term_dictionary_missing
+JGYL-G033,百合狐惑阴阳毒病脉证治第三,阴阳毒，阳毒之为病，面赤斑斑如锦纹，咽喉痛，唾脓血，五日可治，七日不可治，升麻鳖甲汤主之。,鳖甲汤,鳖,bie1 jia3 tang1,medical_term,,,medical_term_dictionary_missing
+JGYL-G034,疟病脉证并治第四,师曰：疟脉自弦，弦数者多热，弦迟者多寒。,疟脉,疟,nve4 mai4,medical_term,,,medical_term_dictionary_missing
+JGYL-G036,疟病脉证并治第四,设不差，当月尽解。,不差,差,bu4 chai4,classical_usage,,,classical_usage_not_detected
+JGYL-G036,疟病脉证并治第四,设不差，当月尽解。,不差,差,bu4 chai4,classical_usage,,,classical_usage_not_detected
+JGYL-G037,疟病脉证并治第四,师曰：此结为癥瘕，名曰疟母，急治之，宜鳖甲煎丸。,癥瘕,癥瘕,zheng1 jia3,medical_term,,,medical_term_dictionary_missing
+JGYL-G038,疟病脉证并治第四,师曰：此结为癥瘕，名曰疟母，急治之，宜鳖甲煎丸。,疟母,疟,nve4 mu3,medical_term,,,medical_term_dictionary_missing
+JGYL-G040,疟病脉证并治第四,若但热不寒者，邪气内藏于心，外舍分肉之间，令人消铄脱肉。,消铄,铄,xiao1 shuo4,rare_or_classical,,,rare_character_not_detected
+JGYL-G041,疟病脉证并治第四,疟多寒者，名曰牡疟，蜀漆散主之。,牡疟,疟,mu3 nve4,medical_term,,,medical_term_dictionary_missing
+JGYL-G042,疟病脉证并治第四,疟多寒者，名曰牡疟，蜀漆散主之。,蜀漆散,漆,shu3 qi1 san3,medical_term,,,medical_term_dictionary_missing
+JGYL-G043,中风历节病脉证并治第五,脉微而数，中风使然。,中风,中,zhong4 feng1,medical_polyphone,,,medical_term_dictionary_missing
+JGYL-G043,中风历节病脉证并治第五,脉微而数，中风使然。,中风,中,zhong4 feng1,medical_polyphone,,,medical_term_dictionary_missing
+JGYL-G044,中风历节病脉证并治第五,夫风之为病，当半身不遂，或但臂不遂者，此为痹。,痹,痹,bi4,medical_term,,,medical_term_dictionary_missing
+JGYL-G046,中风历节病脉证并治第五,邪气反缓，正气即急，正气引邪，㖞僻不遂。,㖞僻不遂,㖞,wai1 pi4 bu4 sui4,rare_character,,,rare_character_not_detected
+JGYL-G047,中风历节病脉证并治第五,邪在于络，肌肤不仁；,不仁,仁,bu4 ren2,medical_term,,,medical_term_dictionary_missing
+JGYL-G048,中风历节病脉证并治第五,邪气中经，则身痒而瘾疹；,瘾疹,瘾疹,yin3 zhen3,medical_term,,,medical_term_dictionary_missing

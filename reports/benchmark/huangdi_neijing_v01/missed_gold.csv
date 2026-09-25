@@ -1,0 +1,37 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,risk_type,system_default,system_candidates,possible_reason
+HNSW-G001,上古天真论篇第一,昔在黄帝，生而神灵，弱而能言，幼而徇齐，长而敦敏，成而登天。,徇齐,徇齐,xun4 qi2,rare_or_classical,,,rare_character_not_detected
+HNSW-G004,上古天真论篇第一,二七而天癸至，任脉通，太冲脉盛，月事以时下，故有子；,天癸,天癸,tian1 gui3,medical_term,,,medical_term_dictionary_missing
+HNSW-G004,上古天真论篇第一,二七而天癸至，任脉通，太冲脉盛，月事以时下，故有子；,天癸,天癸,tian1 gui3,medical_term,,,medical_term_dictionary_missing
+HNSW-G004,上古天真论篇第一,二七而天癸至，任脉通，太冲脉盛，月事以时下，故有子；,天癸,天癸,tian1 gui3,medical_term,,,medical_term_dictionary_missing
+HNSW-G004,上古天真论篇第一,二七而天癸至，任脉通，太冲脉盛，月事以时下，故有子；,天癸,天癸,tian1 gui3,medical_term,,,medical_term_dictionary_missing
+HNSW-G004,上古天真论篇第一,二七而天癸至，任脉通，太冲脉盛，月事以时下，故有子；,天癸,天癸,tian1 gui3,medical_term,,,medical_term_dictionary_missing
+HNSW-G007,上古天真论篇第一,六八，阳气衰竭于上，面焦，发鬓颁白；,颁白,颁,ban1 bai2,classical_usage,,,classical_usage_not_detected
+HNSW-G010,上古天真论篇第一,肾者主水，受五藏六府之精而藏之，故五藏盛乃能写。,六府,府,liu4 fu3,medical_term,,,medical_term_dictionary_missing
+HNSW-G012,上古天真论篇第一,无恚嗔之心，行不欲离于世，被服章，举不欲观于俗，外不劳形于事，内无思想之患，以恬愉为务，以自得为功，形体不敝，精神不散，亦可以百数。,恚嗔,恚嗔,hui4 chen1,rare_or_classical,,,rare_character_not_detected
+HNSW-G014,四气调神大论篇第二,春三月，此谓发陈。,发陈,发陈,fa1 chen2,classical_usage,,,classical_usage_not_detected
+HNSW-G016,四气调神大论篇第二,逆之则伤心，秋为痎疟，奉收者少，冬至重病。,痎疟,痎疟,jie1 nve4,medical_term,,,medical_term_dictionary_missing
+HNSW-G017,四气调神大论篇第二,逆之则伤肺，冬为飧泄，奉藏者少。,飧泄,飧泄,sun1 xie4,medical_term,,,medical_term_dictionary_missing
+HNSW-G019,四气调神大论篇第二,水冰地坼，无扰乎阳。,地坼,坼,di4 che4,rare_or_classical,,,rare_character_not_detected
+HNSW-G021,四气调神大论篇第二,逆之则伤肾，春为痿厥，奉生者少。,痿厥,痿厥,wei3 jue2,medical_term,,,medical_term_dictionary_missing
+HNSW-G022,四气调神大论篇第二,恶气不发，风雨不节，白露不下，则菀稿不荣。,菀稿,菀稿,wan3 gao3,text_variant,,,text_variant
+HNSW-G028,生气通天论篇第三,天地之间，六合之内，其气九州九窍、五藏、十二节，皆通乎天气。,九窍,窍,jiu3 qiao4,medical_term,,,medical_term_dictionary_missing
+HNSW-G028,生气通天论篇第三,天地之间，六合之内，其气九州九窍、五藏、十二节，皆通乎天气。,九窍,窍,jiu3 qiao4,medical_term,,,medical_term_dictionary_missing
+HNSW-G028,生气通天论篇第三,天地之间，六合之内，其气九州九窍、五藏、十二节，皆通乎天气。,九窍,窍,jiu3 qiao4,medical_term,,,medical_term_dictionary_missing
+HNSW-G031,生气通天论篇第三,因于寒，欲如运枢，起居如惊，神气乃浮。,运枢,枢,yun4 shu1,medical_term,,,medical_term_dictionary_missing
+HNSW-G036,生气通天论篇第三,阳气者，烦劳则张，精绝，辟积于夏，使人煎厥。,煎厥,煎厥,jian1 jue2,medical_term,,,medical_term_dictionary_missing
+HNSW-G041,生气通天论篇第三,汗出见湿，乃生痤痱。,痤痱,痤痱,cuo2 fei4,medical_term,,,medical_term_dictionary_missing
+HNSW-G043,生气通天论篇第三,劳汗当风，寒薄为皶，郁乃痤。,皶,皶,zha1,rare_character,,,rare_character_not_detected
+HNSW-G045,生气通天论篇第三,陷脉为瘘，留连肉腠。,瘘,瘘,lou4,medical_term,,,medical_term_dictionary_missing
+HNSW-G046,生气通天论篇第三,陷脉为瘘，留连肉腠。,肉腠,腠,rou4 cou4,medical_term,,,medical_term_dictionary_missing
+HNSW-G046,生气通天论篇第三,陷脉为瘘，留连肉腠。,肉腠,腠,rou4 cou4,medical_term,,,medical_term_dictionary_missing
+HNSW-G048,生气通天论篇第三,营气不从，逆于肉理，乃生痈肿。,痈肿,痈,yong1 zhong3,medical_term,,,medical_term_dictionary_missing
+HNSW-G056,生气通天论篇第三,因而饱食，筋脉横解，肠澼为痔。,肠澼,澼,chang2 pi4,medical_term,,,medical_term_dictionary_missing
+HNSW-G063,金匮真言论篇第四,故春善病鼽衄，仲夏善病胸胁，长夏善病洞泄寒中，秋善病风疟，冬善病痹厥。,鼽衄,鼽衄,qiu2 nv4,medical_term,,,medical_term_dictionary_missing
+HNSW-G063,金匮真言论篇第四,故春善病鼽衄，仲夏善病胸胁，长夏善病洞泄寒中，秋善病风疟，冬善病痹厥。,鼽衄,鼽衄,qiu2 nv4,medical_term,,,medical_term_dictionary_missing
+HNSW-G064,金匮真言论篇第四,故春善病鼽衄，仲夏善病胸胁，长夏善病洞泄寒中，秋善病风疟，冬善病痹厥。,痹厥,痹厥,bi4 jue2,medical_term,,,medical_term_dictionary_missing
+HNSW-G064,金匮真言论篇第四,故春善病鼽衄，仲夏善病胸胁，长夏善病洞泄寒中，秋善病风疟，冬善病痹厥。,痹厥,痹厥,bi4 jue2,medical_term,,,medical_term_dictionary_missing
+HNSW-G071,金匮真言论篇第四,南方赤色，入通于心，开窍于耳，藏精于心，故病在五藏，其味苦，其类火，其畜羊，其谷黍，其应四时，上为荧惑星，是以知病之在脉也，其音征，其数七，其臭焦。,其音征,征,qi2 yin1 zhi3,simplified_variant,,,text_variant
+HNSW-G074,金匮真言论篇第四,北方黑色，入通于肾，开窍于二阴，藏精于肾，故病在谿，其味咸，其类水，其畜彘，其谷豆，其应四时，上为辰星，是以知病之在骨也，其音羽，其数六，其臭腐。,彘,彘,zhi4,rare_character,,,rare_character_not_detected
+HNSW-G076,金匮真言论篇第四,南方赤色，入通于心，开窍于耳，藏精于心，故病在五藏，其味苦，其类火，其畜羊，其谷黍，其应四时，上为荧惑星，是以知病之在脉也，其音征，其数七，其臭焦。,荧惑星,荧惑星,ying2 huo4 xing1,classical_term,,,pypinyin_single_reading
+HNSW-G077,金匮真言论篇第四,中央黄色，入通于脾，开窍于口，藏精于脾，故病在舌本，其味甘，其类土，其畜牛，其谷稷，其应四时，上为镇星，是以知病之在肉也，其音宫，其数五，其臭香。,镇星,镇星,zhen4 xing1,classical_term,,,pypinyin_single_reading
+HNSW-G078,金匮真言论篇第四,北方黑色，入通于肾，开窍于二阴，藏精于肾，故病在谿，其味咸，其类水，其畜彘，其谷豆，其应四时，上为辰星，是以知病之在骨也，其音羽，其数六，其臭腐。,辰星,辰星,chen2 xing1,classical_term,,,pypinyin_single_reading

@@ -1,0 +1,4 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,detected,system_default,system_candidates,risk_type
+JGYL-G014,痉湿暍病脉证并治第二,太阳病，其证备，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。,身体强，几几然,几几,,False,,,textual_or_pronunciation_dispute
+JGYL-G030,百合狐惑阴阳毒病脉证治第三,蚀于上部则声喝，甘草泻心汤主之；,声喝,喝,,False,,,pronunciation_dispute
+JGYL-G039,疟病脉证并治第四,师曰：阴气孤绝，阳气独发，则热而少气烦冤，手足热而欲呕，名曰瘅疟。,瘅疟,瘅疟,,False,,,pronunciation_dispute

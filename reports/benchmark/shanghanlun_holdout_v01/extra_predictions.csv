@@ -1,0 +1,14 @@
+chapter,segment_id,segment_order,context,surface_text,default_pinyin,candidates,risk_type,source,annotation_id,review_classification,classification_reason
+辨太阳病脉证并治（上）,01a0d61b-5d40-73e8-a078-6b8044016ba3:chapter:0:0,0,"
+
+太阳之为病，脉浮，头项强痛而恶寒。太阳病，发热，汗出，恶风，脉缓者，名为中风。太阳病，或已发热，",强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,01a0d61b-5d92-70e9-8a17-c5afb013bf3e,useful,命中版本化高风险多音字表，属于可解释的复核提示
+辨太阳病脉证并治（上）,01a0d61b-5d40-73e8-a078-6b83c0ff61c0:chapter:0:3,3,"之，脉若静者，为不传。颇欲吐，若躁烦，脉数急者，为传也。伤寒二三日，阳明少阳证不见者，为不传也。
+
+太阳病，发热而渴，不恶寒者，为温病。若发汗已，身",少阳,shao4 yang2,shao3 yang2 | shao4 yang2,context_pronunciation,context_rule_v2,01a0d61b-5d99-71c5-86c7-5b882db776c2,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d61b-5d40-73e8-a078-6b8c0482d316:chapter:0:12,12,者，桂枝汤主之。太阳病，头痛，发热，汗出，恶风，桂枝汤主之。太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。太阳病，下之后，其气上冲者，可与,强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,01a0d61b-5da7-77ba-b931-41ccd191df5e,useful,命中版本化高风险多音字表，属于可解释的复核提示
+辨太阳病脉证并治（中）,01a0d61b-5d40-73e8-a078-6b94f8c2af9f:chapter:1:3,3,之；服之则厥逆，筋惕肉瞤，此为逆也。伤寒脉浮缓，身不疼但重，乍有轻时，无少阴证者，大青龙汤发之。伤寒表不解，心下有水气，干呕，发热而咳，或渴，或利，,少阴,shao4 yin1,shao3 yin1 | shao4 yin1,context_pronunciation,context_rule_v2,01a0d61b-5db4-70e9-a2b0-97aeef8dff7b,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d61b-5d40-73e8-a078-6b99a4677203:chapter:1:8,8,，八九日不解，表证仍在，此当发其汗。服药已微除，其人发烦目瞑，剧者必衄，衄乃解。所以然者，阳气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自,衄,nv4,nv4,rare_character,rare_character,01a0d61b-5dbc-75c1-8c82-4c2078ad97a0,useful,显式 rare_character 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d61b-5d40-73e8-a078-6b9ae2efd8d1:chapter:1:9,9,乃解。所以然者，阳气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自衄者愈。二阳并病，太阳初得病时，发其汗，汗先出不彻，因转属阳明，续自微汗出,衄,nv4,nv4,rare_character,rare_character,01a0d61b-5dbd-7735-84ec-316f7b06d117,useful,显式 rare_character 信号，即使不在当前 Gold 中也值得人工复核
+辨太阴病脉证并治,01a0d61b-5d40-73e8-a078-6ba896148d78:chapter:4:1,1,"，自利益甚，时腹自痛。若下之，必胸下结硬。太阴中风，四肢烦疼，阳微阴涩而长者，为欲愈。
+
+太阴病欲解时，从亥至丑上。自利不渴者，属太阴，以其脏有寒",长,zhang3,chang2 | zhang3,polyphone,high_risk_polyphone,01a0d61b-5dd4-7431-aa72-62d68ebb1e0f,useful,命中版本化高风险多音字表，属于可解释的复核提示

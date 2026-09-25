@@ -1,0 +1,5 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,detected,system_default,system_candidates,risk_type
+HNSW-G013,上古天真论篇第一,二八，肾气盛，天癸至，精气溢写，阴阳和，故能有子；,精气溢写,写,,True,xie3,xie3 | xie4,tongjia
+HNSW-G032,生气通天论篇第三,因于暑，汗，烦则喘喝，静则多言，体若燔炭，汗出而散。,喘喝,喝,,True,he1,he1 | he4 | kai4 | ye4,source_conflict
+HNSW-G037,生气通天论篇第三,目盲不可以视，耳闭不可以听，溃溃乎若坏都，汨汨乎不可止。,汨汨,汨汨,,False,,,text_variant
+HNSW-G054,生气通天论篇第三,故阳畜积病死，而阳气当隔，隔者当写，不亟正治，粗乃败之。,当写,写,,True,xie3,xie3 | xie4,tongjia

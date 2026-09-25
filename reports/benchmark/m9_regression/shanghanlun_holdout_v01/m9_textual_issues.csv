@@ -1,0 +1,2 @@
+book,chapter,current_text,reference_text,issue_type,impact_on_pronunciation,recommendation
+伤寒论,,正文,"辨太阳病脉证并治（上）, 辨太阳病脉证并治（中）, 辨阳明病脉证并治, 辨少阳病脉证并治, 辨太阴病脉证并治, 辨少阴病脉证并治, 辨厥阴病脉证并治",segmenter_chapter_heading,当前 production Segmenter 将这些未带序号的篇章标题合并为 1 个 Chapter；本报告使用只读标题投影将其对齐为 7 个 Gold Chapter。,后续单独修复通用篇章标题识别后重新跑纯 production hold-out；本轮不修改 Segmenter。

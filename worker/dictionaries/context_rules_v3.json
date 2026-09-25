@@ -1,0 +1,24 @@
+{
+  "version": "0.3.0",
+  "rules": [
+    {"rule_id":"pulse_shuo4","focus":"数","nearby_terms":["脉","弦","浮","沉","迟","紧","缓","细","洪","滑","涩","微","芤","弱"],"window":5,"target":"shuo4","category":"pulse_context","priority":120,"confidence":"high","reason_template":"“数”处于脉象语境，读 shuo4。"},
+    {"rule_id":"frequency_shuo4","focus":"数","right_terms":["至","起","犯","下","发"],"window":3,"target":"shuo4","category":"classical_semantic_context","priority":105,"confidence":"high","reason_template":"“数”表示屡次或频繁，读 shuo4。"},
+    {"rule_id":"number_shu4","focus":"数","left_terms":["阴","阳","其"],"right_terms":["一","二","三","四","五","六","七","八","九","十"],"window":2,"target":"shu4","category":"classical_semantic_context","priority":115,"confidence":"high","reason_template":"“数”处于数量或术数语境，读 shu4。"},
+    {"rule_id":"organ_zang4","focus":"藏","nearby_terms":["五","肾","肺","肝","心","脾","腑","府","病在"],"window":4,"target":"zang4","category":"organ_context","priority":115,"confidence":"high","reason_template":"“藏”指脏腑实体，读 zang4。"},
+    {"rule_id":"verb_cang2","focus":"藏","nearby_terms":["闭","收","精","于","内","神"],"window":3,"target":"cang2","category":"organ_context","priority":110,"confidence":"high","reason_template":"“藏”表示收藏、闭藏或蕴藏，读 cang2。"},
+    {"rule_id":"affliction_zhong4","focus":"中","right_terms":["风","暑","暍","邪","人","毒"],"window":2,"target":"zhong4","category":"disease_context","priority":120,"confidence":"high","reason_template":"“中”表示遭受邪气或疾病，读 zhong4。"},
+    {"rule_id":"location_zhong1","focus":"中","nearby_terms":["焦","州","间","心","央","除中"],"window":2,"target":"zhong1","category":"organ_context","priority":110,"confidence":"high","reason_template":"“中”表示方位、部位或中焦，读 zhong1。"},
+    {"rule_id":"meridian_shao4","focus":"少","right_terms":["阳","阴"],"window":1,"target":"shao4","category":"meridian_context","priority":120,"confidence":"high","reason_template":"“少”位于少阳、少阴经名，读 shao4。"},
+    {"rule_id":"quantity_shao3","focus":"少","right_terms":["气","食","血","量","许"],"window":2,"target":"shao3","category":"classical_semantic_context","priority":100,"confidence":"medium","reason_template":"“少”表示数量较少，读 shao3。"},
+    {"rule_id":"acupoint_shu4","focus":"俞","nearby_terms":["穴","背","经","募"],"window":3,"target":"shu4","category":"acupoint_context","priority":120,"confidence":"high","reason_template":"“俞”处于经穴或经脉语境，读 shu4。"},
+    {"rule_id":"urgent_ji2","focus":"亟","right_terms":["治","正","夺","救"],"window":2,"target":"ji2","category":"classical_semantic_context","priority":105,"confidence":"medium","reason_template":"“亟”表示急迫、赶快，读 ji2。"},
+    {"rule_id":"repeated_qi4","focus":"亟","left_terms":["起","屡","数"],"window":2,"target":"qi4","category":"classical_semantic_context","priority":110,"confidence":"medium","reason_template":"“亟”表示屡次，读 qi4。"},
+    {"rule_id":"change_geng1","focus":"更","nearby_terms":["齿","衣","替","易"],"window":2,"target":"geng1","category":"classical_semantic_context","priority":105,"confidence":"high","reason_template":"“更”处于更替、更衣或齿更语境，读 geng1。"},
+    {"rule_id":"livestock_chu4","focus":"畜","left_terms":["其","六","五"],"window":2,"target":"chu4","category":"classical_semantic_context","priority":105,"confidence":"high","reason_template":"“畜”表示牲畜，读 chu4。"},
+    {"rule_id":"accumulate_xu4","focus":"畜","right_terms":["积","聚"],"window":2,"target":"xu4","category":"classical_semantic_context","priority":110,"confidence":"high","reason_template":"“畜”表示积聚、蓄积，读 xu4。"},
+    {"rule_id":"force_qiang3","focus":"强","right_terms":["力","行","食"],"window":2,"target":"qiang3","category":"classical_semantic_context","priority":105,"confidence":"medium","reason_template":"“强”表示勉强而为，读 qiang3。"},
+    {"rule_id":"musical_angle_jue2","focus":"角","left_terms":["音","宫商"],"window":2,"target":"jue2","category":"classical_semantic_context","priority":105,"confidence":"high","reason_template":"“角”处于五音语境，读 jue2。"},
+    {"rule_id":"sudden_cu4","focus":"卒","right_terms":["口","病","中","然"],"window":2,"target":"cu4","category":"classical_semantic_context","priority":100,"confidence":"medium","reason_template":"“卒”表示突然、猝然，读 cu4。"},
+    {"rule_id":"recover_chai4","focus":"差","left_terms":["不","病"],"window":2,"target":"chai4","category":"classical_semantic_context","priority":100,"confidence":"medium","reason_template":"“差”表示病愈，按古医籍用法读 chai4。"}
+  ]
+}

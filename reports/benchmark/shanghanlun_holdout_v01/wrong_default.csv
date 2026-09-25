@@ -1,0 +1,4 @@
+id,occurrence_index,chapter,context,match_text,focus_text,gold_pinyin,gold_focus_pinyin,system_default,system_candidates,gold_in_candidate,risk_type
+SHL-G003,1,辨太阳病脉证并治（上）,颇欲吐，若躁烦，脉数急者，为传也。,脉数急,数,mai4 shuo4 ji2,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone
+SHL-G021,1,辨阳明病脉证并治,不更衣，内实，大便难者，此名阳明也。,不更衣,更,bu4 geng1 yi1,geng1,geng4,geng1 | geng4,True,semantic_polyphone
+SHL-G035,1,辨少阴病脉证并治,少阴病，脉细沉数，病为在里，不可发汗。,脉细沉数,数,mai4 xi4 chen2 shuo4,shuo4,shu4,shu3 | shu4 | shuo4,True,medical_polyphone
