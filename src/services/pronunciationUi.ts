@@ -1,4 +1,4 @@
-import type { Annotation } from "../types/library";
+import type { Annotation, AudioVersion, GraphemeToken, TtsRealizedPronunciationItem } from "../types/library";
 
 export function annotationForToken(annotations: Annotation[], tokenIndex: number): Annotation | undefined {
   return annotations.find((annotation) => annotation.start_token === tokenIndex);
@@ -23,7 +23,72 @@ export function normalizePinyinInput(value: string): string {
 }
 
 export function isTtsLockedAnnotation(annotation: Annotation): boolean {
-  return annotation.review_status === "confirmed" && annotation.target_pinyin !== null;
+  return annotation.review_status === "confirmed"
+    && annotation.target_pinyin !== null
+    && (annotation.source_rule_id !== null || annotation.source === "manual");
+}
+
+export function realizedPronunciationForText(audio: AudioVersion | null, surfaceText: string): TtsRealizedPronunciationItem[] {
+  const items = audio?.provider_metadata?.realized_pronunciation ?? [];
+  const exact = items.filter((item) => item.text === surfaceText && item.phoneme);
+  if (exact.length > 0) return exact;
+  return items.filter((item) => item.text.includes(surfaceText) && item.phoneme);
+}
+
+function canonicalPinyin(value: string): string {
+  const normalized = value.trim().toLowerCase().replace(/u:/g, "ü").replace(/v/g, "ü");
+  const match = /^([a-zü]+)([1-5])$/.exec(normalized);
+  if (!match) return normalized;
+  let body = match[1];
+  // Tencent may use v for ü and spell ü after j/q/x/y explicitly. Treat
+  // those provider spellings as equivalent to the UI's standard pinyin.
+  if (/^[jqxy]/.test(body)) body = body.replace(/ü/g, "u");
+  return `${body}${match[2]}`;
+}
+
+function findTokenSpan(tokens: GraphemeToken[], text: string, fromIndex: number): [number, number] | null {
+  for (let start = fromIndex; start < tokens.length; start += 1) {
+    let combined = "";
+    for (let end = start; end < tokens.length; end += 1) {
+      combined += tokens[end].text;
+      if (combined === text) return [start, end + 1];
+      if (!text.startsWith(combined)) break;
+    }
+  }
+  return null;
+}
+
+/** Returns token indexes where the provider's realized pinyin differs from the UI pinyin. */
+export function ttsPronunciationMismatches(
+  tokens: GraphemeToken[],
+  expectedPinyin: Array<string | null>,
+  audio: AudioVersion | null,
+): Set<number> {
+  const mismatches = new Set<number>();
+  const items = audio?.provider_metadata?.realized_pronunciation ?? [];
+  let cursor = 0;
+
+  for (const item of items) {
+    const text = item.text.trim();
+    const phoneme = item.phoneme?.trim();
+    if (!text || !phoneme || text.toUpperCase() === "SIL") continue;
+    // Tencent subtitles may contain punctuation and pause entries. They do
+    // not have a page pinyin value and must never become mismatches.
+    if (!Array.from(text).every((character) => isHanToken(character))) continue;
+
+    const span = findTokenSpan(tokens, text, cursor);
+    if (!span) continue;
+    const [start, end] = span;
+    const actual = phoneme.split(/\s+/).filter(Boolean);
+    const expected = expectedPinyin.slice(start, end);
+    const mismatch = expected.length !== actual.length
+      || expected.some((value, index) => value === null || canonicalPinyin(value) !== canonicalPinyin(actual[index] ?? ""));
+    if (mismatch) {
+      for (let index = start; index < end; index += 1) mismatches.add(tokens[index].index);
+    }
+    cursor = end;
+  }
+  return mismatches;
 }
 
 export function reviewStatusLabel(status: string): string {

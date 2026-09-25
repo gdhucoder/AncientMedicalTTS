@@ -15,6 +15,7 @@ Rust 通过 `sqlx` 独占 SQLite 连接。Python Worker 不接收数据库路径
 - `0009_pronunciation_knowledge_v3.sql`：为 `segment_annotations` 增加 `rule_type` 和 `confidence` 解释元数据。
 - `0010_audio_pronunciation_signature.sql`：为 `audio_versions` 增加生成时 confirmed pronunciation 快照。
 - `0011_api_usage_events.sql`：记录腾讯云 TTS 的请求操作、成功/失败和字符用量，用于本地统计。
+- `0012_audio_provider_metadata.sql`：为 `audio_versions` 增加供应商返回的实际发音元数据 JSON。
 
 已经执行的 migration 不应原地修改；新增结构使用新的 SQL 文件。
 
@@ -117,12 +118,15 @@ TXT 导入、分析写入、复核状态变化和手工标注都由 Rust 控制�
 | `speed` / `volume` | 生成时使用的 TTS 参数 |
 | `ssml` | 有 confirmed 发音覆盖时保存的实际 SSML；无覆盖为空 |
 | `pronunciation_signature` | 生成时按 Grapheme Token 范围和 target pinyin 排序序列化的发音快照；旧版本可能为空 |
+| `provider_metadata_json` | 当前 AudioVersion 的供应商实际发音元数据；规范化保存 `realized_pronunciation`，旧版本或供应商未返回时为空 |
 | `audio_path` | 应用数据目录中的 WAV 绝对路径 |
 | `provider_request_id` / `provider_session_id` | 腾讯云返回的请求和会话标识 |
 | `duration_ms` | 供应商返回的时长；当前可为空 |
 | `created_at` | 生成时间 |
 
 `segments.current_audio_id` 指向当前选择的版本。生成语音时 Rust 先写临时 WAV 并校验 RIFF/WAVE，再在数据库事务中插入版本、更新 current_audio_id 和 Segment 状态。切换旧版本只更新 current_audio_id，不删除版本文件。
+
+`provider_metadata_json` 不属于发音标注或发音规则。腾讯云启用字幕返回后，Worker 只提取 `Text`、`Phoneme`、`BeginTime`、`EndTime`，Rust 将其规范化为 `realized_pronunciation` 保存到对应 AudioVersion；没有返回字幕时仍可正常保存音频，元数据为空。Reader 展示的实际发音跟随当前选择的 AudioVersion。
 
 当确认发音发生变化时，Rust 会把当前 Segment 标记为 `ready`；如果新的有效发音恰好恢复到当前 AudioVersion 的 `pronunciation_signature`，则恢复为 `generated`。没有快照的历史 AudioVersion 采用保守策略，仍需要重新生成。
 

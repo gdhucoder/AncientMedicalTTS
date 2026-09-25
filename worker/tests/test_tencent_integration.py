@@ -44,6 +44,8 @@ class TencentIntegrationTests(unittest.TestCase):
             ("行医。", [{"start_token": 0, "end_token": 1, "surface_text": "行", "pinyin": "xing2"}]),
             ("行医。", [{"start_token": 0, "end_token": 1, "surface_text": "行", "pinyin": "hang2"}]),
             ("腧穴。", [{"start_token": 0, "end_token": 2, "surface_text": "腧穴", "pinyin": "shu4 xue2"}]),
+            ("恶寒。", []),
+            ("恶寒。", [{"start_token": 0, "end_token": 1, "surface_text": "恶", "pinyin": "e4"}]),
         )
         with tempfile.TemporaryDirectory() as directory:
             for index, (text, pronunciations) in enumerate(cases, start=1):
@@ -74,6 +76,12 @@ class TencentIntegrationTests(unittest.TestCase):
                 )
                 self.assertTrue(result["ok"], result)
                 self.assertTrue(output.read_bytes().startswith(b"RIFF"))
+                payload = result["result"]
+                self.assertIn("realized_pronunciation", payload)
+                if text == "恶寒。" and not pronunciations:
+                    self.assertIsNone(payload["ssml"])
+                if text == "恶寒。" and pronunciations:
+                    self.assertIn('ph="e4"', payload["ssml"])
 
 
 if __name__ == "__main__":

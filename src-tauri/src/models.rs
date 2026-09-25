@@ -357,6 +357,19 @@ pub struct SegmentReader {
     pub audio_versions: Vec<AudioVersion>,
 }
 
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct TtsRealizedPronunciationItem {
+    pub text: String,
+    pub phoneme: Option<String>,
+    pub begin_ms: Option<i64>,
+    pub end_ms: Option<i64>,
+}
+
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct AudioProviderMetadata {
+    pub realized_pronunciation: Option<Vec<TtsRealizedPronunciationItem>>,
+}
+
 #[derive(Debug, Serialize, Clone)]
 pub struct AudioVersion {
     pub id: String,
@@ -370,6 +383,7 @@ pub struct AudioVersion {
     pub volume: f64,
     pub ssml: Option<String>,
     pub pronunciation_signature: Option<String>,
+    pub provider_metadata: Option<AudioProviderMetadata>,
     pub audio_path: String,
     pub provider_request_id: Option<String>,
     pub provider_session_id: Option<String>,

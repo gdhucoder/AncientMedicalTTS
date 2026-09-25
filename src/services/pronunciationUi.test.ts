@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { annotationForToken, annotationSourceLabel, confidenceLabel, isHanToken, isSingleHanGlobalRule, isTtsLockedAnnotation, normalizePinyinInput, reviewStatusLabel, riskTypeLabel, ruleTypeLabel } from "./pronunciationUi";
+import { annotationForToken, annotationSourceLabel, confidenceLabel, isHanToken, isSingleHanGlobalRule, isTtsLockedAnnotation, normalizePinyinInput, realizedPronunciationForText, reviewStatusLabel, riskTypeLabel, ruleTypeLabel, ttsPronunciationMismatches } from "./pronunciationUi";
+import type { Annotation, AudioVersion, GraphemeToken } from "../types/library";
 
 describe("normalizePinyinInput", () => {
   it("normalizes input-method capitalization without changing tone numbers", () => {
@@ -8,12 +9,49 @@ describe("normalizePinyinInput", () => {
   });
 
   it("only treats confirmed target pinyin as an input to TTS", () => {
-    expect(isTtsLockedAnnotation({ ...annotation, review_status: "confirmed", target_pinyin: "shu4 xue2" })).toBe(true);
+    expect(isTtsLockedAnnotation({ ...annotation, review_status: "confirmed", target_pinyin: "shu4 xue2", source: "manual" })).toBe(true);
     expect(isTtsLockedAnnotation(annotation)).toBe(false);
+    expect(isTtsLockedAnnotation({ ...annotation, review_status: "confirmed", target_pinyin: "shu4 xue2", source: "pypinyin" })).toBe(false);
+  });
+
+  it("reads realized pronunciation from the selected audio version", () => {
+    const audio = { provider_metadata: { realized_pronunciation: [{ text: "恶", phoneme: "wu4", begin_ms: 1, end_ms: 2 }] } } as AudioVersion;
+    expect(realizedPronunciationForText(audio, "恶")[0]?.phoneme).toBe("wu4");
+    expect(realizedPronunciationForText(null, "恶")).toEqual([]);
+  });
+
+  it("marks provider pronunciation mismatches by grapheme token", () => {
+    const tokens: GraphemeToken[] = [
+      { index: 0, text: "恶" },
+      { index: 1, text: "寒" },
+    ];
+    const audio = { provider_metadata: { realized_pronunciation: [
+      { text: "恶", phoneme: "wu4", begin_ms: 1, end_ms: 2 },
+      { text: "寒", phoneme: "han2", begin_ms: 2, end_ms: 3 },
+    ] } } as AudioVersion;
+    expect([...ttsPronunciationMismatches(tokens, ["e4", "han2"], audio)]).toEqual([0]);
+  });
+
+  it("accepts Tencent v spelling for standard ü pinyin", () => {
+    const tokens: GraphemeToken[] = [{ index: 0, text: "穴" }];
+    const audio = { provider_metadata: { realized_pronunciation: [{ text: "穴", phoneme: "xve2", begin_ms: 1, end_ms: 2 }] } } as AudioVersion;
+    expect(ttsPronunciationMismatches(tokens, ["xue2"], audio)).toEqual(new Set());
+  });
+
+  it("does not compare punctuation or pause subtitles", () => {
+    const tokens: GraphemeToken[] = [
+      { index: 0, text: "恶" },
+      { index: 1, text: "，" },
+      { index: 2, text: "寒" },
+    ];
+    const audio = { provider_metadata: { realized_pronunciation: [
+      { text: "恶", phoneme: "wu4", begin_ms: 1, end_ms: 2 },
+      { text: "，", phoneme: "sil", begin_ms: 2, end_ms: 3 },
+      { text: "寒", phoneme: "han2", begin_ms: 3, end_ms: 4 },
+    ] } } as AudioVersion;
+    expect([...ttsPronunciationMismatches(tokens, ["e4", null, "han2"], audio)]).toEqual([0]);
   });
 });
-import type { Annotation } from "../types/library";
-
 const annotation: Annotation = {
   id: "a1", segment_id: "s1", start_token: 1, end_token: 3, surface_text: "腧穴",
   default_pinyin: "shu4 xue2", target_pinyin: null, candidate_pinyin: [], risk_type: "medical_term",

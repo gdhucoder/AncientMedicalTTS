@@ -30,7 +30,18 @@ class TencentTTSProvider:
         client_profile.httpProfile = http_profile
         return tts_client.TtsClient(credential.Credential(self._secret_id, self._secret_key), self._region, client_profile)
 
-    def _call(self, *, text: str, voice_type: int, sample_rate: int, codec: str, speed: float, volume: float, session_id: str) -> tuple[str, str, str]:
+    def _call(
+        self,
+        *,
+        text: str,
+        voice_type: int,
+        sample_rate: int,
+        codec: str,
+        speed: float,
+        volume: float,
+        session_id: str,
+        enable_subtitle: bool,
+    ) -> tuple[str, str, str, list[dict[str, object]] | None]:
         request = models.TextToVoiceRequest()
         request.Text = text
         request.SessionId = session_id
@@ -42,7 +53,7 @@ class TencentTTSProvider:
         request.PrimaryLanguage = 1
         request.SampleRate = sample_rate
         request.Codec = codec
-        request.EnableSubtitle = False
+        request.EnableSubtitle = enable_subtitle
         try:
             response = self._client().TextToVoice(request)
         except TencentCloudSDKException as error:
@@ -52,17 +63,27 @@ class TencentTTSProvider:
             raise TTSError(code, _friendly_error_message(code)) from error
         if not isinstance(response.Audio, str) or not response.Audio:
             raise TTSError("TTS_PROVIDER_ERROR", "腾讯云未返回音频数据")
-        return response.Audio, response.RequestId or "", response.SessionId or session_id
+        realized_pronunciation = _normalize_subtitles(getattr(response, "Subtitles", None)) if enable_subtitle else None
+        return response.Audio, response.RequestId or "", response.SessionId or session_id, realized_pronunciation
 
     def test_connection(self, *, voice_type: int, sample_rate: int, request_id: str) -> dict[str, object]:
-        self._call(text="测试", voice_type=voice_type, sample_rate=sample_rate, codec="wav", speed=0.0, volume=0.0, session_id=request_id)
+        self._call(text="测试", voice_type=voice_type, sample_rate=sample_rate, codec="wav", speed=0.0, volume=0.0, session_id=request_id, enable_subtitle=False)
         return {"provider": "tencent", "request_id": request_id, "voice_type": voice_type}
 
     def synthesize(self, request: SynthesisRequest) -> SynthesisResult:
         if len(request.text) > 150:
             raise TTSError("TTS_TEXT_TOO_LONG", "当前 Segment 超过腾讯基础 TTS 的 150 字限制")
         text, ssml_used = build_ssml(request.text, request.tokens, request.pronunciations)
-        audio, provider_request_id, session_id = self._call(text=text, voice_type=request.voice_type, sample_rate=request.sample_rate, codec=request.codec, speed=request.speed, volume=request.volume, session_id=request.session_id)
+        audio, provider_request_id, session_id, realized_pronunciation = self._call(
+            text=text,
+            voice_type=request.voice_type,
+            sample_rate=request.sample_rate,
+            codec=request.codec,
+            speed=request.speed,
+            volume=request.volume,
+            session_id=request.session_id,
+            enable_subtitle=True,
+        )
         try:
             audio_bytes = base64.b64decode(audio, validate=True)
         except (binascii.Error, ValueError) as error:
@@ -74,7 +95,45 @@ class TencentTTSProvider:
             output_path.write_bytes(audio_bytes)
         except OSError as error:
             raise TTSError("FILE_IO_ERROR", f"写入 WAV 失败: {error}") from error
-        return SynthesisResult(provider="tencent", request_id=provider_request_id, session_id=session_id, output_path=output_path, byte_length=len(audio_bytes), ssml_used=ssml_used, ssml=text if ssml_used else None)
+        return SynthesisResult(provider="tencent", request_id=provider_request_id, session_id=session_id, output_path=output_path, byte_length=len(audio_bytes), ssml_used=ssml_used, ssml=text if ssml_used else None, realized_pronunciation=realized_pronunciation)
+
+
+def _normalize_subtitles(value: object) -> list[dict[str, object]] | None:
+    if not isinstance(value, list):
+        return None
+    normalized: list[dict[str, object]] = []
+    for item in value:
+        text = _subtitle_text(item, "Text")
+        phoneme = _subtitle_text(item, "Phoneme")
+        begin_ms = _subtitle_integer(item, "BeginTime")
+        end_ms = _subtitle_integer(item, "EndTime")
+        if text is None and phoneme is None and begin_ms is None and end_ms is None:
+            continue
+        normalized.append({
+            "text": text or "",
+            "phoneme": phoneme,
+            "begin_ms": begin_ms,
+            "end_ms": end_ms,
+        })
+    return normalized or None
+
+
+def _subtitle_value(item: object, name: str) -> object:
+    if isinstance(item, dict):
+        return item.get(name)
+    return getattr(item, name, None)
+
+
+def _subtitle_text(item: object, name: str) -> str | None:
+    value = _subtitle_value(item, name)
+    return value.strip() if isinstance(value, str) and value.strip() else None
+
+
+def _subtitle_integer(item: object, name: str) -> int | None:
+    value = _subtitle_value(item, name)
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    return int(value)
 
 
 def _map_error_code(error: TencentCloudSDKException) -> str:

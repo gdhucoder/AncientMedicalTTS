@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 from main import handle_line
 from tts.base import PronunciationOverride, SynthesisRequest, TTSError
-from tts.providers.tencent import TencentTTSProvider, _map_error_code
+from tts.providers.tencent import TencentTTSProvider, _map_error_code, _normalize_subtitles
 from tts.ssml import build_ssml
 
 
@@ -77,13 +77,18 @@ class SsmlTests(unittest.TestCase):
         self.assertTrue(used)
         self.assertIn('<phoneme alphabet="py" ph="e4">恶</phoneme>', ssml)
 
+    def test_unconfirmed_reference_does_not_create_a_phoneme(self) -> None:
+        ssml, used = build_ssml("恶寒", [{"index": 0, "text": "恶"}, {"index": 1, "text": "寒"}], [])
+        self.assertEqual(ssml, "恶寒")
+        self.assertFalse(used)
+
 
 class TencentProviderTests(unittest.TestCase):
     def test_request_uses_frozen_text_to_voice_parameters(self) -> None:
         class FakeClient:
             def TextToVoice(self, request: object) -> SimpleNamespace:
                 self.request = request
-                return SimpleNamespace(Audio=base64.b64encode(b"wav").decode(), RequestId="rid", SessionId="sid")
+                return SimpleNamespace(Audio=base64.b64encode(b"wav").decode(), RequestId="rid", SessionId="sid", Subtitles=None)
 
         client = FakeClient()
         request = SynthesisRequest("request", "测试", [{"index": 0, "text": "测"}, {"index": 1, "text": "试"}], [], 501000, 16000, "wav", 0.0, 0.0, "session", Path(tempfile.gettempdir()) / "ancient-test-tts-params.wav")
@@ -101,7 +106,7 @@ class TencentProviderTests(unittest.TestCase):
             self.assertEqual(sent.PrimaryLanguage, 1)
             self.assertEqual(sent.SampleRate, 16000)
             self.assertEqual(sent.Codec, "wav")
-            self.assertFalse(sent.EnableSubtitle)
+            self.assertTrue(sent.EnableSubtitle)
         finally:
             request.output_path.unlink(missing_ok=True)
 
@@ -109,20 +114,53 @@ class TencentProviderTests(unittest.TestCase):
         wav_bytes = b"RIFF" + b"\x00" * 4 + b"WAVE" + b"\x00" * 36
         request = SynthesisRequest("request", "说", [{"index": 0, "text": "说"}], [PronunciationOverride(0, 1, "说", "yue4")], 501000, 16000, "wav", 0.0, 0.0, "session", Path(tempfile.gettempdir()) / "ancient-test-tts.wav")
         try:
-            with patch.object(TencentTTSProvider, "_call", return_value=(base64.b64encode(wav_bytes).decode(), "provider-request", "session")):
+            with patch.object(TencentTTSProvider, "_call", return_value=(base64.b64encode(wav_bytes).decode(), "provider-request", "session", None)):
                 result = TencentTTSProvider("id", "key").synthesize(request)
             self.assertEqual(result.request_id, "provider-request")
             self.assertEqual(request.output_path.read_bytes(), wav_bytes)
         finally:
             request.output_path.unlink(missing_ok=True)
 
+    def test_provider_preserves_actual_subtitle_phonemes_in_result(self) -> None:
+        wav_bytes = b"RIFF" + b"\x00" * 4 + b"WAVE" + b"\x00" * 36
+
+        class FakeProvider(TencentTTSProvider):
+            def _call(self, **_: object) -> tuple[str, str, str, list[dict[str, object]]]:
+                return (
+                    base64.b64encode(wav_bytes).decode(),
+                    "provider-request",
+                    "session",
+                    [{"text": "恶", "phoneme": "wu4", "begin_ms": 210, "end_ms": 430}],
+                )
+
+        request = SynthesisRequest("request", "恶", [{"index": 0, "text": "恶"}], [], 501000, 16000, "wav", 0.0, 0.0, "session", Path(tempfile.gettempdir()) / "ancient-test-tts-realized.wav")
+        try:
+            result = FakeProvider("id", "key").synthesize(request)
+            self.assertEqual(result.realized_pronunciation, [{"text": "恶", "phoneme": "wu4", "begin_ms": 210, "end_ms": 430}])
+        finally:
+            request.output_path.unlink(missing_ok=True)
+
+    def test_subtitles_are_normalized_to_provider_neutral_metadata(self) -> None:
+        subtitles = [
+            SimpleNamespace(Text="恶", Phoneme="wu4", BeginTime=210, EndTime=430),
+            SimpleNamespace(Text="寒", Phoneme="han2", BeginTime=430, EndTime=650),
+        ]
+        self.assertEqual(
+            _normalize_subtitles(subtitles),
+            [
+                {"text": "恶", "phoneme": "wu4", "begin_ms": 210, "end_ms": 430},
+                {"text": "寒", "phoneme": "han2", "begin_ms": 430, "end_ms": 650},
+            ],
+        )
+        self.assertIsNone(_normalize_subtitles(None))
+
     def test_invalid_base64_and_empty_audio_are_provider_errors(self) -> None:
         request = SynthesisRequest("request", "测", [{"index": 0, "text": "测"}], [], 501000, 16000, "wav", 0.0, 0.0, "session", Path(tempfile.gettempdir()) / "ancient-test-tts-invalid.wav")
         try:
-            with patch.object(TencentTTSProvider, "_call", return_value=("not-base64", "", "session")):
+            with patch.object(TencentTTSProvider, "_call", return_value=("not-base64", "", "session", None)):
                 with self.assertRaisesRegex(TTSError, "不是有效 Base64"):
                     TencentTTSProvider("id", "key").synthesize(request)
-            with patch.object(TencentTTSProvider, "_call", return_value=("", "", "session")):
+            with patch.object(TencentTTSProvider, "_call", return_value=("", "", "session", None)):
                 with self.assertRaisesRegex(TTSError, "返回空音频"):
                     TencentTTSProvider("id", "key").synthesize(request)
         finally:

@@ -24,6 +24,36 @@ pnpm dev
 pnpm tauri:dev
 ```
 
+## macOS 本机发布到 Applications
+
+在 macOS 开发机上，直接运行：
+
+```bash
+pnpm publish:macos
+```
+
+该命令会自动构建 Debug App，检查 Python 3.12 PyInstaller Worker 和内置 FFmpeg，然后把旧的 `/Applications/AncientMedicalTTS.app` 改名备份，再安装新 App。旧版本不会被直接删除。
+
+安装后启动：
+
+```bash
+pnpm publish:macos -- --launch
+```
+
+需要 Release 构建时：
+
+```bash
+pnpm publish:macos -- --release --launch
+```
+
+如果 Bundle 已经构建完成，只想重新安装：
+
+```bash
+pnpm publish:macos -- --skip-build --launch
+```
+
+本机没有 `vendor/ffmpeg` 时，脚本会自动使用 PATH 中的 FFmpeg，并把所需动态库复制进 App Bundle；用户运行已安装 App 时不需要安装 FFmpeg 或 Python。
+
 Python Worker 源码调试必须使用项目虚拟环境：
 
 ```bash

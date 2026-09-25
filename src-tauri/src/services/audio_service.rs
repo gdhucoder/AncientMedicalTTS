@@ -1,7 +1,10 @@
 use crate::{
     db::Database,
     error::{AppError, AppResult},
-    models::{AudioVersion, SegmentReader, TtsSettings},
+    models::{
+        AudioProviderMetadata, AudioVersion, SegmentReader, TtsRealizedPronunciationItem,
+        TtsSettings,
+    },
     services::{book_service, pronunciation_service, settings_service, usage_service},
     AppState,
 };
@@ -165,6 +168,7 @@ pub(crate) async fn generate_segment_audio_with_settings(
         .and_then(Value::as_str)
         .map(str::to_string);
     let duration_ms = result.get("duration_ms").and_then(Value::as_i64);
+    let provider_metadata_json = provider_metadata_json(result);
     let version_no: i64 = sqlx::query_scalar(
         "SELECT COALESCE(MAX(version_no), 0) + 1 FROM audio_versions WHERE segment_id = ?",
     )
@@ -183,9 +187,9 @@ pub(crate) async fn generate_segment_audio_with_settings(
     let audio_id = Uuid::now_v7().to_string();
     let transaction_result = async {
         let mut transaction = database.pool().begin().await.map_err(transaction_error)?;
-        sqlx::query("INSERT INTO audio_versions (id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, audio_path, provider_request_id, provider_session_id, duration_ms, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+        sqlx::query("INSERT INTO audio_versions (id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, provider_metadata_json, audio_path, provider_request_id, provider_session_id, duration_ms, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
             .bind(&audio_id).bind(segment_id).bind(version_no).bind(&settings.provider).bind(settings.voice_type)
-            .bind(settings.sample_rate).bind(&settings.codec).bind(settings.speed).bind(settings.volume).bind(ssml).bind(pronunciation_signature)
+            .bind(settings.sample_rate).bind(&settings.codec).bind(settings.speed).bind(settings.volume).bind(ssml).bind(pronunciation_signature).bind(provider_metadata_json)
             .bind(final_path.to_string_lossy().to_string()).bind(provider_request_id).bind(provider_session_id).bind(duration_ms).bind(&now)
             .execute(&mut *transaction).await.map_err(transaction_error)?;
         sqlx::query("UPDATE segments SET current_audio_id = ?, status = 'generated', updated_at = ? WHERE id = ?")
@@ -231,8 +235,8 @@ pub async fn list_audio_versions(
     segment_id: &str,
 ) -> AppResult<Vec<AudioVersion>> {
     let _ = book_service::get_segment(database, segment_id).await?;
-    let rows = sqlx::query_as::<_, (String, String, i64, String, i64, i64, String, f64, f64, Option<String>, Option<String>, String, Option<String>, Option<String>, Option<i64>, String)>(
-        "SELECT id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, audio_path, provider_request_id, provider_session_id, duration_ms, created_at FROM audio_versions WHERE segment_id = ? ORDER BY version_no DESC")
+    let rows = sqlx::query_as::<_, AudioVersionRow>(
+        "SELECT id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, provider_metadata_json, audio_path, provider_request_id, provider_session_id, duration_ms, created_at FROM audio_versions WHERE segment_id = ? ORDER BY version_no DESC")
         .bind(segment_id).fetch_all(database.pool()).await?;
     rows.into_iter().map(audio_from_row).collect()
 }
@@ -392,62 +396,68 @@ pub fn cleanup_book_audio(data_dir: &Path, book_id: &str) -> AppResult<()> {
     Ok(())
 }
 
-fn audio_from_row(
-    row: (
-        String,
-        String,
-        i64,
-        String,
-        i64,
-        i64,
-        String,
-        f64,
-        f64,
-        Option<String>,
-        Option<String>,
-        String,
-        Option<String>,
-        Option<String>,
-        Option<i64>,
-        String,
-    ),
-) -> AppResult<AudioVersion> {
-    let (
-        id,
-        segment_id,
-        version_no,
-        provider,
-        voice_type,
-        sample_rate,
-        codec,
-        speed,
-        volume,
-        ssml,
-        pronunciation_signature,
-        audio_path,
-        provider_request_id,
-        provider_session_id,
-        duration_ms,
-        created_at,
-    ) = row;
+#[derive(sqlx::FromRow)]
+struct AudioVersionRow {
+    id: String,
+    segment_id: String,
+    version_no: i64,
+    provider: String,
+    voice_type: i64,
+    sample_rate: i64,
+    codec: String,
+    speed: f64,
+    volume: f64,
+    ssml: Option<String>,
+    pronunciation_signature: Option<String>,
+    provider_metadata_json: Option<String>,
+    audio_path: String,
+    provider_request_id: Option<String>,
+    provider_session_id: Option<String>,
+    duration_ms: Option<i64>,
+    created_at: String,
+}
+
+fn audio_from_row(row: AudioVersionRow) -> AppResult<AudioVersion> {
+    let provider_metadata = row
+        .provider_metadata_json
+        .as_deref()
+        .map(serde_json::from_str)
+        .transpose()
+        .map_err(|error| AppError::new("DB_ERROR", format!("provider metadata 无效: {error}")))?;
     Ok(AudioVersion {
-        id,
-        segment_id,
-        version_no,
-        provider,
-        voice_type,
-        sample_rate,
-        codec,
-        speed,
-        volume,
-        ssml,
-        pronunciation_signature,
-        audio_path,
-        provider_request_id,
-        provider_session_id,
-        duration_ms,
-        created_at,
+        id: row.id,
+        segment_id: row.segment_id,
+        version_no: row.version_no,
+        provider: row.provider,
+        voice_type: row.voice_type,
+        sample_rate: row.sample_rate,
+        codec: row.codec,
+        speed: row.speed,
+        volume: row.volume,
+        ssml: row.ssml,
+        pronunciation_signature: row.pronunciation_signature,
+        provider_metadata,
+        audio_path: row.audio_path,
+        provider_request_id: row.provider_request_id,
+        provider_session_id: row.provider_session_id,
+        duration_ms: row.duration_ms,
+        created_at: row.created_at,
     })
+}
+
+fn provider_metadata_json(result: &serde_json::Map<String, Value>) -> Option<String> {
+    let value = result.get("realized_pronunciation")?;
+    if !value.is_array() {
+        return None;
+    }
+    let items = serde_json::from_value::<Vec<TtsRealizedPronunciationItem>>(value.clone()).ok()?;
+    if items.is_empty() {
+        return None;
+    }
+    serde_json::to_string(&AudioProviderMetadata {
+        realized_pronunciation: Some(items),
+    })
+    .ok()
 }
 
 fn remove_file_quietly(path: &Path) {
@@ -466,11 +476,12 @@ fn transaction_error(error: sqlx::Error) -> AppError {
 #[cfg(test)]
 mod tests {
     use super::{
-        latest_audio_matches, list_audio_versions, read_wav_format, select_audio_version,
-        validate_wav,
+        latest_audio_matches, list_audio_versions, provider_metadata_json, read_wav_format,
+        select_audio_version, validate_wav,
     };
     use crate::db::Database;
     use crate::models::TtsSettings;
+    use serde_json::json;
     use std::{fs, io::Write};
     use uuid::Uuid;
 
@@ -487,6 +498,19 @@ mod tests {
         fs::write(&path, b"not wav").expect("rewrite");
         assert!(validate_wav(&path).is_err());
         assert!(!path.exists());
+    }
+
+    #[test]
+    fn normalizes_realized_provider_metadata_without_affecting_annotations() {
+        let value = json!([
+            {"text": "恶", "phoneme": "wu4", "begin_ms": 210, "end_ms": 430},
+            {"text": "寒", "phoneme": "han2", "begin_ms": 430, "end_ms": 650}
+        ]);
+        let mut result = serde_json::Map::new();
+        result.insert("realized_pronunciation".to_string(), value);
+        let metadata = provider_metadata_json(&result).expect("metadata");
+        assert!(metadata.contains("\"phoneme\":\"wu4\""));
+        assert!(provider_metadata_json(&serde_json::Map::new()).is_none());
     }
 
     #[test]

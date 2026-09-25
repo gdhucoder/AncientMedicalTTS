@@ -4,6 +4,7 @@ use crate::{
     models::{Annotation, GraphemeToken, PronunciationOverride, Segment, SegmentReader},
     services::{book_service, text_service},
 };
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use sqlx::{sqlite::SqliteQueryResult, Transaction};
 use time::{format_description::well_known::Rfc3339, OffsetDateTime};
@@ -57,6 +58,15 @@ pub fn grapheme_tokens(text: &str) -> Vec<GraphemeToken> {
         .collect()
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+pub(crate) struct EffectiveForcedPronunciation {
+    pub start_token: usize,
+    pub end_token: usize,
+    pub surface_text: String,
+    pub pinyin: String,
+    pub source: String,
+}
+
 pub async fn get_segment_reader(database: &Database, segment_id: &str) -> AppResult<SegmentReader> {
     let segment = book_service::get_segment(database, segment_id).await?;
     let tokens = grapheme_tokens(segment.effective_text());
@@ -75,24 +85,106 @@ pub async fn confirmed_overrides(
     database: &Database,
     segment_id: &str,
 ) -> AppResult<Vec<PronunciationOverride>> {
-    let annotations = list_annotations(database, segment_id).await?;
-    Ok(annotations
+    Ok(build_effective_forced_pronunciations(database, segment_id)
+        .await?
         .into_iter()
-        .filter_map(|annotation| {
-            if annotation.review_status == REVIEW_CONFIRMED {
-                annotation
-                    .target_pinyin
-                    .map(|pinyin| PronunciationOverride {
-                        start_token: annotation.start_token,
-                        end_token: annotation.end_token,
-                        surface_text: annotation.surface_text,
-                        pinyin,
-                    })
-            } else {
-                None
-            }
+        .map(|item| PronunciationOverride {
+            start_token: item.start_token,
+            end_token: item.end_token,
+            surface_text: item.surface_text,
+            pinyin: item.pinyin,
         })
         .collect())
+}
+
+/// Resolves the only pronunciation annotations that are allowed to reach TTS.
+/// Analyzer/reference annotations intentionally do not enter this result.
+pub async fn build_effective_forced_pronunciations(
+    database: &Database,
+    segment_id: &str,
+) -> AppResult<Vec<EffectiveForcedPronunciation>> {
+    let annotations = list_annotations(database, segment_id).await?;
+    let mut candidates: Vec<(EffectiveForcedPronunciation, u8)> = Vec::new();
+    for annotation in annotations {
+        if annotation.review_status != REVIEW_CONFIRMED {
+            continue;
+        }
+        let Some(pinyin) = annotation.target_pinyin else {
+            continue;
+        };
+        if let Some(rule_id) = annotation.source_rule_id.as_deref() {
+            let rule = sqlx::query_as::<_, (String, i64)>(
+                "SELECT scope, enabled FROM pronunciation_rules WHERE id = ?",
+            )
+            .bind(rule_id)
+            .fetch_optional(database.pool())
+            .await?;
+            let Some((scope, enabled)) = rule else {
+                continue;
+            };
+            if enabled != 1 || !matches!(scope.as_str(), "book" | "global") {
+                continue;
+            }
+            let priority = if scope == "book" { 2 } else { 1 };
+            candidates.push((
+                EffectiveForcedPronunciation {
+                    start_token: annotation.start_token,
+                    end_token: annotation.end_token,
+                    surface_text: annotation.surface_text,
+                    pinyin,
+                    source: if scope == "book" {
+                        "book_rule".to_string()
+                    } else {
+                        "global_rule".to_string()
+                    },
+                },
+                priority,
+            ));
+        } else if annotation.source.as_deref() == Some("manual") {
+            candidates.push((
+                EffectiveForcedPronunciation {
+                    start_token: annotation.start_token,
+                    end_token: annotation.end_token,
+                    surface_text: annotation.surface_text,
+                    pinyin,
+                    source: "manual_confirmed".to_string(),
+                },
+                3,
+            ));
+        }
+    }
+
+    candidates.sort_by(|(left, left_priority), (right, right_priority)| {
+        left.start_token
+            .cmp(&right.start_token)
+            .then_with(|| {
+                right
+                    .end_token
+                    .saturating_sub(right.start_token)
+                    .cmp(&left.end_token.saturating_sub(left.start_token))
+            })
+            .then_with(|| right_priority.cmp(left_priority))
+            .then_with(|| left.pinyin.cmp(&right.pinyin))
+    });
+    let mut selected = Vec::new();
+    for (candidate, _) in candidates {
+        if selected
+            .iter()
+            .any(|existing: &EffectiveForcedPronunciation| {
+                ranges_overlap(
+                    candidate.start_token,
+                    candidate.end_token,
+                    existing.start_token,
+                    existing.end_token,
+                )
+            })
+        {
+            continue;
+        }
+        selected.push(candidate);
+    }
+    selected.sort_by_key(|item| (item.start_token, item.end_token));
+    Ok(selected)
 }
 
 pub async fn list_annotations(database: &Database, segment_id: &str) -> AppResult<Vec<Annotation>> {
@@ -682,9 +774,12 @@ pub(crate) async fn effective_signature(
     segment_id: &str,
 ) -> AppResult<Vec<(i64, i64, String)>> {
     Ok(sqlx::query_as::<_, (i64, i64, String)>(
-        "SELECT start_token, end_token, target_pinyin FROM segment_annotations
-         WHERE segment_id = ? AND review_status = 'confirmed' AND target_pinyin IS NOT NULL
-         ORDER BY start_token, end_token, target_pinyin",
+        "SELECT a.start_token, a.end_token, a.target_pinyin FROM segment_annotations a
+         LEFT JOIN pronunciation_rules r ON r.id = a.source_rule_id
+         WHERE a.segment_id = ? AND a.review_status = 'confirmed' AND a.target_pinyin IS NOT NULL
+           AND ((a.source_rule_id IS NULL AND a.source = 'manual')
+                OR (r.id IS NOT NULL AND r.enabled = 1))
+         ORDER BY a.start_token, a.end_token, a.target_pinyin",
     )
     .bind(segment_id)
     .fetch_all(database.pool())
@@ -703,9 +798,12 @@ pub(crate) async fn effective_signature_tx(
     segment_id: &str,
 ) -> AppResult<Vec<(i64, i64, String)>> {
     Ok(sqlx::query_as::<_, (i64, i64, String)>(
-        "SELECT start_token, end_token, target_pinyin FROM segment_annotations
-         WHERE segment_id = ? AND review_status = 'confirmed' AND target_pinyin IS NOT NULL
-         ORDER BY start_token, end_token, target_pinyin",
+        "SELECT a.start_token, a.end_token, a.target_pinyin FROM segment_annotations a
+         LEFT JOIN pronunciation_rules r ON r.id = a.source_rule_id
+         WHERE a.segment_id = ? AND a.review_status = 'confirmed' AND a.target_pinyin IS NOT NULL
+           AND ((a.source_rule_id IS NULL AND a.source = 'manual')
+                OR (r.id IS NOT NULL AND r.enabled = 1))
+         ORDER BY a.start_token, a.end_token, a.target_pinyin",
     )
     .bind(segment_id)
     .fetch_all(&mut **connection)
@@ -716,8 +814,8 @@ pub(crate) async fn effective_signature_tx(
 #[cfg(test)]
 mod tests {
     use super::{
-        apply_analysis, create_manual_annotation, get_segment_reader, grapheme_tokens,
-        normalize_and_validate_pinyin, ranges_overlap,
+        apply_analysis, build_effective_forced_pronunciations, create_manual_annotation,
+        get_segment_reader, grapheme_tokens, normalize_and_validate_pinyin, ranges_overlap,
     };
     use crate::{db::Database, models::Segment};
     use serde_json::json;
@@ -810,6 +908,87 @@ mod tests {
                     .filter(|annotation| annotation.review_status == "needs_review")
                     .count(),
                 1
+            );
+        });
+    }
+
+    #[test]
+    fn reference_pinyin_is_not_sent_to_tts_until_manually_confirmed() {
+        let database = temp_db();
+        tauri::async_runtime::block_on(async {
+            let segment = seed_segment(&database, "恶寒").await;
+            let tokens = grapheme_tokens(segment.effective_text());
+            let analysis = json!({
+                "analyzer_version": "0.3.0",
+                "items": [{
+                    "start_token": 0,
+                    "end_token": 1,
+                    "surface_text": "恶",
+                    "default_pinyin": "e4",
+                    "candidate_pinyin": ["e4", "wu4"],
+                    "risk_type": "context_pronunciation",
+                    "reason": "context",
+                    "source": "context_exact",
+                    "rule_type": "context_exact",
+                    "confidence": "high"
+                }]
+            });
+            let analyzed = apply_analysis(&database, &segment, &tokens, analysis)
+                .await
+                .expect("analysis");
+            assert!(
+                build_effective_forced_pronunciations(&database, &segment.id)
+                    .await
+                    .expect("forced policy")
+                    .is_empty()
+            );
+
+            let confirmed = super::confirm_annotation(&database, &analyzed.annotations[0].id, "e4")
+                .await
+                .expect("confirm");
+            let forced = build_effective_forced_pronunciations(&database, &segment.id)
+                .await
+                .expect("forced policy");
+            assert_eq!(forced.len(), 1);
+            assert_eq!(forced[0].pinyin, "e4");
+            assert_eq!(forced[0].source, "manual_confirmed");
+            assert_eq!(confirmed.annotations[0].source.as_deref(), Some("manual"));
+
+            let reference_only = seed_segment(&database, "恶").await;
+            let reference_tokens = grapheme_tokens(reference_only.effective_text());
+            let reference_analysis = json!({
+                "analyzer_version": "0.3.0",
+                "items": [{
+                    "start_token": 0,
+                    "end_token": 1,
+                    "surface_text": "恶",
+                    "default_pinyin": "e4",
+                    "candidate_pinyin": ["e4", "wu4"],
+                    "risk_type": "polyphone",
+                    "reason": "reference",
+                    "source": "pypinyin",
+                    "rule_type": "polyphone",
+                    "confidence": "low"
+                }]
+            });
+            let reference_reader = apply_analysis(
+                &database,
+                &reference_only,
+                &reference_tokens,
+                reference_analysis,
+            )
+            .await
+            .expect("reference analysis");
+            sqlx::query("UPDATE segment_annotations SET review_status = 'confirmed', target_pinyin = 'e4' WHERE id = ?")
+                .bind(&reference_reader.annotations[0].id)
+                .execute(database.pool())
+                .await
+                .expect("seed non-authoritative confirmation");
+            assert!(
+                build_effective_forced_pronunciations(&database, &reference_only.id)
+                    .await
+                    .expect("forced policy")
+                    .is_empty()
             );
         });
     }

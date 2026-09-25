@@ -140,6 +140,17 @@ React <audio controls>
 
 当前 TTS 固定为腾讯云、16000Hz、WAV、单 Segment。未命中 confirmed 发音覆盖时，Worker 将原文直接作为 `Text`，不会包裹 `<speak>`；存在覆盖时，才生成 XML 转义后的 SSML。TTS 请求超时为 60 秒，连接测试超时为 30 秒。
 
+### TTS 发音一致性边界
+
+TTS 只消费 Rust `build_effective_forced_pronunciations` 生成的强制发音策略，不消费页面注音或 analyzer 的默认/建议拼音。进入 SSML 的来源只有：
+
+- `confirmed + source='manual' + target_pinyin` 的当前处人工确认；
+- `confirmed + source_rule_id` 指向启用中的 `book` 或 `global` 规则的规则标注。
+
+Rust 按起始 token、最长范围和来源优先级生成互不重叠的列表，手工确认优先于规则，Book Rule 优先于 Global Rule；未确认的 `needs_review`、`ignored`、`pypinyin`、词典和上下文 analyzer 结果都只是参考信息，不会被自动强制进入 TTS。这样可以避免“页面显示 e4，但尚未确认，TTS 却被错误强制为 e4”的隐式行为。
+
+腾讯请求开启 `EnableSubtitle`。供应商返回的 `Subtitles`（当前 SDK 字段为 `Text`、`Phoneme`、`BeginTime`、`EndTime`）被规范化后保存到本次 `AudioVersion.provider_metadata`，表示供应商实际实现的读音；它不会回写 `segment_annotations`、规则或 canonical pinyin。旧 AudioVersion 没有该字段时，UI 显示“未记录”。单句生成和全文批量生成都调用同一个 AudioService，因此共享同一套强制发音策略。音频导出继续只读取 `current_audio_id`，不改变上述边界。
+
 ### TTS 设置与试听
 
 设置页的合成参数使用前端本地状态编辑。音色、语速和音量改变后，试听卡立即显示当前选择；只有“保存设置”才写入 `app_settings`。试听通过明确的 `generate_tts_preview` IPC 进入 Rust，再复用同一个 `tts.synthesize` Worker 协议和腾讯云 Provider，不创建 Segment 或 AudioVersion。结果写入应用数据目录 `cache/tts-preview/`，新试听和应用启动时会清理旧试听文件。设置页的 API 用量来自 `api_usage_events`，记录单段生成、全文生成、试听和连接测试，不估算费用。

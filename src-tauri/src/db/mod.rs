@@ -126,7 +126,7 @@ mod tests {
                 .await
                 .expect("schema version should exist")
         });
-        assert_eq!(schema_version, 11);
+        assert_eq!(schema_version, 12);
         let annotation_columns: Vec<String> = tauri::async_runtime::block_on(async {
             sqlx::query_scalar("SELECT name FROM pragma_table_info('segment_annotations')")
                 .fetch_all(database.pool())

@@ -49,7 +49,7 @@ def synthesize(params: Any, request_id: str) -> dict[str, object]:
     if not -10 <= request.volume <= 10:
         raise TTSError("TTS_INVALID_VOLUME", "Volume 必须在 -10 到 10 之间")
     result = _provider(provider_name).synthesize(request)
-    return {"provider": result.provider, "request_id": result.request_id, "session_id": result.session_id, "output_path": str(result.output_path), "byte_length": result.byte_length, "ssml_used": result.ssml_used, "ssml": result.ssml, "duration_ms": result.duration_ms}
+    return {"provider": result.provider, "request_id": result.request_id, "session_id": result.session_id, "output_path": str(result.output_path), "byte_length": result.byte_length, "ssml_used": result.ssml_used, "ssml": result.ssml, "duration_ms": result.duration_ms, "realized_pronunciation": result.realized_pronunciation}
 
 
 def _provider(name: str) -> TencentTTSProvider:

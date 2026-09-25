@@ -1,6 +1,6 @@
 # AncientMedicalTTS
 
-AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前源码候选版本为 **v0.1.0-rc1**，已进入功能冻结后的发布验证阶段。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
+AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前源码候选版本为 **v0.1.0-rc3**，已进入功能冻结后的发布验证阶段。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
 
 当前版本已实现：UTF-8 TXT 导入、SQLite 本地阅读、Rust Grapheme Token 分词、Python 发音分析器 v0.3、结构化中医与古籍发音知识层、可解释语义上下文选音、Annotation 复核、腾讯云 TTS、SSML 发音覆盖、WAV 音频版本、单 Segment 播放、本书/全局精确发音规则、单 Book 串行全文 WAV 生成，以及按正文顺序导出完整 WAV/MP3。
 
@@ -22,6 +22,8 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - TTS 设置页面：应用数据目录凭据状态、腾讯云音色、Speed、Volume、Test Connection；
 - TTS 设置页面提供四张卡片：凭据、合成参数、本地 API 用量统计和音色试听；试听直接使用当前未保存的音色/语速/音量，保存设置后才影响正式生成；
 - Rust 组装已确认发音覆盖，Worker 生成腾讯云 TTS 请求和可选 SSML；
+- 明确区分“参考注音”“已锁定读音”和 AudioVersion 的“实际发音”：自动分析结果不自动强制进入 TTS，只有人工确认或启用的本书/全局规则才生成 SSML 发音覆盖；腾讯云返回的字幕发音独立保存到对应音频版本；
+- 全文注音模式下，将当前音频的腾讯云实际发音与页面注音逐字对比；标点和停顿不参与比较，不一致的汉字会高亮，点击普通汉字可查看该音频的实际读音；
 - 16000Hz WAV 单 Segment 生成、版本保存、版本切换和 Tauri asset 协议播放；
 - 发音词典：本书规则和全局规则、Grapheme Token 精确匹配、最长匹配、Book 优先级、人工覆盖保护、规则更新/启用/禁用；
 - 规则生成的 confirmed Annotation、`source_rule_id` 来源追踪，以及发音改变后的音频 stale 提示；
@@ -43,11 +45,12 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - [当前已知限制](docs/KNOWN_LIMITATIONS.md)
 - [Python Worker 运行时约束](docs/WORKER_RUNTIME.md)
 - [完整架构](docs/ARCHITECTURE.md)
+- [TTS 发音一致性策略](docs/TTS_PRONUNCIATION_POLICY.md)
 - [更新记录](CHANGELOG.md)
 
 ## GitHub Actions 自动构建
 
-推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.1` 或 `v0.1.1-rc1`）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
+推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.0-rc3` 或后续正式版本）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
 
 ```bash
 git tag v0.1.1
@@ -72,6 +75,8 @@ Worker 的 Python 依赖固定在 `worker/pyproject.toml`，包括 `pypinyin==0.
 pnpm install
 pnpm tauri:dev
 ```
+
+macOS 本机需要把当前版本重新安装到 `/Applications` 时，直接运行 `pnpm publish:macos -- --launch`。脚本会自动构建、检查 Python 3.12 Worker 和内置 FFmpeg，并备份旧 App；只安装已有 Bundle 可用 `pnpm publish:macos -- --skip-build`。详见 [快速开始](docs/QUICK_START.md)。
 
 打开“我的古籍”，导入 UTF-8 `.txt` 后选择 Segment。点击“分析发音”即可调用 Worker；正文中的黄色标注表示待复核，绿色表示已确认，灰色表示已忽略。确认读音后，可在 Annotation 详情选择“应用到本书”或“加入全局词典”；也可以从“发音词典”页面新增、编辑、启用、禁用规则。规则只做完整文本的精确匹配，使用 Grapheme Token 定位。
 
@@ -111,6 +116,8 @@ uv run --project worker python -m unittest worker/tests/test_tencent_integration
 导入阶段的分段与 token 生成完全由 Rust 完成。Worker 接收 Rust 已生成的 token 列表，不计算字符偏移，也不把 Python 字符串索引当作 token 索引。Python v0.3 使用 pypinyin 作为候选提供者，并通过 `worker/dictionaries/` 下版本化的医学词典、古籍词典、exact/semantic context、高风险多音字、生僻字和异体资源生成可解释 Annotation。完整医学词优先于 semantic context；两者冲突时返回 `knowledge_conflict`，不静默覆盖。
 
 自动分析不会写入 confirmed。重分析只删除旧的 `needs_review`，保留 `confirmed` 和 `ignored`，并跳过与受保护标注重叠的新结果。分析结果的 `source` 用于区分医学词典、古籍词典、exact/semantic context、高风险多音字、生僻字、异体映射和 pypinyin；`rule_type` 与 `confidence` 只提供解释，不改变现有复核语义。规则生成的 confirmed Annotation 仍由 Rust 写入 `source_rule_id`。
+
+页面中的自动拼音属于“参考注音”，不等于 TTS 强制读音。确认某处读音或启用本书/全局规则后，才会生成“已锁定读音”并进入 SSML；腾讯云返回的实际 `Phoneme` 只挂在生成该音频的 AudioVersion 上，不回写发音规则。详细边界见 [TTS 发音一致性策略](docs/TTS_PRONUNCIATION_POLICY.md)。
 
 ## 测试和检查
 

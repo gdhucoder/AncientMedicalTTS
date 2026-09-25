@@ -44,6 +44,7 @@ class SynthesisResult:
     ssml_used: bool
     ssml: str | None
     duration_ms: int | None = None
+    realized_pronunciation: list[dict[str, object]] | None = None
 
 
 class TTSProvider(Protocol):

@@ -135,10 +135,22 @@ export type AudioVersion = {
   volume: number;
   ssml: string | null;
   audio_path: string;
+  provider_metadata: AudioProviderMetadata | null;
   provider_request_id: string | null;
   provider_session_id: string | null;
   duration_ms: number | null;
   created_at: string;
+};
+
+export type TtsRealizedPronunciationItem = {
+  text: string;
+  phoneme: string | null;
+  begin_ms: number | null;
+  end_ms: number | null;
+};
+
+export type AudioProviderMetadata = {
+  realized_pronunciation: TtsRealizedPronunciationItem[] | null;
 };
 
 export type CredentialStatus = {

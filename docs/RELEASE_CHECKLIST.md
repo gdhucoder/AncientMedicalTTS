@@ -2,10 +2,10 @@
 
 ## 版本与范围
 
-- [x] 源码候选版本为 `0.1.0-rc1`。
+- [x] 源码候选版本为 `0.1.0-rc3`。
 - [x] Feature Freeze 已记录，未把 v0.2 功能混入本次发布。
-- [ ] RC1 在 Windows 10/11 真机完成安装、运行和卸载验证。
-- [ ] RC1 在 macOS Intel 真机完成运行验证；Apple Silicon 已验证。
+- [ ] RC3 在 Windows 10/11 真机完成安装、运行和卸载验证。
+- [ ] RC3 在 macOS Intel 真机完成运行验证；Apple Silicon 已验证。
 
 ## 代码与测试
 
@@ -42,4 +42,4 @@
 - [x] GitHub 公开仓库推送。
 - [x] GitHub Pages workflow 已配置。
 - [x] Pages 首次部署成功并检查公开页面不含敏感信息。
-- [ ] RC1 验证通过后再打最终 `v0.1.0` tag。
+- [ ] RC3 验证通过后再打最终 `v0.1.0` tag。

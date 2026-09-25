@@ -1,6 +1,6 @@
 [package]
 name = "ancient-medical-tts"
-version = "0.1.0-rc1"
+version = "0.1.0-rc3"
 description = "Ancient Medical TTS desktop application"
 authors = ["AncientMedicalTTS"]
 edition = "2021"
