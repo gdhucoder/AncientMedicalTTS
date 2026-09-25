@@ -3,6 +3,10 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { join } from "node:path";
 
 const args = process.argv.slice(2);
+const bundleVersion = process.env.ANCIENT_MEDICAL_TTS_BUNDLE_VERSION?.trim();
+if (bundleVersion && args[0] === "build") {
+  args.push("--config", JSON.stringify({ version: bundleVersion }));
+}
 const tauriCommand = process.platform === "win32" ? "tauri.cmd" : "tauri";
 const result = spawnSync(tauriCommand, args, {
   stdio: "inherit",
