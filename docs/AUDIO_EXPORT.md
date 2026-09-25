@@ -1,10 +1,12 @@
 # 完整音频导出
 
-Milestone 7 支持把一个 Book 当前的 Segment 音频按正文顺序导出为完整 WAV 或 MP3。
+应用支持把一个 Book 当前的 Segment 音频按正文顺序导出为完整 WAV 或 MP3，也支持只导出段落导航中勾选的若干段。选段导出适合篇幅较长、希望分章节或分批保存音频的场景。
+
+在左侧“章节与段落”列表勾选需要导出的段落，可以跨章节选择；“全选当前列表”只加入当前筛选结果中参与朗读的段落，“清空”取消选择。顶部按钮会在“导出整本”和“导出选中（N段）”之间切换。没有勾选时仍按整本导出。无论整本还是选段，Rust 都会重新按 `chapters.order_index ASC`、`segments.order_index ASC` 排序，列表勾选顺序不会影响音频顺序。
 
 ## 导出前预检
 
-Rust `ExportService` 只读取 `segments.current_audio_id`，按 `chapters.order_index ASC`、`segments.order_index ASC` 排序，不会选择最新版本或按文件名排序。预检会检查 Book、5000 汉字上限、Segment 状态、AudioVersion 所属关系、文件存在性、RIFF/WAVE header，以及 provider、voice、sample rate、codec、speed、volume 和实际 WAV 声道/位深等参数是否一致。
+Rust `ExportService` 只读取选定范围内 `segments.current_audio_id`，按 `chapters.order_index ASC`、`segments.order_index ASC` 排序，不会选择最新版本或按文件名排序。预检会检查 Book、选定文本的 5000 汉字上限、Segment 状态、AudioVersion 所属关系、文件存在性、RIFF/WAVE header，以及 provider、voice、sample rate、codec、speed、volume 和实际 WAV 声道/位深等参数是否一致。
 
 只有全部 Segment 为 `generated` 且所有有效音频参数一致时才允许导出。`ready` 会返回 `EXPORT_AUDIO_STALE`；任何待分析、待复核或缺失音频都会阻止导出。导出不会改变 pronunciation、Segment 或 AudioVersion 数据。
 

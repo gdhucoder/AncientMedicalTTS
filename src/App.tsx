@@ -166,6 +166,7 @@ function ReaderPage() {
   const [segmentEditBusy, setSegmentEditBusy] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [segmentFilter, setSegmentFilter] = useState<"all" | "needs_review" | "not_generated">("all");
+  const [selectedSegmentIds, setSelectedSegmentIds] = useState<string[]>([]);
   const [pendingSegmentId, setPendingSegmentId] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
   const [targetPinyin, setTargetPinyin] = useState("");
@@ -224,6 +225,7 @@ function ReaderPage() {
 
   useEffect(() => {
     if (!bookId) return;
+    setSelectedSegmentIds([]);
     let active = true;
     setLoading(true);
     Promise.all([getBook(bookId), listChapters(bookId)]).then(async ([nextBook, nextChapters]) => {
@@ -331,6 +333,7 @@ function ReaderPage() {
     if (chapters.length === 0) return;
     const refreshed = (await Promise.all(chapters.map((summary) => listAllChapterSegments(summary.chapter.id)))).flat();
     setNavigatorSegments(refreshed);
+    setSelectedSegmentIds((current) => current.filter((id) => refreshed.some((segment) => segment.id === id && segment.speak_enabled)));
   };
 
   const reanalyzeEditedSegments = async (result: { segment: Segment; new_segment_ids: string[] }) => {
@@ -367,6 +370,7 @@ function ReaderPage() {
     setSegmentEditBusy(true); setError(null); setMessage(null);
     try {
       const result = await setSegmentSpeakEnabled(reader.segment.id, speakEnabled);
+      if (!speakEnabled) setSelectedSegmentIds((current) => current.filter((id) => id !== reader.segment.id));
       updateReader(await getSegmentReader(result.segment.id));
       await refreshSegmentPage(result.segment.id);
       setMessage(speakEnabled ? "段落已恢复参与朗读。" : "段落已设置为不参与朗读。");
@@ -519,19 +523,21 @@ function ReaderPage() {
     catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
   };
 
-  const handleExport = async (format: "mp3" | "wav", preflight: BookExportPreflight) => {
+  const handleExport = async (format: "mp3" | "wav", preflight: BookExportPreflight, segmentIds: string[]) => {
     if (!bookId || exportRunning || !preflight.can_export) return;
+    const selected = segmentIds.length > 0 ? segmentIds : null;
+    const exportTitle = selected ? `${book?.book.title ?? "当前古籍"}-选中${segmentIds.length}段` : (book?.book.title ?? "ancient-medical-tts");
     const destination = await save({
-      defaultPath: sanitizeExportFilename(book?.book.title ?? "ancient-medical-tts", format),
+      defaultPath: sanitizeExportFilename(exportTitle, format),
       filters: [{ name: format === "mp3" ? "MP3 Audio" : "WAV Audio", extensions: [format] }],
     });
     if (typeof destination !== "string") return;
     try {
-      await exportBookAudio(bookId, destination, format);
+      await exportBookAudio(bookId, destination, format, false, selected);
     } catch (reason: unknown) {
       const errorValue = reason as { code?: string; message?: string };
       if (errorValue.code === "EXPORT_OUTPUT_EXISTS" && window.confirm("目标文件已存在，是否覆盖？")) {
-        try { await exportBookAudio(bookId, destination, format, true); }
+        try { await exportBookAudio(bookId, destination, format, true, selected); }
         catch (retryReason: unknown) { setError(friendlyErrorMessage(retryReason)); }
       } else {
         setError(friendlyErrorMessage(reason));
@@ -560,6 +566,16 @@ function ReaderPage() {
     if (segmentFilter === "not_generated") return segment.status !== "generated";
     return true;
   });
+
+  const toggleSegmentSelection = (nextSegmentId: string) => {
+    setSelectedSegmentIds((current) => current.includes(nextSegmentId)
+      ? current.filter((segmentId) => segmentId !== nextSegmentId)
+      : [...current, nextSegmentId]);
+  };
+
+  const selectVisibleSegments = () => {
+    setSelectedSegmentIds((current) => Array.from(new Set([...current, ...filteredNavigatorSegments.filter((segment) => segment.speak_enabled).map((segment) => segment.id)])));
+  };
 
   const navigateToSegment = (nextSegment: Segment) => {
     if (nextSegment.chapter_id !== chapterId) {
@@ -611,7 +627,7 @@ function ReaderPage() {
         <div className="reader-book-actions">
           <button className="toolbar-button primary" type="button" onClick={() => void handleReanalyzeBook()} disabled={bookAnalysisBusy || batchRunning || exportRunning}>{bookAnalysisBusy ? "分析中…" : "全文分析"}</button>
           <button className="toolbar-button" type="button" onClick={() => void (batchRunning ? handleCancelBatch() : handleStartBatch())} disabled={bookAnalysisBusy || exportRunning}>{batchRunning ? "停止生成" : "生成全文"}</button>
-          <BookExportPanel bookId={bookId} bookTitle={book?.book.title ?? "当前古籍"} state={exportForBook ? exportState : idleExportState} blockedByOtherExport={exportRunning && !exportForBook} onExport={(format, nextPreflight) => void handleExport(format, nextPreflight)} onCancel={() => void handleCancelExport()} compact />
+          <BookExportPanel bookId={bookId} bookTitle={book?.book.title ?? "当前古籍"} selectedSegmentIds={selectedSegmentIds} state={exportForBook ? exportState : idleExportState} blockedByOtherExport={exportRunning && !exportForBook} onExport={(format, nextPreflight, segmentIds) => void handleExport(format, nextPreflight, segmentIds)} onCancel={() => void handleCancelExport()} compact />
           <button className="toolbar-button more-button" type="button" onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen}>更多…</button>
           {moreOpen && <div className="more-menu"><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
         </div>
@@ -623,7 +639,8 @@ function ReaderPage() {
           <aside className="segment-navigator">
             <div className="navigator-heading"><div><p className="eyebrow">段落导航</p><h2>章节与段落</h2></div><span>{book?.segment_count ?? 0}</span></div>
             <div className="segment-filters"><button className={segmentFilter === "all" ? "active" : ""} type="button" onClick={() => setSegmentFilter("all")}>全部 <b>{book?.segment_count ?? orderedSegments.length}</b></button><button className={segmentFilter === "needs_review" ? "active" : ""} type="button" onClick={() => setSegmentFilter("needs_review")}>待确认 <b>{needsReviewCount}</b></button><button className={segmentFilter === "not_generated" ? "active" : ""} type="button" onClick={() => setSegmentFilter("not_generated")}>未生成 <b>{notGeneratedCount}</b></button></div>
-            <div className="navigator-list">{chapters.map((summary) => { const chapterSegments = filteredNavigatorSegments.filter((segment) => segment.chapter_id === summary.chapter.id); return <div className="navigator-chapter" key={summary.chapter.id}><button className={summary.chapter.id === activeChapterId ? "navigator-chapter-title active" : "navigator-chapter-title"} type="button" onClick={() => { setOffset(0); selectChapter(summary.chapter.id); }}><span>{summary.chapter.title ?? `第 ${summary.chapter.order_index + 1} 章`}</span><small>{summary.segment_count}</small></button>{chapterSegments.map((segment) => <button key={segment.id} className={segment.id === segmentId ? "navigator-segment active" : "navigator-segment"} type="button" onClick={() => navigateToSegment(segment)}><span className="navigator-index">{String(orderedSegments.findIndex((item) => item.id === segment.id) + 1).padStart(2, "0")}</span><span className="status-dot" data-status={segment.status} aria-label={reviewStatusLabel(segment.status)} /><span className="navigator-preview">{segment.reading_text ?? segment.original_text}</span>{!segment.speak_enabled && <small className="navigator-muted">不朗读</small>}</button>)}</div>; })}{loading && <div className="subtle-empty">正在读取段落…</div>}{!loading && filteredNavigatorSegments.length === 0 && <div className="subtle-empty">没有符合条件的段落。</div>}</div>
+            <div className="navigator-selection"><span>已选 {selectedSegmentIds.length} 段</span><button type="button" onClick={selectVisibleSegments} disabled={filteredNavigatorSegments.length === 0}>全选当前列表</button><button type="button" onClick={() => setSelectedSegmentIds([])} disabled={selectedSegmentIds.length === 0}>清空</button></div>
+            <div className="navigator-list">{chapters.map((summary) => { const chapterSegments = filteredNavigatorSegments.filter((segment) => segment.chapter_id === summary.chapter.id); return <div className="navigator-chapter" key={summary.chapter.id}><button className={summary.chapter.id === activeChapterId ? "navigator-chapter-title active" : "navigator-chapter-title"} type="button" onClick={() => { setOffset(0); selectChapter(summary.chapter.id); }}><span>{summary.chapter.title ?? `第 ${summary.chapter.order_index + 1} 章`}</span><small>{summary.segment_count}</small></button>{chapterSegments.map((segment) => <div className={`navigator-segment-row${segment.id === segmentId ? " active" : ""}`} key={segment.id}><input className="navigator-select" type="checkbox" checked={selectedSegmentIds.includes(segment.id)} onChange={() => toggleSegmentSelection(segment.id)} disabled={!segment.speak_enabled} aria-label={`选择第 ${orderedSegments.findIndex((item) => item.id === segment.id) + 1} 段`} /><button className="navigator-segment" type="button" onClick={() => navigateToSegment(segment)}><span className="navigator-index">{String(orderedSegments.findIndex((item) => item.id === segment.id) + 1).padStart(2, "0")}</span><span className="status-dot" data-status={segment.status} aria-label={reviewStatusLabel(segment.status)} /><span className="navigator-preview">{segment.reading_text ?? segment.original_text}</span>{!segment.speak_enabled && <small className="navigator-muted">不朗读</small>}</button></div>)}</div>; })}{loading && <div className="subtle-empty">正在读取段落…</div>}{!loading && filteredNavigatorSegments.length === 0 && <div className="subtle-empty">没有符合条件的段落。</div>}</div>
           </aside>
           <section className="reader-workspace">
             <div className="workspace-navigation"><button className="text-navigation-button" type="button" onClick={() => navigateRelative(-1)} disabled={currentGlobalIndex <= 0}>← 上一段</button><span>第 <strong>{currentPosition}</strong> / {book?.segment_count ?? orderedSegments.length} 段</span><button className="text-navigation-button" type="button" onClick={() => navigateRelative(1)} disabled={currentGlobalIndex < 0 || currentGlobalIndex >= orderedSegments.length - 1}>下一段 →</button></div>
@@ -682,20 +699,25 @@ function BookBatchPanel({ bookTitle, state, preflight, running, analyzing, onCan
   return <div className="task-strip">{analyzing && <div><strong>正在分析《{bookTitle}》</strong><span>只更新发音标注，不会生成语音。</span></div>}{running && <div className="task-progress"><div><strong>正在生成《{bookTitle}》</strong><span>{state.processed} / {denominator} 段</span></div><div className="progress-track"><div className="progress-value" style={{ width: `${progress}%` }} /></div><small>已生成 {state.generated} · 已复用 {state.skipped} · 失败 {state.failed}</small></div>}{isTerminal && state.book_id && <div><strong>{state.status === "completed" ? "全文生成完成" : state.status === "cancelled" ? "已停止全文生成" : "全文生成失败"}</strong><span>生成 {state.generated} · 复用 {state.skipped} · 失败 {state.failed}</span>{state.fatal_error && <p className="stale-warning">{state.fatal_error.message}</p>}</div>}{(running || analyzing) && <button className="task-cancel" type="button" onClick={onCancel} disabled={!running || state.status === "cancelling"}>{state.status === "cancelling" ? "正在停止…" : "停止"}</button>}{preflight && !running && state.status === "idle" && preflight.blockers.length > 0 && <span className="batch-blocked">预检未通过</span>}</div>;
 }
 
-function BookExportPanel({ bookId, bookTitle, state, blockedByOtherExport, onExport, onCancel, compact = false }: { bookId: string; bookTitle: string; state: ExportState; blockedByOtherExport: boolean; onExport: (format: "mp3" | "wav", preflight: BookExportPreflight) => void; onCancel: () => void; compact?: boolean }) {
+function BookExportPanel({ bookId, bookTitle, selectedSegmentIds, state, blockedByOtherExport, onExport, onCancel, compact = false }: { bookId: string; bookTitle: string; selectedSegmentIds: string[]; state: ExportState; blockedByOtherExport: boolean; onExport: (format: "mp3" | "wav", preflight: BookExportPreflight, segmentIds: string[]) => void; onCancel: () => void; compact?: boolean }) {
   const [format, setFormat] = useState<"mp3" | "wav">("mp3");
   const [preflight, setPreflight] = useState<BookExportPreflight | null>(null);
+  const [dialogSegmentIds, setDialogSegmentIds] = useState<string[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const running = exportIsActive(state);
   const refreshPreflight = async () => {
+    const nextSegmentIds = [...selectedSegmentIds];
     setLoading(true); setError(null);
-    try { setPreflight(await getBookExportPreflight(bookId)); setDialogOpen(true); }
+    try { setDialogSegmentIds(nextSegmentIds); setPreflight(await getBookExportPreflight(bookId, nextSegmentIds.length > 0 ? nextSegmentIds : null)); setDialogOpen(true); }
     catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
     finally { setLoading(false); }
   };
-  return <div className={compact ? "export-control" : "export-control standalone"}><button className="toolbar-button" type="button" onClick={() => void (running ? onCancel() : refreshPreflight())} disabled={blockedByOtherExport || loading}>{blockedByOtherExport ? "其他导出进行中" : running ? "取消导出" : loading ? "检查中…" : "导出音频"}</button>{error && <span className="export-error">{error}</span>}{running && <div className="export-task"><strong>正在导出《{bookTitle}》</strong><span>{exportPhaseLabel(state)} · {state.total_segments} 段</span></div>}{state.status === "completed" && state.output_path && <div className="export-task success"><strong>导出完成</strong><span>{state.output_path}</span></div>}{state.status === "failed" && state.error_message && <div className="export-task error"><strong>导出失败</strong><span>{state.error_message}</span></div>}{dialogOpen && <div className="export-dialog"><div><p className="detail-label">导出《{bookTitle}》</p>{preflight && !preflight.can_export ? <div className="export-blockers"><strong>当前不能导出</strong>{preflight.blockers.slice(0, 5).map((blocker) => <p key={`${blocker.code}-${blocker.segment_id ?? "book"}`}>{blocker.message}{blocker.preview ? ` · ${blocker.preview}` : ""}</p>)}</div> : <><label><input type="radio" checked={format === "mp3"} onChange={() => setFormat("mp3")} /> MP3（96 kbps）</label><label><input type="radio" checked={format === "wav"} onChange={() => setFormat("wav")} /> WAV（无损）</label>{preflight && <p className="rule-hint">Segment：{preflight.total_segments} · 音频：{preflight.sample_rate ?? "—"}Hz / {preflight.channels ?? "—"} 声道</p>}</>}</div><div className="settings-actions"><button className="secondary-button" type="button" onClick={() => setDialogOpen(false)}>取消</button>{preflight?.can_export && <button className="primary-button" type="button" onClick={() => { setDialogOpen(false); onExport(format, preflight); }}>选择保存位置并导出</button>}</div></div>}</div>;
+  const selectionCount = selectedSegmentIds.length;
+  const exportLabel = selectionCount > 0 ? `导出选中（${selectionCount}段）` : "导出整本";
+  const dialogTitle = dialogSegmentIds.length > 0 ? `导出选中的 ${dialogSegmentIds.length} 段` : `导出《${bookTitle}》`;
+  return <div className={compact ? "export-control" : "export-control standalone"}><button className="toolbar-button" type="button" onClick={() => void (running ? onCancel() : refreshPreflight())} disabled={blockedByOtherExport || loading}>{blockedByOtherExport ? "其他导出进行中" : running ? "取消导出" : loading ? "检查中…" : exportLabel}</button>{error && <span className="export-error">{error}</span>}{running && <div className="export-task"><strong>{dialogSegmentIds.length > 0 ? `正在导出选中的 ${dialogSegmentIds.length} 段` : `正在导出《${bookTitle}》`}</strong><span>{exportPhaseLabel(state)} · {state.total_segments} 段</span></div>}{state.status === "completed" && state.output_path && <div className="export-task success"><strong>导出完成</strong><span>{state.output_path}</span></div>}{state.status === "failed" && state.error_message && <div className="export-task error"><strong>导出失败</strong><span>{state.error_message}</span></div>}{dialogOpen && <div className="export-dialog"><div><p className="detail-label">{dialogTitle}</p>{preflight && !preflight.can_export ? <div className="export-blockers"><strong>当前不能导出</strong>{preflight.blockers.slice(0, 5).map((blocker) => <p key={`${blocker.code}-${blocker.segment_id ?? "book"}`}>{blocker.message}{blocker.preview ? ` · ${blocker.preview}` : ""}</p>)}</div> : <><label><input type="radio" checked={format === "mp3"} onChange={() => setFormat("mp3")} /> MP3（96 kbps）</label><label><input type="radio" checked={format === "wav"} onChange={() => setFormat("wav")} /> WAV（无损）</label>{preflight && <p className="rule-hint">段落：{preflight.total_segments} · 音频：{preflight.sample_rate ?? "—"}Hz / {preflight.channels ?? "—"} 声道</p>}</>}</div><div className="settings-actions"><button className="secondary-button" type="button" onClick={() => setDialogOpen(false)}>取消</button>{preflight?.can_export && <button className="primary-button" type="button" onClick={() => { setDialogOpen(false); onExport(format, preflight, dialogSegmentIds); }}>选择保存位置并导出</button>}</div></div>}</div>;
 }
 
 function PronunciationInspector({ reader, annotation, manualToken, targetPinyin, setTargetPinyin, manualPinyin, setManualPinyin, busy, onAnalyze, onConfirm, onIgnore, onReset, onCreateRule, onManualAnnotation, onNextReview }: { reader: SegmentReader | null; annotation: Annotation | null; manualToken: { text: string } | null; targetPinyin: string; setTargetPinyin: (value: string) => void; manualPinyin: string; setManualPinyin: (value: string) => void; busy: boolean; onAnalyze: () => void; onConfirm: () => void; onIgnore: () => void; onReset: () => void; onCreateRule: (scope: "book" | "global") => void; onManualAnnotation: () => void; onNextReview: () => void }) {

@@ -872,8 +872,10 @@ pub fn check_ffmpeg(app: AppHandle) -> AppResult<FfmpegStatus> {
 pub async fn get_book_export_preflight(
     state: State<'_, AppState>,
     book_id: String,
+    segment_ids: Option<Vec<String>>,
 ) -> AppResult<BookExportPreflight> {
-    export_service::get_book_export_preflight(&state.database()?, &book_id).await
+    export_service::get_book_export_preflight(&state.database()?, &book_id, segment_ids.as_deref())
+        .await
 }
 
 #[tauri::command]
@@ -884,6 +886,7 @@ pub async fn export_book_audio(
     destination_path: String,
     format: String,
     overwrite: bool,
+    segment_ids: Option<Vec<String>>,
 ) -> AppResult<()> {
     if state.export.is_running() {
         return Err(AppError::new(
@@ -927,6 +930,7 @@ pub async fn export_book_audio(
         destination_path,
         format,
         overwrite,
+        segment_ids,
     )
     .await;
     if result.is_err() {

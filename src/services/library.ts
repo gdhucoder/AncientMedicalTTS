@@ -225,12 +225,12 @@ export function checkFfmpeg(): Promise<FfmpegStatus> {
   return invoke<FfmpegStatus>("check_ffmpeg");
 }
 
-export function getBookExportPreflight(bookId: string): Promise<BookExportPreflight> {
-  return invoke<BookExportPreflight>("get_book_export_preflight", { bookId });
+export function getBookExportPreflight(bookId: string, segmentIds: string[] | null = null): Promise<BookExportPreflight> {
+  return invoke<BookExportPreflight>("get_book_export_preflight", { bookId, segmentIds });
 }
 
-export function exportBookAudio(bookId: string, destinationPath: string, format: "mp3" | "wav", overwrite = false): Promise<void> {
-  return invoke<void>("export_book_audio", { bookId, destinationPath, format, overwrite });
+export function exportBookAudio(bookId: string, destinationPath: string, format: "mp3" | "wav", overwrite = false, segmentIds: string[] | null = null): Promise<void> {
+  return invoke<void>("export_book_audio", { bookId, destinationPath, format, overwrite, segmentIds });
 }
 
 export function cancelExport(): Promise<ExportState> {

@@ -83,7 +83,7 @@ pnpm tauri:dev
 
 打开 Book 后，Book 语音区域可以先执行批量预检。预检通过并确认后，应用会读取一次当前 TTS 设置，按 Segment 顺序串行生成。状态为 `generated` 且最新 `AudioVersion` 的 provider、voice、sample rate、codec、speed、volume 与快照完全一致并且文件仍存在时会跳过；否则生成新版本。停止只在当前 Segment 完成后生效，已有结果会保留；再次点击生成会复用可复用版本并继续未完成部分。批量运行期间会锁定 TTS 设置、发音分析、发音词典、单句生成、导入和删除 Book。
 
-当全文 Segment 都为 `generated` 且音频参数一致时，可在 Book 页面点击“导出完整音频”。预检会阻止 stale、待复核、缺失文件或参数不一致的文档。导出格式默认 MP3（96 kbps），也可选择无损 WAV；用户通过系统保存对话框选择目标路径。正式准备好对应平台的 bundled sidecar 后，用户不需要安装 FFmpeg 或配置 PATH。请按 [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md) 准备 audited sidecar；本地调试可使用 `ANCIENT_MEDICAL_TTS_ALLOW_SYSTEM_FFMPEG=1`。
+当全文 Segment 都为 `generated` 且音频参数一致时，可在 Book 页面点击“导出整本”。也可以在左侧段落列表勾选一段或多段，点击“导出选中”只合并这些段落；跨章节选择时仍按正文顺序输出。预检会阻止 stale、待复核、缺失文件或参数不一致的文档。导出格式默认 MP3（96 kbps），也可选择无损 WAV；用户通过系统保存对话框选择目标路径。正式准备好对应平台的 bundled sidecar 后，用户不需要安装 FFmpeg 或配置 PATH。请按 [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md) 准备 audited sidecar；本地调试可使用 `ANCIENT_MEDICAL_TTS_ALLOW_SYSTEM_FFMPEG=1`。
 
 Rust 开发命令会优先使用项目的 Python 3.12 虚拟环境启动 Worker；也可以直接启动 Worker：
 

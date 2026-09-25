@@ -276,6 +276,7 @@ export type BookExportBlocker = {
 
 export type BookExportPreflight = {
   can_export: boolean;
+  selection_mode: "book" | "selection" | string;
   han_character_count: number;
   total_segments: number;
   generated_segments: number;

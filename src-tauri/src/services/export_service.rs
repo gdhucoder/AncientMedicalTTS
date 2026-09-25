@@ -7,7 +7,7 @@ use crate::{
     AppState,
 };
 use std::{
-    collections::VecDeque,
+    collections::{HashSet, VecDeque},
     fs,
     io::Read,
     path::{Path, PathBuf},
@@ -30,6 +30,7 @@ struct ExportSegment {
     order_index: i64,
     original_text: String,
     reading_text: Option<String>,
+    speak_enabled: bool,
     status: String,
     current_audio_id: Option<String>,
     audio_path: PathBuf,
@@ -217,9 +218,10 @@ impl Default for ExportController {
 pub async fn get_book_export_preflight(
     database: &Database,
     book_id: &str,
+    selected_segment_ids: Option<&[String]>,
 ) -> AppResult<BookExportPreflight> {
     let stats = book_service::get_book_text_stats(database, book_id).await?;
-    let segments = load_export_segments(database, book_id).await?;
+    let segments = load_export_segments(database, book_id, selected_segment_ids).await?;
     let mut blockers = Vec::new();
     let mut generated_segments = 0_i64;
     let mut signature: Option<AudioSignature> = None;
@@ -231,12 +233,32 @@ pub async fn get_book_export_preflight(
     let mut first_speed = None;
     let mut first_volume = None;
 
-    if stats.han_character_count as usize > text_service::MAX_BOOK_HAN_CHARACTERS {
+    if selected_segment_ids.is_some() && selected_segment_ids.is_some_and(|ids| ids.is_empty()) {
+        blockers.push(BookExportBlocker {
+            code: "EXPORT_NO_SEGMENTS_SELECTED".to_string(),
+            message: "请至少选择一个段落后再导出".to_string(),
+            segment_id: None,
+            chapter_title: None,
+            segment_order: None,
+            preview: None,
+        });
+    }
+
+    let selected_han_character_count = segments
+        .iter()
+        .map(|segment| text_service::count_han_characters(segment.effective_text()))
+        .sum::<usize>();
+    let han_character_count = if selected_segment_ids.is_some() {
+        selected_han_character_count as i64
+    } else {
+        stats.han_character_count
+    };
+    if han_character_count as usize > text_service::MAX_BOOK_HAN_CHARACTERS {
         blockers.push(BookExportBlocker {
             code: "PROJECT_TEXT_LIMIT_EXCEEDED".to_string(),
             message: format!(
                 "当前 Book 包含 {} 个汉字，超过 {} 个汉字的全文导出上限",
-                stats.han_character_count,
+                han_character_count,
                 text_service::MAX_BOOK_HAN_CHARACTERS
             ),
             segment_id: None,
@@ -245,7 +267,7 @@ pub async fn get_book_export_preflight(
             preview: None,
         });
     }
-    if segments.is_empty() {
+    if segments.is_empty() && selected_segment_ids.is_none() {
         blockers.push(BookExportBlocker {
             code: "BOOK_EMPTY".to_string(),
             message: "当前 Book 没有可导出的 Segment".to_string(),
@@ -256,7 +278,33 @@ pub async fn get_book_export_preflight(
         });
     }
 
+    if let Some(selected_ids) = selected_segment_ids {
+        let matched_ids = segments
+            .iter()
+            .map(|segment| segment.id.as_str())
+            .collect::<HashSet<_>>();
+        for segment_id in selected_ids {
+            if !matched_ids.contains(segment_id.as_str()) {
+                blockers.push(BookExportBlocker {
+                    code: "SEGMENT_NOT_FOUND".to_string(),
+                    message: "选中的段落不存在，或已被合并".to_string(),
+                    segment_id: Some(segment_id.clone()),
+                    chapter_title: None,
+                    segment_order: None,
+                    preview: None,
+                });
+            }
+        }
+    }
+
     for segment in &segments {
+        if !segment.speak_enabled {
+            blockers.push(segment_blocker(
+                segment,
+                "SEGMENT_NOT_SPEAK_ENABLED",
+                "选中的段落已设置为不参与朗读",
+            ));
+        }
         if segment.status != "generated" {
             let (code, message) = match segment.status.as_str() {
                 "ready" => (
@@ -381,8 +429,15 @@ pub async fn get_book_export_preflight(
 
     Ok(BookExportPreflight {
         can_export: blockers.is_empty(),
-        han_character_count: stats.han_character_count,
-        total_segments: stats.segment_count,
+        selection_mode: if selected_segment_ids.is_some() {
+            "selection".to_string()
+        } else {
+            "book".to_string()
+        },
+        han_character_count,
+        total_segments: selected_segment_ids
+            .map(|ids| ids.len() as i64)
+            .unwrap_or(segments.len() as i64),
         generated_segments,
         provider: signature.as_ref().map(|value| value.provider.clone()),
         voice_type: first_voice,
@@ -403,6 +458,7 @@ pub async fn start_export(
     destination_path: String,
     format: String,
     overwrite: bool,
+    selected_segment_ids: Option<Vec<String>>,
 ) -> AppResult<()> {
     let format = validate_format(&format)?;
     let destination = normalize_destination(&destination_path, format)?;
@@ -419,13 +475,15 @@ pub async fn start_export(
         ));
     }
     controller.reserve(&book_id, format)?;
-    let preflight = match get_book_export_preflight(&database, &book_id).await {
-        Ok(value) => value,
-        Err(error) => {
-            controller.reset()?;
-            return Err(error);
-        }
-    };
+    let preflight =
+        match get_book_export_preflight(&database, &book_id, selected_segment_ids.as_deref()).await
+        {
+            Ok(value) => value,
+            Err(error) => {
+                controller.reset()?;
+                return Err(error);
+            }
+        };
     if !preflight.can_export {
         controller.reset()?;
         return Err(AppError::new(
@@ -444,13 +502,14 @@ pub async fn start_export(
             return Err(error);
         }
     };
-    let segments = match load_export_segments(&database, &book_id).await {
-        Ok(value) => value,
-        Err(error) => {
-            controller.reset()?;
-            return Err(error);
-        }
-    };
+    let segments =
+        match load_export_segments(&database, &book_id, selected_segment_ids.as_deref()).await {
+            Ok(value) => value,
+            Err(error) => {
+                controller.reset()?;
+                return Err(error);
+            }
+        };
     let book_title = match book_title_for_metadata(&database, &book_id).await {
         Ok(value) => value,
         Err(error) => {
@@ -718,28 +777,39 @@ async fn run_ffmpeg_stage(
     }
 }
 
-async fn load_export_segments(database: &Database, book_id: &str) -> AppResult<Vec<ExportSegment>> {
+async fn load_export_segments(
+    database: &Database,
+    book_id: &str,
+    selected_segment_ids: Option<&[String]>,
+) -> AppResult<Vec<ExportSegment>> {
     let rows = sqlx::query_as::<_, (String, Option<String>, i64, String, Option<String>, i64, String, Option<String>)>(
         "SELECT s.id, c.title, s.order_index, s.original_text, s.reading_text, s.speak_enabled, s.status, s.current_audio_id
          FROM segments s JOIN chapters c ON c.id = s.chapter_id
-         WHERE c.book_id = ? AND s.status <> 'superseded' AND s.speak_enabled = 1
+         WHERE c.book_id = ? AND s.status <> 'superseded'
          ORDER BY c.order_index ASC, s.order_index ASC",
     )
     .bind(book_id)
     .fetch_all(database.pool())
     .await?;
     let mut segments = Vec::with_capacity(rows.len());
+    let selected_ids = selected_segment_ids.map(|ids| ids.iter().cloned().collect::<HashSet<_>>());
     for (
         id,
         chapter_title,
         order_index,
         original_text,
         reading_text,
-        _speak_enabled,
+        speak_enabled,
         status,
         current_audio_id,
     ) in rows
     {
+        let speak_enabled = speak_enabled != 0;
+        if selected_ids.as_ref().is_some_and(|ids| !ids.contains(&id))
+            || selected_ids.is_none() && !speak_enabled
+        {
+            continue;
+        }
         let audio_path: Option<String> = match current_audio_id {
             Some(ref audio_id) => {
                 sqlx::query_scalar(
@@ -759,6 +829,7 @@ async fn load_export_segments(database: &Database, book_id: &str) -> AppResult<V
                 order_index,
                 original_text,
                 reading_text,
+                speak_enabled,
                 status,
                 current_audio_id,
                 audio_path: PathBuf::from(audio_path),
@@ -770,6 +841,7 @@ async fn load_export_segments(database: &Database, book_id: &str) -> AppResult<V
                 order_index,
                 original_text,
                 reading_text,
+                speak_enabled,
                 status,
                 current_audio_id,
                 audio_path: PathBuf::new(),
@@ -898,6 +970,7 @@ mod tests {
             order_index: 0,
             original_text: "腧穴".to_string(),
             reading_text: None,
+            speak_enabled: true,
             status: "generated".to_string(),
             current_audio_id: Some("audio".to_string()),
             audio_path: PathBuf::from("C:\\Users\\测试\\Sean's Book\\001.wav"),
@@ -928,6 +1001,7 @@ mod tests {
             order_index: 0,
             original_text: "甲".to_string(),
             reading_text: None,
+            speak_enabled: true,
             status: "generated".to_string(),
             current_audio_id: Some("audio".to_string()),
             audio_path: PathBuf::new(),
@@ -986,6 +1060,7 @@ mod tests {
                 order_index: index as i64,
                 original_text: "测".to_string(),
                 reading_text: None,
+                speak_enabled: true,
                 status: "generated".to_string(),
                 current_audio_id: Some(index.to_string()),
                 audio_path: path,
@@ -1091,12 +1166,13 @@ mod tests {
                 sqlx::query("INSERT INTO audio_versions (id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, audio_path, created_at) VALUES (?, ?, 1, 'tencent', 501000, 16000, 'wav', 0, 0, ?, 'now')")
                     .bind(audio_id).bind(segment_id).bind(path.to_string_lossy().to_string()).execute(pool).await.expect("audio");
             }
-            let preflight = super::get_book_export_preflight(&database, &book_id)
+            let preflight = super::get_book_export_preflight(&database, &book_id, None)
                 .await
                 .expect("preflight");
             assert!(preflight.can_export);
+            assert_eq!(preflight.selection_mode, "book");
             assert_eq!(preflight.total_segments, 3);
-            let ordered = super::load_export_segments(&database, &book_id)
+            let ordered = super::load_export_segments(&database, &book_id, None)
                 .await
                 .expect("ordered segments");
             assert_eq!(
@@ -1106,12 +1182,34 @@ mod tests {
                     .collect::<Vec<_>>(),
                 vec!["第一", "第二", "第三"]
             );
+            let selected_ids = vec![segments[2].0.clone(), segments[0].0.clone()];
+            let selected = super::get_book_export_preflight(
+                &database,
+                &book_id,
+                Some(selected_ids.as_slice()),
+            )
+            .await
+            .expect("selected preflight");
+            assert!(selected.can_export);
+            assert_eq!(selected.selection_mode, "selection");
+            assert_eq!(selected.total_segments, 2);
+            let selected_ordered =
+                super::load_export_segments(&database, &book_id, Some(selected_ids.as_slice()))
+                    .await
+                    .expect("selected ordered segments");
+            assert_eq!(
+                selected_ordered
+                    .iter()
+                    .map(|segment| segment.original_text.as_str())
+                    .collect::<Vec<_>>(),
+                vec!["第一", "第三"]
+            );
             sqlx::query("UPDATE segments SET status = 'ready' WHERE id = ?")
                 .bind(&segments[0].0)
                 .execute(pool)
                 .await
                 .expect("stale");
-            let stale = super::get_book_export_preflight(&database, &book_id)
+            let stale = super::get_book_export_preflight(&database, &book_id, None)
                 .await
                 .expect("stale preflight");
             assert!(!stale.can_export);
@@ -1127,7 +1225,7 @@ mod tests {
             .execute(pool)
             .await
             .expect("clear current audio");
-            let missing = super::get_book_export_preflight(&database, &book_id)
+            let missing = super::get_book_export_preflight(&database, &book_id, None)
                 .await
                 .expect("missing preflight");
             assert!(missing
@@ -1151,7 +1249,7 @@ mod tests {
                 .execute(pool)
                 .await
                 .expect("settings mismatch");
-            let mismatch = super::get_book_export_preflight(&database, &book_id)
+            let mismatch = super::get_book_export_preflight(&database, &book_id, None)
                 .await
                 .expect("mismatch preflight");
             assert!(mismatch

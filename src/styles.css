@@ -404,9 +404,17 @@ button:disabled { cursor: default; opacity: .55; }
 .navigator-chapter-title:hover, .navigator-chapter-title.active { color: #304b3b; background: #e5e8df; }
 .navigator-chapter-title span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .navigator-chapter-title small { color: #aaa398; font-size: 10px; }
-.navigator-segment { display: grid; width: 100%; grid-template-columns: 25px 9px minmax(0, 1fr) auto; align-items: center; gap: 6px; margin: 1px 0; border: 1px solid transparent; border-radius: 7px; padding: 7px 6px; color: #5e5b53; background: transparent; text-align: left; font-family: serif; font-size: 13px; line-height: 1.35; }
+.navigator-selection { display: flex; align-items: center; gap: 7px; padding: 0 12px 9px; color: #8d887e; font-size: 10px; }
+.navigator-selection span { flex: 1; }
+.navigator-selection button { margin: 0; border: 0; padding: 2px 0; color: #55715d; background: transparent; font-size: 10px; white-space: nowrap; }
+.navigator-selection button:disabled { color: #b7b2a8; cursor: default; }
+.navigator-segment-row { display: grid; grid-template-columns: 20px minmax(0, 1fr); align-items: center; margin: 1px 0; border: 1px solid transparent; border-radius: 7px; }
+.navigator-segment-row:hover { background: #e8ece5; }
+.navigator-segment-row.active { border-color: #cbd7cc; background: #e0e9df; }
+.navigator-select { width: 13px; height: 13px; margin: 0 auto; accent-color: #486351; }
+.navigator-segment { display: grid; width: 100%; grid-template-columns: 25px 9px minmax(0, 1fr) auto; align-items: center; gap: 6px; margin: 0; border: 1px solid transparent; border-radius: 6px; padding: 7px 6px; color: #5e5b53; background: transparent; text-align: left; font-family: serif; font-size: 13px; line-height: 1.35; }
 .navigator-segment:hover { background: #e8ece5; }
-.navigator-segment.active { border-color: #cbd7cc; color: #294837; background: #e0e9df; }
+.navigator-segment-row.active .navigator-segment { color: #294837; }
 .navigator-index { color: #aaa398; font-family: ui-sans-serif, sans-serif; font-size: 10px; font-variant-numeric: tabular-nums; }
 .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #bdbdb5; }
 .status-dot[data-status="generated"] { background: #438162; }

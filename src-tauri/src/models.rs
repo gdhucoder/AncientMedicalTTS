@@ -169,6 +169,7 @@ pub struct BookExportBlocker {
 #[derive(Debug, Serialize, Clone)]
 pub struct BookExportPreflight {
     pub can_export: bool,
+    pub selection_mode: String,
     pub han_character_count: i64,
     pub total_segments: i64,
     pub generated_segments: i64,
