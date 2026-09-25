@@ -63,6 +63,11 @@ if (platform === "darwin") {
 console.log(`Prepared FFmpeg sidecar: ${output}`);
 
 function bundleMacDependencies(binary, destination) {
+  const homebrewPrefixes = [
+    process.env.HOMEBREW_PREFIX,
+    "/opt/homebrew",
+    "/usr/local",
+  ].filter((prefix, index, prefixes) => prefix && prefixes.indexOf(prefix) === index);
   try {
     execFileSync("otool", ["-L", binary], { stdio: "ignore" });
   } catch {
@@ -77,7 +82,7 @@ function bundleMacDependencies(binary, destination) {
   function visit(file, isBinary) {
     const dependencies = macDependencies(file);
     for (const dependency of dependencies) {
-      if (!dependency.startsWith("/opt/homebrew/") || !existsSync(dependency)) continue;
+      if (!homebrewPrefixes.some((prefix) => dependency.startsWith(`${prefix}/`)) || !existsSync(dependency)) continue;
       const sourcePath = realpathSync(dependency);
       const fileName = sourcePath.split("/").pop();
       if (!fileName) continue;

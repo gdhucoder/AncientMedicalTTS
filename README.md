@@ -45,6 +45,17 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - [完整架构](docs/ARCHITECTURE.md)
 - [更新记录](CHANGELOG.md)
 
+## GitHub Actions 自动构建
+
+推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.1` 或 `v0.1.1-rc1`）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
+
+```bash
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+构建使用 runner 上的 Python 3.12、uv、PyInstaller 和 FFmpeg，最终应用内仍携带 Worker/FFmpeg，不要求用户安装这些依赖。FFmpeg 的来源、许可证和当前自动构建边界见 [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md)。
+
 ## 环境要求
 
 - Node.js 20+；

@@ -1,0 +1,161 @@
+name: 构建桌面安装包
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macOS ARM64
+            runner: macos-15
+            platform: macos
+            artifact_name: AncientMedicalTTS-macos-arm64
+            bundle_args: app
+          - name: macOS Intel x64
+            runner: macos-15-intel
+            platform: macos
+            artifact_name: AncientMedicalTTS-macos-x64
+            bundle_args: app
+          - name: Windows x64
+            runner: windows-2025
+            platform: windows
+            artifact_name: AncientMedicalTTS-windows-x64
+            bundle_args: nsis,msi
+
+    steps:
+      - name: 获取源码
+        uses: actions/checkout@v5
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.13.0
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 设置 Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: 设置 Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: 设置 uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.12"
+
+      - name: 安装 JavaScript 与 Worker 依赖
+        run: |
+          pnpm install --frozen-lockfile
+          uv sync --project worker
+
+      - name: 安装 FFmpeg（macOS runner）
+        if: matrix.platform == 'macos'
+        shell: bash
+        run: |
+          brew install ffmpeg
+          echo "ANCIENT_MEDICAL_TTS_FFMPEG=$(brew --prefix ffmpeg)/bin/ffmpeg" >> "$GITHUB_ENV"
+
+      - name: 安装 FFmpeg（Windows runner）
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          choco install ffmpeg -y --no-progress
+          $ffmpeg = (Get-Command ffmpeg.exe).Source
+          "ANCIENT_MEDICAL_TTS_FFMPEG=$ffmpeg" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: 检查 FFmpeg 与 MP3 编码器（macOS）
+        if: matrix.platform == 'macos'
+        shell: bash
+        run: |
+          "$ANCIENT_MEDICAL_TTS_FFMPEG" -version | sed -n '1p'
+          "$ANCIENT_MEDICAL_TTS_FFMPEG" -hide_banner -encoders 2>/dev/null | grep -F libmp3lame
+
+      - name: 检查 FFmpeg 与 MP3 编码器（Windows）
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          & $env:ANCIENT_MEDICAL_TTS_FFMPEG -version | Select-Object -First 1
+          & $env:ANCIENT_MEDICAL_TTS_FFMPEG -hide_banner -encoders 2>$null | Select-String libmp3lame
+
+      - name: 构建 Tauri 安装包
+        env:
+          CI: "true"
+          ANCIENT_MEDICAL_TTS_ADHOC_SIGN: ${{ matrix.platform == 'macos' && '1' || '0' }}
+        run: pnpm tauri:build --bundles ${{ matrix.bundle_args }}
+
+      - name: 打包 macOS App
+        if: matrix.platform == 'macos'
+        shell: bash
+        run: |
+          mkdir -p release
+          ditto -c -k --sequesterRsrc --keepParent \
+            src-tauri/target/release/bundle/macos/AncientMedicalTTS.app \
+            "release/${{ matrix.artifact_name }}.app.zip"
+
+      - name: 收集 Windows 安装包
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force release | Out-Null
+          Copy-Item src-tauri/target/release/bundle/msi/*.msi release/
+          Copy-Item src-tauri/target/release/bundle/nsis/*.exe release/
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: release/*
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: 上传 GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 下载全部构建产物
+        uses: actions/download-artifact@v5
+        with:
+          path: release
+          merge-multiple: true
+
+      - name: 创建或更新 Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            release_args=(--title "AncientMedicalTTS ${tag}" --generate-notes)
+            if [[ "$tag" == *-* ]]; then
+              release_args+=(--prerelease)
+            fi
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" "${release_args[@]}"
+          fi
+          gh release upload "$tag" release/* --repo "$GITHUB_REPOSITORY" --clobber
