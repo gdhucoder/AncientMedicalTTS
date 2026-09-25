@@ -5,7 +5,10 @@ import { join } from "node:path";
 const args = process.argv.slice(2);
 const bundleVersion = process.env.ANCIENT_MEDICAL_TTS_BUNDLE_VERSION?.trim();
 if (bundleVersion && args[0] === "build") {
-  args.push("--config", JSON.stringify({ version: bundleVersion }));
+  if (bundleVersion !== "0.1.0") {
+    throw new Error(`不支持的 CI bundle version: ${bundleVersion}`);
+  }
+  args.push("--config", join(process.cwd(), "src-tauri", "tauri.windows-ci.conf.json"));
 }
 const tauriCommand = process.platform === "win32" ? "tauri.cmd" : "tauri";
 const result = spawnSync(tauriCommand, args, {
