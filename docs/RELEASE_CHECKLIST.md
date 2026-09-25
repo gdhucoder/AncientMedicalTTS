@@ -15,6 +15,7 @@
 - [x] `cargo test --manifest-path src-tauri/Cargo.toml`
 - [x] Python 3.12 Worker 单元测试
 - [x] M9 三套古籍基线报告已生成
+- [x] RC1 三套 Gold/hold-out 报告已生成，结果见 `docs/RC1_VALIDATION.md`
 - [ ] 各目标平台 clean build 与安装包验证
 - [ ] 发布前再次执行带真实 FFmpeg 的集成测试
 
@@ -38,5 +39,5 @@
 - [x] 本地 Git 初始化并提交发布资料。
 - [x] GitHub 公开仓库推送。
 - [x] GitHub Pages workflow 已配置。
-- [ ] Pages 首次部署成功并检查公开页面不含敏感信息。
+- [x] Pages 首次部署成功并检查公开页面不含敏感信息。
 - [ ] RC1 验证通过后再打最终 `v0.1.0` tag。

@@ -1,0 +1,87 @@
+chapter,segment_id,segment_order,context,surface_text,default_pinyin,candidates,risk_type,source,rule_type,confidence,annotation_id,review_classification,classification_reason
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb1840f555c4:chapter:0:4,4,"肝气盛。故实脾，则肝自愈，此治肝补脾之要妙也。
+
+夫人禀五常，因风气而生长。风气虽能生万物，亦能害万物，如水能浮舟，亦能覆舟。若五脏元真通畅，人即",长,zhang3,chang2 | zhang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c040-7270-a3e1-e46ec99aacc4,useful,命中版本化高风险多音字表，属于可解释的复核提示
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb1b759271f7:chapter:0:7,7,多死。千般疢难，不越三条：一者，经络受邪，入脏腑，为内所因也；二者，四肢九窍，血脉相传，壅塞不通，为外皮肤所中也；三者，房室、金刃、虫兽所伤。以此详,九窍,jiu3 qiao4,jiu1 qiao4 | jiu3 qiao4,medical_term,medical_lexicon_v3,other,verified,01a0d6ed-c04a-77a4-b8fd-a37da50af8af,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb1c3c98406d:chapter:0:8,8,经络，未流传脏腑，即医治之；四肢才觉重滞，即导引、吐纳、针灸、膏摩，勿令九窍闭塞；更能无犯王法、禽兽灾伤；房室勿令竭乏；服食节其冷热苦酸辛甘，不遗形,九窍,jiu3 qiao4,jiu1 qiao4 | jiu3 qiao4,medical_term,medical_lexicon_v3,other,verified,01a0d6ed-c04e-75d7-a92c-a825844b784f,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb1c3c98406d:chapter:0:8,8,传脏腑，即医治之；四肢才觉重滞，即导引、吐纳、针灸、膏摩，勿令九窍闭塞；更能无犯王法、禽兽灾伤；房室勿令竭乏；服食节其冷热苦酸辛甘，不遗形体有衰，,更,geng4,geng1 | geng4,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c04e-75d7-a92c-a826275498ef,useful,命中版本化高风险多音字表，属于可解释的复核提示
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb1f057cfc13:chapter:0:11,11,"人语声寂然喜惊呼者，骨节间病；语声喑喑然不彻者，心膈间病；语声啾啾然细而长者，头中病。一作痛。
+
+师曰：息摇肩者，心中坚；息引胸中上气者，咳；息张",长,zhang3,chang2 | zhang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c05c-76aa-bd42-46ed8df7d823,useful,命中版本化高风险多音字表，属于可解释的复核提示
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb20ef584aff:chapter:0:12,12,"者，心膈间病；语声啾啾然细而长者，头中病。一作痛。
+
+师曰：息摇肩者，心中坚；息引胸中上气者，咳；息张口短气者，肺痿唾沫。师曰：吸而微数，其病在中",中,zhong1,zhong1 | zhong4,context_pronunciation,context_semantic,organ_context,high,01a0d6ed-c05f-744b-b27b-a8178e610140,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+脏腑经络先后病脉证第一,01a0d6ed-bfbd-750a-bfa4-fb21a95e0dfe:chapter:0:13,13,中坚；息引胸中上气者，咳；息张口短气者，肺痿唾沫。师曰：吸而微数，其病在中焦，实也，当下之即愈；虚者不治。在上焦者，其吸促；在下焦者，其吸远，此皆,中,zhong1,zhong1 | zhong4,context_pronunciation,context_semantic,organ_context,high,01a0d6ed-c063-7008-b07c-b3532b1345e7,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb23896d7bf1:chapter:1:0,0,"太阳病，发热无汗，反恶寒者，名曰刚痉。
+
+太阳病，发热汗出，而不恶寒，名曰柔",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c069-71bc-abdd-b42d6851be9e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb23896d7bf1:chapter:1:0,0,"太阳病，发热无汗，反恶寒者，名曰刚痉。
+
+太阳病，发热汗出，而不恶寒，名曰柔痉。太阳病，发热，脉",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c069-71bc-abdd-b42e137832fc,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb23896d7bf1:chapter:1:0,0,"太阳病，发热无汗，反恶寒者，名曰刚痉。
+
+太阳病，发热汗出，而不恶寒，名曰柔痉。太阳病，发热，脉沉而细者，名曰痉，为难",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c069-71bc-abdd-b430e9ca502b,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb23896d7bf1:chapter:1:0,0,"太阳病，发热无汗，反恶寒者，名曰刚痉。
+
+太阳病，发热汗出，而不恶寒，名曰柔痉。太阳病，发热，脉沉而细者，名曰痉，为难治。
+
+太阳病，发汗太",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c069-71bc-abdd-b4316210a638,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2484c0edcd:chapter:1:1,1,"发热无汗，反恶寒者，名曰刚痉。
+
+太阳病，发热汗出，而不恶寒，名曰柔痉。太阳病，发热，脉沉而细者，名曰痉，为难治。
+
+太阳病，发汗太多，因致痉。
+
+",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c06e-77bc-9e09-36da478fb96b,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2484c0edcd:chapter:1:1,1,"汗出，而不恶寒，名曰柔痉。太阳病，发热，脉沉而细者，名曰痉，为难治。
+
+太阳病，发汗太多，因致痉。
+
+夫风病，下之则痉，复发汗，必拘急。
+
+疮家虽身",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c06e-77bc-9e09-36db5bf490ff,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2544b1ea0d:chapter:1:2,2,"复发汗，必拘急。
+
+疮家虽身疼痛，不可发汗，汗出则痉。病者身热足寒，颈项强急，恶寒，时头热，面赤，目赤，独头动摇，卒口噤，背反张者，痉病也。若发其",强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c071-727b-901a-a47d36227b39,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2544b1ea0d:chapter:1:2,2,"，必拘急。
+
+疮家虽身疼痛，不可发汗，汗出则痉。病者身热足寒，颈项强急，恶寒，时头热，面赤，目赤，独头动摇，卒口噤，背反张者，痉病也。若发其汗者，寒",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c071-727b-901a-a47e76d03320,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb269595488c:chapter:1:3,3,"，独头动摇，卒口噤，背反张者，痉病也。若发其汗者，寒湿相得，其表益虚，即恶寒甚。发其汗已，其脉如蛇。
+
+暴腹胀大者，为欲解。脉如故，反伏弦者，痉。
+",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c076-7480-bd16-153d7efae56c,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2747e0089d:chapter:1:4,4,"，反伏弦者，痉。
+
+夫痉脉，按之紧如弦，直上下行。痉病有灸疮，难治。
+
+太阳病，其证备，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。太阳病，无",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c079-766f-a008-32d6b8696a14,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2747e0089d:chapter:1:4,4,"夫痉脉，按之紧如弦，直上下行。痉病有灸疮，难治。
+
+太阳病，其证备，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。太阳病，无汗而小便反少，气上",强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c079-766f-a008-32d7c8ec91b3,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb283cbf3734:chapter:1:5,5,"。
+
+太阳病，其证备，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。太阳病，无汗而小便反少，气上冲胸，口噤不得语，欲作刚痉，葛根汤主之。痉为病，",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c07c-7581-bae6-3d8b72995ca7,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb283cbf3734:chapter:1:5,5,，身体强，几几然，脉反沉迟，此为痉，栝蒌桂枝汤主之。太阳病，无汗而小便反少，气上冲胸，口噤不得语，欲作刚痉，葛根汤主之。痉为病，胸满口噤，卧不着席,少,shao3,shao3 | shao4,context_pronunciation,context_semantic,classical_semantic_context,medium,01a0d6ed-c07c-7581-bae6-3d8c6fa803fb,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb283cbf3734:chapter:1:5,5,栝蒌桂枝汤主之。太阳病，无汗而小便反少，气上冲胸，口噤不得语，欲作刚痉，葛根汤主之。痉为病，胸满口噤，卧不着席，脚挛急，必齘齿，可与大承气汤。太阳病，,葛根汤,ge2 gen1 tang1,ge2 gen1 shang1 | ge2 gen1 tang1 | ge3 gen1 shang1 | ge3 gen1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c07c-7581-bae6-3d8e7d90cd14,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb292273a72c:chapter:1:6,6,，欲作刚痉，葛根汤主之。痉为病，胸满口噤，卧不着席，脚挛急，必齘齿，可与大承气汤。太阳病，关节疼痛而烦，脉沉而细者，此名湿痹。湿痹之候，小便不利，大便反,大承气汤,da4 cheng2 qi4 tang1,da4 cheng2 qi3 shang1 | da4 cheng2 qi3 tang1 | da4 cheng2 qi4 shang1 | da4 cheng2 qi4 tang1 | da4 zheng3 qi3 shang1 | da4 zheng3 qi3 tang1 | da4 zheng3 qi4 shang1 | da4 zheng3 qi4 tang1 | da4 zheng4 qi3 shang1 | da4 zheng4 qi3 tang1 | da4 zheng4 qi4 shang1 | da4 zheng4 qi4 tang1 | dai4 cheng2 qi3 shang1 | dai4 cheng2 qi3 tang1 | dai4 cheng2 qi4 shang1 | dai4 cheng2 qi4 tang1 | dai4 zheng3 qi3 shang1 | dai4 zheng3 qi3 tang1 | dai4 zheng3 qi4 shang1 | dai4 zheng3 qi4 tang1 | dai4 zheng4 qi3 shang1 | dai4 zheng4 qi3 tang1 | dai4 zheng4 qi4 shang1 | dai4 zheng4 qi4 tang1 | tai4 cheng2 qi3 shang1 | tai4 cheng2 qi3 tang1 | tai4 cheng2 qi4 shang1 | tai4 cheng2 qi4 tang1 | tai4 zheng3 qi3 shang1 | tai4 zheng3 qi3 tang1 | tai4 zheng3 qi4 shang1 | tai4 zheng3 qi4 tang1 | tai4 zheng4 qi3 shang1 | tai4 zheng4 qi3 tang1 | tai4 zheng4 qi4 shang1 | tai4 zheng4 qi4 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c07f-7674-b07b-374d65f96202,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbd-750a-bfa4-fb2a35443144:chapter:1:7,7,，葛根汤主之。痉为病，胸满口噤，卧不着席，脚挛急，必齘齿，可与大承气汤。太阳病，关节疼痛而烦，脉沉而细者，此名湿痹。湿痹之候，小便不利，大便反快，但,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c081-739b-bfc4-c2678518a88e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbe-7038-a75f-d2f5bba6564e:chapter:1:10,10,其小便。湿家之为病，一身尽疼，发热，身色如熏黄也。湿家，其人但头汗出，背强，欲得被覆向火。若下之早则哕，或胸满，小便不利，舌上如胎者，以丹田有热，,强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c086-776d-8cbc-86d8ad933e5c,useful,命中版本化高风险多音字表，属于可解释的复核提示
+痉湿暍病脉证并治第二,01a0d6ed-bfbe-7038-a75f-d2fba9a7a322:chapter:1:16,16,不愈也。若治风湿者，发其汗，但微微似欲汗出者，风湿俱去也。太阳中暍，发热恶寒，身重而疼痛，其脉弦细芤迟，小便已，洒洒然毛耸，手足逆冷，小有劳身即热，,恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c097-7136-8f01-7faa6ffb6680,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+痉湿暍病脉证并治第二,01a0d6ed-bfbe-7038-a75f-d2fba9a7a322:chapter:1:16,16,，小便已，洒洒然毛耸，手足逆冷，小有劳身即热，口开，前板齿燥。若发汗，则恶寒甚；加温针，则发热甚；数下之，则淋甚。,恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c097-7136-8f01-7fac7074405a,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+百合狐惑阴阳毒病脉证治第三,01a0d6ed-bfbe-7038-a75f-d30161264af5:chapter:2:5,5,"者，百合地黄汤主之。百合病一月不解，变成渴者，百合洗方主之。
+
+百合病渴不差者，栝蒌牡蛎散主之。
+
+百合病变发热者，百合滑石散主之。狐惑之为病，状如",不差,bu4 chai4,bu2 cha1 | bu2 cha4 | bu2 chai1 | bu2 chai4 | bu2 ci1 | bu2 cuo1 | bu2 jie1 | bu4 cha1 | bu4 cha4 | bu4 chai1 | bu4 chai4 | bu4 ci1 | bu4 cuo1 | bu4 jie1 | fou1 cha1 | fou1 cha4 | fou1 chai1 | fou1 chai4 | fou1 ci1 | fou1 cuo1 | fou1 jie1 | fou3 cha1 | fou3 cha4 | fou3 chai1 | fou3 chai4 | fou3 ci1 | fou3 cuo1 | fou3 jie1 | fu1 cha1 | fu1 cha4 | fu1 chai1 | fu1 chai4 | fu1 ci1 | fu1 cuo1 | fu1 jie1,classical_term,rare_classical_lexicon,classical_term,high,01a0d6ed-c0ad-73cf-9619-f0b690e948df,useful,显式 classical_term 信号，即使不在当前 Gold 中也值得人工复核
+百合狐惑阴阳毒病脉证治第三,01a0d6ed-bfbe-7038-a75f-d303e553fa13:chapter:2:7,7,蚀于阴为狐。不欲饮食，恶闻食臭，其面目乍赤、乍黑、乍白。蚀于上部则声喝，甘草泻心汤主之；蚀于下部则咽干，苦参汤洗之；蚀于肛者，雄黄熏之。病者脉数，无热微烦,甘草泻心汤,gan1 cao3 xie4 xin1 tang1,gan1 cao3 xie4 xin1 shang1 | gan1 cao3 xie4 xin1 tang1 | gan1 zao4 xie4 xin1 shang1 | gan1 zao4 xie4 xin1 tang1 | han1 cao3 xie4 xin1 shang1 | han1 cao3 xie4 xin1 tang1 | han1 zao4 xie4 xin1 shang1 | han1 zao4 xie4 xin1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c0b3-7046-8018-35d3d2e0b2c1,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+百合狐惑阴阳毒病脉证治第三,01a0d6ed-bfbe-7038-a75f-d3047acfbe07:chapter:2:8,8,，甘草泻心汤主之；蚀于下部则咽干，苦参汤洗之；蚀于肛者，雄黄熏之。病者脉数，无热微烦，默默但欲卧，汗出，初得之三四日，目赤如鸠眼；七八日，目四眦黑,数,shuo4,shu3 | shu4 | shuo4,context_pronunciation,context_semantic,pulse_context,high,01a0d6ed-c0b6-750c-a730-5429f2d14136,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+疟病脉证并治第四,01a0d6ed-bfbe-7038-a75f-d3094e214a90:chapter:3:2,2,不差，当月尽解。如其不差，当云何？师曰：此结为癥瘕，名曰疟母，急治之，宜鳖甲煎丸。师曰：阴气孤绝，阳气独发，则热而少气烦冤，手足热而欲呕，名曰瘅疟。,鳖甲,bie1 jia3,bie1 jia3,medical_term,medical_lexicon_v3,herb,verified,01a0d6ed-c0c6-70a7-9140-7cd6569935ae,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+疟病脉证并治第四,01a0d6ed-bfbe-7038-a75f-d30ad49e9210:chapter:3:3,3,结为癥瘕，名曰疟母，急治之，宜鳖甲煎丸。师曰：阴气孤绝，阳气独发，则热而少气烦冤，手足热而欲呕，名曰瘅疟。若但热不寒者，邪气内藏于心，外舍分肉之间,少,shao3,shao3 | shao4,context_pronunciation,context_semantic,classical_semantic_context,medium,01a0d6ed-c0c9-738d-bea2-25c0f9a3c657,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+疟病脉证并治第四,01a0d6ed-bfbe-7038-a75f-d30bb2362bc5:chapter:3:4,4,，阳气独发，则热而少气烦冤，手足热而欲呕，名曰瘅疟。若但热不寒者，邪气内藏于心，外舍分肉之间，令人消铄脱肉。温疟者，其脉如平，身无寒但热，骨节疼烦,藏,zang4,cang2 | zang1 | zang4,context_pronunciation,context_semantic,organ_context,high,01a0d6ed-c0cb-7043-9384-5316b17e85d5,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+疟病脉证并治第四,01a0d6ed-bfbe-7038-a75f-d30c2c3c4be5:chapter:3:5,5,"舍分肉之间，令人消铄脱肉。温疟者，其脉如平，身无寒但热，骨节疼烦，时呕，白虎加桂枝汤主之。
+
+疟多寒者，名曰牡疟，蜀漆散主之。",白虎加桂枝汤,bai2 hu3 jia1 gui4 zhi1 tang1,bai2 hu3 jia1 gui4 qi2 shang1 | bai2 hu3 jia1 gui4 qi2 tang1 | bai2 hu3 jia1 gui4 zhi1 shang1 | bai2 hu3 jia1 gui4 zhi1 tang1 | bai2 hu4 jia1 gui4 qi2 shang1 | bai2 hu4 jia1 gui4 qi2 tang1 | bai2 hu4 jia1 gui4 zhi1 shang1 | bai2 hu4 jia1 gui4 zhi1 tang1 | bo2 hu3 jia1 gui4 qi2 shang1 | bo2 hu3 jia1 gui4 qi2 tang1 | bo2 hu3 jia1 gui4 zhi1 shang1 | bo2 hu3 jia1 gui4 zhi1 tang1 | bo2 hu4 jia1 gui4 qi2 shang1 | bo2 hu4 jia1 gui4 qi2 tang1 | bo2 hu4 jia1 gui4 zhi1 shang1 | bo2 hu4 jia1 gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c0cf-708c-8530-1841af7a9372,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+中风历节病脉证并治第五,01a0d6ed-bfbe-7038-a75f-d30e878e518b:chapter:4:0,0,"夫风之为病，当半身不遂，或但臂不遂者，此为痹。脉微而数，中风使然。
+
+寸口脉浮而紧，紧则为寒，浮则为虚；寒虚相搏，邪在皮肤。浮者血虚，络脉空虚；贼邪",寸口脉,cun4 kou3 mai4,cun3 kou3 mai4 | cun3 kou3 mo4 | cun4 kou3 mai4 | cun4 kou3 mo4,medical_term,medical_lexicon_v3,pulse,verified,01a0d6ed-c0d4-7465-8827-2bde12476005,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+中风历节病脉证并治第五,01a0d6ed-bfbe-7038-a75f-d310cdcbcdef:chapter:4:2,2,仁；邪在于经，即重不胜；邪入于腑，即不识人；邪入于脏，舌即难言，口吐涎。寸口脉迟而缓，迟则为寒，缓则为虚；荣缓则为亡血，卫缓则为中风。邪气中经，则身痒,寸口脉,cun4 kou3 mai4,cun3 kou3 mai4 | cun3 kou3 mo4 | cun4 kou3 mai4 | cun4 kou3 mo4,medical_term,medical_lexicon_v3,pulse,verified,01a0d6ed-c0dc-75ce-b801-d1307bdadf6a,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核

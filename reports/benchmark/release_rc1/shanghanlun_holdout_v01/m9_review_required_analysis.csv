@@ -1,0 +1,4 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,detected,system_default,system_candidates,risk_type
+SHL-G012,辨太阳病脉证并治（上）,太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。,项背强几几,几几,,False,,,textual_or_pronunciation_dispute
+SHL-G018,辨太阳病脉证并治（中）,服之则厥逆，筋惕肉瞤，此为逆也。,肉瞤,瞤,,False,,,pronunciation_dispute
+SHL-G044,辨太阳病脉证并治（中）,伤寒表不解，心下有水气，干呕，发热而咳，或渴，或利，或噎，或小便不利、少腹满，或喘者，小青龙汤主之。,少腹满,少,,True,shao3,shao3 | shao4,pronunciation_policy

@@ -1,0 +1,73 @@
+term,chapter,occurrence_index,gold_status,detected,default_pinyin,candidates,crossing_segment_boundary
+恶寒,辨太阳病脉证并治（上）,1,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（上）,2,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（上）,3,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（上）,4,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（上）,5,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（上）,6,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（中）,7,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（中）,8,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨太阳病脉证并治（中）,9,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨阳明病脉证并治,10,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨阳明病脉证并治,11,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨阳明病脉证并治,12,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨阳明病脉证并治,13,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨阳明病脉证并治,14,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+恶寒,辨阳明病脉证并治,15,gold,True,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,False
+中风,辨太阳病脉证并治（上）,1,gold,True,zhong4 feng1,zhong1 feng1 | zhong4 feng1,False
+中风,辨太阳病脉证并治（上）,2,gold,True,zhong4 feng1,zhong1 feng1 | zhong4 feng1,False
+中风,辨太阳病脉证并治（中）,3,gold,True,zhong4 feng1,zhong1 feng1 | zhong4 feng1,False
+中风,辨少阳病脉证并治,4,gold,True,zhong4 feng1,zhong1 feng1 | zhong4 feng1,False
+中风,辨太阴病脉证并治,5,gold,True,zhong4 feng1,zhong1 feng1 | zhong4 feng1,False
+中风,辨厥阴病脉证并治,6,gold,True,zhong4 feng1,zhong1 feng1 | zhong4 feng1,False
+脉数急,辨太阳病脉证并治（上）,1,gold,False,,,False
+瘈疭,辨太阳病脉证并治（上）,1,gold,True,chi4 zong4,chi4 zong4 | zhi4 zong4,False
+阳数七,辨太阳病脉证并治（上）,1,gold,False,,,False
+阴数六,辨太阳病脉证并治（上）,1,gold,False,,,False
+啬啬,辨太阳病脉证并治（上）,1,gold,True,se4 se4,se4 se4,False
+淅淅,辨太阳病脉证并治（上）,1,gold,True,xi1 xi1,xi1 xi1,False
+翕翕,辨太阳病脉证并治（上）,1,gold,True,xi1 xi1,xi1 xi1,False
+厚朴,辨太阳病脉证并治（上）,1,gold,True,hou4 po4,hou4 piao2 | hou4 po1 | hou4 po4 | hou4 pu1 | hou4 pu3,False
+厚朴,辨太阳病脉证并治（中）,2,gold,True,hou4 po4,hou4 piao2 | hou4 po1 | hou4 po4 | hou4 pu1 | hou4 pu3,False
+厥逆,辨太阳病脉证并治（中）,1,gold,True,jue2 ni4,jue2 ni4,False
+肉瞤,辨太阳病脉证并治（中）,1,review_required,False,,,False
+目瞑,辨太阳病脉证并治（中）,1,gold,True,mu4 ming2,mu4 meng2 | mu4 mian2 | mu4 ming2,False
+衄,辨太阳病脉证并治（中）,1,gold,True,nv4,nv4,False
+衄,辨太阳病脉证并治（中）,2,gold,True,nv4,nv4,False
+衄,辨太阳病脉证并治（中）,3,gold,True,nv4,nv4,False
+不更衣,辨阳明病脉证并治,1,gold,False,,,False
+哕,辨阳明病脉证并治,1,gold,True,yue3,hui4 | yue3,False
+哕,辨阳明病脉证并治,2,gold,True,yue3,hui4 | yue3,False
+濈然,辨阳明病脉证并治,1,not_listed,True,ji2 ran2,ji2 ran2 | sha4 ran2,False
+少阳,辨太阳病脉证并治（上）,1,gold,True,shao4 yang2,shao3 yang2 | shao4 yang2,False
+少阳,辨少阳病脉证并治,2,gold,True,shao4 yang2,shao3 yang2 | shao4 yang2,False
+少阳,辨少阳病脉证并治,3,gold,True,shao4 yang2,shao3 yang2 | shao4 yang2,False
+少阳,辨少阳病脉证并治,4,gold,True,shao4 yang2,shao3 yang2 | shao4 yang2,False
+少阳,辨少阳病脉证并治,5,gold,True,shao4 yang2,shao3 yang2 | shao4 yang2,False
+少阳,辨少阳病脉证并治,6,gold,True,shao4 yang2,shao3 yang2 | shao4 yang2,False
+谵语,辨少阳病脉证并治,1,gold,True,zhan1 yu3,zhan1 yu3 | zhan1 yu4,False
+胁下硬满,辨少阳病脉证并治,1,gold,True,xie2 xia4 ying4 man3,xie2 xia4 geng3 man3 | xie2 xia4 ying4 man3,False
+太阴,辨太阴病脉证并治,1,gold,True,tai4 yin1,ta1 yin1 | tai4 yin1,False
+太阴,辨太阴病脉证并治,2,gold,True,tai4 yin1,ta1 yin1 | tai4 yin1,False
+太阴,辨太阴病脉证并治,3,gold,True,tai4 yin1,ta1 yin1 | tai4 yin1,False
+太阴,辨太阴病脉证并治,4,gold,True,tai4 yin1,ta1 yin1 | tai4 yin1,False
+少阴,辨太阳病脉证并治（中）,1,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,2,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,3,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,4,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,5,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,6,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,7,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+少阴,辨少阴病脉证并治,8,gold,True,shao4 yin1,shao3 yin1 | shao4 yin1,False
+脉细沉数,辨少阴病脉证并治,1,gold,False,,,False
+厥阴,辨厥阴病脉证并治,1,gold,True,jue2 yin1,jue2 yin1,False
+厥阴,辨厥阴病脉证并治,2,gold,True,jue2 yin1,jue2 yin1,False
+厥阴,辨厥阴病脉证并治,3,gold,True,jue2 yin1,jue2 yin1,False
+吐蛔,辨厥阴病脉证并治,1,gold,True,tu3 hui2,tu3 hui2 | tu4 hui2,False
+黄芩,辨厥阴病脉证并治,1,not_listed,True,huang2 qin2,huang2 qin2 | huang2 yin2,False
+黄芩,辨厥阴病脉证并治,2,not_listed,True,huang2 qin2,huang2 qin2 | huang2 yin2,False
+除中,辨厥阴病脉证并治,1,gold,True,chu2 zhong1,chu2 zhong1 | chu2 zhong4 | shu1 zhong1 | shu1 zhong4 | zhu4 zhong1 | zhu4 zhong4,False
+除中,辨厥阴病脉证并治,2,gold,True,chu2 zhong1,chu2 zhong1 | chu2 zhong4 | shu1 zhong1 | shu1 zhong4 | zhu4 zhong1 | zhu4 zhong4,False
+索饼,辨厥阴病脉证并治,1,gold,True,suo3 bing3,suo3 bing3,False
+几几,辨太阳病脉证并治（上）,1,review_required,False,,,False
+少腹,辨太阳病脉证并治（中）,1,not_listed,False,,,False

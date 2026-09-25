@@ -1,0 +1,4 @@
+id,chapter,context,match_text,focus_text,gold_pinyin,risk_type,system_default,system_candidates,possible_reason
+JGYL-G029,百合狐惑阴阳毒病脉证治第三,蚀于喉为惑，蚀于阴为狐。,蚀于喉,蚀,shi2 yu2 hou2,medical_term,,,medical_term_dictionary_missing
+JGYL-G032,百合狐惑阴阳毒病脉证治第三,若能食者，脓已成也，赤小豆当归散主之。,脓已成,脓,nong2 yi3 cheng2,medical_term,,,medical_term_dictionary_missing
+JGYL-G044,中风历节病脉证并治第五,夫风之为病，当半身不遂，或但臂不遂者，此为痹。,痹,痹,bi4,medical_term,,,medical_term_dictionary_missing

@@ -1,0 +1,192 @@
+chapter,segment_id,segment_order,context,surface_text,default_pinyin,candidates,risk_type,source,rule_type,confidence,annotation_id,review_classification,classification_reason
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-565664ebd1e3:chapter:0:0,0,"
+
+太阳之为病，脉浮，头项强痛而恶寒。太阳病，发热，汗出，恶风，脉缓者，名为中风",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c032-75cb-aad9-9fcd1b736663,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-565664ebd1e3:chapter:0:0,0,"
+
+太阳之为病，脉浮，头项强痛而恶寒。太阳病，发热，汗出，恶风，脉缓者，名为中风。太阳病，或已发热，",强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c032-75cb-aad9-9fce7ab6234b,useful,命中版本化高风险多音字表，属于可解释的复核提示
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-56575781617b:chapter:0:1,1,"
+
+太阳之为病，脉浮，头项强痛而恶寒。太阳病，发热，汗出，恶风，脉缓者，名为中风。太阳病，或已发热，或未发热，必恶",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c035-739a-86b1-542991061a6d,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5658182ad8da:chapter:0:2,2,"为病，脉浮，头项强痛而恶寒。太阳病，发热，汗出，恶风，脉缓者，名为中风。太阳病，或已发热，或未发热，必恶寒，体痛，呕逆，脉阴阳俱紧者，名曰伤寒。
+
+",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c03a-750b-85f1-85aa33f3a7d7,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5658182ad8da:chapter:0:2,2,"热，或未发热，必恶寒，体痛，呕逆，脉阴阳俱紧者，名曰伤寒。
+
+伤寒一日，太阳受之，脉若静者，为不传。颇欲吐，若躁烦，脉数急者，为传也。伤寒二三日，阳",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c03a-750b-85f1-85ac45cf12ea,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5659f67bfcde:chapter:0:3,3,"阳受之，脉若静者，为不传。颇欲吐，若躁烦，脉数急者，为传也。伤寒二三日，阳明少阳证不见者，为不传也。
+
+太阳病，发热而渴，不恶寒者，为温病。若发汗已",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c03e-7655-b691-bc2fe9a382cd,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5659f67bfcde:chapter:0:3,3,"之，脉若静者，为不传。颇欲吐，若躁烦，脉数急者，为传也。伤寒二三日，阳明少阳证不见者，为不传也。
+
+太阳病，发热而渴，不恶寒者，为温病。若发汗已，身",少阳,shao4 yang2,shao3 yang2 | shao4 yang2,context_pronunciation,context_exact,context_exact,high,01a0d6ed-c03e-7655-b691-bc30e222bfea,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5659f67bfcde:chapter:0:3,3,"，若躁烦，脉数急者，为传也。伤寒二三日，阳明少阳证不见者，为不传也。
+
+太阳病，发热而渴，不恶寒者，为温病。若发汗已，身灼热者，名曰风温。风温为病，",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c03e-7655-b691-bc318bd1932e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-565da0f22fea:chapter:0:7,7,无热恶寒者，发于阴也。发于阳七日愈，发于阴六日愈，以阳数七，阴数六故也。太阳病，头痛至七日以上自愈者，以行其经尽故也。若欲作再经者，针足阳明，使经不,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c04c-746e-8eba-ef40274a3f1a,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-565da0f22fea:chapter:0:7,7,"六故也。太阳病，头痛至七日以上自愈者，以行其经尽故也。若欲作再经者，针足阳明，使经不传则愈。
+
+太阳病欲解时，从巳至未上。
+
+风家，表解而不了了者，",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c04c-746e-8eba-ef41112c94a5,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-565da0f22fea:chapter:0:7,7,"日以上自愈者，以行其经尽故也。若欲作再经者，针足阳明，使经不传则愈。
+
+太阳病欲解时，从巳至未上。
+
+风家，表解而不了了者，十二日愈。病人身大热，反",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c04c-746e-8eba-ef427185675f,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-565f353c815f:chapter:0:9,9,"，热在皮肤，寒在骨髓也；身大寒，反不欲近衣者，寒在皮肤，热在骨髓也。
+
+太阳中风，阳浮而阴弱。阳浮者，热自发；阴弱者，汗自出。啬啬恶寒，淅淅恶风，翕",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c051-7573-a318-1b1d7e34fdd8,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-56601f2287a6:chapter:0:10,10,浮者，热自发；阴弱者，汗自出。啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。太阳病，头痛，发热，汗出，恶风，桂枝汤主之。太阳病，项背强几几者，,桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c054-71e3-bbb0-0f9ccfb2dfc8,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-566182a02c2a:chapter:0:11,11,；阴弱者，汗自出。啬啬恶寒，淅淅恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。太阳病，头痛，发热，汗出，恶风，桂枝汤主之。太阳病，项背强几几者，反汗出恶风,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c056-70b5-972b-bc9cdac79dd9,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-566182a02c2a:chapter:0:11,11,恶风，翕翕发热，鼻鸣干呕者，桂枝汤主之。太阳病，头痛，发热，汗出，恶风，桂枝汤主之。太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。太阳病，下之,桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c056-70b5-972b-bc9d55ac1d69,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5662a1767c8c:chapter:0:12,12,热，鼻鸣干呕者，桂枝汤主之。太阳病，头痛，发热，汗出，恶风，桂枝汤主之。太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。太阳病，下之后，其气上,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c058-769b-b017-c337b36ad3ae,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5662a1767c8c:chapter:0:12,12,者，桂枝汤主之。太阳病，头痛，发热，汗出，恶风，桂枝汤主之。太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。太阳病，下之后，其气上冲者，可与,强,qiang2,jiang4 | qiang2 | qiang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c058-769b-b017-c3388f60d112,useful,命中版本化高风险多音字表，属于可解释的复核提示
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-566387c46640:chapter:0:13,13,恶风，桂枝汤主之。太阳病，项背强几几者，反汗出恶风者，桂枝加葛根汤主之。太阳病，下之后，其气上冲者，可与桂枝汤，方用前法；若不上冲者，不得与之。太阳,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c05b-718e-9c85-0cf7b3dc8a75,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-566387c46640:chapter:0:13,13,几几者，反汗出恶风者，桂枝加葛根汤主之。太阳病，下之后，其气上冲者，可与桂枝汤，方用前法；若不上冲者，不得与之。太阳病三日，已发汗，若吐、若下、若温针,桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c05b-718e-9c85-0cf889187d45,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-566408d03401:chapter:0:14,14,太阳病，下之后，其气上冲者，可与桂枝汤，方用前法；若不上冲者，不得与之。太阳病三日，已发汗，若吐、若下、若温针，仍不解者，此为坏病，桂枝不中与之也。,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c05e-7003-89ac-41b90cebc26d,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5666ea98335d:chapter:0:16,16,"人脉浮紧，发热汗不出者，不可与之也。常须识此，勿令误也。若酒客病，不可与桂枝汤，得之则呕，以酒客不喜甘故也。
+
+喘家作桂枝汤，加厚朴杏子佳。
+
+凡服桂",桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c065-76be-9e17-6c41f4db6642,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5666ea98335d:chapter:0:16,16,"勿令误也。若酒客病，不可与桂枝汤，得之则呕，以酒客不喜甘故也。
+
+喘家作桂枝汤，加厚朴杏子佳。
+
+凡服桂枝汤吐者，其后必吐脓血也。
+
+",桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c065-76be-9e17-6c42df64693d,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（上）,01a0d6ed-bfbc-77e1-ba4f-5666ea98335d:chapter:0:16,16,"汤，得之则呕，以酒客不喜甘故也。
+
+喘家作桂枝汤，加厚朴杏子佳。
+
+凡服桂枝汤吐者，其后必吐脓血也。
+
+",桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c065-76be-9e17-6c44bdeccfbe,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd25285fee8e:chapter:1:0,0,太阳病，或发热，或未发热，必恶寒，体痛，呕逆，脉阴阳俱紧者，名为伤寒。太阳病,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c068-70f0-bbe3-a3fe2b543d10,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd25285fee8e:chapter:1:0,0,太阳病，或发热，或未发热，必恶寒，体痛，呕逆，脉阴阳俱紧者，名为伤寒。太阳病，头痛发热，身疼腰痛，骨节疼,恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c068-70f0-bbe3-a3ff98bd67f3,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd265fac1bcc:chapter:1:1,1,太阳病，或发热，或未发热，必恶寒，体痛，呕逆，脉阴阳俱紧者，名为伤寒。太阳病，头痛发热，身疼腰痛，骨节疼痛，恶风，无汗而喘者，麻黄汤主之。太阳中风,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c06a-7202-8ccb-9ddbb0fbc3b9,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd265fac1bcc:chapter:1:1,1,紧者，名为伤寒。太阳病，头痛发热，身疼腰痛，骨节疼痛，恶风，无汗而喘者，麻黄汤主之。太阳中风，脉浮紧，发热恶寒，身疼痛，不汗出而烦躁者，大青龙汤主之。,麻黄汤,ma2 huang2 tang1,ma1 huang2 shang1 | ma1 huang2 tang1 | ma2 huang2 shang1 | ma2 huang2 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c06a-7202-8ccb-9ddcf95cfc7b,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd27b08ddc69:chapter:1:2,2,寒。太阳病，头痛发热，身疼腰痛，骨节疼痛，恶风，无汗而喘者，麻黄汤主之。太阳中风，脉浮紧，发热恶寒，身疼痛，不汗出而烦躁者，大青龙汤主之。若脉微弱，,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c06e-77fd-b135-4384ee81bb67,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd27b08ddc69:chapter:1:2,2,太阳病，头痛发热，身疼腰痛，骨节疼痛，恶风，无汗而喘者，麻黄汤主之。太阳中风，脉浮紧，发热恶寒，身疼痛，不汗出而烦躁者，大青龙汤主之。若脉微弱，汗出,中风,zhong4 feng1,zhong1 feng1 | zhong4 feng1,medical_term,medical_lexicon_v3,disease,verified,01a0d6ed-c06e-77fd-b135-438517aca8ff,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd27b08ddc69:chapter:1:2,2,身疼腰痛，骨节疼痛，恶风，无汗而喘者，麻黄汤主之。太阳中风，脉浮紧，发热恶寒，身疼痛，不汗出而烦躁者，大青龙汤主之。若脉微弱，汗出恶风者，不可服之；,恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c06e-77fd-b135-4386f554d35e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd280471bddb:chapter:1:3,3,之；服之则厥逆，筋惕肉瞤，此为逆也。伤寒脉浮缓，身不疼但重，乍有轻时，无少阴证者，大青龙汤发之。伤寒表不解，心下有水气，干呕，发热而咳，或渴，或利，,少阴,shao4 yin1,shao3 yin1 | shao4 yin1,context_pronunciation,context_exact,context_exact,high,01a0d6ed-c070-726e-8475-cdf8f253f67e,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2aa17ee503:chapter:1:5,5,，发热而咳，或渴，或利，或噎，或小便不利、少腹满，或喘者，小青龙汤主之。太阳病，外证未解，脉浮弱者，当以汗解，宜桂枝汤。太阳病，下之微喘者，表未解故,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c075-747e-b647-d36144460256,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2aa17ee503:chapter:1:5,5,"、少腹满，或喘者，小青龙汤主之。太阳病，外证未解，脉浮弱者，当以汗解，宜桂枝汤。太阳病，下之微喘者，表未解故也，桂枝加厚朴杏子汤主之。
+
+太阳病，外证",桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c075-747e-b647-d36265daed79,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2bab161c48:chapter:1:6,6,"，或喘者，小青龙汤主之。太阳病，外证未解，脉浮弱者，当以汗解，宜桂枝汤。太阳病，下之微喘者，表未解故也，桂枝加厚朴杏子汤主之。
+
+太阳病，外证未解，",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c079-7316-afcc-0e2ca14cb3ce,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2bab161c48:chapter:1:6,6,"解，脉浮弱者，当以汗解，宜桂枝汤。太阳病，下之微喘者，表未解故也，桂枝加厚朴杏子汤主之。
+
+太阳病，外证未解，不可下也，下之为逆。欲解外者，宜桂枝汤",厚朴,hou4 po4,hou4 piao2 | hou4 po1 | hou4 po4 | hou4 pu1 | hou4 pu3,medical_term,medical_lexicon_v3,herb,verified,01a0d6ed-c079-7316-afcc-0e2d0f8f8473,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2bab161c48:chapter:1:6,6,"解，宜桂枝汤。太阳病，下之微喘者，表未解故也，桂枝加厚朴杏子汤主之。
+
+太阳病，外证未解，不可下也，下之为逆。欲解外者，宜桂枝汤。太阳病，脉浮紧，无",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c079-7316-afcc-0e2e23911a21,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2bab161c48:chapter:1:6,6,"加厚朴杏子汤主之。
+
+太阳病，外证未解，不可下也，下之为逆。欲解外者，宜桂枝汤。太阳病，脉浮紧，无汗，发热，身疼痛，八九日不解，表证仍在，此当发其汗。",桂枝汤,gui4 zhi1 tang1,gui4 qi2 shang1 | gui4 qi2 tang1 | gui4 zhi1 shang1 | gui4 zhi1 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c079-7316-afcc-0e2feb6a57d4,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2cf449e9cc:chapter:1:7,7,"子汤主之。
+
+太阳病，外证未解，不可下也，下之为逆。欲解外者，宜桂枝汤。太阳病，脉浮紧，无汗，发热，身疼痛，八九日不解，表证仍在，此当发其汗。服药已",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c07c-7183-be71-dd4768f9bc5e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2df0b4ac07:chapter:1:8,8,，八九日不解，表证仍在，此当发其汗。服药已微除，其人发烦目瞑，剧者必衄，衄乃解。所以然者，阳气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自,衄,nv4,nv4,classical_term,rare_classical_lexicon,classical_term,verified,01a0d6ed-c07f-7628-9120-c310c81d4201,useful,显式 classical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2df0b4ac07:chapter:1:8,8,其汗。服药已微除，其人发烦目瞑，剧者必衄，衄乃解。所以然者，阳气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自衄者愈。二阳并病，太阳初得病时，发,麻黄汤,ma2 huang2 tang1,ma1 huang2 shang1 | ma1 huang2 tang1 | ma2 huang2 shang1 | ma2 huang2 tang1,medical_term,medical_lexicon_v3,formula,verified,01a0d6ed-c07f-7628-9120-c311a30e6c9d,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2e86c3489a:chapter:1:9,9,微除，其人发烦目瞑，剧者必衄，衄乃解。所以然者，阳气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自衄者愈。二阳并病，太阳初得病时，发其汗，汗先,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c081-75d9-b73e-08340019d16a,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2e86c3489a:chapter:1:9,9,乃解。所以然者，阳气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自衄者愈。二阳并病，太阳初得病时，发其汗，汗先出不彻，因转属阳明，续自微汗出,衄,nv4,nv4,classical_term,rare_classical_lexicon,classical_term,verified,01a0d6ed-c081-75d9-b73e-0835c5341193,useful,显式 classical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2f29260637:chapter:1:10,10,气重故也，麻黄汤主之。太阳病，脉浮紧，发热，身无汗，自衄者愈。二阳并病，太阳初得病时，发其汗，汗先出不彻，因转属阳明，续自微汗出，不恶寒。若太阳病证,太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c084-7410-a4f3-e12f05441a51,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2f29260637:chapter:1:10,10,热，身无汗，自衄者愈。二阳并病，太阳初得病时，发其汗，汗先出不彻，因转属阳明，续自微汗出，不恶寒。若太阳病证不罢者，不可下，下之为逆，如此可小发汗。,阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c084-7410-a4f3-e1305cf3e622,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd2f29260637:chapter:1:10,10,"。二阳并病，太阳初得病时，发其汗，汗先出不彻，因转属阳明，续自微汗出，不恶寒。若太阳病证不罢者，不可下，下之为逆，如此可小发汗。
+
+",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c084-7410-a4f3-e13134177495,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阳病脉证并治（中）,01a0d6ed-bfbd-71d5-9d09-fd3064ce9f58:chapter:1:11,11,"病，太阳初得病时，发其汗，汗先出不彻，因转属阳明，续自微汗出，不恶寒。若太阳病证不罢者，不可下，下之为逆，如此可小发汗。
+
+",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c088-75cb-b075-117b0151715d,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd3064ce9f58:chapter:2:0,0,"
+
+阳明之为病，胃家实是也。
+
+问曰：何缘得阳明病？答曰：太阳病若发汗，若下，若",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c088-75cb-b075-117de990956f,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd3064ce9f58:chapter:2:0,0,"
+
+阳明之为病，胃家实是也。
+
+问曰：何缘得阳明病？答曰：太阳病若发汗，若下，若利小便，此亡津液，胃中干燥，因转属阳明。",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c088-75cb-b075-117e9113b5a2,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd31b46b81b9:chapter:2:1,1,"
+
+阳明之为病，胃家实是也。
+
+问曰：何缘得阳明病？答曰：太阳病若发汗，若下，若利小便，此亡津液，胃中干燥，因转属阳明。不更衣，内实，",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c08c-7614-97f0-2f7bd776adf0,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd31b46b81b9:chapter:2:1,1,"得阳明病？答曰：太阳病若发汗，若下，若利小便，此亡津液，胃中干燥，因转属阳明。不更衣，内实，大便难者，此名阳明也。
+
+问曰：阳明病外证云何？答曰：身",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c08c-7614-97f0-2f7cb7e3ef04,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd31b46b81b9:chapter:2:1,1,"，若利小便，此亡津液，胃中干燥，因转属阳明。不更衣，内实，大便难者，此名阳明也。
+
+问曰：阳明病外证云何？答曰：身热，汗自出，不恶寒，反恶热也。问曰",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c08c-7614-97f0-2f7e8a9df6b6,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd31b46b81b9:chapter:2:1,1,"液，胃中干燥，因转属阳明。不更衣，内实，大便难者，此名阳明也。
+
+问曰：阳明病外证云何？答曰：身热，汗自出，不恶寒，反恶热也。问曰：病有得之一日，不",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c08c-7614-97f0-2f7f19969be2,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd3230719f76:chapter:2:2,2,"，大便难者，此名阳明也。
+
+问曰：阳明病外证云何？答曰：身热，汗自出，不恶寒，反恶热也。问曰：病有得之一日，不发热而恶寒者，何也？答曰：虽得之一日，",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c08e-7582-b4f4-997dacb008cc,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd332340a689:chapter:2:3,3,"云何？答曰：身热，汗自出，不恶寒，反恶热也。问曰：病有得之一日，不发热而恶寒者，何也？答曰：虽得之一日，恶寒将自罢，即自汗出而恶热也。
+
+问曰：恶寒",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c090-7218-95f6-59a4530f4d95,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd34ba4dccdb:chapter:2:4,4,"，反恶热也。问曰：病有得之一日，不发热而恶寒者，何也？答曰：虽得之一日，恶寒将自罢，即自汗出而恶热也。
+
+问曰：恶寒何故自罢？答曰：阳明居中，主土也",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c092-77a8-abac-9663962816bb,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd34ba4dccdb:chapter:2:4,4,"恶寒者，何也？答曰：虽得之一日，恶寒将自罢，即自汗出而恶热也。
+
+问曰：恶寒何故自罢？答曰：阳明居中，主土也，万物所归，无所复传。始虽恶寒，二日自止",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c092-77a8-abac-9664fb9aa094,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd35dd27f61e:chapter:2:5,5,"虽得之一日，恶寒将自罢，即自汗出而恶热也。
+
+问曰：恶寒何故自罢？答曰：阳明居中，主土也，万物所归，无所复传。始虽恶寒，二日自止，此为阳明病也。
+
+",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c097-75c3-bb66-10e9c28436a0,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd35dd27f61e:chapter:2:5,5,"
+
+问曰：恶寒何故自罢？答曰：阳明居中，主土也，万物所归，无所复传。始虽恶寒，二日自止，此为阳明病也。
+
+阳明病欲解时，从申至戌上。
+
+阳明病，不能",恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c097-75c3-bb66-10ea9572c7da,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd35dd27f61e:chapter:2:5,5,"罢？答曰：阳明居中，主土也，万物所归，无所复传。始虽恶寒，二日自止，此为阳明病也。
+
+阳明病欲解时，从申至戌上。
+
+阳明病，不能食，攻其热必哕。所以",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c097-75c3-bb66-10ebd954b3f6,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd35dd27f61e:chapter:2:5,5,"居中，主土也，万物所归，无所复传。始虽恶寒，二日自止，此为阳明病也。
+
+阳明病欲解时，从申至戌上。
+
+阳明病，不能食，攻其热必哕。所以然者，胃中虚冷",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c097-75c3-bb66-10ecf150c8f7,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd35dd27f61e:chapter:2:5,5,"传。始虽恶寒，二日自止，此为阳明病也。
+
+阳明病欲解时，从申至戌上。
+
+阳明病，不能食，攻其热必哕。所以然者，胃中虚冷故也。以其人本虚，攻其热必哕。",阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c097-75c3-bb66-10ede25ac7e8,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd374ba5df2f:chapter:2:7,7,病，不能食，攻其热必哕。所以然者，胃中虚冷故也。以其人本虚，攻其热必哕。阳明病，脉迟，虽汗出不恶寒者，其身必重，短气腹满而喘，有潮热者，此外欲解，可,阳明,yang2 ming2,yang2 meng4 | yang2 ming2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c09c-777c-bb55-b264b1f6be5b,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨阳明病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd374ba5df2f:chapter:2:7,7,。所以然者，胃中虚冷故也。以其人本虚，攻其热必哕。阳明病，脉迟，虽汗出不恶寒者，其身必重，短气腹满而喘，有潮热者，此外欲解，可攻里也。手足濈然汗出者,恶寒,wu4 han2,e3 han2 | e4 han2 | wu1 han2 | wu4 han2,medical_term,medical_lexicon_v3,symptom,verified,01a0d6ed-c09c-777c-bb55-b265f3e4943e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨少阳病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd39e5f0cb07:chapter:3:1,1,"
+
+少阳之为病，口苦，咽干，目眩也。少阳中风，两耳无所闻，目赤，胸中满而烦者，不可吐下，吐下则悸而惊。
+
+伤寒，脉弦",中风,zhong4 feng1,zhong1 feng1 | zhong4 feng1,medical_term,medical_lexicon_v3,disease,verified,01a0d6ed-c0a4-7412-a60e-f5d9311c9d8e,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨少阳病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd3af6ec6ce8:chapter:3:2,2,"少阳。少阳不可发汗，发汗则谵语，此属胃。胃和则愈，胃不和，烦而悸。
+
+本太阳病不解，转入少阳者，胁下硬满，干呕不能食，往来寒热，尚未吐下，脉沉紧者，",太阳,tai4 yang2,ta1 yang2 | tai4 yang2,medical_term,medical_lexicon_v3,meridian,verified,01a0d6ed-c0a9-7445-9b86-8b4661f6ed9a,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阴病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd3c80cc3fd8:chapter:4:1,1,"阴之为病，腹满而吐，食不下，自利益甚，时腹自痛。若下之，必胸下结硬。太阴中风，四肢烦疼，阳微阴涩而长者，为欲愈。
+
+太阴病欲解时，从亥至丑上。自利不",中风,zhong4 feng1,zhong1 feng1 | zhong4 feng1,medical_term,medical_lexicon_v3,disease,verified,01a0d6ed-c0ae-765b-8c0c-feef68a5a489,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核
+辨太阴病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd3c80cc3fd8:chapter:4:1,1,"，自利益甚，时腹自痛。若下之，必胸下结硬。太阴中风，四肢烦疼，阳微阴涩而长者，为欲愈。
+
+太阴病欲解时，从亥至丑上。自利不渴者，属太阴，以其脏有寒",长,zhang3,chang2 | zhang3,polyphone,high_risk_polyphone,high_risk_polyphone,low,01a0d6ed-c0ae-765b-8c0c-fef0bb3d0cee,useful,命中版本化高风险多音字表，属于可解释的复核提示
+辨厥阴病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd41c2b085d0:chapter:6:0,0,"厥阴之为病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。
+
+厥阴中风，脉微浮，为欲愈；不",中,zhong1,zhong1 | zhong4,context_pronunciation,context_semantic,organ_context,high,01a0d6ed-c0c2-73e1-a9b8-74412e3108d9,useful,显式 context_pronunciation 信号，即使不在当前 Gold 中也值得人工复核
+辨厥阴病脉证并治,01a0d6ed-bfbd-71d5-9d09-fd41c2b085d0:chapter:6:0,0,"病，消渴，气上撞心，心中疼热，饥而不欲食，食则吐蛔，下之利不止。
+
+厥阴中风，脉微浮，为欲愈；不浮，为未愈。
+
+厥阴病欲解时，从丑至卯上。伤寒，脉迟",中风,zhong4 feng1,zhong1 feng1 | zhong4 feng1,medical_term,medical_lexicon_v3,disease,verified,01a0d6ed-c0c2-73e1-a9b8-7444c22c9ff8,useful,显式 medical_term 信号，即使不在当前 Gold 中也值得人工复核

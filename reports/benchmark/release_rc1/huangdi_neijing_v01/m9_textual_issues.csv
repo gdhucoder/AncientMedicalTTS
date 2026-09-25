@@ -1,0 +1,10 @@
+book,chapter,current_text,reference_text,issue_type,impact_on_pronunciation,recommendation
+黄帝内经·素问,生气通天论篇第三,汨汨,汩汩,text_variant,当前字形与对照底本不同，review_required 不应作为 analyzer 错误计分。,先由人工确定 v0.2 底本，再决定目标读音。
+黄帝内经·素问,上古天真论篇第一,精气溢写,精气溢写/精气溢泻,tongjia_policy,通假字按本字 xie3 还是通假义 xie4 尚未固定，当前 Gold 明确不计硬分。,先确定项目通假字朗读政策，再纳入硬 Gold。
+黄帝内经·素问,生气通天论篇第三,喘喝,喘喝,source_conflict,公开资料对该语境读 he1/he4 存在分歧，当前 Gold 明确不计硬分。,由人工选定权威来源后再确定目标读音。
+黄帝内经·素问,生气通天论篇第三,当写,当写/当泻,tongjia_policy,本字与通假义两种朗读政策不同，当前 Gold 明确不计硬分。,与精气溢写使用同一通假字政策。
+黄帝内经·素问,四气调神大论篇第二,菀稿,菀稾/菀槁,text_variant,字形变体不改变本 Gold 目标读音，但可能影响精确术语词典命中。,后续词典记录字形变体，不改本次输入。
+黄帝内经·素问,金匮真言论篇第四,其音征,其音徵,simplified_variant,当前字形可能被普通字典读作 zheng1，Gold 语义读作 zhi3。,保留原文，同时把异体/简化映射作为后续词典数据。
+黄帝内经·素问,金匮真言论篇第四,按𫏋,按蹻,text_variant,补充平面 CJK 字符需要正确 token 化，不能按 BMP 假设处理。,保持当前文本，继续用 Grapheme Token 定位。
+黄帝内经·素问,生气通天论篇第三,痤痱,痤疿,text_variant,两种字形在本 Gold 中采用同一读音，但词典匹配可能受字形影响。,后续词典记录字形变体，不修改本次输入。
+黄帝内经·素问,生气通天论篇第三,皶,齇,text_variant,当前字形的 pypinyin/词典覆盖可能与常用底本字不同。,后续补充异体字关联，但先保持 Gold 与文本独立。

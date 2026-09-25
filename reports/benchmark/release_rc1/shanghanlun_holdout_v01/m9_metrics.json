@@ -1,0 +1,149 @@
+{
+  "benchmark_version": "shanghanlun_holdout_v01-m9",
+  "dataset_name": "shanghanlun_holdout_v01",
+  "book": "伤寒论",
+  "generated_at": "2026-09-25T04:58:20.851776+00:00",
+  "production_snapshot": "shanghanlun_holdout_v01-m9",
+  "text_file": "/Users/gdhu/projects/ancientbookreading/realbooks/shanghanlun_holdout_v01.txt",
+  "gold_file": "/Users/gdhu/projects/ancientbookreading/realbooks/shanghanlun_gold_v01.json",
+  "git_commit_sha": "852b9c73c7061986641bb013b8ffe3d6eed76344",
+  "analyzer_version": "0.3.0",
+  "worker_python_version": "3.12.13",
+  "pypinyin_version": "0.55.0",
+  "benchmark_runner_version": "0.4.0-m9",
+  "resource_manifest": {
+    "medical_lexicon_v3.json": "sha256:ff02b6e84c16b845f87efbcbb8124f78d238eae2ef7f976ea20e60aebfbd2a06",
+    "classical_lexicon_v3.json": "sha256:cd22c2ea87231cf732216f4e7ab6e3ac41d24d8f50403d7099d675a7cf12a7cb",
+    "context_rules_v3.json": "sha256:0b84b6bd2c89b1939eaa9faa265ec7b4fced6be13098ec7a1a05d0d30c002f61",
+    "context_pronunciation_rules.json": "sha256:15696afc5f493dec319baeb886f30f6f4f71c866e2e6286f999e3a7af9a8132e",
+    "high_risk_polyphones.json": "sha256:74d02172a82d405fbdec0c33ab23061ff716d403555ba21cdc94b22e1a1299d8",
+    "known_rare_characters.json": "sha256:04e5611784c1f97b1ddd07ee6f19726fb027d27c9fe67fdf86721b74dbeceee2",
+    "variant_characters.json": "sha256:2f688b5858f7224da12446d130ab5889606c2439c179c4068fbf75775acfd194"
+  },
+  "domain_lexicon_version": "0.3.0",
+  "chapters": 7,
+  "production_chapters": 1,
+  "chapter_alignment": {
+    "applied": true,
+    "source_chapters": 1,
+    "projected_chapters": 7,
+    "titles": [
+      "辨太阳病脉证并治（上）",
+      "辨太阳病脉证并治（中）",
+      "辨阳明病脉证并治",
+      "辨少阳病脉证并治",
+      "辨太阴病脉证并治",
+      "辨少阴病脉证并治",
+      "辨厥阴病脉证并治"
+    ],
+    "prediction_crossings": 0
+  },
+  "segments": 51,
+  "production_segments": 48,
+  "han_characters": 1735,
+  "production_snapshot_han_characters": 1735,
+  "gold_entries": 46,
+  "hard_gold_entries": 43,
+  "review_required_entries": 3,
+  "hard_gold_occurrences": 68,
+  "detected": 62,
+  "detection_recall": 0.9117647058823529,
+  "pronunciation_evaluated": 62,
+  "default_exact": 62,
+  "default_accuracy": 1.0,
+  "candidate_contains_gold": 62,
+  "candidate_coverage": 1.0,
+  "missed": 6,
+  "wrong_default": 0,
+  "candidate_missing": 0,
+  "extra_predictions": 69,
+  "review_required_occurrences": 3,
+  "review_detected": 1,
+  "gold_occurrences_crossing_segment_boundary": 0,
+  "context_not_found": [],
+  "full_span_pronunciation_evaluated": 53,
+  "full_span_default_exact": 53,
+  "prediction_annotation_count": 132,
+  "prediction_by_source": {
+    "context_exact": 14,
+    "context_semantic": 6,
+    "high_risk_polyphone": 4,
+    "medical_lexicon_v3": 94,
+    "rare_classical_lexicon": 14
+  },
+  "source_contribution": {
+    "context_exact": {
+      "predictions": 14,
+      "correct_gold_hits": 12,
+      "extra_predictions": 2
+    },
+    "context_semantic": {
+      "predictions": 6,
+      "correct_gold_hits": 5,
+      "extra_predictions": 1
+    },
+    "high_risk_polyphone": {
+      "predictions": 4,
+      "correct_gold_hits": 0,
+      "extra_predictions": 3
+    },
+    "medical_lexicon_v3": {
+      "predictions": 94,
+      "correct_gold_hits": 33,
+      "extra_predictions": 61
+    },
+    "rare_classical_lexicon": {
+      "predictions": 14,
+      "correct_gold_hits": 12,
+      "extra_predictions": 2
+    }
+  },
+  "extra_by_risk": {
+    "classical_term": 2,
+    "context_pronunciation": 3,
+    "medical_term": 61,
+    "polyphone": 3
+  },
+  "extra_by_source": {
+    "context_exact": 2,
+    "context_semantic": 1,
+    "high_risk_polyphone": 3,
+    "medical_lexicon_v3": 61,
+    "rare_classical_lexicon": 2
+  },
+  "extra_classification_counts": {
+    "bug": 0,
+    "unclear": 0,
+    "unnecessary": 0,
+    "useful": 69
+  },
+  "app_version": "0.1.0-rc1",
+  "extra_predictions_per_1000_han": 39.76945244956772,
+  "risk_type_recall": {
+    "classical_term": {
+      "total": 1,
+      "detected": 1,
+      "recall": 1.0
+    },
+    "medical_polyphone": {
+      "total": 23,
+      "detected": 22,
+      "recall": 0.9565217391304348
+    },
+    "medical_term": {
+      "total": 32,
+      "detected": 28,
+      "recall": 0.875
+    },
+    "rare_or_classical": {
+      "total": 9,
+      "detected": 8,
+      "recall": 0.8888888888888888
+    },
+    "semantic_polyphone": {
+      "total": 3,
+      "detected": 3,
+      "recall": 1.0
+    }
+  }
+}

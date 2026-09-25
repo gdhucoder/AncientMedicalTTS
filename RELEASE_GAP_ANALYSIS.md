@@ -13,15 +13,16 @@
 - 常规 Rust、前端和 Python 测试在最近一次发布前检查中通过；FFmpeg 集成测试使用显式环境变量启用。
 - `ANCIENT_TTS_TENCENT_SECRET_ID` 和 `ANCIENT_TTS_TENCENT_SECRET_KEY` 只存在于本地 `.env`/运行环境，不应进入 Git 或公开 Pages。
 - 现有 M9 回归报告覆盖《黄帝内经·素问》《伤寒论》《金匮要略》；报告显示分析器版本 0.3.0、Python 3.12.13、pypinyin 0.55.0，并保留了 Gold 与 extra/missed 统计。
+- RC1 重跑报告已写入 `reports/benchmark/release_rc1/`，记录了首个 Git commit 和 `0.1.0-rc1` 应用版本。
 
 ## 发布前必须补齐
 
 | 项目 | 当前状态 | 收尾动作 |
 | --- | --- | --- |
 | 可追溯版本 | 未初始化 Git | 初始化本地 Git，创建 RC1 提交并推送公开仓库 |
-| 发布文档 | 缺少统一 checklist、快速开始、限制和变更记录 | 增加 `CHANGELOG.md`、`docs/RELEASE_CHECKLIST.md`、`docs/QUICK_START.md`、`docs/KNOWN_LIMITATIONS.md`、`docs/V02_BACKLOG.md` |
+| 发布文档 | 已补齐 | `CHANGELOG.md`、`docs/RELEASE_CHECKLIST.md`、`docs/QUICK_START.md`、`docs/KNOWN_LIMITATIONS.md`、`docs/V02_BACKLOG.md`、`docs/RC1_VALIDATION.md` |
 | Feature Freeze | 未单独固化 | 增加 `docs/FEATURE_FREEZE.md`，冻结 M9 之后的新功能 |
-| 公开入口 | 未建立 | 增加不含凭据的 `site/` 静态页面和 GitHub Pages workflow |
+| 公开入口 | 已建立 | `site/` 静态页面和 GitHub Pages workflow 已推送，首次部署已成功 |
 | 数据安全 | `.env` 已忽略；需完成公开提交前审计 | 审计 Git staged 文件、历史和站点内容，不提交 Secret、应用数据库、音频和构建产物 |
 | 数据库迁移保护 | 已有 migration；发布前备份策略需补充并测试 | 迁移前对已有 SQLite 文件创建可恢复副本，并在文档说明位置与限制 |
 | 跨平台构建 | 未在本机完成 Windows 或 Intel macOS 实测 | 公开记录为未测试；对应平台仍需各自使用 Python 3.12 构建 Worker、准备 FFmpeg 并签名 |
