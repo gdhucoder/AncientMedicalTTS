@@ -16,6 +16,7 @@
 - [x] Python 3.12 Worker 单元测试
 - [x] M9 三套古籍基线报告已生成
 - [x] RC1 三套 Gold/hold-out 报告已生成，结果见 `docs/RC1_VALIDATION.md`
+- [x] Apple Silicon macOS RC1 Tauri App 构建、Worker、FFmpeg 和 bundle 签名校验
 - [ ] 各目标平台 clean build 与安装包验证
 - [ ] 发布前再次执行带真实 FFmpeg 的集成测试
 

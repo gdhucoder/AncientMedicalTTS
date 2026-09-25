@@ -1,14 +1,14 @@
 # AncientMedicalTTS v0.1.0 发布差距清单
 
 > 建立日期：2026-09-25  
-> 当前阶段：发布收尾 / RC1 准备  
+> 当前阶段：发布收尾 / RC1 已发布  
 > 说明：本文件记录发布前的真实状态，不把未验证的平台或能力描述为已完成。
 
 ## 当前已确认
 
 - M1～M9 的主要应用代码、SQLite migration、前端测试、Rust 测试和 Python Worker 测试已经存在。
-- 当前工作区不是 Git 仓库，尚无可追溯的发布提交。
-- 当前源码版本为 `0.1.0`；Worker/分析器版本独立为 `0.2.0`/`0.3.0`。
+- 当前工作区已初始化 Git，`main` 已推送，RC1 提交和 tag 可追溯。
+- 当前源码候选版本为 `0.1.0-rc1`；Worker/分析器版本独立为 `0.2.0`/`0.3.0`。
 - Apple Silicon macOS 已完成一次本机构建验证：PyInstaller Worker 使用 Python 3.12.x 构建，App 内 Worker 可脱离外部 Python/uv/PATH 完成 `system.ping` 和发音分析；FFmpeg 8.1 与 `libmp3lame` 已验证。
 - 常规 Rust、前端和 Python 测试在最近一次发布前检查中通过；FFmpeg 集成测试使用显式环境变量启用。
 - `ANCIENT_TTS_TENCENT_SECRET_ID` 和 `ANCIENT_TTS_TENCENT_SECRET_KEY` 只存在于本地 `.env`/运行环境，不应进入 Git 或公开 Pages。
@@ -19,12 +19,12 @@
 
 | 项目 | 当前状态 | 收尾动作 |
 | --- | --- | --- |
-| 可追溯版本 | 未初始化 Git | 初始化本地 Git，创建 RC1 提交并推送公开仓库 |
+| 可追溯版本 | 已完成 | 本地 Git、`main` 分支、RC1 提交和 `v0.1.0-rc1` tag 已推送 |
 | 发布文档 | 已补齐 | `CHANGELOG.md`、`docs/RELEASE_CHECKLIST.md`、`docs/QUICK_START.md`、`docs/KNOWN_LIMITATIONS.md`、`docs/V02_BACKLOG.md`、`docs/RC1_VALIDATION.md` |
-| Feature Freeze | 未单独固化 | 增加 `docs/FEATURE_FREEZE.md`，冻结 M9 之后的新功能 |
+| Feature Freeze | 已完成 | `docs/FEATURE_FREEZE.md` 已冻结 M9 之后的新功能 |
 | 公开入口 | 已建立 | `site/` 静态页面和 GitHub Pages workflow 已推送，首次部署已成功 |
-| 数据安全 | `.env` 已忽略；需完成公开提交前审计 | 审计 Git staged 文件、历史和站点内容，不提交 Secret、应用数据库、音频和构建产物 |
-| 数据库迁移保护 | 已有 migration；发布前备份策略需补充并测试 | 迁移前对已有 SQLite 文件创建可恢复副本，并在文档说明位置与限制 |
+| 数据安全 | 已完成审计 | `.env`、Secret、应用数据库、音频和构建产物均未进入本地或远程公开提交 |
+| 数据库迁移保护 | 已完成 | 迁移前对已有 SQLite 文件创建 `app.sqlite.backup` 一致性副本，并已有 Rust 测试 |
 | 跨平台构建 | 未在本机完成 Windows 或 Intel macOS 实测 | 公开记录为未测试；对应平台仍需各自使用 Python 3.12 构建 Worker、准备 FFmpeg 并签名 |
 | Windows 安装/运行 | 未测试 | 发布前必须在 Windows 10/11 至少一台真机验证；当前不能宣称通过 |
 | macOS Intel | 无当前硬件实测 | 可做目标构建验证，但硬件运行状态保持 pending |
