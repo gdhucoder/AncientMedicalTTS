@@ -103,7 +103,12 @@ jobs:
       - name: 规范化 Windows MSI 版本
         if: matrix.platform == 'windows'
         shell: pwsh
-        run: '"ANCIENT_MEDICAL_TTS_BUNDLE_VERSION=0.1.0" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append'
+        run: |
+          $version = node -p "require('./package.json').version.split('-')[0]"
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "无法从 package.json 得到有效的 MSI 版本: $version"
+          }
+          "ANCIENT_MEDICAL_TTS_BUNDLE_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: 构建 Tauri 安装包
         env:

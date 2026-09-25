@@ -1,20 +1,25 @@
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { execFileSync, spawnSync } from "node:child_process";
 import { join } from "node:path";
 
 const args = process.argv.slice(2);
 const bundleVersion = process.env.ANCIENT_MEDICAL_TTS_BUNDLE_VERSION?.trim();
+let bundleConfigPath;
 if (bundleVersion && args[0] === "build") {
-  if (bundleVersion !== "0.1.0") {
-    throw new Error(`不支持的 CI bundle version: ${bundleVersion}`);
-  }
-  args.push("--config", join(process.cwd(), "src-tauri", "tauri.windows-ci.conf.json"));
+  bundleConfigPath = join(process.cwd(), "src-tauri", ".tauri-ci-bundle.conf.json");
+  writeFileSync(bundleConfigPath, `${JSON.stringify({ version: bundleVersion })}\n`, "utf8");
+  args.push("--config", bundleConfigPath);
 }
 const tauriCommand = process.platform === "win32" ? "tauri.cmd" : "tauri";
-const result = spawnSync(tauriCommand, args, {
-  stdio: "inherit",
-  shell: process.platform === "win32",
-});
+let result;
+try {
+  result = spawnSync(tauriCommand, args, {
+    stdio: "inherit",
+    shell: process.platform === "win32",
+  });
+} finally {
+  if (bundleConfigPath) rmSync(bundleConfigPath, { force: true });
+}
 if (result.error) throw result.error;
 if (result.status !== 0 || process.platform !== "darwin" || args[0] !== "build" || process.env.ANCIENT_MEDICAL_TTS_ADHOC_SIGN !== "1") {
   process.exit(result.status ?? 1);
