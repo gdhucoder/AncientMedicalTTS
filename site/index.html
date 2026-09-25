@@ -16,6 +16,7 @@
       </a>
       <nav aria-label="页面导航">
         <a href="#features">功能</a>
+        <a href="#guide">使用说明</a>
         <a href="#download">下载</a>
         <a href="https://github.com/gdhucoder/AncientMedicalTTS">源码</a>
       </nav>
@@ -29,11 +30,55 @@
           <p class="lede">AncientMedicalTTS 用来整理中医古籍的朗读。导入 TXT，按段查看文字和拼音，确认发音后生成音频，资料保存在自己的电脑上。</p>
           <div class="hero-actions">
             <a class="button primary" href="#download">下载应用</a>
-            <a class="button secondary" href="https://github.com/gdhucoder/AncientMedicalTTS/blob/main/docs/QUICK_START.md">查看使用说明</a>
+            <a class="button secondary" href="#guide">查看使用说明</a>
           </div>
           <p class="release-note"><span class="status-dot"></span>当前版本 <strong>v0.1.0-rc2</strong> · 支持 macOS 和 Windows</p>
         </div>
         <div class="hero-art" aria-label="古籍朗读示意图"><div class="seal">古<br /><small>典</small></div><div class="book-lines"><span></span><span></span><span></span><span></span></div><div class="sound-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      </section>
+
+      <section id="guide" class="guide-section">
+        <div class="section-heading">
+          <p class="eyebrow">使用说明 · 更新于 2026 年 9 月 25 日</p>
+          <h2>从一篇 TXT 开始</h2>
+          <p>第一次使用时，按下面的顺序操作即可。文字和发音资料都保存在本机，什么时候生成语音由你决定。</p>
+        </div>
+        <div class="guide-grid">
+          <article class="guide-step">
+            <span class="guide-index">01</span>
+            <h3>导入古籍</h3>
+            <p>准备 UTF-8 编码的 TXT 文件，在“我的古籍”点击“选择 TXT 文件”。单个文档建议控制在 5000 个汉字以内，导入后应用会按篇章和段落整理正文。</p>
+          </article>
+          <article class="guide-step">
+            <span class="guide-index">02</span>
+            <h3>分析并查看拼音</h3>
+            <p>打开古籍后点击“全文分析”或“分析本段”。页面中的拼音是阅读提示，黄色标记表示待复核，绿色标记表示已经锁定的读音。</p>
+          </article>
+          <article class="guide-step">
+            <span class="guide-index">03</span>
+            <h3>确认疑难字音</h3>
+            <p>点击正文中的标记，在右侧检查器查看上下文和候选读音。输入 ASCII 数字声调，例如 <code>shu4 xue2</code>，点击“确认”。只有“已锁定读音”会进入语音合成，“预览读音”只用于页面显示。</p>
+          </article>
+          <article class="guide-step">
+            <span class="guide-index">04</span>
+            <h3>生成并试听</h3>
+            <p>在“语音设置”中填写自己的腾讯云凭证，选择音色、语速和音量，先用“音色试听”确认效果。回到正文点击“重新生成”，生成后可直接播放并切换历史版本。</p>
+          </article>
+          <article class="guide-step">
+            <span class="guide-index">05</span>
+            <h3>调整段落</h3>
+            <p>需要改动朗读内容时点击“编辑文本”。可以修改朗读文本、在光标处分段、与相邻段落合并，也可以取消某段的“参与朗读”。导入原文始终保留，不会被覆盖。</p>
+          </article>
+          <article class="guide-step">
+            <span class="guide-index">06</span>
+            <h3>复用发音规则</h3>
+            <p>确认词语后，可以在“发音词典”建立本书规则或全局规则。规则只会复用已经确认的发音，不会自动生成语音；规则改变后，需要重新生成受影响的音频。</p>
+          </article>
+        </div>
+        <div class="guide-note">
+          <strong>开始前请准备：</strong>
+          <span>应用安装包已经包含 Python Worker 和 FFmpeg，普通用户不需要另外安装 Python、FFmpeg 或配置系统路径。腾讯云凭证需要使用你自己的 SecretId 和 SecretKey，保存在本机应用数据目录，不会写入这个网站。</span>
+        </div>
       </section>
 
       <section id="features" class="section">
@@ -92,9 +137,9 @@
       <section class="section compact">
         <div class="section-heading">
           <p class="eyebrow">资料</p>
-          <h2>先看说明，再开始整理</h2>
-          <p>项目文档记录了安装、凭据配置、发音校对和已知限制。遇到问题可以在 GitHub 提交反馈。</p>
-          <div class="hero-actions"><a class="text-link" href="https://github.com/gdhucoder/AncientMedicalTTS/blob/main/docs/QUICK_START.md">快速开始 →</a><a class="text-link" href="https://github.com/gdhucoder/AncientMedicalTTS/issues">提交问题 →</a></div>
+          <h2>需要更详细的资料</h2>
+          <p>仓库文档记录了安装、凭据配置、发音校对和已知限制。遇到问题可以在 GitHub 提交反馈。</p>
+          <div class="hero-actions"><a class="text-link" href="https://github.com/gdhucoder/AncientMedicalTTS/blob/main/docs/QUICK_START.md">查看完整文档 →</a><a class="text-link" href="https://github.com/gdhucoder/AncientMedicalTTS/issues">提交问题 →</a></div>
         </div>
       </section>
     </main>
