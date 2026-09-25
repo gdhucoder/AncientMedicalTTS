@@ -3,7 +3,8 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { join } from "node:path";
 
 const args = process.argv.slice(2);
-const result = spawnSync("tauri", args, { stdio: "inherit" });
+const tauriCommand = process.platform === "win32" ? "tauri.cmd" : "tauri";
+const result = spawnSync(tauriCommand, args, { stdio: "inherit" });
 if (result.error) throw result.error;
 if (result.status !== 0 || process.platform !== "darwin" || args[0] !== "build" || process.env.ANCIENT_MEDICAL_TTS_ADHOC_SIGN !== "1") {
   process.exit(result.status ?? 1);
