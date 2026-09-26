@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">腾讯云语音合成控制台示意图</title>
+  <desc id="desc">腾讯云控制台中的语音合成产品和立即开通按钮。</desc>
+  <rect width="1280" height="760" fill="#f4f6f8"/>
+  <rect width="1280" height="64" fill="#ffffff"/>
+  <circle cx="34" cy="32" r="10" fill="#2f73d9"/><text x="54" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#15243a">腾讯云控制台</text>
+  <rect x="290" y="18" width="310" height="30" rx="15" fill="#f3f5f8"/><text x="314" y="39" font-family="Arial, sans-serif" font-size="14" fill="#8b95a5">搜索产品、文档和资源</text>
+  <text x="1070" y="39" font-family="Arial, sans-serif" font-size="14" fill="#657184">控制台首页</text>
+  <rect x="0" y="64" width="220" height="696" fill="#1d2939"/>
+  <text x="28" y="106" font-family="Arial, sans-serif" font-size="13" fill="#aab5c4">产品与服务</text>
+  <rect x="15" y="132" width="190" height="44" rx="7" fill="#2c5d98"/>
+  <text x="38" y="160" font-family="Arial, sans-serif" font-size="16" fill="#ffffff">语音技术</text>
+  <text x="38" y="212" font-family="Arial, sans-serif" font-size="15" fill="#d1d8e2">语音合成</text>
+  <text x="38" y="256" font-family="Arial, sans-serif" font-size="15" fill="#9eabba">智能语音</text>
+  <rect x="220" y="64" width="1060" height="696" fill="#f7f9fb"/>
+  <text x="260" y="118" font-family="Arial, sans-serif" font-size="14" fill="#7f8a9a">语音技术 / 语音合成</text>
+  <text x="260" y="174" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#182433">语音合成</text>
+  <text x="260" y="215" font-family="Arial, sans-serif" font-size="16" fill="#687587">将文本转换为自然流畅的语音</text>
+  <rect x="260" y="258" width="950" height="218" rx="12" fill="#ffffff" stroke="#e1e6ed"/>
+  <text x="296" y="310" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#253244">服务状态</text>
+  <circle cx="310" cy="368" r="8" fill="#f3ad36"/><text x="334" y="375" font-family="Arial, sans-serif" font-size="17" fill="#566273">尚未开通语音合成服务</text>
+  <rect x="936" y="334" width="180" height="54" rx="8" fill="#2f73d9"/>
+  <text x="981" y="368" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">立即开通</text>
+  <rect x="260" y="512" width="950" height="140" rx="12" fill="#ffffff" stroke="#e1e6ed"/>
+  <text x="296" y="560" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#253244">开通前提示</text>
+  <text x="296" y="602" font-family="Arial, sans-serif" font-size="15" fill="#687587">完成实名认证，阅读并同意服务条款后即可开通。</text>
+  <rect x="936" y="610" width="180" height="2" fill="#e8edf3"/>
+</svg>

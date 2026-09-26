@@ -17,6 +17,7 @@
       <nav aria-label="页面导航">
         <a href="#features">功能</a>
         <a href="#guide">使用说明</a>
+        <a href="#tencent-api">腾讯云 API</a>
         <a href="#download">下载</a>
         <a href="https://github.com/gdhucoder/AncientMedicalTTS">源码</a>
       </nav>
@@ -39,7 +40,7 @@
 
       <section id="guide" class="guide-section">
         <div class="section-heading">
-          <p class="eyebrow">使用说明 · 更新于 2026 年 9 月 25 日</p>
+          <p class="eyebrow">使用说明 · 更新于 2026 年 9 月 26 日</p>
           <h2>从一篇 TXT 开始</h2>
           <p>第一次使用时，按下面的顺序操作即可。文字和发音资料都保存在本机，什么时候生成语音由你决定。</p>
         </div>
@@ -103,6 +104,78 @@
               <figcaption><strong>发音词典</strong><span>把确认过的词语读音复用到本书。</span></figcaption>
             </figure>
           </div>
+        </div>
+      </section>
+
+      <section id="tencent-api" class="api-guide-section">
+        <div class="section-heading">
+          <p class="eyebrow">腾讯云 API · 凭证申请</p>
+          <h2>申请语音合成凭证</h2>
+          <p>AncientMedicalTTS 使用腾讯云 TextToVoice。只需要准备 SecretId 和 SecretKey，不需要安装腾讯云 SDK，也不需要填写 AppID。</p>
+        </div>
+        <div class="api-guide-note">
+          <strong>先准备好：</strong>
+          <span>一个腾讯云账号，并完成实名认证。下面的入口均指向腾讯云官方页面；控制台名称可能随腾讯云页面更新略有变化。</span>
+        </div>
+        <div class="api-steps">
+          <article class="api-step">
+            <span class="guide-index">01</span>
+            <div class="api-step-copy">
+              <h3>注册或登录腾讯云</h3>
+              <p>打开腾讯云官网，使用已有账号登录；没有账号时先完成注册。</p>
+              <a class="text-link" href="https://cloud.tencent.com/" target="_blank" rel="noreferrer">打开腾讯云官网 →</a>
+            </div>
+          </article>
+          <article class="api-step">
+            <span class="guide-index">02</span>
+            <div class="api-step-copy">
+              <h3>完成实名认证并开通语音合成</h3>
+              <p>按照腾讯云快速接入说明完成实名认证，进入语音合成控制台，点击“立即开通”，并同意服务条款。</p>
+              <a class="text-link" href="https://cloud.tencent.com/document/product/1073/56640" target="_blank" rel="noreferrer">查看官方开通说明 →</a>
+              <a class="text-link" href="https://console.cloud.tencent.com/tts" target="_blank" rel="noreferrer">打开语音合成控制台 →</a>
+            </div>
+          </article>
+          <article class="api-step">
+            <span class="guide-index">03</span>
+            <div class="api-step-copy">
+              <h3>创建 API 密钥</h3>
+              <p>打开“API 密钥管理”，点击“新建密钥”。创建后立即复制 SecretId 和 SecretKey；SecretKey 通常只在创建时完整显示。</p>
+              <a class="text-link" href="https://console.cloud.tencent.com/cam/capi" target="_blank" rel="noreferrer">打开 API 密钥管理 →</a>
+            </div>
+          </article>
+          <article class="api-step">
+            <span class="guide-index">04</span>
+            <div class="api-step-copy">
+              <h3>回到应用保存凭证</h3>
+              <p>打开 AncientMedicalTTS 的“TTS 设置”，把两项内容分别粘贴到 SecretId 和 SecretKey，点击“保存凭证”，再点“测试连接”。</p>
+              <p class="api-security"><strong>安全提醒：</strong>不要把 SecretKey 发给他人，也不要提交到 GitHub、网页、截图或公开文档。</p>
+            </div>
+          </article>
+        </div>
+        <div class="api-screenshots">
+          <div class="section-heading api-screenshots-heading">
+            <p class="eyebrow">操作截图</p>
+            <h3>照着这三步找到入口</h3>
+            <p>以下是页面操作示意图，不包含任何真实账号或密钥。实际控制台以腾讯云当前页面为准。</p>
+          </div>
+          <div class="screenshot-grid api-screenshot-grid">
+            <figure class="screenshot-card">
+              <img src="screenshots/tencent-tts-console.svg" alt="腾讯云语音合成控制台示意图，显示立即开通入口" width="1280" height="760" loading="lazy" />
+              <figcaption><strong>开通语音合成</strong><span>进入语音合成控制台，确认服务已经开通。</span></figcaption>
+            </figure>
+            <figure class="screenshot-card">
+              <img src="screenshots/tencent-api-keys.svg" alt="腾讯云 API 密钥管理示意图，显示新建密钥入口" width="1280" height="760" loading="lazy" />
+              <figcaption><strong>新建 API 密钥</strong><span>创建后保存 SecretId 和 SecretKey，SecretKey 不要公开。</span></figcaption>
+            </figure>
+            <figure class="screenshot-card">
+              <img src="screenshots/tencent-app-settings.svg" alt="AncientMedicalTTS TTS 设置示意图，显示填写 SecretId 和 SecretKey" width="1280" height="760" loading="lazy" />
+              <figcaption><strong>回到应用测试连接</strong><span>保存凭证后点击“测试连接”，成功即可生成语音。</span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="api-help">
+          <strong>遇到“服务未开通”：</strong>
+          <span>回到语音合成控制台检查是否已经点击“立即开通”。需要了解接口参数时，请查看 <a href="https://cloud.tencent.com/document/api/1073/37995" target="_blank" rel="noreferrer">腾讯云 TextToVoice API 文档</a>；应用本身不要求你手动调用接口。</span>
         </div>
       </section>
 

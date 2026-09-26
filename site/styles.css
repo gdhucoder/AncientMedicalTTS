@@ -16,6 +16,24 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 28px 80px; } .hero { min-he
 .guide-step p { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
 .guide-note { margin-top: 22px; padding: 18px 22px; display: flex; gap: 12px; border-left: 3px solid #7ea48d; color: var(--muted); background: rgba(232, 238, 232, .68); font-size: 14px; }
 .guide-note strong { flex: 0 0 auto; color: var(--green); }
+.api-guide-section { padding: 92px 0 20px; border-top: 1px solid var(--line); }
+.api-guide-note { margin-top: 28px; padding: 18px 22px; display: flex; gap: 12px; border-left: 3px solid var(--gold); color: var(--muted); background: rgba(255, 248, 232, .72); font-size: 14px; }
+.api-guide-note strong { flex: 0 0 auto; color: #85632d; }
+.api-steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 28px; }
+.api-step { min-height: 215px; padding: 24px 26px 22px; display: grid; grid-template-columns: 38px 1fr; gap: 10px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255, 255, 255, .54); }
+.api-step-copy h3 { margin-top: 0; font-size: 22px; }
+.api-step-copy p { margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+.api-step-copy .text-link { margin: 12px 16px 0 0; font-size: 13px; }
+.api-security { padding: 11px 13px; border-radius: 8px; color: #775d32 !important; background: #fff8e8; }
+.api-security strong { color: #8b6425; }
+.api-screenshots { margin-top: 68px; }
+.api-screenshots-heading { max-width: 700px; }
+.api-screenshots-heading h3 { font-size: clamp(26px, 3vw, 36px); }
+.api-screenshot-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.api-screenshot-grid .screenshot-card img { aspect-ratio: 1280 / 760; object-fit: cover; }
+.api-help { margin-top: 24px; padding: 18px 22px; display: flex; gap: 12px; border-left: 3px solid #7ea48d; color: var(--muted); background: rgba(232, 238, 232, .68); font-size: 14px; }
+.api-help strong { flex: 0 0 auto; color: var(--green); }
+.api-help a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
 .guide-screenshots { margin-top: 68px; }
 .guide-screenshots-heading { max-width: 680px; }
 .guide-screenshots-heading h3 { font-size: clamp(26px, 3vw, 36px); }
@@ -44,5 +62,5 @@ footer { max-width: 1180px; margin: 0 auto; padding: 22px 28px 35px; display: fl
 .download-note { margin: 22px 0 0; color: var(--muted); font-size: 13px; }
 .download-note a { color: var(--green); font-weight: 700; }
 .release-panel a { color: #f8faf5; text-decoration: underline; text-underline-offset: 3px; }
-@media (max-width: 980px) { .screenshot-grid { grid-template-columns: 1fr; } }
-@media (max-width: 760px) { .site-header { padding: 18px 20px; } nav { gap: 12px; } main { padding: 0 20px 55px; } .hero { min-height: auto; grid-template-columns: 1fr; gap: 35px; padding: 65px 0 30px; } .hero-art { min-height: 230px; } .feature-grid, .guide-grid, .download-grid, .release-panel { grid-template-columns: 1fr; } .section, .guide-section, .download-section { padding-top: 58px; } .release-panel { padding: 26px; gap: 22px; } .guide-note { display: block; } .guide-note strong { display: block; margin-bottom: 5px; } .screenshot-card figcaption { padding: 13px 15px 15px; } footer { padding: 20px; gap: 15px; flex-direction: column; } }
+@media (max-width: 980px) { .screenshot-grid, .api-screenshot-grid { grid-template-columns: 1fr; } .api-steps { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .site-header { padding: 18px 20px; } nav { gap: 12px; flex-wrap: wrap; justify-content: flex-end; } main { padding: 0 20px 55px; } .hero { min-height: auto; grid-template-columns: 1fr; gap: 35px; padding: 65px 0 30px; } .hero-art { min-height: 230px; } .feature-grid, .guide-grid, .download-grid, .release-panel { grid-template-columns: 1fr; } .section, .guide-section, .api-guide-section, .download-section { padding-top: 58px; } .release-panel { padding: 26px; gap: 22px; } .guide-note, .api-guide-note, .api-help { display: block; } .guide-note strong, .api-guide-note strong, .api-help strong { display: block; margin-bottom: 5px; } .screenshot-card figcaption { padding: 13px 15px 15px; } footer { padding: 20px; gap: 15px; flex-direction: column; } }
