@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "pub_date": "2026-09-28T09:44:26Z",
+  "notes": "AncientMedicalTTS 更新",
+  "platforms": {
+    "darwin-aarch64": {
+      "url": "https://github.com/gdhucoder/AncientMedicalTTS/releases/download/v0.1.0/AncientMedicalTTS-macos-arm64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSMXM2cHJlZlBleXNJZWdPSjRlSEtEN0F6K29iQ3JwZ05XRFdLbXhkOHEzZjJyV0ZraXlYczg5b2xJa1F1Tjk1WFl6MEZ0WGl3VWlBMmhCeTJadnVnUFFpN0ZUZTBweUFnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwNTg4MDY5CWZpbGU6QW5jaWVudE1lZGljYWxUVFMuYXBwLnRhci5negl2ZXJzaW9uOjAuMS4wCjNNZ255aGp6UXJEOEVVY05TYmd6K3VVeXhsQjBVZlAwUXhHemhVQ1VyNjNpWmhwRWgwZ3FTVWwwalVmQlA3ejVKekVuUHBkS0lUeWV2Wmx3SXJoQkN3PT0K"
+    },
+    "darwin-x86_64": {
+      "url": "https://github.com/gdhucoder/AncientMedicalTTS/releases/download/v0.1.0/AncientMedicalTTS-macos-x64.app.tar.gz",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSMXM2cHJlZlBleXZoUjVSVjhjVmpVR3FNY3dBeW16aDN0ekZhYnc3SXFCajZRaitaVGxKLzc2K0xSci9iNlc3eWlqdDJlYjM2bisydlk0d215cjMzQ3BwUU5Qc0JzSGdNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwNTg4NjI5CWZpbGU6QW5jaWVudE1lZGljYWxUVFMuYXBwLnRhci5negl2ZXJzaW9uOjAuMS4wCmQwT0lpelc0UGV4MmduZFVSaGZSN2ZaQ1UxaGFSNFpCTUt6aklSUXpVOG5lQm5yd1paaUZPZlhOWkdlRFVjRnNoU2h6Q1VmRUhzNUJLZ3ZZTlRhSkJ3PT0K"
+    },
+    "windows-x86_64": {
+      "url": "https://github.com/gdhucoder/AncientMedicalTTS/releases/download/v0.1.0/AncientMedicalTTS_0.1.0_x64-setup.exe",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSMXM2cHJlZlBleXZnaG85bG9SaENwejQrWWNRTHhBUStqemFPWm00VzhOQ3gwYVEyY2JUZUM5WWUvNVJ5WE9PMWF0TzU3OWw4OWYvcTJxODZ6aXdlUXdMNmJPa1dESHcwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkwNTg4NjQ3CWZpbGU6QW5jaWVudE1lZGljYWxUVFNfMC4xLjBfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuMS4wClVXUjhxdjFRZExxbU01RjlUdDNjcEtRU3JtcitJbENUcjJNMU9EcmJ6eURURmE1VEFUMVdwTXhPZ0xkY2Z0TGh3ZHlRT2ZjNnpNcHdTWE13dXhQb0RRPT0K"
+    }
+  }
+}
