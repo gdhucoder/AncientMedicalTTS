@@ -113,6 +113,11 @@ jobs:
           & $env:ANCIENT_MEDICAL_TTS_FFMPEG -version | Select-Object -First 1
           & $env:ANCIENT_MEDICAL_TTS_FFMPEG -hide_banner -encoders 2>$null | Select-String libmp3lame
 
+      - name: 准备 FFmpeg sidecar（Windows）
+        if: matrix.platform == 'windows'
+        shell: pwsh
+        run: node scripts/prepare-ffmpeg.mjs
+
       - name: 验证 Windows 多段音频拼接
         if: matrix.platform == 'windows'
         shell: pwsh
