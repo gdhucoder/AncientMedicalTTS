@@ -1,6 +1,6 @@
 # AncientMedicalTTS
 
-AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前源码候选版本为 **v0.1.0-rc8**，已进入功能冻结后的发布验证阶段。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
+AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前版本为 **v0.1.0**。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
 
 当前版本已实现：UTF-8 TXT 导入、SQLite 本地阅读、Rust Grapheme Token 分词、Python 发音分析器 v0.3、结构化中医与古籍发音知识层、可解释语义上下文选音、Annotation 复核、腾讯云 TTS、SSML 发音覆盖、WAV 音频版本、单 Segment 播放、本书/全局精确发音规则、单 Book 串行全文 WAV 生成，以及按正文顺序导出完整 WAV/MP3。
 
@@ -31,6 +31,7 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - 单个新导入 Book 最多 5000 个 Unicode CJK 汉字（含 supplementary-plane CJK）；旧 Book 可继续读取和单句生成，但超限时批量预检会阻止全文生成；
 - Book 全文语音预检、当前 TTS 设置快照、串行生成、最新 AudioVersion 参数复用、进度事件、协作式停止、失败列表和可重启续跑；
 - 完整音频导出：Rust ExportService 按 Chapter/Segment 顺序读取 `current_audio_id`，通过内置 FFmpeg concat demuxer 生成 WAV，并使用 `libmp3lame` 以 96 kbps 生成 MP3；
+- 在线更新：应用每天最多自动检查一次 GitHub Release，也可手动检查；更新包由 Tauri signer 签名，用户确认后下载、安装并重启，不要求安装额外运行时；
 - 导出预检、WAV header/参数一致性校验、系统保存对话框、取消、临时目录清理和跨平台路径 escaping；
 - Manual Segment Editing：保留不可变 `original_text`，支持 `reading_text`、参与朗读开关、按 Grapheme Token 分段、前后 Segment 合并和恢复原文；编辑后自动重新分析，旧 AudioVersion 保留但不再作为当前音频；
 - Worker 异常、超时、非法 JSON、协议 ID 不匹配和 Rust 拼音/范围校验的基础错误处理。
@@ -51,7 +52,7 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 
 ## GitHub Actions 自动构建
 
-推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.0-rc8` 或后续正式版本）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
+推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.0`）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
 
 ```bash
 git tag v0.1.1
@@ -59,6 +60,8 @@ git push origin v0.1.1
 ```
 
 构建使用 runner 上的 Python 3.12、uv、PyInstaller 和 FFmpeg，最终应用内仍携带 Worker/FFmpeg，不要求用户安装这些依赖。FFmpeg 的来源、许可证和当前自动构建边界见 [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md)。
+
+版本 tag 的发布构建还会生成 Tauri 在线更新所需的签名产物和 `latest.json`，并同步到 `site/latest.json`，兼容预发布版本的更新检查。GitHub 仓库必须配置 `TAURI_SIGNING_PRIVATE_KEY`（以及可选的 `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`）；私钥只放在 GitHub Actions Secrets 中，不能提交到仓库。详细说明见 [应用在线更新](docs/APP_UPDATES.md)。
 
 ## 环境要求
 

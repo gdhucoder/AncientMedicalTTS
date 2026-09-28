@@ -1,13 +1,26 @@
-import { existsSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { execFileSync, spawnSync } from "node:child_process";
-import { join } from "node:path";
+import { basename, dirname, join } from "node:path";
 
 const args = process.argv.slice(2);
 const bundleVersion = process.env.ANCIENT_MEDICAL_TTS_BUNDLE_VERSION?.trim();
+if (!process.env.TAURI_SIGNING_PRIVATE_KEY?.trim() && process.env.TAURI_SIGNING_PRIVATE_KEY_PATH?.trim()) {
+  process.env.TAURI_SIGNING_PRIVATE_KEY = readFileSync(process.env.TAURI_SIGNING_PRIVATE_KEY_PATH, "utf8").trim();
+  delete process.env.TAURI_SIGNING_PRIVATE_KEY_PATH;
+}
+const shouldCreateUpdaterArtifacts = Boolean(
+  process.env.TAURI_SIGNING_PRIVATE_KEY?.trim() ||
+  process.env.TAURI_SIGNING_PRIVATE_KEY_PATH?.trim(),
+);
 let bundleConfigPath;
-if (bundleVersion && args[0] === "build") {
+if ((bundleVersion || shouldCreateUpdaterArtifacts) && args[0] === "build") {
   bundleConfigPath = join(process.cwd(), "src-tauri", ".tauri-ci-bundle.conf.json");
-  writeFileSync(bundleConfigPath, `${JSON.stringify({ version: bundleVersion })}\n`, "utf8");
+  const configOverride = {};
+  if (bundleVersion) configOverride.version = bundleVersion;
+  if (shouldCreateUpdaterArtifacts) {
+    configOverride.bundle = { createUpdaterArtifacts: true };
+  }
+  writeFileSync(bundleConfigPath, `${JSON.stringify(configOverride)}\n`, "utf8");
   args.push("--config", bundleConfigPath);
 }
 const tauriCommand = process.platform === "win32" ? "tauri.cmd" : "tauri";
@@ -42,4 +55,22 @@ if (existsSync(sidecar)) execFileSync("codesign", ["--force", "--sign", "-", sid
 if (existsSync(worker)) execFileSync("codesign", ["--force", "--sign", "-", worker], { stdio: "ignore" });
 if (existsSync(mainBinary)) execFileSync("codesign", ["--force", "--sign", "-", mainBinary], { stdio: "ignore" });
 execFileSync("codesign", ["--force", "--sign", "-", app], { stdio: "inherit" });
+rebuildSignedMacUpdaterArtifact(app);
 console.log(`Applied local ad-hoc signature to ${app}`);
+
+function rebuildSignedMacUpdaterArtifact(signedApp) {
+  if (!shouldCreateUpdaterArtifacts) return;
+  const bundleDirectory = dirname(signedApp);
+  const updaterArchive = readdirSync(bundleDirectory)
+    .filter((fileName) => fileName.endsWith(".tar.gz"))
+    .map((fileName) => join(bundleDirectory, fileName))
+    .at(0);
+  if (!updaterArchive) return;
+
+  rmSync(updaterArchive, { force: true });
+  rmSync(`${updaterArchive}.sig`, { force: true });
+  execFileSync("tar", ["-czf", updaterArchive, "-C", bundleDirectory, basename(signedApp)], { stdio: "inherit" });
+  const appVersion = bundleVersion ?? JSON.parse(readFileSync(join(process.cwd(), "package.json"), "utf8")).version;
+  execFileSync(tauriCommand, ["signer", "sign", "--app-version", appVersion, "--password", process.env.TAURI_SIGNING_PRIVATE_KEY_PASSWORD ?? "", updaterArchive], { stdio: "inherit" });
+  console.log(`Rebuilt signed macOS updater artifact: ${updaterArchive}`);
+}

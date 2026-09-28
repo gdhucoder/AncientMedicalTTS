@@ -38,6 +38,12 @@ Python Worker
        └── Tencent Cloud TTS SDK 3.0.1307
 ```
 
+## 阅读器滚动与在线更新
+
+Reader 使用固定的应用内容高度。左侧段落导航、中间正文和右侧检查器分别拥有自己的纵向滚动区域，并使用 `overscroll-behavior: contain`，因此滚动长段落列表不会带动正文页面；窄窗口下恢复为适合触屏和小窗口的页面滚动布局。
+
+在线更新由 Tauri 官方 updater/process 插件负责。React 只显示检查、下载和安装状态；Rust/Tauri 负责更新包验签和安装。应用启动后最多每天检查一次，顶部“检查更新”可以绕过日期限制手动检查。更新端点是 GitHub Release 的 `latest.json`，每个平台的更新包和 `.sig` 都由 GitHub Actions 生成。私钥只存在 GitHub Actions Secret，应用包内只包含公钥；当前发布配置不接受未签名更新。
+
 ## Worker 运行时约束
 
 源码 Worker 的 Python 运行时固定为 Python 3.12.x，约束来自 `worker/pyproject.toml` 的 `requires-python = ">=3.12,<3.13"`。开发环境必须使用由 uv 创建的 `worker/.venv`；正式发布必须使用由 Python 3.12 构建并放入 Tauri Resources 的 PyInstaller Worker，不得依赖目标机器的 Python、uv 或 PATH。

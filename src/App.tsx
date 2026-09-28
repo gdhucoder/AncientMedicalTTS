@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import type { SyntheticEvent } from "react";
-import { convertFileSrc } from "@tauri-apps/api/core";
+import { convertFileSrc, isTauri } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { save } from "@tauri-apps/plugin-dialog";
+import { relaunch } from "@tauri-apps/plugin-process";
+import type { DownloadEvent, Update } from "@tauri-apps/plugin-updater";
+import { checkForAppUpdate } from "./services/updater";
 import { analyzeSegmentPronunciation, applyPronunciationRulesToBook, cancelBookAudioGeneration, cancelExport, confirmAnnotation, createManualAnnotation, createPronunciationRule, createRuleFromAnnotation, deleteTencentCredentials, disablePronunciationRule, enablePronunciationRule, exportBookAudio, generateSegmentAudio, generateTtsPreview, getApiUsageSummary, getBatchGenerationState, getBook, getBookExportPreflight, getBookGenerationPreflight, getExportState, getReaderDisplaySettings, getSegmentDisplayPinyin, getSegmentReader, getTencentVoices, getTtsCredentialStatus, getTtsSettings, ignoreAnnotation, listBooks, listBookPronunciationRules, listChapters, listGlobalPronunciationRules, listSegments, mergeSegmentWithNext, mergeSegmentWithPrevious, reanalyzeBookPronunciation, resetAnnotation, restoreSegmentReadingText, saveReaderDisplaySettings, saveTencentCredentials, saveTtsSettings, selectAudioVersion, setSegmentSpeakEnabled, splitSegment, startBookAudioGeneration, testTtsConnection, updatePronunciationRule, updateSegmentReadingText } from "./services/library";
 import type { TtsPronunciationMode } from "./services/library";
 import { friendlyErrorMessage } from "./services/errors";
@@ -130,9 +133,117 @@ function AppHeader() {
         <button className={view === "settings" ? "nav-button active" : "nav-button"} type="button" onClick={() => setView("settings")}>语音设置</button>
         <button className={view === "rules" ? "nav-button active" : "nav-button"} type="button" onClick={() => setView("rules")}>发音词典</button>
       </nav>
-      <span className="version">v0.1.0-rc1</span>
+      <button className="update-check-button" type="button" onClick={() => window.dispatchEvent(new Event("ancient-tts-check-update"))}>检查更新</button>
+      <span className="version">v0.1.0</span>
     </header>
   );
+}
+
+const UPDATE_CHECKED_AT_KEY = "ancient-medical-tts:update-checked-at";
+const UPDATE_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
+
+type UpdateNoticeState = "idle" | "checking" | "available" | "downloading" | "latest" | "error";
+
+function readLastUpdateCheck(): number {
+  try {
+    const value = Number(window.localStorage.getItem(UPDATE_CHECKED_AT_KEY));
+    return Number.isFinite(value) ? value : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function rememberUpdateCheck(): void {
+  try {
+    window.localStorage.setItem(UPDATE_CHECKED_AT_KEY, String(Date.now()));
+  } catch {
+    // A failed local preference write must not affect application startup.
+  }
+}
+
+function AppUpdateNotice() {
+  const [state, setState] = useState<UpdateNoticeState>("idle");
+  const [update, setUpdate] = useState<Update | null>(null);
+  const stateRef = useRef<UpdateNoticeState>("idle");
+  const updateRef = useRef<Update | null>(null);
+  const [downloadedBytes, setDownloadedBytes] = useState(0);
+  const [contentLength, setContentLength] = useState<number | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  stateRef.current = state;
+
+  const checkUpdate = async (force: boolean) => {
+    if (stateRef.current === "checking" || stateRef.current === "downloading") return;
+    if (!force && Date.now() - readLastUpdateCheck() < UPDATE_CHECK_INTERVAL_MS) return;
+    rememberUpdateCheck();
+    setState("checking");
+    setErrorMessage(null);
+    try {
+      const nextUpdate = await checkForAppUpdate();
+      if (nextUpdate) {
+        setUpdate((previous) => {
+          if (previous && previous !== nextUpdate) void previous.close().catch(() => undefined);
+          updateRef.current = nextUpdate;
+          return nextUpdate;
+        });
+        setState("available");
+      } else {
+        setState(force && isTauri() ? "latest" : "idle");
+        if (force && isTauri()) window.setTimeout(() => setState("idle"), 3500);
+      }
+    } catch (reason: unknown) {
+      console.warn("在线更新检查失败", reason);
+      setErrorMessage("暂时无法检查更新，请稍后重试。");
+      setState(force ? "error" : "idle");
+      if (force) window.setTimeout(() => setState("idle"), 5000);
+    }
+  };
+
+  useEffect(() => {
+    const onManualCheck = () => { void checkUpdate(true); };
+    window.addEventListener("ancient-tts-check-update", onManualCheck);
+    const timer = window.setTimeout(() => { void checkUpdate(false); }, 2200);
+    const dailyTimer = window.setInterval(() => { void checkUpdate(false); }, UPDATE_CHECK_INTERVAL_MS);
+    return () => {
+      window.clearTimeout(timer);
+      window.clearInterval(dailyTimer);
+      window.removeEventListener("ancient-tts-check-update", onManualCheck);
+      if (updateRef.current) void updateRef.current.close().catch(() => undefined);
+    };
+  }, []);
+
+  const installUpdate = async () => {
+    if (!update) return;
+    setState("downloading");
+    setDownloadedBytes(0);
+    setContentLength(null);
+    try {
+      await update.downloadAndInstall((event: DownloadEvent) => {
+        if (event.event === "Started") setContentLength(event.data.contentLength ?? null);
+        if (event.event === "Progress") setDownloadedBytes((current) => current + event.data.chunkLength);
+      }, { restartAfterInstall: true });
+      if (/Macintosh|Mac OS X/i.test(navigator.userAgent)) await relaunch();
+    } catch (reason: unknown) {
+      console.warn("在线更新安装失败", reason);
+      setErrorMessage("更新安装失败，请稍后重试或重新下载安装包。");
+      setState("error");
+    }
+  };
+
+  const dismiss = () => {
+    if (update) void update.close().catch(() => undefined);
+    updateRef.current = null;
+    setUpdate(null);
+    setState("idle");
+  };
+
+  if (state === "idle") return null;
+  if (state === "checking") return <div className="app-update-notice subtle" role="status">正在检查更新…</div>;
+  if (state === "latest") return <div className="app-update-notice subtle" role="status">当前已是最新版本。</div>;
+  if (state === "error") return <div className="app-update-notice error" role="alert"><span>{errorMessage ?? "更新失败。"}</span><button type="button" onClick={() => void checkUpdate(true)}>重试</button><button type="button" onClick={dismiss}>关闭</button></div>;
+  if (!update) return null;
+  const progress = contentLength && contentLength > 0 ? Math.min(100, Math.round(downloadedBytes / contentLength * 100)) : null;
+  return <div className="app-update-notice" role="status"><div><strong>{state === "downloading" ? "正在更新应用…" : `发现新版本 ${update.version}`}</strong><span>{state === "downloading" ? (progress === null ? "正在下载安装包，请稍候。" : `正在下载 ${progress}%`) : "有新的应用版本可用。"}</span></div>{state === "available" && <button type="button" onClick={() => void installUpdate()}>立即更新</button>}{state === "available" && <button className="quiet" type="button" onClick={dismiss}>稍后</button>}</div>;
 }
 
 function BooksPage() {
@@ -991,5 +1102,5 @@ function DeveloperStatusPage() {
 
 export default function App() {
   const view = useLibraryStore((state) => state.view);
-  return <>{view !== "reader" && <AppHeader />}{view === "books" && <BooksPage />}{view === "reader" && <ReaderPage />}{view === "settings" && <SettingsPage />}{view === "rules" && <RuleManagerPage />}{view === "status" && <DeveloperStatusPage />}</>;
+  return <><AppUpdateNotice />{view !== "reader" && <AppHeader />}{view === "books" && <BooksPage />}{view === "reader" && <ReaderPage />}{view === "settings" && <SettingsPage />}{view === "rules" && <RuleManagerPage />}{view === "status" && <DeveloperStatusPage />}</>;
 }
