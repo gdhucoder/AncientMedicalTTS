@@ -116,7 +116,9 @@ jobs:
       - name: 准备 FFmpeg sidecar（Windows）
         if: matrix.platform == 'windows'
         shell: pwsh
-        run: node scripts/prepare-ffmpeg.mjs
+        run: |
+          node scripts/prepare-ffmpeg.mjs
+          pnpm worker:build
 
       - name: 验证 Windows 多段音频拼接
         if: matrix.platform == 'windows'
