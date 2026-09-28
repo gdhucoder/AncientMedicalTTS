@@ -934,6 +934,14 @@ mod tests {
     use serde_json::json;
     use uuid::Uuid;
 
+    #[test]
+    fn grapheme_tokens_join_equals_input_for_preview_text() {
+        let text = "上古之人，其知道者，法于阴阳，和于术数。";
+        let tokens = grapheme_tokens(text);
+        let joined: String = tokens.iter().map(|t| t.text.as_str()).collect();
+        assert_eq!(joined, text, "grapheme_tokens 回拼应等于原文");
+    }
+
     fn temp_db() -> Database {
         let path = std::env::temp_dir().join(format!(
             "ancient-medical-pronunciation-{}.sqlite",

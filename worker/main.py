@@ -9,6 +9,23 @@ import json
 import sys
 from typing import Any
 
+# Force UTF-8 on the JSON Lines channel.
+# When the Worker is spawned from Rust (subprocess with no TTY), Python falls
+# back to the Windows ANSI code page (cp936 on most zh-CN systems) for stdin,
+# stdout and stderr. UTF-8 bytes from Rust (e.g. for 中文 tokens) decode into
+# the wrong characters under cp936, and undecodable bytes become lone
+# surrogates under the default "surrogateescape" handler. Any subsequent
+# json.dumps then refuses to encode the surrogates, masking the real error as
+# a generic TTS failure (or producing "tokens 与 text 不一致" when the
+# corrupted tokens fail SSML validation). Reconfiguring all three streams to
+# UTF-8 keeps the channel portable on Windows and stays a no-op on Linux/macOS.
+if hasattr(sys.stdin, "reconfigure"):
+    sys.stdin.reconfigure(encoding="utf-8", errors="strict")
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="strict")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="strict")
+
 VERSION = "0.2.0"
 
 
