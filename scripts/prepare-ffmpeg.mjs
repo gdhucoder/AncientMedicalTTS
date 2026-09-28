@@ -1,4 +1,4 @@
-import { chmodSync, copyFileSync, existsSync, mkdirSync, readdirSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, copyFileSync, existsSync, mkdirSync, readdirSync, realpathSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { arch, platform } from "node:process";
 import { dirname, join } from "node:path";
@@ -40,6 +40,17 @@ if (!source || !existsSync(source)) {
   throw new Error(
     `缺少 ${target.triple} 的 FFmpeg binary。请放入 ${vendor}，或仅在本地调试时设置 ANCIENT_MEDICAL_TTS_ALLOW_SYSTEM_FFMPEG=1。`,
   );
+}
+
+if (platform === "win32") {
+  const normalizedSource = source.replaceAll("\\", "/").toLowerCase();
+  if (normalizedSource.includes("/chocolatey/bin/")) {
+    throw new Error(`不能把 Chocolatey shim 打包为 FFmpeg sidecar，请使用 package tools 目录中的真实 ffmpeg.exe: ${source}`);
+  }
+  const sourceSize = statSync(source).size;
+  if (sourceSize < 1024 * 1024) {
+    throw new Error(`FFmpeg binary 过小，疑似不是可独立发布的真实可执行文件: ${source}`);
+  }
 }
 
 try {

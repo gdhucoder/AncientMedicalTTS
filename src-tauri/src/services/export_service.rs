@@ -1027,8 +1027,7 @@ mod tests {
                 })
             })
             .expect("FFmpeg integration requires ANCIENT_MEDICAL_TTS_FFMPEG or PATH");
-        let temp =
-            std::env::temp_dir().join(format!("ancient-tts-export-{}", uuid::Uuid::now_v7()));
+        let temp = std::env::temp_dir().join(format!("古籍 导出's-{}", uuid::Uuid::now_v7()));
         std::fs::create_dir_all(&temp).expect("temp directory");
         let mut segments = Vec::new();
         for (index, frequency) in [440, 554, 659].into_iter().enumerate() {

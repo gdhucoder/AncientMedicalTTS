@@ -24,7 +24,7 @@ FFmpeg 的许可证取决于实际构建启用的组件和配置。当前开发�
 - `macos-15-intel`：Intel x86_64；
 - `windows-2025`：Windows x64。
 
-构建时 macOS runner 通过 Homebrew 安装 FFmpeg，Windows runner 通过 Chocolatey 安装 FFmpeg；随后由 `prepare-ffmpeg.mjs` 校验版本输出和 `libmp3lame`，再复制到 Tauri sidecar 位置。这样不需要人工把 binary 放进源码仓库，但这些 runner 包管理器提供的 binary 仍必须在正式长期分发前记录具体版本、来源、构建配置和许可证。Workflow 的产物会保存 14 天；推送 `v*` tag 时会自动上传到对应 GitHub Release。
+构建时 macOS runner 通过 Homebrew 安装 FFmpeg，Windows runner 通过 Chocolatey 安装 FFmpeg；随后由 `prepare-ffmpeg.mjs` 校验版本输出和 `libmp3lame`，再复制到 Tauri sidecar 位置。Windows 构建必须从 Chocolatey package 的 `lib\\ffmpeg\\tools` 目录寻找真实 `ffmpeg.exe`，不能使用 `Get-Command ffmpeg.exe` 返回的 `Chocolatey\\bin\\ffmpeg.exe` shim。shim 只在构建机上能转发到 Chocolatey 安装目录，发布到用户电脑后无法启动；构建脚本会通过路径和文件大小检查拒绝这类文件。这样不需要人工把 binary 放进源码仓库，但这些 runner 包管理器提供的 binary 仍必须在正式长期分发前记录具体版本、来源、构建配置和许可证。Workflow 的产物会保存 14 天；推送 `v*` tag 时会自动上传到对应 GitHub Release。
 
 这套自动构建不把 FFmpeg 当作系统依赖发布：系统 FFmpeg 只在 runner 上作为构建输入，最终 App 内仍携带自己的 FFmpeg sidecar。正式 Developer ID 签名/notarization 仍需要在发布 job 中接入签名凭据；当前 workflow 只做 macOS ad-hoc 签名。
 
