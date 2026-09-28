@@ -422,6 +422,7 @@ pub async fn generate_tts_preview(
 pub async fn generate_segment_audio(
     state: State<'_, AppState>,
     segment_id: String,
+    pronunciation_mode: Option<String>,
 ) -> AppResult<SegmentReader> {
     ensure_batch_idle(
         &state,
@@ -441,7 +442,10 @@ pub async fn generate_segment_audio(
         }
         *busy = true;
     }
-    let result = audio_service::generate_segment_audio(&state, &segment_id).await;
+    let result = match pronunciation_mode.as_deref().unwrap_or("locked") {
+        "locked" => audio_service::generate_segment_audio(&state, &segment_id).await,
+        mode => audio_service::generate_segment_audio_with_mode(&state, &segment_id, mode).await,
+    };
     if let Ok(mut busy) = state.tts_busy.lock() {
         *busy = false;
     }
@@ -550,34 +554,11 @@ pub async fn get_segment_display_pinyin(
     let database = state.database()?;
     let segment = book_service::get_segment(&database, &segment_id).await?;
     let tokens = pronunciation_service::grapheme_tokens(segment.effective_text());
-    let result = state.worker_call(
-        "pronunciation.display_pinyin",
-        json!({
-            "text": segment.effective_text(),
-            "tokens": tokens,
-        }),
+    let token_pinyin = pronunciation_service::display_pinyin_for_tokens(
+        &state,
+        segment.effective_text(),
+        &tokens,
     )?;
-    let values = result
-        .get("token_pinyin")
-        .and_then(Value::as_array)
-        .ok_or_else(|| AppError::new("WORKER_PROTOCOL_ERROR", "全文拼音结果缺少 token_pinyin"))?;
-    if values.len() != tokens.len() {
-        return Err(AppError::new(
-            "WORKER_PROTOCOL_ERROR",
-            "全文拼音结果与 token 数量不一致",
-        ));
-    }
-    let token_pinyin = values
-        .iter()
-        .map(|value| match value {
-            Value::Null => Ok(None),
-            Value::String(value) => Ok(Some(value.clone())),
-            _ => Err(AppError::new(
-                "WORKER_PROTOCOL_ERROR",
-                "全文拼音结果包含无效值",
-            )),
-        })
-        .collect::<AppResult<Vec<_>>>()?;
     Ok(SegmentDisplayPinyin { token_pinyin })
 }
 
@@ -795,11 +776,13 @@ pub async fn apply_pronunciation_rules_to_book(
 pub async fn get_book_generation_preflight(
     state: State<'_, AppState>,
     book_id: String,
+    pronunciation_mode: Option<String>,
 ) -> AppResult<BookGenerationPreflight> {
     batch_generation_service::get_book_generation_preflight(
         &state.database()?,
         &book_id,
         &state.data_directory()?,
+        pronunciation_mode.as_deref().unwrap_or("locked"),
     )
     .await
 }
@@ -809,6 +792,7 @@ pub async fn start_book_audio_generation(
     state: State<'_, AppState>,
     app: AppHandle,
     book_id: String,
+    pronunciation_mode: Option<String>,
 ) -> AppResult<()> {
     if state.export.is_running() {
         return Err(AppError::new(
@@ -836,6 +820,7 @@ pub async fn start_book_audio_generation(
         database,
         book_id,
         state.data_directory()?,
+        pronunciation_mode.unwrap_or_else(|| "locked".to_string()),
     )
     .await;
     if result.is_err() {

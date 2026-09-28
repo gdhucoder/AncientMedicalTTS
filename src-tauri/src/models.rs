@@ -154,6 +154,7 @@ pub struct BatchGenerationState {
     pub has_failures: bool,
     pub failed_segments: Vec<BatchFailedSegment>,
     pub fatal_error: Option<BatchFatalError>,
+    pub pronunciation_mode: String,
 }
 
 #[derive(Debug, Serialize, Clone)]
@@ -383,6 +384,7 @@ pub struct AudioVersion {
     pub volume: f64,
     pub ssml: Option<String>,
     pub pronunciation_signature: Option<String>,
+    pub pronunciation_mode: String,
     pub provider_metadata: Option<AudioProviderMetadata>,
     pub audio_path: String,
     pub provider_request_id: Option<String>,

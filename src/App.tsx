@@ -4,6 +4,7 @@ import { convertFileSrc } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { save } from "@tauri-apps/plugin-dialog";
 import { analyzeSegmentPronunciation, applyPronunciationRulesToBook, cancelBookAudioGeneration, cancelExport, confirmAnnotation, createManualAnnotation, createPronunciationRule, createRuleFromAnnotation, deleteTencentCredentials, disablePronunciationRule, enablePronunciationRule, exportBookAudio, generateSegmentAudio, generateTtsPreview, getApiUsageSummary, getBatchGenerationState, getBook, getBookExportPreflight, getBookGenerationPreflight, getExportState, getReaderDisplaySettings, getSegmentDisplayPinyin, getSegmentReader, getTencentVoices, getTtsCredentialStatus, getTtsSettings, ignoreAnnotation, listBooks, listBookPronunciationRules, listChapters, listGlobalPronunciationRules, listSegments, mergeSegmentWithNext, mergeSegmentWithPrevious, reanalyzeBookPronunciation, resetAnnotation, restoreSegmentReadingText, saveReaderDisplaySettings, saveTencentCredentials, saveTtsSettings, selectAudioVersion, setSegmentSpeakEnabled, splitSegment, startBookAudioGeneration, testTtsConnection, updatePronunciationRule, updateSegmentReadingText } from "./services/library";
+import type { TtsPronunciationMode } from "./services/library";
 import { friendlyErrorMessage } from "./services/errors";
 import { exportPhaseLabel, sanitizeExportFilename } from "./services/exportUi";
 import { batchIsActive, batchProgressPercent } from "./services/batchGenerationUi";
@@ -31,6 +32,7 @@ const idleBatchState: BatchGenerationState = {
   has_failures: false,
   failed_segments: [],
   fatal_error: null,
+  pronunciation_mode: "locked",
 };
 
 function useBatchGenerationState(): BatchGenerationState {
@@ -504,10 +506,15 @@ function ReaderPage() {
     finally { setAnalysisBusy(false); }
   };
 
-  const handleGenerateAudio = async () => {
+  const handleGenerateAudio = async (pronunciationMode: TtsPronunciationMode = "locked") => {
     if (!segmentId || exportRunning) return;
     setAudioBusy(true); setError(null);
-    try { updateReader(await generateSegmentAudio(segmentId)); }
+    try {
+      if (pronunciationMode === "display" && displaySettings.pinyin_mode !== "all") {
+        updateDisplaySettings({ pinyin_mode: "all" });
+      }
+      updateReader(await generateSegmentAudio(segmentId, pronunciationMode));
+    }
     catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
     finally { setAudioBusy(false); }
   };
@@ -520,19 +527,20 @@ function ReaderPage() {
     finally { setAudioBusy(false); }
   };
 
-  const handleStartBatch = async () => {
+  const handleStartBatch = async (pronunciationMode: TtsPronunciationMode = "locked") => {
     if (!bookId || batchRunning || exportRunning) return;
     setError(null);
     try {
-      const nextPreflight = await getBookGenerationPreflight(bookId);
+      const nextPreflight = await getBookGenerationPreflight(bookId, pronunciationMode);
       setPreflight(nextPreflight);
       if (!nextPreflight.can_generate) {
         setError(nextPreflight.blockers.map((blocker) => blocker.message).join("；"));
         return;
       }
-      const confirmed = window.confirm(`将按当前语音设置串行生成《${book?.book.title ?? "当前古籍"}》的 ${nextPreflight.need_generation} 个段落。\n可复用的已有语音：${nextPreflight.generated_and_reusable} 个。\n\n过程中不会自动生成批量以外的音频，是否开始？`);
+      const modeLabel = pronunciationMode === "display" ? "严格按照页面全文注音" : "按照已锁定读音";
+      const confirmed = window.confirm(`将${modeLabel}串行生成《${book?.book.title ?? "当前古籍"}》的 ${nextPreflight.need_generation} 个段落。\n可复用的已有语音：${nextPreflight.generated_and_reusable} 个。\n\n过程中不会自动生成批量以外的音频，是否开始？`);
       if (!confirmed) return;
-      await startBookAudioGeneration(bookId);
+      await startBookAudioGeneration(bookId, pronunciationMode);
     } catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
   };
 
@@ -647,7 +655,7 @@ function ReaderPage() {
           <button className="toolbar-button" type="button" onClick={() => void (batchRunning ? handleCancelBatch() : handleStartBatch())} disabled={bookAnalysisBusy || exportRunning}>{batchRunning ? "停止生成" : "生成全文"}</button>
           <BookExportPanel bookId={bookId} bookTitle={book?.book.title ?? "当前古籍"} selectedSegmentIds={selectedSegmentIds} state={exportForBook ? exportState : idleExportState} blockedByOtherExport={exportRunning && !exportForBook} onExport={(format, nextPreflight, segmentIds) => void handleExport(format, nextPreflight, segmentIds)} onCancel={() => void handleCancelExport()} compact />
           <button className="toolbar-button more-button" type="button" onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen}>更多…</button>
-          {moreOpen && <div className="more-menu"><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
+          {moreOpen && <div className="more-menu"><button type="button" onClick={() => { setMoreOpen(false); updateDisplaySettings({ pinyin_mode: "all" }); void handleStartBatch("display"); }}>严格按页面注音生成全文</button><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
         </div>
       </header>
       {error && <div className="error-banner reader-error" role="alert">{error}</div>}
@@ -689,7 +697,7 @@ function ReaderPage() {
                 {displaySettings.pinyin_mode !== "off" && <div className="pronunciation-legend" aria-label="读音来源说明"><span className="pronunciation-legend-item locked"><i aria-hidden="true" />已锁定读音 <small>将用于语音合成</small></span><span className="pronunciation-legend-item preview"><i aria-hidden="true" />参考注音 <small>自动分析，仅用于页面显示</small></span>{ttsComparisonAvailable && <span className={`pronunciation-legend-item tts-comparison${ttsMismatches.size > 0 ? " mismatch" : " matched"}`}><i aria-hidden="true" />{ttsMismatches.size > 0 ? `TTS实际发音不一致（${ttsMismatches.size}处）` : "TTS实际发音一致"} <small>当前音频</small></span>}</div>}
                 <p className="reader-help">点击标注查看读音详情；点击普通汉字可添加手工发音。只有已确认或规则生成的读音会进入语音合成。</p>
               </>}
-              <AudioPanel reader={reader} busy={audioBusy || batchRunning || exportRunning} onGenerate={() => void handleGenerateAudio()} onSelect={(audioId) => void handleSelectAudio(audioId)} />
+              <AudioPanel reader={reader} busy={audioBusy || batchRunning || exportRunning} onGenerate={() => void handleGenerateAudio()} onGenerateStrict={() => void handleGenerateAudio("display")} onSelect={(audioId) => void handleSelectAudio(audioId)} />
             </> : <div className="subtle-empty">选择一条段落查看正文。</div>}
           </section>
           <aside className={`inspector-panel${inspectorOpen ? " open" : ""}`}><div className="inspector-heading"><div><p className="eyebrow">发音检查器</p><h2>发音检查器</h2></div><button className="inspector-close" type="button" onClick={() => setInspectorOpen(false)}>收起</button><span className="inspector-mark" aria-hidden="true">⌁</span></div><PronunciationInspector reader={reader} annotation={selectedAnnotation} currentAudio={currentAudio} manualToken={manualToken} targetPinyin={targetPinyin} setTargetPinyin={setTargetPinyin} manualPinyin={manualPinyin} setManualPinyin={setManualPinyin} busy={analysisBusy || batchRunning || exportRunning} onAnalyze={() => void handleAnalyze()} onConfirm={() => void handleConfirm()} onIgnore={() => void handleAnnotationStatus("ignore")} onReset={() => void handleAnnotationStatus("reset")} onCreateRule={(scope) => void handleCreateRule(scope)} onManualAnnotation={() => void handleManualAnnotation()} onNextReview={navigateToNextReview} /></aside>
@@ -716,7 +724,8 @@ function BookBatchPanel({ bookTitle, state, preflight, running, analyzing, onCan
   const denominator = state.segments_requiring_generation;
   const progress = batchProgressPercent(state);
   if (!running && !analyzing && !isTerminal) return null;
-  return <div className="task-strip">{analyzing && <div><strong>正在分析《{bookTitle}》</strong><span>只更新发音标注，不会生成语音。</span></div>}{running && <div className="task-progress"><div><strong>正在生成《{bookTitle}》</strong><span>{state.processed} / {denominator} 段</span></div><div className="progress-track"><div className="progress-value" style={{ width: `${progress}%` }} /></div><small>已生成 {state.generated} · 已复用 {state.skipped} · 失败 {state.failed}</small></div>}{isTerminal && state.book_id && <div><strong>{state.status === "completed" ? "全文生成完成" : state.status === "cancelled" ? "已停止全文生成" : "全文生成失败"}</strong><span>生成 {state.generated} · 复用 {state.skipped} · 失败 {state.failed}</span>{state.fatal_error && <p className="stale-warning">{state.fatal_error.message}</p>}</div>}{(running || analyzing) && <button className="task-cancel" type="button" onClick={onCancel} disabled={!running || state.status === "cancelling"}>{state.status === "cancelling" ? "正在停止…" : "停止"}</button>}{preflight && !running && state.status === "idle" && preflight.blockers.length > 0 && <span className="batch-blocked">预检未通过</span>}</div>;
+  const modeLabel = state.pronunciation_mode === "display" ? "严格按页面注音" : "锁定读音";
+  return <div className="task-strip">{analyzing && <div><strong>正在分析《{bookTitle}》</strong><span>只更新发音标注，不会生成语音。</span></div>}{running && <div className="task-progress"><div><strong>正在生成《{bookTitle}》</strong><span>{state.processed} / {denominator} 段 · {modeLabel}</span></div><div className="progress-track"><div className="progress-value" style={{ width: `${progress}%` }} /></div><small>已生成 {state.generated} · 已复用 {state.skipped} · 失败 {state.failed}</small></div>}{isTerminal && state.book_id && <div><strong>{state.status === "completed" ? "全文生成完成" : state.status === "cancelled" ? "已停止全文生成" : "全文生成失败"}</strong><span>{modeLabel} · 生成 {state.generated} · 复用 {state.skipped} · 失败 {state.failed}</span>{state.fatal_error && <p className="stale-warning">{state.fatal_error.message}</p>}</div>}{(running || analyzing) && <button className="task-cancel" type="button" onClick={onCancel} disabled={!running || state.status === "cancelling"}>{state.status === "cancelling" ? "正在停止…" : "停止"}</button>}{preflight && !running && state.status === "idle" && preflight.blockers.length > 0 && <span className="batch-blocked">预检未通过</span>}</div>;
 }
 
 function BookExportPanel({ bookId, bookTitle, selectedSegmentIds, state, blockedByOtherExport, onExport, onCancel, compact = false }: { bookId: string; bookTitle: string; selectedSegmentIds: string[]; state: ExportState; blockedByOtherExport: boolean; onExport: (format: "mp3" | "wav", preflight: BookExportPreflight, segmentIds: string[]) => void; onCancel: () => void; compact?: boolean }) {
@@ -763,12 +772,12 @@ function AnnotationDetails({ annotation, targetPinyin, setTargetPinyin, busy, on
   return <div className="annotation-details"><div className="detail-heading"><div><p className="eyebrow">读音标注</p><h3>{annotation.surface_text}</h3></div><span className={`review-badge status-${annotation.review_status}`}>{reviewStatusLabel(annotation.review_status)}</span></div><div className="detail-grid"><span>风险</span><strong>{riskTypeLabel(annotation.risk_type)}</strong><span>来源</span><strong>{annotation.source_rule_id ? "发音词典规则" : annotationSourceLabel(annotation.source)}</strong><span>规则</span><strong>{ruleTypeLabel(annotation.rule_type)}</strong><span>置信</span><strong>{confidenceLabel(annotation.confidence)}</strong><span>默认</span><strong>{annotation.default_pinyin ?? "无有效拼音"}</strong></div>{annotation.candidate_pinyin.length > 0 && <div><p className="detail-label">候选读音</p><div className="candidate-list">{annotation.candidate_pinyin.map((candidate) => <button key={candidate} className={candidate === targetPinyin ? "candidate-button selected" : "candidate-button"} type="button" onClick={() => setTargetPinyin(candidate)}>{candidate}</button>)}</div></div>}<input className="pinyin-input" value={targetPinyin} onChange={(event) => setTargetPinyin(normalizePinyinInput(event.target.value))} autoCapitalize="none" autoCorrect="off" autoComplete="off" spellCheck={false} inputMode="text" placeholder="输入 ASCII 数字拼音，例如 shu4" aria-label="目标拼音" />{annotation.reason && <p className="detail-reason">{annotation.reason}</p>}<div className="detail-actions"><button className="detail-action primary-detail-action" type="button" onClick={onConfirm} disabled={busy}>确认读音</button>{annotation.review_status === "needs_review" ? <button className="detail-action" type="button" onClick={onIgnore} disabled={busy}>忽略</button> : <button className="detail-action" type="button" onClick={onReset} disabled={busy}>重置复核</button>}</div>{annotation.review_status === "confirmed" && annotation.target_pinyin && <div className="rule-actions"><p className="detail-label">复用这条确认</p><div className="detail-actions"><button className="detail-action" type="button" onClick={() => onCreateRule("book")} disabled={busy}>应用到本书</button><button className="detail-action" type="button" onClick={() => onCreateRule("global")} disabled={busy}>加入全局词典</button></div></div>}</div>;
 }
 
-function AudioPanel({ reader, busy, onGenerate, onSelect }: { reader: SegmentReader; busy: boolean; onGenerate: () => void; onSelect: (audioId: string) => void }) {
+function AudioPanel({ reader, busy, onGenerate, onGenerateStrict, onSelect }: { reader: SegmentReader; busy: boolean; onGenerate: () => void; onGenerateStrict: () => void; onSelect: (audioId: string) => void }) {
   const { segment, audio_versions: versions } = reader;
   const current = versions.find((version) => version.id === segment.current_audio_id) ?? null;
   const canGenerate = segment.speak_enabled && ["analyzed", "ready", "generated"].includes(segment.status);
   const stale = current !== null && segment.status !== "generated";
-  return <div className="audio-toolbar"><div className="audio-playback">{current ? <audio className="audio-player" controls src={convertFileSrc(current.audio_path)} aria-label="当前段落语音" /> : <span className="audio-empty">尚未生成语音</span>}{stale && <span className="audio-stale">基于旧发音</span>}</div><span className={`audio-state ${segment.status}`}>{!segment.speak_enabled ? "不朗读" : segment.status === "needs_review" ? "待确认" : segment.status === "pending" ? "未分析" : segment.status === "generated" ? "已生成" : "可生成"}</span><button className="secondary-button audio-generate-button" type="button" onClick={onGenerate} disabled={!canGenerate || busy}>{busy ? "处理中…" : "重新生成"}</button>{versions.length > 1 && <details className="audio-versions"><summary>版本 {versions.length}</summary><div>{versions.map((version) => <button key={version.id} className={version.id === segment.current_audio_id ? "audio-version current" : "audio-version"} type="button" onClick={() => onSelect(version.id)} disabled={busy}>第 {version.version_no} 版 · {version.id === segment.current_audio_id ? "当前" : "试听"}</button>)}</div></details>}</div>;
+  return <div className="audio-toolbar"><div className="audio-playback">{current ? <audio className="audio-player" controls src={convertFileSrc(current.audio_path)} aria-label="当前段落语音" /> : <span className="audio-empty">尚未生成语音</span>}{stale && <span className="audio-stale">基于旧发音</span>}</div><span className={`audio-state ${segment.status}`}>{!segment.speak_enabled ? "不朗读" : segment.status === "needs_review" ? "待确认" : segment.status === "pending" ? "未分析" : segment.status === "generated" ? "已生成" : "可生成"}</span>{current?.pronunciation_mode === "display" && <span className="audio-mode strict">严格按注音</span>}<button className="secondary-button audio-generate-button" type="button" onClick={onGenerate} disabled={!canGenerate || busy}>{busy ? "处理中…" : "重新生成"}</button><button className="secondary-button audio-strict-button" type="button" onClick={onGenerateStrict} disabled={!canGenerate || busy} title="按页面全文注音为每个汉字生成指定读音">严格按注音生成</button>{versions.length > 1 && <details className="audio-versions"><summary>版本 {versions.length}</summary><div>{versions.map((version) => <button key={version.id} className={version.id === segment.current_audio_id ? "audio-version current" : "audio-version"} type="button" onClick={() => onSelect(version.id)} disabled={busy}>第 {version.version_no} 版 · {version.pronunciation_mode === "display" ? "严格按注音" : "锁定读音"} · {version.id === segment.current_audio_id ? "当前" : "试听"}</button>)}</div></details>}</div>;
 }
 
 function SettingsPage() {

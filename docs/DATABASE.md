@@ -16,6 +16,7 @@ Rust 通过 `sqlx` 独占 SQLite 连接。Python Worker 不接收数据库路径
 - `0010_audio_pronunciation_signature.sql`：为 `audio_versions` 增加生成时 confirmed pronunciation 快照。
 - `0011_api_usage_events.sql`：记录腾讯云 TTS 的请求操作、成功/失败和字符用量，用于本地统计。
 - `0012_audio_provider_metadata.sql`：为 `audio_versions` 增加供应商返回的实际发音元数据 JSON。
+- `0013_tts_pronunciation_mode.sql`：为 `audio_versions` 增加 TTS 注音模式，区分 `locked`（已锁定读音）和 `display`（严格按页面注音）。
 
 已经执行的 migration 不应原地修改；新增结构使用新的 SQL 文件。
 
@@ -116,6 +117,7 @@ TXT 导入、分析写入、复核状态变化和手工标注都由 Rust 控制�
 | `provider` / `voice_type` | 生成服务和音色 |
 | `sample_rate` / `codec` | 当前为 16000 / wav |
 | `speed` / `volume` | 生成时使用的 TTS 参数 |
+| `pronunciation_mode` | `locked` 仅发送人工/规则锁定读音；`display` 按 Reader 全文注音逐字发送 SSML |
 | `ssml` | 有 confirmed 发音覆盖时保存的实际 SSML；无覆盖为空 |
 | `pronunciation_signature` | 生成时按 Grapheme Token 范围和 target pinyin 排序序列化的发音快照；旧版本可能为空 |
 | `provider_metadata_json` | 当前 AudioVersion 的供应商实际发音元数据；规范化保存 `realized_pronunciation`，旧版本或供应商未返回时为空 |

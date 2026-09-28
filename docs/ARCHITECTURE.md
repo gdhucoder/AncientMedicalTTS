@@ -138,18 +138,18 @@ SQLite transaction: audio_versions + current_audio_id/status=generated
 React <audio controls>
 ```
 
-当前 TTS 固定为腾讯云、16000Hz、WAV、单 Segment。未命中 confirmed 发音覆盖时，Worker 将原文直接作为 `Text`，不会包裹 `<speak>`；存在覆盖时，才生成 XML 转义后的 SSML。TTS 请求超时为 60 秒，连接测试超时为 30 秒。
+当前 TTS 固定为腾讯云、16000Hz、WAV、单 Segment。默认“锁定读音”模式只发送 confirmed 人工/规则覆盖；未命中覆盖时，Worker 将原文直接作为 `Text`，不会包裹 `<speak>`。Reader 另提供显式的“严格按注音生成”模式，Rust 使用同一套全文显示注音，为每个汉字生成一个 XML 转义后的 SSML phoneme。TTS 请求超时为 60 秒，连接测试超时为 30 秒。
 
 ### TTS 发音一致性边界
 
-TTS 只消费 Rust `build_effective_forced_pronunciations` 生成的强制发音策略，不消费页面注音或 analyzer 的默认/建议拼音。进入 SSML 的来源只有：
+默认 `locked` 模式只消费 Rust `build_effective_forced_pronunciations` 生成的强制发音策略，不消费页面注音或 analyzer 的默认/建议拼音。进入 SSML 的来源只有：
 
 - `confirmed + source='manual' + target_pinyin` 的当前处人工确认；
 - `confirmed + source_rule_id` 指向启用中的 `book` 或 `global` 规则的规则标注。
 
 Rust 按起始 token、最长范围和来源优先级生成互不重叠的列表，手工确认优先于规则，Book Rule 优先于 Global Rule；未确认的 `needs_review`、`ignored`、`pypinyin`、词典和上下文 analyzer 结果都只是参考信息，不会被自动强制进入 TTS。这样可以避免“页面显示 e4，但尚未确认，TTS 却被错误强制为 e4”的隐式行为。
 
-腾讯请求开启 `EnableSubtitle`。供应商返回的 `Subtitles`（当前 SDK 字段为 `Text`、`Phoneme`、`BeginTime`、`EndTime`）被规范化后保存到本次 `AudioVersion.provider_metadata`，表示供应商实际实现的读音；它不会回写 `segment_annotations`、规则或 canonical pinyin。旧 AudioVersion 没有该字段时，UI 显示“未记录”。单句生成和全文批量生成都调用同一个 AudioService，因此共享同一套强制发音策略。音频导出继续只读取 `current_audio_id`，不改变上述边界。
+严格 `display` 模式不改变数据库中的 Annotation，只把页面当前显示的全文注音作为本次请求的强制覆盖。两种模式写入 AudioVersion 的 `pronunciation_mode`，批量生成只复用同模式的版本；对严格模式的发音快照，后续 Annotation 变化采用保守失效策略。腾讯请求开启 `EnableSubtitle`。供应商返回的 `Subtitles`（当前 SDK 字段为 `Text`、`Phoneme`、`BeginTime`、`EndTime`）被规范化后保存到本次 `AudioVersion.provider_metadata`，表示供应商实际实现的读音；它不会回写 `segment_annotations`、规则或 canonical pinyin。旧 AudioVersion 没有该字段时，UI 显示“未记录”。单句生成和全文批量生成都调用同一个 AudioService，因此共享同一套 TTS 输入边界。音频导出继续只读取 `current_audio_id`，不改变上述边界。
 
 ### TTS 设置与试听
 
@@ -188,7 +188,7 @@ Rust 检查 5000 汉字、Segment 状态、150 字单句限制、凭据和设置
 batch-generation-progress 事件 + get_batch_generation_state
 ```
 
-批量生成不建立 jobs 表，不使用并发，不调用 FFmpeg，不改变 Tencent Provider。它通过 `AudioService::generate_segment_audio_with_settings` 复用单 Segment 的 SSML、Worker、WAV 校验、版本编号和数据库事务。设置、发音分析、规则、导入、删除和单 Segment TTS 在批量运行期间由 Rust Command 层锁定。取消只设置协作式标志，当前请求完成后停止；已生成版本继续保留。详见 [docs/BATCH_GENERATION.md](BATCH_GENERATION.md)。
+批量生成不建立 jobs 表，不使用并发，不调用 FFmpeg，不改变 Tencent Provider。它通过 `AudioService::generate_segment_audio_with_settings_and_mode` 复用单 Segment 的 SSML、Worker、WAV 校验、版本编号和数据库事务，支持沿用锁定读音或选择严格页面注音模式。设置、发音分析、规则、导入、删除和单 Segment TTS 在批量运行期间由 Rust Command 层锁定。取消只设置协作式标志，当前请求完成后停止；已生成版本继续保留。详见 [docs/BATCH_GENERATION.md](BATCH_GENERATION.md)。
 
 凭据只由 Rust 读写 Tauri 应用数据目录下的 `tencent_credentials.json`，并在启动 Worker 时以环境变量注入 Worker 进程；Secret 不进入 SQLite、IPC 返回值或日志。Unix 系统上凭据文件权限限制为 `0600`。删除 Book 时，Rust 同时清理该 Book 的应用数据目录音频文件。
 

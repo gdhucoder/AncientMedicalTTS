@@ -82,7 +82,7 @@ impl BatchGenerationController {
             })
     }
 
-    fn reserve(&self, book_id: &str) -> AppResult<()> {
+    fn reserve(&self, book_id: &str, pronunciation_mode: &str) -> AppResult<()> {
         let mut inner = self
             .inner
             .lock()
@@ -95,6 +95,7 @@ impl BatchGenerationController {
         }
         inner.state = idle_state();
         inner.state.book_id = Some(book_id.to_string());
+        inner.state.pronunciation_mode = pronunciation_mode.to_string();
         inner.state.status = "running".to_string();
         inner.cancel_requested = false;
         Ok(())
@@ -152,7 +153,17 @@ pub async fn get_book_generation_preflight(
     database: &Database,
     book_id: &str,
     data_dir: &Path,
+    pronunciation_mode: &str,
 ) -> AppResult<BookGenerationPreflight> {
+    if !matches!(
+        pronunciation_mode,
+        audio_service::PRONUNCIATION_MODE_LOCKED | audio_service::PRONUNCIATION_MODE_DISPLAY
+    ) {
+        return Err(AppError::new(
+            "INVALID_TTS_PRONUNCIATION_MODE",
+            "不支持的 TTS 注音模式",
+        ));
+    }
     let stats = book_service::get_book_text_stats(database, book_id).await?;
     let segments = load_book_segments(database, book_id).await?;
     let settings = settings_service::get_tts_settings(database).await.ok();
@@ -277,7 +288,13 @@ pub async fn get_book_generation_preflight(
                 && audio_service::ALLOWED_STATUS.contains(&segment.status.as_str())
         }) {
             if segment.status == "generated"
-                && audio_service::latest_audio_matches(database, &segment.id, &settings).await?
+                && audio_service::latest_audio_matches(
+                    database,
+                    &segment.id,
+                    &settings,
+                    pronunciation_mode,
+                )
+                .await?
             {
                 generated_and_reusable += 1;
             } else {
@@ -312,15 +329,19 @@ pub async fn start_book_audio_generation(
     database: Database,
     book_id: String,
     data_dir: PathBuf,
+    pronunciation_mode: String,
 ) -> AppResult<()> {
-    controller.reserve(&book_id)?;
-    let preflight = match get_book_generation_preflight(&database, &book_id, &data_dir).await {
-        Ok(preflight) => preflight,
-        Err(error) => {
-            controller.reset()?;
-            return Err(error);
-        }
-    };
+    controller.reserve(&book_id, &pronunciation_mode)?;
+    let preflight =
+        match get_book_generation_preflight(&database, &book_id, &data_dir, &pronunciation_mode)
+            .await
+        {
+            Ok(preflight) => preflight,
+            Err(error) => {
+                controller.reset()?;
+                return Err(error);
+            }
+        };
     if !preflight.can_generate {
         controller.reset()?;
         return Err(AppError::new(
@@ -355,7 +376,15 @@ pub async fn start_book_audio_generation(
     let run_controller = Arc::clone(&controller);
     let run_app = app.clone();
     tauri::async_runtime::spawn(async move {
-        run_batch(run_app, run_controller, database, settings, segments).await;
+        run_batch(
+            run_app,
+            run_controller,
+            database,
+            settings,
+            segments,
+            pronunciation_mode,
+        )
+        .await;
     });
     Ok(())
 }
@@ -379,6 +408,7 @@ async fn run_batch(
     database: Database,
     settings: TtsSettings,
     segments: Vec<BatchSegment>,
+    pronunciation_mode: String,
 ) {
     let app_state = app.state::<AppState>();
     for segment in segments.into_iter().filter(|segment| {
@@ -391,7 +421,14 @@ async fn run_batch(
         }
 
         let reusable = if segment.status == "generated" {
-            match audio_service::latest_audio_matches(&database, &segment.id, &settings).await {
+            match audio_service::latest_audio_matches(
+                &database,
+                &segment.id,
+                &settings,
+                &pronunciation_mode,
+            )
+            .await
+            {
                 Ok(value) => value,
                 Err(error) => {
                     finish_fatal(&app, &controller, error);
@@ -416,7 +453,14 @@ async fn run_batch(
             state.current_preview = Some(preview(segment.effective_text()));
         });
         emit_state(&app, &controller);
-        let result = generate_with_retry(&app_state, &database, &segment.id, &settings).await;
+        let result = generate_with_retry(
+            &app_state,
+            &database,
+            &segment.id,
+            &settings,
+            &pronunciation_mode,
+        )
+        .await;
         match result {
             Ok(()) => {
                 let _ = controller.update(|state| {
@@ -468,14 +512,16 @@ async fn generate_with_retry(
     database: &Database,
     segment_id: &str,
     settings: &TtsSettings,
+    pronunciation_mode: &str,
 ) -> AppResult<()> {
     for attempt in 0..=MAX_RETRIES {
-        match audio_service::generate_segment_audio_with_settings(
+        match audio_service::generate_segment_audio_with_settings_and_mode(
             state,
             database,
             segment_id,
             settings,
             "batch_generation",
+            pronunciation_mode,
         )
         .await
         {
@@ -567,6 +613,7 @@ fn idle_state() -> BatchGenerationState {
         has_failures: false,
         failed_segments: Vec::new(),
         fatal_error: None,
+        pronunciation_mode: audio_service::PRONUNCIATION_MODE_LOCKED.to_string(),
     }
 }
 
@@ -638,7 +685,10 @@ mod tests {
     use super::{
         get_book_generation_preflight, is_fatal_error, is_retryable, BatchGenerationController,
     };
-    use crate::{db::Database, services::book_service};
+    use crate::{
+        db::Database,
+        services::{audio_service, book_service},
+    };
     use uuid::Uuid;
 
     fn temp_db() -> Database {
@@ -650,9 +700,11 @@ mod tests {
     #[test]
     fn only_one_batch_can_be_reserved() {
         let controller = BatchGenerationController::new();
-        controller.reserve("book-a").expect("first reservation");
+        controller
+            .reserve("book-a", audio_service::PRONUNCIATION_MODE_LOCKED)
+            .expect("first reservation");
         let error = controller
-            .reserve("book-b")
+            .reserve("book-b", audio_service::PRONUNCIATION_MODE_LOCKED)
             .expect_err("second reservation should fail");
         assert_eq!(error.code, "BATCH_GENERATION_ALREADY_RUNNING");
         assert_eq!(controller.snapshot().book_id.as_deref(), Some("book-a"));
@@ -682,10 +734,14 @@ mod tests {
                     .expect("book should import");
             let data_dir =
                 std::env::temp_dir().join(format!("ancient-tts-batch-data-{}", Uuid::now_v7()));
-            let preflight =
-                get_book_generation_preflight(&database, &imported.book.book.id, &data_dir)
-                    .await
-                    .expect("preflight should succeed");
+            let preflight = get_book_generation_preflight(
+                &database,
+                &imported.book.book.id,
+                &data_dir,
+                audio_service::PRONUNCIATION_MODE_LOCKED,
+            )
+            .await
+            .expect("preflight should succeed");
             assert!(!preflight.can_generate);
             assert_eq!(preflight.pending_segments, 1);
             assert!(preflight
@@ -703,10 +759,14 @@ mod tests {
                 .execute(database.pool())
                 .await
                 .expect("make segment overlong");
-            let overlong =
-                get_book_generation_preflight(&database, &imported.book.book.id, &data_dir)
-                    .await
-                    .expect("overlong preflight should succeed");
+            let overlong = get_book_generation_preflight(
+                &database,
+                &imported.book.book.id,
+                &data_dir,
+                audio_service::PRONUNCIATION_MODE_LOCKED,
+            )
+            .await
+            .expect("overlong preflight should succeed");
             assert!(overlong
                 .blockers
                 .iter()

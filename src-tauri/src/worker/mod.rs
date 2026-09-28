@@ -10,12 +10,14 @@ use std::{
 };
 
 const DEFAULT_TIMEOUT: Duration = Duration::from_secs(5);
+const STARTUP_TIMEOUT: Duration = Duration::from_secs(15);
 
 pub struct WorkerClient {
     child: Child,
     stdin: ChildStdin,
     responses: Receiver<String>,
     timeout: Duration,
+    log_path: PathBuf,
 }
 
 impl WorkerClient {
@@ -33,6 +35,7 @@ impl WorkerClient {
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::piped());
+        hide_console_window(&mut command);
         let mut child = command.spawn().map_err(|error| {
             AppError::new(
                 "WORKER_START_ERROR",
@@ -68,10 +71,11 @@ impl WorkerClient {
         });
 
         let log_path = log_path.to_path_buf();
+        let stderr_log_path = log_path.clone();
         thread::spawn(move || {
             let reader = BufReader::new(stderr);
             for line in reader.lines().map_while(Result::ok) {
-                append_worker_log(&log_path, &line);
+                append_worker_log(&stderr_log_path, &line);
             }
         });
 
@@ -80,11 +84,16 @@ impl WorkerClient {
             stdin,
             responses,
             timeout,
+            log_path,
         })
     }
 
     pub fn default_timeout() -> Duration {
         DEFAULT_TIMEOUT
+    }
+
+    pub fn startup_timeout() -> Duration {
+        STARTUP_TIMEOUT
     }
 
     pub fn call(&mut self, method: &str, params: Value) -> AppResult<Value> {
@@ -120,7 +129,20 @@ impl WorkerClient {
                 ));
             }
             Err(mpsc::RecvTimeoutError::Disconnected) => {
-                return Err(AppError::new("WORKER_EXITED", "Worker 已退出"));
+                let status = self
+                    .child
+                    .try_wait()
+                    .ok()
+                    .flatten()
+                    .map(|value| format!("（退出状态：{value}）"))
+                    .unwrap_or_else(|| "（标准输出通道已关闭）".to_string());
+                return Err(AppError::new(
+                    "WORKER_EXITED",
+                    format!(
+                        "Worker 已退出{status}，请查看日志：{}",
+                        self.log_path.display()
+                    ),
+                ));
             }
         };
         let response: Value = serde_json::from_str(&line).map_err(|error| {
@@ -149,19 +171,39 @@ impl WorkerClient {
         Ok(response.get("result").cloned().unwrap_or(Value::Null))
     }
 
-    pub fn is_running(&mut self) -> bool {
-        self.child
-            .try_wait()
-            .map(|status| status.is_none())
-            .unwrap_or(false)
-    }
-
     fn ensure_running(&mut self) -> AppResult<()> {
-        if self.is_running() {
-            Ok(())
-        } else {
-            Err(AppError::new("WORKER_NOT_RUNNING", "Python Worker 未运行"))
+        match self.child.try_wait() {
+            Ok(None) => Ok(()),
+            Ok(Some(status)) => Err(AppError::new(
+                "WORKER_NOT_RUNNING",
+                format!(
+                    "Python Worker 未运行（退出状态：{status}），请查看日志：{}",
+                    self.log_path.display()
+                ),
+            )),
+            Err(error) => Err(AppError::new(
+                "WORKER_NOT_RUNNING",
+                format!(
+                    "无法检查 Python Worker 状态：{error}，请查看日志：{}",
+                    self.log_path.display()
+                ),
+            )),
         }
+    }
+}
+
+fn hide_console_window(command: &mut Command) {
+    #[cfg(not(windows))]
+    let _ = command;
+
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+
+        // CREATE_NO_WINDOW keeps the console-subsystem PyInstaller Worker
+        // compatible with stdin/stdout pipes without opening a console window.
+        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        command.creation_flags(CREATE_NO_WINDOW);
     }
 }
 

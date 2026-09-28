@@ -134,6 +134,8 @@ export type AudioVersion = {
   speed: number;
   volume: number;
   ssml: string | null;
+  pronunciation_signature: string | null;
+  pronunciation_mode: "locked" | "display" | string;
   audio_path: string;
   provider_metadata: AudioProviderMetadata | null;
   provider_request_id: string | null;
@@ -275,6 +277,7 @@ export type BatchGenerationState = {
   has_failures: boolean;
   failed_segments: BatchFailedSegment[];
   fatal_error: BatchFatalError | null;
+  pronunciation_mode?: "locked" | "display" | string;
 };
 
 export type BookExportBlocker = {

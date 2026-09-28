@@ -531,6 +531,9 @@ button:disabled { cursor: default; opacity: .55; }
 .audio-state.generated { color: #397051; background: #dceee1; }
 .audio-state.ready, .audio-state.analyzed { color: #5f6d76; background: #e1e7eb; }
 .audio-state.needs_review { color: #8b6628; background: #f6e7bd; }
+.audio-mode { flex: 0 0 auto; border-radius: 10px; padding: 4px 7px; color: #397051; background: #e2f0e4; font-size: 10px; white-space: nowrap; }
+.audio-strict-button { display: inline-flex; min-width: 112px; height: 36px; align-items: center; justify-content: center; box-sizing: border-box; padding: 9px 12px; color: #355640; border-color: #b8cbb8; background: #f2f7f1; font-size: 12px; white-space: nowrap; }
+.audio-strict-button:hover:not(:disabled) { border-color: #78967d; background: #e5f0e5; }
 .audio-generate-button { display: inline-flex; min-width: 96px; height: 36px; align-items: center; justify-content: center; box-sizing: border-box; padding: 9px 12px; font-size: 12px; white-space: nowrap; }
 .audio-generate-button:disabled { cursor: default; }
 .audio-versions { position: relative; flex: 0 0 auto; margin: 0; border: 0; padding: 0; color: #777267; font-size: 12px; }

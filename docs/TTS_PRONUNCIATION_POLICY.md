@@ -10,6 +10,12 @@
 
 参考注音不是用户确认，不会因为出现在页面上就自动进入 TTS。
 
+## 严格按页面注音生成
+
+Reader 的“严格按注音生成”是一个显式的 TTS 模式，不改变上述默认边界。启动该模式时，Rust 再次调用与页面“全文”注音相同的 `pronunciation.display_pinyin`，然后把每个汉字转换为一个独立的 `<phoneme alphabet="py" ph="...">字</phoneme>`。Annotation 中已经显示的人工确认、规则读音会优先作为页面当前读音；其余汉字使用同一次页面全文注音结果。
+
+该模式的 `AudioVersion.pronunciation_mode` 为 `display`，普通重新生成和原有全文生成的模式为 `locked`。两类音频版本不会互相复用。严格模式仍要求 Segment 已完成分析且没有待确认项，并且不修改 `segment_annotations` 或 TTS 文本；它只是把页面注音作为本次合成的明确 SSML 输入。
+
 ### 已锁定读音
 
 只有以下两类数据可以进入 TTS 的 SSML `phoneme`：
@@ -44,7 +50,7 @@ Python build_ssml
 Tencent TextToVoice
 ```
 
-没有强制读音时，Worker 将文本原样发送；存在强制读音时，才生成 `<phoneme alphabet="py" ph="...">...</phoneme>`。TTS 输入仍使用 Segment 的 `effective_text = reading_text ?? original_text`，参考注音不会改变文本。
+默认没有强制读音时，Worker 将文本原样发送；存在强制读音时，才生成 `<phoneme alphabet="py" ph="...">...</phoneme>`。严格按页面注音模式则会为全文每个汉字生成覆盖。TTS 输入仍使用 Segment 的 `effective_text = reading_text ?? original_text`，注音只控制发音，不改变文本。
 
 单 Segment 生成和全文批量生成都复用 Rust AudioService，因此使用同一套策略。导出只读取当前 AudioVersion，不重新分析也不重新生成语音。
 

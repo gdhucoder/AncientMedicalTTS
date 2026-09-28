@@ -14,30 +14,51 @@ use time::{format_description::well_known::Rfc3339, OffsetDateTime};
 use uuid::Uuid;
 
 pub(crate) const ALLOWED_STATUS: &[&str] = &["analyzed", "ready", "generated"];
+pub(crate) const PRONUNCIATION_MODE_LOCKED: &str = "locked";
+pub(crate) const PRONUNCIATION_MODE_DISPLAY: &str = "display";
 
 pub async fn generate_segment_audio(
     state: &AppState,
     segment_id: &str,
 ) -> AppResult<SegmentReader> {
+    generate_segment_audio_with_mode(state, segment_id, PRONUNCIATION_MODE_LOCKED).await
+}
+
+pub async fn generate_segment_audio_with_mode(
+    state: &AppState,
+    segment_id: &str,
+    pronunciation_mode: &str,
+) -> AppResult<SegmentReader> {
     let database = state.database()?;
     let settings = settings_service::get_tts_settings(&database).await?;
-    generate_segment_audio_with_settings(
+    generate_segment_audio_with_settings_and_mode(
         state,
         &database,
         segment_id,
         &settings,
         "segment_generation",
+        pronunciation_mode,
     )
     .await
 }
 
-pub(crate) async fn generate_segment_audio_with_settings(
+pub(crate) async fn generate_segment_audio_with_settings_and_mode(
     state: &AppState,
     database: &Database,
     segment_id: &str,
     settings: &TtsSettings,
     operation: &str,
+    pronunciation_mode: &str,
 ) -> AppResult<SegmentReader> {
+    if !matches!(
+        pronunciation_mode,
+        PRONUNCIATION_MODE_LOCKED | PRONUNCIATION_MODE_DISPLAY
+    ) {
+        return Err(AppError::new(
+            "INVALID_TTS_PRONUNCIATION_MODE",
+            "不支持的 TTS 注音模式",
+        ));
+    }
     let segment = book_service::get_segment(&database, segment_id).await?;
     if !segment.speak_enabled {
         return Err(AppError::new(
@@ -65,10 +86,33 @@ pub(crate) async fn generate_segment_audio_with_settings(
     }
 
     let tokens = pronunciation_service::grapheme_tokens(segment.effective_text());
-    let pronunciations = pronunciation_service::confirmed_overrides(&database, segment_id).await?;
-    let pronunciation_signature = pronunciation_service::serialize_pronunciation_signature(
-        &pronunciation_service::effective_signature(database, segment_id).await?,
-    )?;
+    let (pronunciations, pronunciation_signature) = if pronunciation_mode
+        == PRONUNCIATION_MODE_DISPLAY
+    {
+        let pronunciations =
+            pronunciation_service::display_pinyin_for_segment(state, database, segment_id).await?;
+        let signature = pronunciations
+            .iter()
+            .map(|item| {
+                (
+                    item.start_token as i64,
+                    item.end_token as i64,
+                    item.pinyin.clone(),
+                )
+            })
+            .collect::<Vec<_>>();
+        (
+            pronunciations,
+            pronunciation_service::serialize_pronunciation_signature(&signature)?,
+        )
+    } else {
+        (
+            pronunciation_service::confirmed_overrides(&database, segment_id).await?,
+            pronunciation_service::serialize_pronunciation_signature(
+                &pronunciation_service::effective_signature(database, segment_id).await?,
+            )?,
+        )
+    };
     let book_id = book_service::get_book_id_for_segment(&database, segment_id).await?;
     let data_dir = state
         .data_dir
@@ -187,9 +231,9 @@ pub(crate) async fn generate_segment_audio_with_settings(
     let audio_id = Uuid::now_v7().to_string();
     let transaction_result = async {
         let mut transaction = database.pool().begin().await.map_err(transaction_error)?;
-        sqlx::query("INSERT INTO audio_versions (id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, provider_metadata_json, audio_path, provider_request_id, provider_session_id, duration_ms, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+        sqlx::query("INSERT INTO audio_versions (id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, pronunciation_mode, provider_metadata_json, audio_path, provider_request_id, provider_session_id, duration_ms, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
             .bind(&audio_id).bind(segment_id).bind(version_no).bind(&settings.provider).bind(settings.voice_type)
-            .bind(settings.sample_rate).bind(&settings.codec).bind(settings.speed).bind(settings.volume).bind(ssml).bind(pronunciation_signature).bind(provider_metadata_json)
+            .bind(settings.sample_rate).bind(&settings.codec).bind(settings.speed).bind(settings.volume).bind(ssml).bind(pronunciation_signature).bind(pronunciation_mode).bind(provider_metadata_json)
             .bind(final_path.to_string_lossy().to_string()).bind(provider_request_id).bind(provider_session_id).bind(duration_ms).bind(&now)
             .execute(&mut *transaction).await.map_err(transaction_error)?;
         sqlx::query("UPDATE segments SET current_audio_id = ?, status = 'generated', updated_at = ? WHERE id = ?")
@@ -207,9 +251,10 @@ pub(crate) async fn latest_audio_matches(
     database: &Database,
     segment_id: &str,
     settings: &TtsSettings,
+    pronunciation_mode: &str,
 ) -> AppResult<bool> {
-    let row = sqlx::query_as::<_, (String, i64, i64, String, f64, f64, String)>(
-        "SELECT provider, voice_type, sample_rate, codec, speed, volume, audio_path
+    let row = sqlx::query_as::<_, (String, i64, i64, String, f64, f64, String, String)>(
+        "SELECT provider, voice_type, sample_rate, codec, speed, volume, audio_path, pronunciation_mode
          FROM audio_versions
          WHERE segment_id = ?
          ORDER BY version_no DESC
@@ -218,7 +263,9 @@ pub(crate) async fn latest_audio_matches(
     .bind(segment_id)
     .fetch_optional(database.pool())
     .await?;
-    let Some((provider, voice_type, sample_rate, codec, speed, volume, audio_path)) = row else {
+    let Some((provider, voice_type, sample_rate, codec, speed, volume, audio_path, stored_mode)) =
+        row
+    else {
         return Ok(false);
     };
     Ok(Path::new(&audio_path).is_file()
@@ -227,7 +274,8 @@ pub(crate) async fn latest_audio_matches(
         && sample_rate == settings.sample_rate
         && codec == settings.codec
         && speed == settings.speed
-        && volume == settings.volume)
+        && volume == settings.volume
+        && stored_mode == pronunciation_mode)
 }
 
 pub async fn list_audio_versions(
@@ -236,7 +284,7 @@ pub async fn list_audio_versions(
 ) -> AppResult<Vec<AudioVersion>> {
     let _ = book_service::get_segment(database, segment_id).await?;
     let rows = sqlx::query_as::<_, AudioVersionRow>(
-        "SELECT id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, provider_metadata_json, audio_path, provider_request_id, provider_session_id, duration_ms, created_at FROM audio_versions WHERE segment_id = ? ORDER BY version_no DESC")
+        "SELECT id, segment_id, version_no, provider, voice_type, sample_rate, codec, speed, volume, ssml, pronunciation_signature, pronunciation_mode, provider_metadata_json, audio_path, provider_request_id, provider_session_id, duration_ms, created_at FROM audio_versions WHERE segment_id = ? ORDER BY version_no DESC")
         .bind(segment_id).fetch_all(database.pool()).await?;
     rows.into_iter().map(audio_from_row).collect()
 }
@@ -409,6 +457,7 @@ struct AudioVersionRow {
     volume: f64,
     ssml: Option<String>,
     pronunciation_signature: Option<String>,
+    pronunciation_mode: String,
     provider_metadata_json: Option<String>,
     audio_path: String,
     provider_request_id: Option<String>,
@@ -436,6 +485,7 @@ fn audio_from_row(row: AudioVersionRow) -> AppResult<AudioVersion> {
         volume: row.volume,
         ssml: row.ssml,
         pronunciation_signature: row.pronunciation_signature,
+        pronunciation_mode: row.pronunciation_mode,
         provider_metadata,
         audio_path: row.audio_path,
         provider_request_id: row.provider_request_id,
@@ -477,7 +527,7 @@ fn transaction_error(error: sqlx::Error) -> AppError {
 mod tests {
     use super::{
         latest_audio_matches, list_audio_versions, provider_metadata_json, read_wav_format,
-        select_audio_version, validate_wav,
+        select_audio_version, validate_wav, PRONUNCIATION_MODE_LOCKED,
     };
     use crate::db::Database;
     use crate::models::TtsSettings;
@@ -565,16 +615,24 @@ mod tests {
                 speed: 0.0,
                 volume: 0.0,
             };
-            assert!(latest_audio_matches(&database, &segment_id, &settings)
-                .await
-                .expect("latest audio should match"));
+            assert!(latest_audio_matches(
+                &database,
+                &segment_id,
+                &settings,
+                PRONUNCIATION_MODE_LOCKED
+            )
+            .await
+            .expect("latest audio should match"));
             let mut changed_settings = settings.clone();
             changed_settings.speed = 1.0;
-            assert!(
-                !latest_audio_matches(&database, &segment_id, &changed_settings)
-                    .await
-                    .expect("changed settings should not match")
-            );
+            assert!(!latest_audio_matches(
+                &database,
+                &segment_id,
+                &changed_settings,
+                PRONUNCIATION_MODE_LOCKED
+            )
+            .await
+            .expect("changed settings should not match"));
             let versions = list_audio_versions(&database, &segment_id)
                 .await
                 .expect("list versions");
@@ -585,6 +643,9 @@ mod tests {
                     .collect::<Vec<_>>(),
                 vec![2, 1]
             );
+            assert!(versions
+                .iter()
+                .all(|version| version.pronunciation_mode == PRONUNCIATION_MODE_LOCKED));
             let selected = select_audio_version(&database, &versions[0].id)
                 .await
                 .expect("select version");

@@ -193,8 +193,10 @@ export function generateTtsPreview(text: string, settings: TtsSettings): Promise
   });
 }
 
-export function generateSegmentAudio(segmentId: string): Promise<SegmentReader> {
-  return invoke<SegmentReader>("generate_segment_audio", { segmentId });
+export type TtsPronunciationMode = "locked" | "display";
+
+export function generateSegmentAudio(segmentId: string, pronunciationMode: TtsPronunciationMode = "locked"): Promise<SegmentReader> {
+  return invoke<SegmentReader>("generate_segment_audio", { segmentId, pronunciationMode });
 }
 
 export function selectAudioVersion(audioId: string): Promise<SegmentReader> {
@@ -205,12 +207,12 @@ export function deleteBook(bookId: string): Promise<void> {
   return invoke<void>("delete_book", { bookId });
 }
 
-export function getBookGenerationPreflight(bookId: string): Promise<BookGenerationPreflight> {
-  return invoke<BookGenerationPreflight>("get_book_generation_preflight", { bookId });
+export function getBookGenerationPreflight(bookId: string, pronunciationMode: TtsPronunciationMode = "locked"): Promise<BookGenerationPreflight> {
+  return invoke<BookGenerationPreflight>("get_book_generation_preflight", { bookId, pronunciationMode });
 }
 
-export function startBookAudioGeneration(bookId: string): Promise<void> {
-  return invoke<void>("start_book_audio_generation", { bookId });
+export function startBookAudioGeneration(bookId: string, pronunciationMode: TtsPronunciationMode = "locked"): Promise<void> {
+  return invoke<void>("start_book_audio_generation", { bookId, pronunciationMode });
 }
 
 export function cancelBookAudioGeneration(): Promise<BatchGenerationState> {

@@ -77,6 +77,24 @@ class SsmlTests(unittest.TestCase):
         self.assertTrue(used)
         self.assertIn('<phoneme alphabet="py" ph="e4">恶</phoneme>', ssml)
 
+    def test_strict_display_mode_can_force_each_han_character_independently(self) -> None:
+        text = "遂恶之"
+        tokens = [{"index": index, "text": character} for index, character in enumerate(text)]
+        ssml, used = build_ssml(
+            text,
+            tokens,
+            [
+                PronunciationOverride(0, 1, "遂", "sui4"),
+                PronunciationOverride(1, 2, "恶", "e4"),
+                PronunciationOverride(2, 3, "之", "zhi1"),
+            ],
+        )
+        self.assertTrue(used)
+        self.assertEqual(ssml.count('<phoneme alphabet="py"'), 3)
+        self.assertIn('ph="sui4">遂</phoneme>', ssml)
+        self.assertIn('ph="e4">恶</phoneme>', ssml)
+        self.assertIn('ph="zhi1">之</phoneme>', ssml)
+
     def test_unconfirmed_reference_does_not_create_a_phoneme(self) -> None:
         ssml, used = build_ssml("恶寒", [{"index": 0, "text": "恶"}, {"index": 1, "text": "寒"}], [])
         self.assertEqual(ssml, "恶寒")

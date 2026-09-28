@@ -1,6 +1,6 @@
 # AncientMedicalTTS
 
-AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前源码候选版本为 **v0.1.0-rc3**，已进入功能冻结后的发布验证阶段。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
+AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前源码候选版本为 **v0.1.0-rc4**，已进入功能冻结后的发布验证阶段。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
 
 当前版本已实现：UTF-8 TXT 导入、SQLite 本地阅读、Rust Grapheme Token 分词、Python 发音分析器 v0.3、结构化中医与古籍发音知识层、可解释语义上下文选音、Annotation 复核、腾讯云 TTS、SSML 发音覆盖、WAV 音频版本、单 Segment 播放、本书/全局精确发音规则、单 Book 串行全文 WAV 生成，以及按正文顺序导出完整 WAV/MP3。
 
@@ -23,6 +23,7 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - TTS 设置页面提供四张卡片：凭据、合成参数、本地 API 用量统计和音色试听；试听直接使用当前未保存的音色/语速/音量，保存设置后才影响正式生成；
 - Rust 组装已确认发音覆盖，Worker 生成腾讯云 TTS 请求和可选 SSML；
 - 明确区分“参考注音”“已锁定读音”和 AudioVersion 的“实际发音”：自动分析结果不自动强制进入 TTS，只有人工确认或启用的本书/全局规则才生成 SSML 发音覆盖；腾讯云返回的字幕发音独立保存到对应音频版本；
+- 当前段落音频支持“严格按注音生成”：自动读取 Reader 的全文注音，为每个汉字生成独立 SSML 发音覆盖；该模式与原有“仅使用已锁定读音”模式分开记录，均不修改发音分析数据；
 - 全文注音模式下，将当前音频的腾讯云实际发音与页面注音逐字对比；标点和停顿不参与比较，不一致的汉字会高亮，点击普通汉字可查看该音频的实际读音；
 - 16000Hz WAV 单 Segment 生成、版本保存、版本切换和 Tauri asset 协议播放；
 - 发音词典：本书规则和全局规则、Grapheme Token 精确匹配、最长匹配、Book 优先级、人工覆盖保护、规则更新/启用/禁用；
@@ -50,7 +51,7 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 
 ## GitHub Actions 自动构建
 
-推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.0-rc3` 或后续正式版本）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
+推送到 `main`、创建 Pull Request 或手动运行“构建桌面安装包”Workflow，会分别构建 macOS Apple Silicon、macOS Intel 和 Windows x64。推送版本 tag（例如 `v0.1.0-rc4` 或后续正式版本）后，Workflow 会在三种 runner 全部成功后自动创建/更新 GitHub Release 并上传安装包。
 
 ```bash
 git tag v0.1.1

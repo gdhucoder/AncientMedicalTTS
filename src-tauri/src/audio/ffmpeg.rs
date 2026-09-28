@@ -43,22 +43,41 @@ pub(crate) fn check_available(app: &AppHandle, require_mp3: bool) -> AppResult<F
 }
 
 pub(crate) fn spawn(path: &Path, args: &[String]) -> AppResult<Child> {
-    Command::new(path)
+    let mut command = Command::new(path);
+    command
         .args(args)
         .stdin(Stdio::null())
         .stdout(Stdio::null())
-        .stderr(Stdio::piped())
+        .stderr(Stdio::piped());
+    hide_console_window(&mut command);
+    command
         .spawn()
         .map_err(|error| AppError::new("FFMPEG_NOT_AVAILABLE", format!("无法启动 FFmpeg: {error}")))
 }
 
 fn run_probe(path: &Path, args: &[&str]) -> AppResult<Output> {
-    Command::new(path).args(args).output().map_err(|error| {
+    let mut command = Command::new(path);
+    command.args(args);
+    hide_console_window(&mut command);
+    command.output().map_err(|error| {
         AppError::new(
             "FFMPEG_NOT_AVAILABLE",
             format!("无法执行 FFmpeg 检查: {error}"),
         )
     })
+}
+
+fn hide_console_window(command: &mut Command) {
+    #[cfg(not(windows))]
+    let _ = command;
+
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+
+        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        command.creation_flags(CREATE_NO_WINDOW);
+    }
 }
 
 fn resolve_path(app: &AppHandle) -> AppResult<PathBuf> {

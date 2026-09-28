@@ -3,6 +3,7 @@ use crate::{
     error::{AppError, AppResult},
     models::{Annotation, GraphemeToken, PronunciationOverride, Segment, SegmentReader},
     services::{book_service, text_service},
+    AppState,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -95,6 +96,109 @@ pub async fn confirmed_overrides(
             pinyin: item.pinyin,
         })
         .collect())
+}
+
+/// Returns the same full-text pinyin that the Reader uses for its `all` mode.
+/// This is deliberately kept in Rust so strict TTS cannot drift from the UI's
+/// display-pinyin source or accidentally use a different pronunciation path.
+pub(crate) async fn display_pinyin_for_segment(
+    state: &AppState,
+    database: &Database,
+    segment_id: &str,
+) -> AppResult<Vec<PronunciationOverride>> {
+    let segment = book_service::get_segment(database, segment_id).await?;
+    let tokens = grapheme_tokens(segment.effective_text());
+    let display_pinyin = display_pinyin_for_tokens(state, segment.effective_text(), &tokens)?;
+    let annotations = list_annotations(database, segment_id).await?;
+    let mut effective = display_pinyin;
+
+    for annotation in annotations {
+        let pinyin = if annotation.review_status == REVIEW_IGNORED {
+            None
+        } else if annotation.review_status == REVIEW_CONFIRMED
+            && annotation.target_pinyin.is_some()
+            && (annotation.source.as_deref() == Some("manual")
+                || annotation.source_rule_id.is_some())
+        {
+            annotation.target_pinyin
+        } else {
+            annotation
+                .default_pinyin
+                .or_else(|| annotation.candidate_pinyin.first().cloned())
+        };
+        let Some(pinyin) = pinyin else { continue };
+        let syllables = normalize_and_validate_pinyin(&pinyin)?
+            .split_whitespace()
+            .map(str::to_string)
+            .collect::<Vec<_>>();
+        let han_indexes = (annotation.start_token..annotation.end_token)
+            .filter(|index| *index < tokens.len() && is_han_token(&tokens[*index].text))
+            .collect::<Vec<_>>();
+        if syllables.len() != han_indexes.len() {
+            return Err(AppError::new(
+                "DISPLAY_PINYIN_TOKEN_COUNT_MISMATCH",
+                format!(
+                    "页面注音“{}”与“{}”的汉字数量不一致",
+                    pinyin, annotation.surface_text
+                ),
+            ));
+        }
+        for (index, syllable) in han_indexes.into_iter().zip(syllables) {
+            effective[index] = Some(syllable);
+        }
+    }
+
+    tokens
+        .iter()
+        .enumerate()
+        .filter(|(_, token)| is_han_token(&token.text))
+        .map(|(index, token)| {
+            let pinyin = effective[index].clone().ok_or_else(|| {
+                AppError::new(
+                    "DISPLAY_PINYIN_MISSING",
+                    format!("页面没有返回“{}”的有效注音，无法严格合成", token.text),
+                )
+            })?;
+            Ok(PronunciationOverride {
+                start_token: index,
+                end_token: index + 1,
+                surface_text: token.text.clone(),
+                pinyin,
+            })
+        })
+        .collect()
+}
+
+pub(crate) fn display_pinyin_for_tokens(
+    state: &AppState,
+    text: &str,
+    tokens: &[GraphemeToken],
+) -> AppResult<Vec<Option<String>>> {
+    let result = state.worker_call(
+        "pronunciation.display_pinyin",
+        serde_json::json!({ "text": text, "tokens": tokens }),
+    )?;
+    let values = result
+        .get("token_pinyin")
+        .and_then(Value::as_array)
+        .ok_or_else(|| AppError::new("WORKER_PROTOCOL_ERROR", "全文拼音结果缺少 token_pinyin"))?;
+    if values.len() != tokens.len() {
+        return Err(AppError::new(
+            "WORKER_PROTOCOL_ERROR",
+            "全文拼音结果与 token 数量不一致",
+        ));
+    }
+    values
+        .iter()
+        .map(|value| match value {
+            Value::Null => Ok(None),
+            Value::String(value) => Ok(Some(value.clone())),
+            _ => Err(AppError::new(
+                "WORKER_PROTOCOL_ERROR",
+                "全文拼音结果包含无效值",
+            )),
+        })
+        .collect()
 }
 
 /// Resolves the only pronunciation annotations that are allowed to reach TTS.
@@ -657,8 +761,8 @@ async fn current_audio_matches_pronunciation_signature_tx(
     connection: &mut Transaction<'_, sqlx::Sqlite>,
     segment_id: &str,
 ) -> AppResult<bool> {
-    let stored_signature: Option<String> = sqlx::query_scalar(
-        "SELECT a.pronunciation_signature
+    let stored = sqlx::query_as::<_, (Option<String>, String)>(
+        "SELECT a.pronunciation_signature, a.pronunciation_mode
          FROM segments s
          JOIN audio_versions a ON a.id = s.current_audio_id
          WHERE s.id = ?",
@@ -667,6 +771,15 @@ async fn current_audio_matches_pronunciation_signature_tx(
     .fetch_optional(&mut **connection)
     .await
     .map_err(transaction_error)?;
+    let Some((stored_signature, pronunciation_mode)) = stored else {
+        return Ok(false);
+    };
+    // Strict display-pinyin audio is a snapshot of a worker-generated display
+    // result. Annotation edits must conservatively invalidate it; the next
+    // generation will take a fresh snapshot of every displayed syllable.
+    if pronunciation_mode == crate::services::audio_service::PRONUNCIATION_MODE_DISPLAY {
+        return Ok(false);
+    }
     let Some(stored_signature) = stored_signature else {
         return Ok(false);
     };

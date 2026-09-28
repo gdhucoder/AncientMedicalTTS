@@ -83,6 +83,10 @@ PyInstaller Worker 必须：
 - stdout 只能输出 JSON Lines，诊断信息只能输出 stderr；
 - 不携带或写入 SecretId、SecretKey；凭据仍由 Rust 注入 Worker 环境变量。
 
+Windows 发布包中的 Worker 保留控制台子系统，以确保 stdin/stdout JSON Lines 管道可用；Rust 启动时设置 `CREATE_NO_WINDOW`，因此用户启动应用或测试 TTS 时不会弹出黑色命令行窗口。该设置同样用于内置 FFmpeg 的检查和导出进程。
+
+Rust 在保存凭据重启 Worker、以及应用首次启动时都会先执行一次 `system.ping`。启动握手单独使用 15 秒窗口，以覆盖 Windows 低速磁盘上的 PyInstaller 首次解包；只有握手成功后才把 Worker 交给应用继续使用。如果 Worker 启动后立即退出，错误会带上退出状态和 `logs/worker.log` 路径，避免把启动故障误报成腾讯云接口故障。
+
 当前仓库的 PyInstaller 构建入口是 `pnpm worker:build`，执行时会强制检查 Python 3.12.x、调用项目虚拟环境中的 PyInstaller、复制内置 dictionaries，并在生成后执行 bundled Worker 的 `system.ping` 自检：
 
 ```bash

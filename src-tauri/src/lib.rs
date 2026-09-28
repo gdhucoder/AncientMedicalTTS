@@ -295,13 +295,29 @@ fn spawn_config(
             credentials.secret_key,
         ));
     }
-    let worker = WorkerClient::spawn_with_env(
+    let mut worker = WorkerClient::spawn_with_env(
         &config.program,
         &config.args,
         &config.log_path,
         config.timeout,
         &envs,
     )?;
+    worker
+        .call_with_timeout(
+            "system.ping",
+            serde_json::json!({}),
+            WorkerClient::startup_timeout(),
+        )
+        .map_err(|error| {
+            AppError::new(
+                "WORKER_START_ERROR",
+                format!(
+                    "Python Worker 启动后未通过 ping：{}。请查看日志：{}",
+                    error.message,
+                    config.log_path.display()
+                ),
+            )
+        })?;
     Ok((worker, config))
 }
 
@@ -319,8 +335,7 @@ impl AppState {
             .map_err(|_| AppError::new("FILE_IO_ERROR", "应用目录状态锁不可用"))?
             .clone()
             .ok_or_else(|| AppError::new("FILE_IO_ERROR", "应用数据目录尚未初始化"))?;
-        let (mut worker, _) = spawn_config(config, &data_dir)?;
-        worker.call("system.ping", serde_json::json!({}))?;
+        let (worker, _) = spawn_config(config, &data_dir)?;
         *self
             .worker
             .lock()
