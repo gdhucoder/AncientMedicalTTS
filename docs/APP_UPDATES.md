@@ -16,7 +16,7 @@ AncientMedicalTTS 使用 Tauri 官方 updater 插件从 GitHub Release 获取更
 1. 更新 `package.json`、`src-tauri/Cargo.toml` 和 `src-tauri/tauri.conf.json` 中的版本；
 2. 创建并推送版本 tag，例如 `v0.1.1`；
 3. GitHub Actions 在 macOS Apple Silicon、macOS Intel 和 Windows x64 runner 上构建安装包；
-4. 带有签名的 macOS `.app.tar.gz`、Windows `*.nsis.zip` 更新包和对应 `.sig` 会上传到 GitHub Release；普通 `setup.exe` 仍作为手动安装包发布；
+4. 带有签名的 macOS `.app.tar.gz`、Windows NSIS `setup.exe` 更新包和对应 `.sig` 会上传到 GitHub Release；同一个 `setup.exe` 也可作为手动安装包发布；
 5. 发布任务生成 `latest.json`，并通过 GitHub Contents API 同步到 `main` 分支的 `site/latest.json`；应用从以下固定地址检查：
 
    `https://raw.githubusercontent.com/gdhucoder/AncientMedicalTTS/main/site/latest.json`
