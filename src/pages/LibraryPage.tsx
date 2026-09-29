@@ -1,4 +1,5 @@
 import { getCurrentWebview } from "@tauri-apps/api/webview";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { open } from "@tauri-apps/plugin-dialog";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { KeyboardEvent, MouseEvent } from "react";
@@ -21,6 +22,17 @@ type LibraryPageProps = {
 };
 
 const AUTO_OPEN_PREFERENCE = "ancient-medical-tts.library.auto-open-import";
+
+async function restoreLibraryWindowFocus() {
+  if (!("__TAURI_INTERNALS__" in window)) return;
+  try {
+    const currentWindow = getCurrentWindow();
+    await currentWindow.show();
+    await currentWindow.setFocus();
+  } catch {
+    // The browser preview and older Tauri runtimes may not expose window focus APIs.
+  }
+}
 
 function shouldAutoOpenImport(): boolean {
   return window.localStorage.getItem(AUTO_OPEN_PREFERENCE) !== "false";
@@ -202,11 +214,13 @@ export function LibraryPage({ operationsLocked, onOpenBook }: LibraryPageProps) 
     if (operationsLocked || busy || annotatedBusy) return;
     const selected = await open({ multiple: false, directory: false, filters: [{ name: "已注音古籍", extensions: ["zip", "json"] }] });
     if (typeof selected !== "string") return;
+    await restoreLibraryWindowFocus();
     setAnnotatedPath(selected);
     setTrustAnnotated(false);
     setError(null);
     try {
       const result = await getAnnotatedBookImportPreflight(selected, false);
+      await restoreLibraryWindowFocus();
       setAnnotatedPreflight(result);
     } catch (reason: unknown) {
       setAnnotatedPath(null);
