@@ -31,6 +31,8 @@ Milestone 6 只负责一个 Book 的全文独立 WAV 生成。每个 Segment 仍
 
 同一应用同时只允许一个批量生成。生成顺序是 Chapter order、Segment order，串行度为 1。取消是协作式的：当前 Worker 请求完成后停止，不杀 Worker，不删除已生成结果。重新开始时沿用上述复用规则，等价于从未完成处继续。
 
+对于已注音古籍，导入确认页勾选“将文件中的注音作为 TTS 强制读音”后，完整覆盖的 authoritative Book 会在 Reader 顶部显示“按导入注音生成”。该入口使用 `pronunciation_mode=imported`，严格预检每个需要朗读的汉字都有 `imported_authoritative` 或更高优先级的有效强制读音；生成请求由 AudioService 复用同一套 phrase-level SSML。注音覆盖不完整时，严格入口会阻止启动，只有用户明确选择“混合生成全文”才会把缺失位置交给腾讯云默认判音。
+
 可重试错误最多执行“首次尝试 + 两次重试”，退避 500ms、1500ms：`TTS_TIMEOUT`、`TTS_RATE_LIMITED`、`TTS_PROVIDER_ERROR`。凭据、权限、服务未开通、配额、无效音色、无效 SSML、文本过长和数据库/文件系统/Worker 致命错误不按普通 Segment 错误重试。普通 Segment 错误记录到内存失败列表并继续；致命错误停止批量。完成状态仍可能带有失败列表。
 
 ## IPC 与事件
@@ -45,4 +47,3 @@ Milestone 6 只负责一个 Book 的全文独立 WAV 生成。每个 Segment 仍
 `batch-generation-progress` 事件传输当前进度，但事件不是事实来源。页面打开或重新进入时调用 `get_batch_generation_state` 恢复状态。状态包含 `generated`、`skipped`、`failed`、当前 Segment、失败列表和致命错误。
 
 应用退出时不保留批量运行状态，不创建持久化 Job；已经落盘的 AudioVersion 和 WAV 文件保留。
-

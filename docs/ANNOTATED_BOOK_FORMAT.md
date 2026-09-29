@@ -90,7 +90,7 @@ book.zip
 - Analyzer 不会覆盖 `imported_authoritative`，但仍可提供建议；
 - 对连续、未跨标点的强制读音，SSML 会合并为 phrase-level `<phoneme>`，标点在 phoneme 外部。
 
-authoritative 数据支持严格模式和混合模式。严格模式要求所有需要朗读的汉字都有最终强制读音；混合模式必须由用户明确选择，缺失位置会显示数量并交给 TTS 默认判音。
+authoritative 数据支持严格模式和混合模式。严格模式要求所有需要朗读的汉字都有最终强制读音；混合模式必须由用户明确选择，缺失位置会显示数量并交给 TTS 默认判音。导入完成且覆盖完整时，Reader 顶部的主操作会显示“按导入注音生成”，直接复用现有串行批量生成；严格入口也保留在“更多…”菜单中。批量生成时，`imported_authoritative` 会经过现有 `AudioService` 转为 phrase-level SSML `<phoneme>`，而不是只用于页面显示。
 
 ## 当前应用限制
 

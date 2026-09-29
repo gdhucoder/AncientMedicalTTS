@@ -411,6 +411,8 @@ button:disabled { cursor: default; opacity: .55; }
 .toolbar-button:hover, .toolbar-button.active { border-color: #aebdaf; color: #304b3b; background: #eef3ed; }
 .toolbar-button.primary { border-color: #3e5448; color: #faf8f3; background: #3e5448; }
 .toolbar-button.primary:hover { background: #32473c; }
+.toolbar-button.imported-batch-button { border-color: #426b54; color: #f8fbf7; background: #4c785d; }
+.toolbar-button.imported-batch-button:hover { border-color: #355c46; background: #3e684e; }
 .more-button { min-width: 42px; padding-inline: 10px; font-size: 16px; }
 .more-menu { position: absolute; top: calc(100% + 8px); right: 0; display: grid; min-width: 138px; gap: 2px; border: 1px solid #ded9ce; border-radius: 10px; padding: 6px; background: #fffdf9; box-shadow: 0 12px 28px rgba(55, 50, 40, .12); }
 .more-menu button { width: 100%; margin: 0; border-radius: 6px; padding: 8px 10px; color: #5f5b52; background: transparent; text-align: left; font-size: 12px; font-weight: 500; }
