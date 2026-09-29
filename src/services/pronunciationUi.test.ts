@@ -10,6 +10,7 @@ describe("normalizePinyinInput", () => {
 
   it("only treats confirmed target pinyin as an input to TTS", () => {
     expect(isTtsLockedAnnotation({ ...annotation, review_status: "confirmed", target_pinyin: "shu4 xue2", source: "manual" })).toBe(true);
+    expect(isTtsLockedAnnotation({ ...annotation, review_status: "confirmed", target_pinyin: "shu4 xue2", source: "imported_authoritative" })).toBe(true);
     expect(isTtsLockedAnnotation(annotation)).toBe(false);
     expect(isTtsLockedAnnotation({ ...annotation, review_status: "confirmed", target_pinyin: "shu4 xue2", source: "pypinyin" })).toBe(false);
   });

@@ -109,7 +109,20 @@ pub(crate) async fn display_pinyin_for_segment(
     let segment = book_service::get_segment(database, segment_id).await?;
     let tokens = grapheme_tokens(segment.effective_text());
     let display_pinyin = display_pinyin_for_tokens(state, segment.effective_text(), &tokens)?;
-    let annotations = list_annotations(database, segment_id).await?;
+    let mut annotations = list_annotations(database, segment_id).await?;
+    annotations.sort_by_key(|annotation| {
+        match (
+            annotation.review_status.as_str(),
+            annotation.source.as_deref(),
+            annotation.source_rule_id.is_some(),
+        ) {
+            (REVIEW_CONFIRMED, Some("manual"), _) => 5_u8,
+            (REVIEW_CONFIRMED, _, true) => 4,
+            (REVIEW_CONFIRMED, Some("imported_authoritative"), _) => 3,
+            (_, Some("imported_reference"), _) => 2,
+            _ => 1,
+        }
+    });
     let mut effective = display_pinyin;
 
     for annotation in annotations {
@@ -118,6 +131,7 @@ pub(crate) async fn display_pinyin_for_segment(
         } else if annotation.review_status == REVIEW_CONFIRMED
             && annotation.target_pinyin.is_some()
             && (annotation.source.as_deref() == Some("manual")
+                || annotation.source.as_deref() == Some("imported_authoritative")
                 || annotation.source_rule_id.is_some())
         {
             annotation.target_pinyin
@@ -145,6 +159,16 @@ pub(crate) async fn display_pinyin_for_segment(
         }
         for (index, syllable) in han_indexes.into_iter().zip(syllables) {
             effective[index] = Some(syllable);
+        }
+    }
+
+    for forced in build_effective_forced_pronunciations(database, segment_id).await? {
+        let syllables = forced.pinyin.split_whitespace();
+        let mut syllables = syllables.map(str::to_string);
+        for index in forced.start_token..forced.end_token {
+            if index < tokens.len() && is_han_token(&tokens[index].text) {
+                effective[index] = syllables.next();
+            }
         }
     }
 
@@ -201,8 +225,9 @@ pub(crate) fn display_pinyin_for_tokens(
         .collect()
 }
 
-/// Resolves the only pronunciation annotations that are allowed to reach TTS.
-/// Analyzer/reference annotations intentionally do not enter this result.
+/// Resolves the pronunciation annotations that are allowed to reach TTS.
+/// Imported authoritative annotations are an input constraint; imported
+/// reference and analyzer annotations intentionally do not enter this result.
 pub async fn build_effective_forced_pronunciations(
     database: &Database,
     segment_id: &str,
@@ -255,19 +280,32 @@ pub async fn build_effective_forced_pronunciations(
                 },
                 3,
             ));
+        } else if annotation.source.as_deref() == Some("imported_authoritative") {
+            candidates.push((
+                EffectiveForcedPronunciation {
+                    start_token: annotation.start_token,
+                    end_token: annotation.end_token,
+                    surface_text: annotation.surface_text,
+                    pinyin,
+                    source: "imported_authoritative".to_string(),
+                },
+                0,
+            ));
         }
     }
 
+    // Priority is compared before range length so a manual annotation can
+    // never be shadowed by a longer rule that happens to overlap it.
     candidates.sort_by(|(left, left_priority), (right, right_priority)| {
-        left.start_token
-            .cmp(&right.start_token)
+        right_priority
+            .cmp(left_priority)
+            .then_with(|| left.start_token.cmp(&right.start_token))
             .then_with(|| {
                 right
                     .end_token
                     .saturating_sub(right.start_token)
                     .cmp(&left.end_token.saturating_sub(left.start_token))
             })
-            .then_with(|| right_priority.cmp(left_priority))
             .then_with(|| left.pinyin.cmp(&right.pinyin))
     });
     let mut selected = Vec::new();
@@ -288,7 +326,75 @@ pub async fn build_effective_forced_pronunciations(
         selected.push(candidate);
     }
     selected.sort_by_key(|item| (item.start_token, item.end_token));
-    Ok(selected)
+
+    // Keep punctuation outside phoneme spans. This also turns a rule that
+    // contains punctuation into one or more phrase-level phoneme ranges.
+    let segment = book_service::get_segment(database, segment_id).await?;
+    let tokens = grapheme_tokens(segment.effective_text());
+    let mut split = Vec::new();
+    for candidate in selected {
+        let syllables = normalize_and_validate_pinyin(&candidate.pinyin)?
+            .split_whitespace()
+            .map(str::to_string)
+            .collect::<Vec<_>>();
+        let han_count = tokens[candidate.start_token..candidate.end_token]
+            .iter()
+            .filter(|token| is_han_token(&token.text))
+            .count();
+        if han_count != syllables.len() {
+            return Err(AppError::new(
+                "PINYIN_TOKEN_COUNT_MISMATCH",
+                format!("强制读音与“{}”的汉字数量不一致", candidate.surface_text),
+            ));
+        }
+        let mut syllable_index = 0;
+        let mut range_start = None;
+        for index in candidate.start_token..candidate.end_token {
+            if is_han_token(&tokens[index].text) {
+                range_start.get_or_insert(index);
+                syllable_index += 1;
+            } else if let Some(start) = range_start.take() {
+                split.push(EffectiveForcedPronunciation {
+                    start_token: start,
+                    end_token: index,
+                    surface_text: tokens[start..index]
+                        .iter()
+                        .map(|token| token.text.as_str())
+                        .collect(),
+                    pinyin: syllables[syllable_index - (index - start)..syllable_index].join(" "),
+                    source: candidate.source.clone(),
+                });
+            }
+        }
+        if let Some(start) = range_start {
+            split.push(EffectiveForcedPronunciation {
+                start_token: start,
+                end_token: candidate.end_token,
+                surface_text: tokens[start..candidate.end_token]
+                    .iter()
+                    .map(|token| token.text.as_str())
+                    .collect(),
+                pinyin: syllables[syllable_index - (candidate.end_token - start)..syllable_index]
+                    .join(" "),
+                source: candidate.source,
+            });
+        }
+    }
+    split.sort_by_key(|item| (item.start_token, item.end_token));
+    let mut merged: Vec<EffectiveForcedPronunciation> = Vec::new();
+    for item in split {
+        if let Some(previous) = merged.last_mut() {
+            if previous.end_token == item.start_token {
+                previous.end_token = item.end_token;
+                previous.surface_text.push_str(&item.surface_text);
+                previous.pinyin.push(' ');
+                previous.pinyin.push_str(&item.pinyin);
+                continue;
+            }
+        }
+        merged.push(item);
+    }
+    Ok(merged)
 }
 
 pub async fn list_annotations(database: &Database, segment_id: &str) -> AppResult<Vec<Annotation>> {
@@ -313,7 +419,7 @@ pub async fn apply_analysis(
     let mut transaction = database.pool().begin().await.map_err(transaction_error)?;
 
     let protected = load_protected_annotations(&mut transaction, &segment.id).await?;
-    sqlx::query("DELETE FROM segment_annotations WHERE segment_id = ? AND review_status = ?")
+    sqlx::query("DELETE FROM segment_annotations WHERE segment_id = ? AND review_status = ? AND source <> 'imported_reference' AND source <> 'imported_authoritative'")
         .bind(&segment.id)
         .bind(REVIEW_NEEDS)
         .execute(&mut *transaction)
@@ -703,7 +809,8 @@ async fn load_protected_annotations(
 ) -> AppResult<Vec<Annotation>> {
     let rows = sqlx::query_as::<_, AnnotationRow>(
         "SELECT id, segment_id, start_token, end_token, surface_text, default_pinyin, target_pinyin, candidates_json, risk_type, reason, review_status, analyzer_version, source, rule_type, confidence, source_rule_id, created_at, updated_at
-         FROM segment_annotations WHERE segment_id = ? AND review_status IN (?, ?) AND source_rule_id IS NULL")
+         FROM segment_annotations WHERE segment_id = ? AND review_status IN (?, ?) AND source_rule_id IS NULL
+           AND (source IS NULL OR source IN ('manual', 'imported_reference', 'imported_authoritative'))")
         .bind(segment_id).bind(REVIEW_CONFIRMED).bind(REVIEW_IGNORED).fetch_all(&mut **connection).await.map_err(transaction_error)?;
     rows.into_iter().map(annotation_from_row).collect()
 }
@@ -713,13 +820,28 @@ pub(crate) async fn recalculate_segment_status_tx(
     segment_id: &str,
     effective_changed: bool,
 ) -> AppResult<String> {
-    let statuses = sqlx::query_as::<_, (String,)>(
-        "SELECT review_status FROM segment_annotations WHERE segment_id = ?",
+    let unresolved_needs: i64 = sqlx::query_scalar(
+        "SELECT COUNT(*) FROM segment_annotations a
+         WHERE a.segment_id = ? AND a.review_status = 'needs_review'
+           AND (COALESCE(a.source, '') <> 'imported_reference' OR NOT EXISTS (
+             SELECT 1 FROM segment_annotations rule_a
+             WHERE rule_a.segment_id = a.segment_id
+               AND rule_a.review_status = 'confirmed'
+               AND rule_a.source_rule_id IS NOT NULL
+               AND rule_a.start_token < a.end_token
+               AND a.start_token < rule_a.end_token
+           ))",
     )
     .bind(segment_id)
-    .fetch_all(&mut **connection)
+    .fetch_one(&mut **connection)
     .await
     .map_err(transaction_error)?;
+    let annotation_count: i64 =
+        sqlx::query_scalar("SELECT COUNT(*) FROM segment_annotations WHERE segment_id = ?")
+            .bind(segment_id)
+            .fetch_one(&mut **connection)
+            .await
+            .map_err(transaction_error)?;
     let current_status: String = sqlx::query_scalar("SELECT status FROM segments WHERE id = ?")
         .bind(segment_id)
         .fetch_optional(&mut **connection)
@@ -731,7 +853,7 @@ pub(crate) async fn recalculate_segment_status_tx(
     } else {
         false
     };
-    let status = if statuses.iter().any(|(status,)| status == REVIEW_NEEDS) {
+    let status = if unresolved_needs > 0 {
         "needs_review"
     } else if effective_changed && current_audio_matches {
         "generated"
@@ -739,7 +861,7 @@ pub(crate) async fn recalculate_segment_status_tx(
         "ready"
     } else if current_status == "generated" {
         "generated"
-    } else if statuses.is_empty() {
+    } else if annotation_count == 0 {
         "analyzed"
     } else {
         "ready"
@@ -890,7 +1012,7 @@ pub(crate) async fn effective_signature(
         "SELECT a.start_token, a.end_token, a.target_pinyin FROM segment_annotations a
          LEFT JOIN pronunciation_rules r ON r.id = a.source_rule_id
          WHERE a.segment_id = ? AND a.review_status = 'confirmed' AND a.target_pinyin IS NOT NULL
-           AND ((a.source_rule_id IS NULL AND a.source = 'manual')
+           AND ((a.source_rule_id IS NULL AND a.source IN ('manual', 'imported_authoritative'))
                 OR (r.id IS NOT NULL AND r.enabled = 1))
          ORDER BY a.start_token, a.end_token, a.target_pinyin",
     )
@@ -914,7 +1036,7 @@ pub(crate) async fn effective_signature_tx(
         "SELECT a.start_token, a.end_token, a.target_pinyin FROM segment_annotations a
          LEFT JOIN pronunciation_rules r ON r.id = a.source_rule_id
          WHERE a.segment_id = ? AND a.review_status = 'confirmed' AND a.target_pinyin IS NOT NULL
-           AND ((a.source_rule_id IS NULL AND a.source = 'manual')
+           AND ((a.source_rule_id IS NULL AND a.source IN ('manual', 'imported_authoritative'))
                 OR (r.id IS NOT NULL AND r.enabled = 1))
          ORDER BY a.start_token, a.end_token, a.target_pinyin",
     )

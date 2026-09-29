@@ -3,10 +3,10 @@ import { open } from "@tauri-apps/plugin-dialog";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { KeyboardEvent, MouseEvent } from "react";
 import { friendlyErrorMessage } from "../services/errors";
-import { deleteBook, getBookGenerationPreflight, importTxtBook, listBooks } from "../services/library";
+import { deleteBook, getAnnotatedBookImportPreflight, getBookGenerationPreflight, importAnnotatedBook, importTxtBook, listBooks } from "../services/library";
 import { bookCoverGlyph, bookMatchesQuery, fileStem, isSupportedTxtPath, relativeImportLabel, sortLibraryBooks, sourceFileName } from "../services/libraryUi";
 import type { LibrarySort } from "../services/libraryUi";
-import type { BookSummary } from "../types/library";
+import type { AnnotatedImportPreflight, BookSummary } from "../types/library";
 
 type LibraryViewMode = "cards" | "list";
 
@@ -26,14 +26,14 @@ function shouldAutoOpenImport(): boolean {
   return window.localStorage.getItem(AUTO_OPEN_PREFERENCE) !== "false";
 }
 
-function ImportDropzone({ active, disabled, importing, autoOpen, onAutoOpenChange, onChoose }: { active: boolean; disabled: boolean; importing: boolean; autoOpen: boolean; onAutoOpenChange: (value: boolean) => void; onChoose: () => void }) {
+function ImportDropzone({ active, disabled, importing, autoOpen, onAutoOpenChange, onChoose, onChooseAnnotated }: { active: boolean; disabled: boolean; importing: boolean; autoOpen: boolean; onAutoOpenChange: (value: boolean) => void; onChoose: () => void; onChooseAnnotated: () => void }) {
   return (
     <section className={`import-dropzone${active ? " drag-active" : ""}${disabled ? " disabled" : ""}`} aria-label="导入古籍 TXT">
       <div className="import-document-icon" aria-hidden="true"><span /></div>
       <div className="import-dropzone-copy">
         <strong>{importing ? "正在导入古籍…" : active ? "松开即可导入" : "将古籍 TXT 文件拖到这里"}</strong>
         <span className="import-or">或</span>
-        <button className="import-choose-button" type="button" onClick={onChoose} disabled={disabled || importing}>选择 TXT 文件</button>
+        <div className="import-choice-row"><button className="import-choose-button" type="button" onClick={onChoose} disabled={disabled || importing}>选择 TXT 文件</button><button className="import-secondary-button" type="button" onClick={onChooseAnnotated} disabled={disabled || importing}>导入已注音古籍</button></div>
         <small>支持 UTF-8 TXT · 单个文档最多 5000 个汉字</small>
         <label className="import-auto-open"><input type="checkbox" checked={autoOpen} onChange={(event) => onAutoOpenChange(event.target.checked)} />导入后自动打开</label>
       </div>
@@ -45,6 +45,11 @@ function ImportDropzone({ active, disabled, importing, autoOpen, onAutoOpenChang
       </div>
     </section>
   );
+}
+
+function AnnotatedImportDialog({ preflight, trust, busy, onTrustChange, onCancel, onImport }: { preflight: AnnotatedImportPreflight; trust: boolean; busy: boolean; onTrustChange: (value: boolean) => void; onCancel: () => void; onImport: () => void }) {
+  const authoritative = preflight.pronunciation_mode === "authoritative" || trust;
+  return <div className="modal-backdrop" role="presentation"><section className="modal-card annotated-import-dialog" role="dialog" aria-modal="true" aria-labelledby="annotated-import-title"><button className="modal-close" type="button" onClick={onCancel} disabled={busy} aria-label="关闭">×</button><h2 id="annotated-import-title">导入已注音古籍</h2><p className="modal-lead">先检查文件内容，再决定注音是否直接用于语音合成。</p><div className="annotated-import-summary"><strong>{preflight.title ?? "未命名古籍"}</strong><span>{preflight.chapter_count} 个章节 · {preflight.segment_count} 个段落 · {preflight.han_character_count.toLocaleString("zh-CN")} 个汉字</span><span>拼音覆盖率：{preflight.pinyin_coverage_percent.toFixed(1)}% · 译文：{preflight.translation_segment_count} 段</span><span>注音模式：{authoritative ? "最终发音" : "参考注音"}</span></div><label className="annotated-trust-option"><input type="checkbox" checked={authoritative} disabled={preflight.pronunciation_mode === "authoritative"} onChange={(event) => onTrustChange(event.target.checked)} />将文件中的注音作为最终发音</label><p className="annotated-import-note">{authoritative ? "导入后可直接按文件注音生成 TTS；之后仍可用人工校音或发音规则覆盖。" : "当前只保存为参考注音，不会自动强制进入 TTS；如确认文件注音可靠，请勾选上方选项。"}</p>{preflight.errors.length > 0 && <div className="error-banner"><strong>无法导入</strong><span>{preflight.errors[0].message}</span></div>}{preflight.warnings.length > 0 && <div className="annotated-import-warnings"><strong>提示</strong>{preflight.warnings.slice(0, 3).map((warning) => <span key={`${warning.code}-${warning.message}`}>{warning.message}</span>)}</div>}<div className="modal-actions"><button type="button" className="import-secondary-button" onClick={onCancel} disabled={busy}>取消</button><button type="button" className="import-choose-button" onClick={onImport} disabled={busy || !preflight.can_import}>{busy ? "正在导入…" : "确认导入"}</button></div></section></div>;
 }
 
 function ImportStatusToast({ feedback, onOpen }: { feedback: ImportFeedback; onOpen: (bookId: string) => void }) {
@@ -109,6 +114,10 @@ export function LibraryPage({ operationsLocked, onOpenBook }: LibraryPageProps) 
   const [viewMode, setViewMode] = useState<LibraryViewMode>(() => window.localStorage.getItem("ancient-medical-tts.library.view") === "list" ? "list" : "cards");
   const [autoOpenAfterImport, setAutoOpenAfterImport] = useState(shouldAutoOpenImport);
   const [menuBookId, setMenuBookId] = useState<string | null>(null);
+  const [annotatedPreflight, setAnnotatedPreflight] = useState<AnnotatedImportPreflight | null>(null);
+  const [annotatedPath, setAnnotatedPath] = useState<string | null>(null);
+  const [trustAnnotated, setTrustAnnotated] = useState(false);
+  const [annotatedBusy, setAnnotatedBusy] = useState(false);
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -189,6 +198,35 @@ export function LibraryPage({ operationsLocked, onOpenBook }: LibraryPageProps) 
     if (typeof selected === "string") await importPath(selected);
   }, [busy, importPath, operationsLocked]);
 
+  const chooseAnnotatedFile = useCallback(async () => {
+    if (operationsLocked || busy || annotatedBusy) return;
+    const selected = await open({ multiple: false, directory: false, filters: [{ name: "已注音古籍", extensions: ["zip", "json"] }] });
+    if (typeof selected !== "string") return;
+    setAnnotatedPath(selected);
+    setTrustAnnotated(false);
+    setError(null);
+    try {
+      const result = await getAnnotatedBookImportPreflight(selected, false);
+      setAnnotatedPreflight(result);
+    } catch (reason: unknown) {
+      setAnnotatedPath(null);
+      setError(friendlyErrorMessage(reason));
+    }
+  }, [annotatedBusy, busy, operationsLocked]);
+
+  const confirmAnnotatedImport = useCallback(async () => {
+    if (!annotatedPath || !annotatedPreflight || annotatedBusy || !annotatedPreflight.can_import) return;
+    setAnnotatedBusy(true); setError(null);
+    try {
+      const result = await importAnnotatedBook(annotatedPath, trustAnnotated);
+      await refresh();
+      setAnnotatedPreflight(null); setAnnotatedPath(null);
+      setFeedback({ kind: "success", title: result.book.book.title, bookId: result.book.book.id, segmentCount: result.segment_count, chapterCount: result.chapters.length, hanCharacterCount: annotatedPreflight.han_character_count });
+    } catch (reason: unknown) {
+      setError(friendlyErrorMessage(reason));
+    } finally { setAnnotatedBusy(false); }
+  }, [annotatedBusy, annotatedPath, annotatedPreflight, refresh, trustAnnotated]);
+
   const removeBook = async (book: BookSummary) => {
     setMenuBookId(null);
     if (!window.confirm(`确认删除《${book.title}》？\n\n该操作会删除当前项目中的文本数据。`)) return;
@@ -207,7 +245,8 @@ export function LibraryPage({ operationsLocked, onOpenBook }: LibraryPageProps) 
   return (
     <main className="content library-content">
       <section className="library-heading"><div><h2>我的古籍</h2><p>管理本地古籍、校对读音，并生成朗读音频。</p></div><strong>{books.length} 本古籍</strong></section>
-      <ImportDropzone active={dragActive} disabled={operationsLocked} importing={busy && feedback?.kind === "importing"} autoOpen={autoOpenAfterImport} onAutoOpenChange={setAutoOpenAfterImport} onChoose={() => void chooseFile()} />
+      <ImportDropzone active={dragActive} disabled={operationsLocked} importing={busy && feedback?.kind === "importing"} autoOpen={autoOpenAfterImport} onAutoOpenChange={setAutoOpenAfterImport} onChoose={() => void chooseFile()} onChooseAnnotated={() => void chooseAnnotatedFile()} />
+      {annotatedPreflight && <AnnotatedImportDialog preflight={annotatedPreflight} trust={trustAnnotated} busy={annotatedBusy} onTrustChange={setTrustAnnotated} onCancel={() => { setAnnotatedPreflight(null); setAnnotatedPath(null); }} onImport={() => void confirmAnnotatedImport()} />}
       <ImportStatusToast feedback={feedback} onOpen={onOpenBook} />
       {operationsLocked && <p className="library-lock-note">全文生成或导出进行中，暂时不能导入或删除古籍。</p>}
       {error && <div className="error-banner library-error" role="alert">{error}</div>}

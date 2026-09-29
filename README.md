@@ -2,7 +2,7 @@
 
 AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应用，用于阅读中医古籍、复核发音并生成语音。当前版本为 **v0.1.0**。项目主页：[GitHub Pages](https://gdhucoder.github.io/AncientMedicalTTS/)，源码：[GitHub 仓库](https://github.com/gdhucoder/AncientMedicalTTS)。
 
-当前版本已实现：UTF-8 TXT 导入、SQLite 本地阅读、Rust Grapheme Token 分词、Python 发音分析器 v0.3、结构化中医与古籍发音知识层、可解释语义上下文选音、Annotation 复核、腾讯云 TTS、SSML 发音覆盖、WAV 音频版本、单 Segment 播放、本书/全局精确发音规则、单 Book 串行全文 WAV 生成，以及按正文顺序导出完整 WAV/MP3。
+当前版本已实现：UTF-8 TXT 导入、通用已注音古籍导入、SQLite 本地阅读、Rust Grapheme Token 分词、Python 发音分析器 v0.3、结构化中医与古籍发音知识层、可解释语义上下文选音、Annotation 复核、腾讯云 TTS、SSML 发音覆盖、WAV 音频版本、单 Segment 播放、本书/全局精确发音规则、单 Book 串行全文 WAV 生成、按正文顺序导出完整 WAV/MP3，以及只读的 Publication Bundle v1 发布包。
 
 ## 当前已实现
 
@@ -11,6 +11,7 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - SQLite WAL、外键约束和基于 SQL 文件的 sqlx migration；
 - UTF-8 TXT 选择、最小化文本规范化和 Book → Chapter → Segment 持久化；
 - 导入 TXT 时对保守识别的“第…篇/章/卷”等篇章标题自动拆分 Chapter；无明确标题的文本保持单个“正文” Chapter；
+- 支持 `ancient-annotated-book` v1 的单 JSON/ZIP 导入；可选择把文件注音作为 authoritative 强制读音，或仅作为 reference 参考注音；保留逐段译文；
 - 使用 Rust `unicode-segmentation` 生成稳定的 Grapheme Token；
 - Python Worker 通过 stdin/stdout JSON Lines 提供 `system.ping` 和 `pronunciation.analyze`；
 - `pypinyin==0.55.0` 的 ASCII 数字声调拼音分析；
@@ -31,6 +32,7 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - 单个新导入 Book 最多 5000 个 Unicode CJK 汉字（含 supplementary-plane CJK）；旧 Book 可继续读取和单句生成，但超限时批量预检会阻止全文生成；
 - Book 全文语音预检、当前 TTS 设置快照、串行生成、最新 AudioVersion 参数复用、进度事件、协作式停止、失败列表和可重启续跑；
 - 完整音频导出：Rust ExportService 按 Chapter/Segment 顺序读取 `current_audio_id`，通过内置 FFmpeg concat demuxer 生成 WAV，并使用 `libmp3lame` 以 96 kbps 生成 MP3；
+- 移动端发布包：按章节生成一个连续 MP3，同时输出使用 `reading_text ?? original_text` 的章节正文、`speak_enabled`、实际 WAV sample duration 计算的毫秒时间轴，以及已有的腾讯实际发音元数据（如有）；发布包不含数据库、规则历史、凭证或本机绝对路径；
 - 在线更新：应用每天最多自动检查一次 GitHub Release，也可手动检查；更新包由 Tauri signer 签名，用户确认后下载、安装并重启，不要求安装额外运行时；
 - 导出预检、WAV header/参数一致性校验、系统保存对话框、取消、临时目录清理和跨平台路径 escaping；
 - Manual Segment Editing：保留不可变 `original_text`，支持 `reading_text`、参与朗读开关、按 Grapheme Token 分段、前后 Segment 合并和恢复原文；编辑后自动重新分析，旧 AudioVersion 保留但不再作为当前音频；
@@ -47,6 +49,8 @@ AncientMedicalTTS 是一个面向 Windows 10/11 和 macOS 的跨平台桌面应�
 - [当前已知限制](docs/KNOWN_LIMITATIONS.md)
 - [Python Worker 运行时约束](docs/WORKER_RUNTIME.md)
 - [完整架构](docs/ARCHITECTURE.md)
+- [Publication Bundle v1](docs/PUBLICATION_BUNDLE.md)
+- [Ancient Annotated Book Format v1](docs/ANNOTATED_BOOK_FORMAT.md)
 - [TTS 发音一致性策略](docs/TTS_PRONUNCIATION_POLICY.md)
 - [更新记录](CHANGELOG.md)
 
@@ -84,6 +88,8 @@ macOS 本机需要把当前版本重新安装到 `/Applications` 时，直接运
 
 打开“我的古籍”，导入 UTF-8 `.txt` 后选择 Segment。点击“分析发音”即可调用 Worker；正文中的黄色标注表示待复核，绿色表示已确认，灰色表示已忽略。确认读音后，可在 Annotation 详情选择“应用到本书”或“加入全局词典”；也可以从“发音词典”页面新增、编辑、启用、禁用规则。规则只做完整文本的精确匹配，使用 Grapheme Token 定位。
 
+如果已有整理好的正文、逐字注音、章节和译文，可在导入区选择“导入已注音古籍”，打开 `.json` 或 `.zip`。导入预检会显示章节、段落、汉字数、注音和译文覆盖率。`reference` 只作页面参考；勾选“将文件中的注音作为最终发音”后，导入注音会进入强制 TTS 链路，并可在 Book 的“更多…”中按导入注音生成全文。导入注音的原始来源不会伪装成手工确认，之后仍可由本处确认、发音规则覆盖。
+
 在 Current Segment 的“朗读文本与分段”区域编辑 `reading_text`。原始导入文本始终保留在 `original_text`，朗读、发音分析和导出使用 `reading_text ?? original_text`。点击正文 token 可选择分段光标；也可以与上一/下一 Segment 合并，或关闭当前 Segment 的朗读。编辑、Split、Merge 会清除受影响 Segment 的当前分析和音频引用，并自动重新分析；旧语音版本不会删除，需重新生成才能成为当前有效音频。
 
 在“TTS 设置”中保存腾讯云 SecretId/SecretKey 后，凭据会写入 Tauri 应用数据目录下的 `tencent_credentials.json`，不写入 SQLite、日志或前端持久化。Unix 系统上文件权限限制为当前用户可读写。选择音色并保存设置后，在已分析且没有待复核 Annotation 的 Segment 中点击“生成语音”。生成的 WAV 保存在应用数据目录，并通过 Tauri asset 协议播放。没有腾讯云凭据时，应用仍可启动、导入和完成发音分析，但 TTS 请求会返回凭据缺失错误。
@@ -93,6 +99,8 @@ macOS 本机需要把当前版本重新安装到 `/Applications` 时，直接运
 打开 Book 后，Book 语音区域可以先执行批量预检。预检通过并确认后，应用会读取一次当前 TTS 设置，按 Segment 顺序串行生成。状态为 `generated` 且最新 `AudioVersion` 的 provider、voice、sample rate、codec、speed、volume 与快照完全一致并且文件仍存在时会跳过；否则生成新版本。停止只在当前 Segment 完成后生效，已有结果会保留；再次点击生成会复用可复用版本并继续未完成部分。批量运行期间会锁定 TTS 设置、发音分析、发音词典、单句生成、导入和删除 Book。
 
 当全文 Segment 都为 `generated` 且音频参数一致时，可在 Book 页面点击“导出整本”。也可以在左侧段落列表勾选一段或多段，点击“导出选中”只合并这些段落；跨章节选择时仍按正文顺序输出。预检会阻止 stale、待复核、缺失文件或参数不一致的文档。导出格式默认 MP3（96 kbps），也可选择无损 WAV；用户通过系统保存对话框选择目标路径。正式准备好对应平台的 bundled sidecar 后，用户不需要安装 FFmpeg 或配置 PATH。请按 [docs/THIRD_PARTY.md](docs/THIRD_PARTY.md) 准备 audited sidecar；本地调试可使用 `ANCIENT_MEDICAL_TTS_ALLOW_SYSTEM_FFMPEG=1`。
+
+当一本书的可朗读 Segment 全部为 `generated`，且当前音频文件和章节内音频参数通过预检后，可以在 Book 页面“更多…”选择“导出移动端发布包”。应用会为每个 Chapter 生成一个 MP3，并写出 `manifest.json`、`book.json`、章节 JSON 和相对资源路径；不朗读的标题/注释仍保留在正文中，但不进入章节音频。发布包用于未来阅读端，不是桌面工程备份。可用 `python3 tools/validate_publication_bundle.py <发布包目录>` 独立校验。
 
 Rust 开发命令会优先使用项目的 Python 3.12 虚拟环境启动 Worker；也可以直接启动 Worker：
 

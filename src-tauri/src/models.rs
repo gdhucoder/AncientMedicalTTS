@@ -198,6 +198,39 @@ pub struct ExportState {
 }
 
 #[derive(Debug, Serialize, Clone)]
+pub struct PublicationBundleBlocker {
+    pub code: String,
+    pub message: String,
+    pub chapter_id: Option<String>,
+    pub chapter_title: Option<String>,
+    pub segment_id: Option<String>,
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub struct PublicationBundlePreflight {
+    pub can_publish: bool,
+    pub book_id: String,
+    pub book_title: String,
+    pub chapter_count: i64,
+    pub segment_count: i64,
+    pub speakable_segment_count: i64,
+    pub blockers: Vec<PublicationBundleBlocker>,
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub struct PublicationExportState {
+    pub book_id: Option<String>,
+    pub status: String,
+    pub phase: String,
+    pub chapters_completed: i64,
+    pub chapters_total: i64,
+    pub segments_total: i64,
+    pub output_path: Option<String>,
+    pub error_code: Option<String>,
+    pub error_message: Option<String>,
+}
+
+#[derive(Debug, Serialize, Clone)]
 pub struct FfmpegStatus {
     pub available: bool,
     pub version: Option<String>,
@@ -211,6 +244,11 @@ pub struct Book {
     pub dynasty: Option<String>,
     pub edition: Option<String>,
     pub source_file: Option<String>,
+    pub import_format: Option<String>,
+    pub import_format_version: Option<String>,
+    pub import_pronunciation_mode: Option<String>,
+    pub import_dataset_id: Option<String>,
+    pub imported_at: Option<String>,
     pub created_at: String,
     pub updated_at: String,
 }
@@ -237,6 +275,8 @@ pub struct Chapter {
     pub id: String,
     pub book_id: String,
     pub title: Option<String>,
+    pub collection: Option<String>,
+    pub subtitle: Option<String>,
     pub order_index: i64,
     pub created_at: String,
     pub updated_at: String,
@@ -255,6 +295,7 @@ pub struct Segment {
     pub order_index: i64,
     pub original_text: String,
     pub reading_text: Option<String>,
+    pub translation: Option<String>,
     pub speak_enabled: bool,
     pub status: String,
     pub current_audio_id: Option<String>,
@@ -407,4 +448,47 @@ pub struct ImportResult {
     pub chapter: Chapter,
     pub chapters: Vec<Chapter>,
     pub segment_count: i64,
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub struct AnnotatedImportIssue {
+    pub code: String,
+    pub message: String,
+    pub chapter_id: Option<String>,
+    pub segment_id: Option<String>,
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub struct AnnotatedImportPreflight {
+    pub can_import: bool,
+    pub format: String,
+    pub format_version: String,
+    pub title: Option<String>,
+    pub chapter_count: i64,
+    pub segment_count: i64,
+    pub han_character_count: i64,
+    pub pinyin_covered_han_count: i64,
+    pub pinyin_coverage_percent: f64,
+    pub translation_segment_count: i64,
+    pub pronunciation_mode: String,
+    pub effective_pronunciation_mode: String,
+    pub warnings: Vec<AnnotatedImportIssue>,
+    pub errors: Vec<AnnotatedImportIssue>,
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub struct ImportedPronunciationMissing {
+    pub segment_id: String,
+    pub chapter_title: Option<String>,
+    pub segment_order: i64,
+    pub preview: String,
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub struct ImportedTtsPreflight {
+    pub can_generate_strict: bool,
+    pub total_han_count: i64,
+    pub covered_han_count: i64,
+    pub missing_han_count: i64,
+    pub missing_segments: Vec<ImportedPronunciationMissing>,
 }

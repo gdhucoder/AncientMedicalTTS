@@ -8,6 +8,7 @@ React + TypeScript
         ▼
 Rust Core
   ├── BookService: TXT 读取、规范化、导入
+  ├── AnnotatedImportService: 已注音古籍 v1 解析、预检、ZIP 安全和统一事务导入
   ├── SegmentService: Grapheme Token 分词
   ├── PronunciationService: Worker 调用、结果校验、复核状态
   ├── PronunciationRuleService: 本书/全局规则、token 精确匹配和生命周期
@@ -16,6 +17,7 @@ Rust Core
   ├── AudioService: 临时 WAV、版本持久化、播放选择
   ├── BatchGenerationService: Book 预检、设置快照、串行生成、复用、取消和失败状态
   ├── ExportService: 导出预检、顺序整理、临时 concat list、输出验证和取消
+  ├── PublicationService: 只读发布包预检、章节 MP3、实际 WAV 时间轴、JSON 写出和 Bundle 校验
   ├── FFmpeg abstraction: bundled sidecar、WAV concat、MP3 libmp3lame 编码
   ├── CredentialStore: Tauri 应用数据目录下的受控 JSON 文件
   ├── WorkerProcess: stdin/stdout JSONL、超时、退出检测
@@ -69,6 +71,25 @@ React Books / Reader
 ```
 
 当前 TXT 会按 Rust 保守识别的“第…篇/章/卷”等篇章标题创建多个 Chapter；没有明确标题时保持一个“正文” Chapter。原始文件路径不会作为后续依赖，只保存文件名。
+
+### 已注音古籍导入
+
+```text
+JSON / ZIP（ancient-annotated-book v1 或 legacy）
+ ↓
+Rust safe path / ZIP 限制 / manifest 校验
+ ↓
+AnnotatedImportService 规范化为统一 Chapter / Segment / Grapheme Token
+ ↓
+token 文本严格回拼 + ASCII 数字拼音对齐校验
+ ↓ 单事务
+books + chapters + segments.translation
+segment_annotations(source=imported_reference/imported_authoritative)
+ ↓
+现有 Reader / Rule / TTS / Publication Bundle
+```
+
+`reference` 导入只保存参考注音，不自动进入 SSML；`authoritative` 或用户在导入确认页显式信任后，注音以 `imported_authoritative` 来源进入强制发音策略。优先级为：本处 manual confirmed、Book Rule、Global Rule、Imported Authoritative、TTS 默认发音。导入器不会调用 Python analyzer，也不会把译文发送给 TTS；重新分析只产生建议并保留 imported authoritative 标注。格式定义见 [ANNOTATED_BOOK_FORMAT.md](ANNOTATED_BOOK_FORMAT.md)。
 
 ### 发音分析
 

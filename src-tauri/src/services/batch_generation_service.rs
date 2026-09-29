@@ -157,7 +157,9 @@ pub async fn get_book_generation_preflight(
 ) -> AppResult<BookGenerationPreflight> {
     if !matches!(
         pronunciation_mode,
-        audio_service::PRONUNCIATION_MODE_LOCKED | audio_service::PRONUNCIATION_MODE_DISPLAY
+        audio_service::PRONUNCIATION_MODE_LOCKED
+            | audio_service::PRONUNCIATION_MODE_DISPLAY
+            | audio_service::PRONUNCIATION_MODE_IMPORTED
     ) {
         return Err(AppError::new(
             "INVALID_TTS_PRONUNCIATION_MODE",
@@ -168,6 +170,36 @@ pub async fn get_book_generation_preflight(
     let segments = load_book_segments(database, book_id).await?;
     let settings = settings_service::get_tts_settings(database).await.ok();
     let mut blockers = Vec::new();
+
+    if pronunciation_mode == audio_service::PRONUNCIATION_MODE_IMPORTED {
+        let imported =
+            crate::services::annotated_import_service::get_tts_preflight(database, book_id).await?;
+        if !imported.can_generate_strict {
+            blockers.push(BatchGenerationBlocker {
+                code: "IMPORTED_PRONUNCIATION_INCOMPLETE".to_string(),
+                message: format!(
+                    "严格按导入注音生成还缺少 {} 个汉字的强制读音",
+                    imported.missing_han_count
+                ),
+                segment_id: imported
+                    .missing_segments
+                    .first()
+                    .map(|item| item.segment_id.clone()),
+                chapter_title: imported
+                    .missing_segments
+                    .first()
+                    .and_then(|item| item.chapter_title.clone()),
+                segment_order: imported
+                    .missing_segments
+                    .first()
+                    .map(|item| item.segment_order),
+                preview: imported
+                    .missing_segments
+                    .first()
+                    .map(|item| item.preview.clone()),
+            });
+        }
+    }
 
     if stats.han_character_count as usize > text_service::MAX_BOOK_HAN_CHARACTERS {
         blockers.push(BatchGenerationBlocker {

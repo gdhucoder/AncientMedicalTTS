@@ -41,6 +41,7 @@ struct ExistingRuleAnnotation {
     review_status: String,
     target_pinyin: Option<String>,
     source_rule_id: Option<String>,
+    source: Option<String>,
 }
 
 pub async fn create_rule(
@@ -418,6 +419,7 @@ async fn apply_book_tx(
             order_index,
             original_text,
             reading_text,
+            translation: None,
             speak_enabled: speak_enabled != 0,
             status,
             current_audio_id,
@@ -463,6 +465,7 @@ async fn apply_rules_to_segment_with_rules_tx(
         .iter()
         .filter(|annotation| {
             annotation.source_rule_id.is_none()
+                && annotation.source.as_deref() != Some("imported_authoritative")
                 && matches!(annotation.review_status.as_str(), "confirmed" | "ignored")
         })
         .map(|annotation| (annotation.start_token, annotation.end_token))
@@ -508,7 +511,10 @@ async fn apply_rules_to_segment_with_rules_tx(
     let pending = existing
         .iter()
         .filter(|annotation| {
-            annotation.source_rule_id.is_none() && annotation.review_status == "needs_review"
+            annotation.source_rule_id.is_none()
+                && annotation.source.as_deref() != Some("imported_authoritative")
+                && annotation.source.as_deref() != Some("imported_reference")
+                && annotation.review_status == "needs_review"
         })
         .filter(|annotation| {
             desired.iter().any(|matched| {
@@ -642,30 +648,40 @@ async fn load_segment_annotations_tx(
     transaction: &mut Transaction<'_, Sqlite>,
     segment_id: &str,
 ) -> AppResult<Vec<ExistingRuleAnnotation>> {
-    Ok(
-        sqlx::query_as::<_, (String, i64, i64, String, Option<String>, Option<String>)>(
-            "SELECT id, start_token, end_token, review_status, target_pinyin, source_rule_id
+    Ok(sqlx::query_as::<
+        _,
+        (
+            String,
+            i64,
+            i64,
+            String,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+        ),
+    >(
+        "SELECT id, start_token, end_token, review_status, target_pinyin, source_rule_id, source
          FROM segment_annotations WHERE segment_id = ? ORDER BY start_token, end_token, id",
-        )
-        .bind(segment_id)
-        .fetch_all(&mut **transaction)
-        .await
-        .map_err(transaction_error)?
-        .into_iter()
-        .map(
-            |(id, start_token, end_token, review_status, target_pinyin, source_rule_id)| {
-                ExistingRuleAnnotation {
-                    id,
-                    start_token: start_token as usize,
-                    end_token: end_token as usize,
-                    target_pinyin,
-                    source_rule_id,
-                    review_status,
-                }
-            },
-        )
-        .collect(),
     )
+    .bind(segment_id)
+    .fetch_all(&mut **transaction)
+    .await
+    .map_err(transaction_error)?
+    .into_iter()
+    .map(
+        |(id, start_token, end_token, review_status, target_pinyin, source_rule_id, source)| {
+            ExistingRuleAnnotation {
+                id,
+                start_token: start_token as usize,
+                end_token: end_token as usize,
+                target_pinyin,
+                source_rule_id,
+                source,
+                review_status,
+            }
+        },
+    )
+    .collect())
 }
 
 fn validate_rule_input(

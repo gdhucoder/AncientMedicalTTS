@@ -17,6 +17,7 @@ Rust 通过 `sqlx` 独占 SQLite 连接。Python Worker 不接收数据库路径
 - `0011_api_usage_events.sql`：记录腾讯云 TTS 的请求操作、成功/失败和字符用量，用于本地统计。
 - `0012_audio_provider_metadata.sql`：为 `audio_versions` 增加供应商返回的实际发音元数据 JSON。
 - `0013_tts_pronunciation_mode.sql`：为 `audio_versions` 增加 TTS 注音模式，区分 `locked`（已锁定读音）和 `display`（严格按页面注音）。
+- `0014_annotated_book_import.sql`：为 Book 保存已注音古籍导入来源和注音模式，为 Chapter 保存 collection/subtitle，为 Segment 保存可选现代汉语 `translation`。
 
 已经执行的 migration 不应原地修改；新增结构使用新的 SQL 文件。
 
@@ -46,7 +47,7 @@ segments
 
 `pronunciation_rules.book_id` 为空表示全局规则；非空表示本书规则。规则表通过 `scope` 区分 `global` 和 `book`，实际写入由 Rust 服务校验。
 
-`books.source_file` 只保存原始文件名。TXT 内容保存于 `segments.original_text`，该字段在导入后不可被人工编辑覆盖。`segments.reading_text` 为空时，effective text 为 `original_text`；非空时，朗读、发音分析和导出使用 `reading_text`。`speak_enabled=0` 表示保留在阅读列表但不参与 TTS/导出。Segment 初始状态为 `pending`，分析后由 Rust 根据 Annotation 状态重算为 `analyzed`、`needs_review` 或 `ready`。
+`books.source_file` 只保存原始文件名。已注音导入额外保存 `import_format`、`import_format_version`、`import_pronunciation_mode`、`import_dataset_id` 和 `imported_at`，不保存原始 ZIP。TXT/已注音导入的正文都保存于 `segments.original_text`，该字段在导入后不可被人工编辑覆盖。`segments.reading_text` 为空时，effective text 为 `original_text`；非空时，朗读、发音分析和导出使用 `reading_text`。`segments.translation` 是只读内容数据，不参与字符统计、分析或 TTS。`speak_enabled=0` 表示保留在阅读列表但不参与 TTS/导出。Segment 初始状态为 `pending`，分析后由 Rust 根据 Annotation 状态重算为 `analyzed`、`needs_review` 或 `ready`。
 
 Split/Merge 使用 `status='superseded'` 标记被替代的旧 Segment，而不是物理删除或覆盖旧行。这样既保留原始文本和历史 AudioVersion，又能让活动查询只看到最新 Segment。`reading_text` 修改、Split 和 Merge 都在 SQLite transaction 中完成，并清除受影响 Segment 的 Annotation 和 `current_audio_id`；旧 AudioVersion 不删除。
 
@@ -76,7 +77,7 @@ Split/Merge 使用 `status='superseded'` 标记被替代的旧 Segment，而不�
 | `reason` | 面向复核者的原因说明 |
 | `review_status` | `needs_review`、`confirmed`、`ignored` |
 | `analyzer_version` | 自动分析器版本，手工标注可为空 |
-| `source` | 自动分析来源：`medical_lexicon_v3`、`rare_classical_lexicon`、`context_exact`、`context_semantic`、`high_risk_polyphone`、`variant_mapping`、`knowledge_conflict` 或 `pypinyin`；手工标注为 `manual` |
+| `source` | 自动分析来源：`medical_lexicon_v3`、`rare_classical_lexicon`、`context_exact`、`context_semantic`、`high_risk_polyphone`、`variant_mapping`、`knowledge_conflict` 或 `pypinyin`；手工标注为 `manual`；已注音导入为 `imported_reference` / `imported_authoritative` |
 | `rule_type` | 可解释规则类别，例如 `pulse_context`、`formula`、`classical_term` 或 `manual` |
 | `confidence` | 离散置信级别：`verified`、`high`、`medium`、`low`；不表示概率 |
 | `source_rule_id` | 规则生成的 confirmed Annotation 所绑定的规则；人工确认/覆盖时为空 |
@@ -117,7 +118,7 @@ TXT 导入、分析写入、复核状态变化和手工标注都由 Rust 控制�
 | `provider` / `voice_type` | 生成服务和音色 |
 | `sample_rate` / `codec` | 当前为 16000 / wav |
 | `speed` / `volume` | 生成时使用的 TTS 参数 |
-| `pronunciation_mode` | `locked` 仅发送人工/规则锁定读音；`display` 按 Reader 全文注音逐字发送 SSML |
+| `pronunciation_mode` | `locked` 仅发送人工/规则锁定读音；`display` 按 Reader 全文注音逐字发送 SSML；`imported` 按已注音导入产生的有效强制读音发送 SSML |
 | `ssml` | 有 confirmed 发音覆盖时保存的实际 SSML；无覆盖为空 |
 | `pronunciation_signature` | 生成时按 Grapheme Token 范围和 target pinyin 排序序列化的发音快照；旧版本可能为空 |
 | `provider_metadata_json` | 当前 AudioVersion 的供应商实际发音元数据；规范化保存 `realized_pronunciation`，旧版本或供应商未返回时为空 |

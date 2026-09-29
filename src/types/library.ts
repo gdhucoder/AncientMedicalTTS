@@ -14,6 +14,11 @@ export type Book = {
   dynasty: string | null;
   edition: string | null;
   source_file: string | null;
+  import_format: string | null;
+  import_format_version: string | null;
+  import_pronunciation_mode: "reference" | "authoritative" | string | null;
+  import_dataset_id: string | null;
+  imported_at: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -28,6 +33,8 @@ export type Chapter = {
   id: string;
   book_id: string;
   title: string | null;
+  collection: string | null;
+  subtitle: string | null;
   order_index: number;
   created_at: string;
   updated_at: string;
@@ -44,6 +51,7 @@ export type Segment = {
   order_index: number;
   original_text: string;
   reading_text: string | null;
+  translation: string | null;
   speak_enabled: boolean;
   status: string;
   current_audio_id: string | null;
@@ -135,7 +143,7 @@ export type AudioVersion = {
   volume: number;
   ssml: string | null;
   pronunciation_signature: string | null;
-  pronunciation_mode: "locked" | "display" | string;
+  pronunciation_mode: "locked" | "display" | "imported" | string;
   audio_path: string;
   provider_metadata: AudioProviderMetadata | null;
   provider_request_id: string | null;
@@ -228,6 +236,45 @@ export type ImportResult = {
   segment_count: number;
 };
 
+export type AnnotatedImportIssue = {
+  code: string;
+  message: string;
+  chapter_id: string | null;
+  segment_id: string | null;
+};
+
+export type AnnotatedImportPreflight = {
+  can_import: boolean;
+  format: string;
+  format_version: string;
+  title: string | null;
+  chapter_count: number;
+  segment_count: number;
+  han_character_count: number;
+  pinyin_covered_han_count: number;
+  pinyin_coverage_percent: number;
+  translation_segment_count: number;
+  pronunciation_mode: string;
+  effective_pronunciation_mode: string;
+  warnings: AnnotatedImportIssue[];
+  errors: AnnotatedImportIssue[];
+};
+
+export type ImportedPronunciationMissing = {
+  segment_id: string;
+  chapter_title: string | null;
+  segment_order: number;
+  preview: string;
+};
+
+export type ImportedTtsPreflight = {
+  can_generate_strict: boolean;
+  total_han_count: number;
+  covered_han_count: number;
+  missing_han_count: number;
+  missing_segments: ImportedPronunciationMissing[];
+};
+
 export type BatchGenerationBlocker = {
   code: string;
   message: string;
@@ -312,6 +359,36 @@ export type ExportState = {
   phase: "idle" | "preparing" | "merging" | "encoding_mp3" | "saving" | "cancelling" | "completed" | "failed" | "cancelled" | string;
   processed_segments: number;
   total_segments: number;
+  output_path: string | null;
+  error_code: string | null;
+  error_message: string | null;
+};
+
+export type PublicationBundleBlocker = {
+  code: string;
+  message: string;
+  chapter_id: string | null;
+  chapter_title: string | null;
+  segment_id: string | null;
+};
+
+export type PublicationBundlePreflight = {
+  can_publish: boolean;
+  book_id: string;
+  book_title: string;
+  chapter_count: number;
+  segment_count: number;
+  speakable_segment_count: number;
+  blockers: PublicationBundleBlocker[];
+};
+
+export type PublicationExportState = {
+  book_id: string | null;
+  status: "idle" | "running" | "completed" | "failed" | string;
+  phase: "idle" | "preparing" | "generating_audio" | "writing_bundle" | "completed" | "failed" | string;
+  chapters_completed: number;
+  chapters_total: number;
+  segments_total: number;
   output_path: string | null;
   error_code: string | null;
   error_message: string | null;

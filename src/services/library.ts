@@ -1,8 +1,20 @@
 import { invoke } from "@tauri-apps/api/core";
-import type { Annotation, ApiUsageRange, ApiUsageSummary, BatchGenerationState, BookDetail, BookExportPreflight, BookGenerationPreflight, BookPronunciationAnalysisResult, BookSummary, ChapterSummary, CredentialStatus, ExportState, FfmpegStatus, ImportResult, PaginatedSegments, PronunciationRule, PronunciationRuleApplyResult, PronunciationRuleMutation, ReaderDisplaySettings, Segment, SegmentDisplayPinyin, SegmentEditResult, SegmentReader, TencentVoice, TtsPreviewResult, TtsSettings } from "../types/library";
+import type { AnnotatedImportPreflight, Annotation, ApiUsageRange, ApiUsageSummary, BatchGenerationState, BookDetail, BookExportPreflight, BookGenerationPreflight, BookPronunciationAnalysisResult, BookSummary, ChapterSummary, CredentialStatus, ExportState, FfmpegStatus, ImportResult, ImportedTtsPreflight, PaginatedSegments, PronunciationRule, PronunciationRuleApplyResult, PronunciationRuleMutation, PublicationBundlePreflight, PublicationExportState, ReaderDisplaySettings, Segment, SegmentDisplayPinyin, SegmentEditResult, SegmentReader, TencentVoice, TtsPreviewResult, TtsSettings } from "../types/library";
 
 export function importTxtBook(path: string, title?: string): Promise<ImportResult> {
   return invoke<ImportResult>("import_txt_book", { path, title: title ?? null });
+}
+
+export function getAnnotatedBookImportPreflight(path: string, trustImportedPronunciation = false): Promise<AnnotatedImportPreflight> {
+  return invoke<AnnotatedImportPreflight>("get_annotated_book_import_preflight", { path, trustImportedPronunciation });
+}
+
+export function importAnnotatedBook(path: string, trustImportedPronunciation: boolean): Promise<ImportResult> {
+  return invoke<ImportResult>("import_annotated_book", { path, trustImportedPronunciation });
+}
+
+export function getImportedTtsPreflight(bookId: string): Promise<ImportedTtsPreflight> {
+  return invoke<ImportedTtsPreflight>("get_imported_tts_preflight", { bookId });
 }
 
 export function listBooks(): Promise<BookSummary[]> {
@@ -193,7 +205,7 @@ export function generateTtsPreview(text: string, settings: TtsSettings): Promise
   });
 }
 
-export type TtsPronunciationMode = "locked" | "display";
+export type TtsPronunciationMode = "locked" | "display" | "imported";
 
 export function generateSegmentAudio(segmentId: string, pronunciationMode: TtsPronunciationMode = "locked"): Promise<SegmentReader> {
   return invoke<SegmentReader>("generate_segment_audio", { segmentId, pronunciationMode });
@@ -241,4 +253,16 @@ export function cancelExport(): Promise<ExportState> {
 
 export function getExportState(): Promise<ExportState> {
   return invoke<ExportState>("get_export_state");
+}
+
+export function getPublicationBundlePreflight(bookId: string): Promise<PublicationBundlePreflight> {
+  return invoke<PublicationBundlePreflight>("get_publication_bundle_preflight", { bookId });
+}
+
+export function exportPublicationBundle(bookId: string, destinationDir: string): Promise<void> {
+  return invoke<void>("export_publication_bundle", { bookId, destinationDir });
+}
+
+export function getPublicationExportState(): Promise<PublicationExportState> {
+  return invoke<PublicationExportState>("get_publication_export_state");
 }

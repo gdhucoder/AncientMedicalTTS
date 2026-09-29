@@ -1,0 +1,2079 @@
+{
+  "id": "suwen-08-ling-lan-mi-dian-lun",
+  "order": 4,
+  "collection": "素问",
+  "title": "灵兰秘典论",
+  "reader_subtitle": "身体里的“十二官”",
+  "source_original": "https://www.cngwzj.com/gushi/XianQin/92074/",
+  "source_pinyin": "https://www.cngwzj.com/pygushi/XianQin/92074/",
+  "source_note": "原文以所列古文之家页面为底本；拼音为本数据包规范化注音：以该站拼音页核对重点多音/古音词，并用 ICU Han-Latin 生成其余参考音。现代汉语解释为本数据包重新整理，不复制网站译文。",
+  "pinyin_status": "reference_normalized_with_curated_overrides; should_receive_final_review in AncientMedicalTTS before publication",
+  "segments": [
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-001",
+      "order": 1,
+      "text": "黄帝问曰：愿闻十二脏之相使，贵贱何如？",
+      "pinyin_tone_marks": "huáng dì wèn yuē：yuàn wén shí èr zàng zhī xiāng shǐ，guì jiàn hé rú？",
+      "pinyin_numeric": "huang2 di4 wen4 yue1：yuan4 wen2 shi2 er4 zang4 zhi1 xiang1 shi3，gui4 jian4 he2 ru2？",
+      "tokens": [
+        {
+          "text": "黄",
+          "pinyin_numeric": "huang2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "帝",
+          "pinyin_numeric": "di4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "愿",
+          "pinyin_numeric": "yuan4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "闻",
+          "pinyin_numeric": "wen2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "十",
+          "pinyin_numeric": "shi2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "二",
+          "pinyin_numeric": "er4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "脏",
+          "pinyin_numeric": "zang4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "使",
+          "pinyin_numeric": "shi3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "贵",
+          "pinyin_numeric": "gui4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "贱",
+          "pinyin_numeric": "jian4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "何",
+          "pinyin_numeric": "he2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "如",
+          "pinyin_numeric": "ru2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "黄帝问：想听一听人体“十二官”之间怎样分工协作，又怎样区分主次。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-002",
+      "order": 2,
+      "text": "岐伯曰：悉乎哉问也，请遂言之。心者，君主之官也，神明出焉。肺者，相傅之官，治节出焉。肝者，将军之官，谋虑出焉。胆者，中正之官，决断出焉。",
+      "pinyin_tone_marks": "qí bó yuē：xī hū zāi wèn yě，qǐng suì yán zhī。xīn zhě，jūn zhǔ zhī guān yě，shén míng chū yān。fèi zhě，xiàng fù zhī guān，zhì jié chū yān。gān zhě，jiāng jūn zhī guān，móu lǜ chū yān。dǎn zhě，zhōng zhèng zhī guān，jué duàn chū yān。",
+      "pinyin_numeric": "qi2 bo2 yue1：xi1 hu1 zai1 wen4 ye3，qing3 sui4 yan2 zhi1。xin1 zhe3，jun1 zhu3 zhi1 guan1 ye3，shen2 ming2 chu1 yan1。fei4 zhe3，xiang4 fu4 zhi1 guan1，zhi4 jie2 chu1 yan1。gan1 zhe3，jiang1 jun1 zhi1 guan1，mou2 lv4 chu1 yan1。dan3 zhe3，zhong1 zheng4 zhi1 guan1，jue2 duan4 chu1 yan1。",
+      "tokens": [
+        {
+          "text": "岐",
+          "pinyin_numeric": "qi2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "伯",
+          "pinyin_numeric": "bo2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "悉",
+          "pinyin_numeric": "xi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "哉",
+          "pinyin_numeric": "zai1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "请",
+          "pinyin_numeric": "qing3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "遂",
+          "pinyin_numeric": "sui4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "言",
+          "pinyin_numeric": "yan2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "心",
+          "pinyin_numeric": "xin1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "君",
+          "pinyin_numeric": "jun1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "主",
+          "pinyin_numeric": "zhu3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "神",
+          "pinyin_numeric": "shen2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "肺",
+          "pinyin_numeric": "fei4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "傅",
+          "pinyin_numeric": "fu4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "节",
+          "pinyin_numeric": "jie2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "肝",
+          "pinyin_numeric": "gan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "将",
+          "pinyin_numeric": "jiang1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "军",
+          "pinyin_numeric": "jun1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "谋",
+          "pinyin_numeric": "mou2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "虑",
+          "pinyin_numeric": "lv4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "胆",
+          "pinyin_numeric": "dan3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "中",
+          "pinyin_numeric": "zhong1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "正",
+          "pinyin_numeric": "zheng4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "决",
+          "pinyin_numeric": "jue2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "断",
+          "pinyin_numeric": "duan4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "岐伯用国家官职作比喻：心像君主，肺像辅佐君主的相傅，肝像将军，胆负责决断，用这种方式说明不同脏腑各有职能。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-003",
+      "order": 3,
+      "text": "膻中者，臣使之官，喜乐出焉。脾胃者，仓廪之官，五味出焉。大肠者，传道之官，变化出焉。小肠者，受盛之官，化物出焉。",
+      "pinyin_tone_marks": "dàn zhōng zhě，chén shǐ zhī guān，xǐ lè chū yān。pí wèi zhě，cāng lǐn zhī guān，wǔ wèi chū yān。dà cháng zhě，chuán dào zhī guān，biàn huà chū yān。xiǎo cháng zhě，shòu chéng zhī guān，huà wù chū yān。",
+      "pinyin_numeric": "dan4 zhong1 zhe3，chen2 shi3 zhi1 guan1，xi3 le4 chu1 yan1。pi2 wei4 zhe3，cang1 lin3 zhi1 guan1，wu3 wei4 chu1 yan1。da4 chang2 zhe3，chuan2 dao4 zhi1 guan1，bian4 hua4 chu1 yan1。xiao3 chang2 zhe3，shou4 cheng2 zhi1 guan1，hua4 wu4 chu1 yan1。",
+      "tokens": [
+        {
+          "text": "膻",
+          "pinyin_numeric": "dan4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "中",
+          "pinyin_numeric": "zhong1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "臣",
+          "pinyin_numeric": "chen2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "使",
+          "pinyin_numeric": "shi3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "喜",
+          "pinyin_numeric": "xi3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "乐",
+          "pinyin_numeric": "le4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "脾",
+          "pinyin_numeric": "pi2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "胃",
+          "pinyin_numeric": "wei4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "仓",
+          "pinyin_numeric": "cang1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "廪",
+          "pinyin_numeric": "lin3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "五",
+          "pinyin_numeric": "wu3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "味",
+          "pinyin_numeric": "wei4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "肠",
+          "pinyin_numeric": "chang2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "传",
+          "pinyin_numeric": "chuan2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "变",
+          "pinyin_numeric": "bian4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "化",
+          "pinyin_numeric": "hua4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "小",
+          "pinyin_numeric": "xiao3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "肠",
+          "pinyin_numeric": "chang2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "受",
+          "pinyin_numeric": "shou4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "盛",
+          "pinyin_numeric": "cheng2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "化",
+          "pinyin_numeric": "hua4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "膻中被比作传达命令的臣使；脾胃像粮仓，负责饮食化生；大肠负责传导变化；小肠负责承受并进一步化物。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-004",
+      "order": 4,
+      "text": "肾者，作强之官，伎巧出焉。三焦者，决渎之官，水道出焉。膀胱者，州都之官，津液藏焉，气化则能出矣。",
+      "pinyin_tone_marks": "shèn zhě，zuò qiáng zhī guān，jì qiǎo chū yān。sān jiāo zhě，jué dú zhī guān，shuǐ dào chū yān。páng guāng zhě，zhōu dū zhī guān，jīn yè cáng yān，qì huà zé néng chū yǐ。",
+      "pinyin_numeric": "shen4 zhe3，zuo4 qiang2 zhi1 guan1，ji4 qiao3 chu1 yan1。san1 jiao1 zhe3，jue2 du2 zhi1 guan1，shui3 dao4 chu1 yan1。pang2 guang1 zhe3，zhou1 du1 zhi1 guan1，jin1 ye4 cang2 yan1，qi4 hua4 ze2 neng2 chu1 yi3。",
+      "tokens": [
+        {
+          "text": "肾",
+          "pinyin_numeric": "shen4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "作",
+          "pinyin_numeric": "zuo4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "强",
+          "pinyin_numeric": "qiang2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "伎",
+          "pinyin_numeric": "ji4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "巧",
+          "pinyin_numeric": "qiao3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "三",
+          "pinyin_numeric": "san1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "焦",
+          "pinyin_numeric": "jiao1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "决",
+          "pinyin_numeric": "jue2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "渎",
+          "pinyin_numeric": "du2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "水",
+          "pinyin_numeric": "shui3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "膀",
+          "pinyin_numeric": "pang2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "胱",
+          "pinyin_numeric": "guang1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "州",
+          "pinyin_numeric": "zhou1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "都",
+          "pinyin_numeric": "du1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "津",
+          "pinyin_numeric": "jin1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "液",
+          "pinyin_numeric": "ye4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "藏",
+          "pinyin_numeric": "cang2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "气",
+          "pinyin_numeric": "qi4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "化",
+          "pinyin_numeric": "hua4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "能",
+          "pinyin_numeric": "neng2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "肾被视为产生强力和技巧的基础；三焦主管水道通行；膀胱储藏津液，并依靠气化完成排泄。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-005",
+      "order": 5,
+      "text": "凡此十二官者，不得相失也。故主明则下安，以此养生则寿，殁世不殆，以为天下则大昌。主不明则十二官危，使道闭塞而不通，形乃大伤，以此养生则殃，以为天下者，其宗大危，戒之戒之！",
+      "pinyin_tone_marks": "fán cǐ shí èr guān zhě，bù dé xiāng shī yě。gù zhǔ míng zé xià ān，yǐ cǐ yǎng shēng zé shòu，mò shì bù dài，yǐ wéi tiān xià zé dà chāng。zhǔ bù míng zé shí èr guān wēi，shǐ dào bì sāi ér bù tōng，xíng nǎi dà shāng，yǐ cǐ yǎng shēng zé yāng，yǐ wéi tiān xià zhě，qí zōng dà wēi，jiè zhī jiè zhī！",
+      "pinyin_numeric": "fan2 ci3 shi2 er4 guan1 zhe3，bu4 de2 xiang1 shi1 ye3。gu4 zhu3 ming2 ze2 xia4 an1，yi3 ci3 yang3 sheng1 ze2 shou4，mo4 shi4 bu4 dai4，yi3 wei2 tian1 xia4 ze2 da4 chang1。zhu3 bu4 ming2 ze2 shi2 er4 guan1 wei1，shi3 dao4 bi4 sai1 er2 bu4 tong1，xing2 nai3 da4 shang1，yi3 ci3 yang3 sheng1 ze2 yang1，yi3 wei2 tian1 xia4 zhe3，qi2 zong1 da4 wei1，jie4 zhi1 jie4 zhi1！",
+      "tokens": [
+        {
+          "text": "凡",
+          "pinyin_numeric": "fan2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "此",
+          "pinyin_numeric": "ci3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "十",
+          "pinyin_numeric": "shi2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "二",
+          "pinyin_numeric": "er4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "得",
+          "pinyin_numeric": "de2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "失",
+          "pinyin_numeric": "shi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "故",
+          "pinyin_numeric": "gu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "主",
+          "pinyin_numeric": "zhu3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "安",
+          "pinyin_numeric": "an1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "此",
+          "pinyin_numeric": "ci3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "养",
+          "pinyin_numeric": "yang3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "寿",
+          "pinyin_numeric": "shou4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "殁",
+          "pinyin_numeric": "mo4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "世",
+          "pinyin_numeric": "shi4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "殆",
+          "pinyin_numeric": "dai4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "昌",
+          "pinyin_numeric": "chang1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "主",
+          "pinyin_numeric": "zhu3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "十",
+          "pinyin_numeric": "shi2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "二",
+          "pinyin_numeric": "er4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "官",
+          "pinyin_numeric": "guan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "危",
+          "pinyin_numeric": "wei1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "使",
+          "pinyin_numeric": "shi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "闭",
+          "pinyin_numeric": "bi4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "塞",
+          "pinyin_numeric": "sai1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "通",
+          "pinyin_numeric": "tong1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "形",
+          "pinyin_numeric": "xing2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "乃",
+          "pinyin_numeric": "nai3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "伤",
+          "pinyin_numeric": "shang1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "此",
+          "pinyin_numeric": "ci3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "养",
+          "pinyin_numeric": "yang3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "殃",
+          "pinyin_numeric": "yang1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "宗",
+          "pinyin_numeric": "zong1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "危",
+          "pinyin_numeric": "wei1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "戒",
+          "pinyin_numeric": "jie4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "戒",
+          "pinyin_numeric": "jie4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "十二官虽然分工不同，却必须协调。经文以君臣关系比喻人体整体：核心功能清明、各部分协同，身体较安定；失去协调则会出现严重问题。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-006",
+      "order": 6,
+      "text": "至道在微，变化无穷，孰知其原！窘乎哉！消者瞿瞿，孰知其要！闵闵之当，孰者为良！恍惚之数，生于毫厘，毫厘之数，起于度量，千之万之，可以益大，推之大之，其形乃制。",
+      "pinyin_tone_marks": "zhì dào zài wēi，biàn huà wú qióng，shú zhī qí yuán！jiǒng hū zāi！xiāo zhě jù jù，shú zhī qí yào！mǐn mǐn zhī dāng，shú zhě wéi liáng！huǎng hū zhī shù，shēng yú háo lí，háo lí zhī shù，qǐ yú dù liàng，qiān zhī wàn zhī，kě yǐ yì dà，tuī zhī dà zhī，qí xíng nǎi zhì。",
+      "pinyin_numeric": "zhi4 dao4 zai4 wei1，bian4 hua4 wu2 qiong2，shu2 zhi1 qi2 yuan2！jiong3 hu1 zai1！xiao1 zhe3 ju4 ju4，shu2 zhi1 qi2 yao4！min3 min3 zhi1 dang1，shu2 zhe3 wei2 liang2！huang3 hu1 zhi1 shu4，sheng1 yu2 hao2 li2，hao2 li2 zhi1 shu4，qi3 yu2 du4 liang4，qian1 zhi1 wan4 zhi1，ke3 yi3 yi4 da4，tui1 zhi1 da4 zhi1，qi2 xing2 nai3 zhi4。",
+      "tokens": [
+        {
+          "text": "至",
+          "pinyin_numeric": "zhi4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "在",
+          "pinyin_numeric": "zai4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "微",
+          "pinyin_numeric": "wei1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "变",
+          "pinyin_numeric": "bian4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "化",
+          "pinyin_numeric": "hua4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "穷",
+          "pinyin_numeric": "qiong2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "孰",
+          "pinyin_numeric": "shu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "原",
+          "pinyin_numeric": "yuan2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "窘",
+          "pinyin_numeric": "jiong3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "哉",
+          "pinyin_numeric": "zai1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "消",
+          "pinyin_numeric": "xiao1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "瞿",
+          "pinyin_numeric": "ju4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "瞿",
+          "pinyin_numeric": "ju4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "孰",
+          "pinyin_numeric": "shu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "要",
+          "pinyin_numeric": "yao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "闵",
+          "pinyin_numeric": "min3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "闵",
+          "pinyin_numeric": "min3",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "当",
+          "pinyin_numeric": "dang1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "孰",
+          "pinyin_numeric": "shu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "良",
+          "pinyin_numeric": "liang2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "恍",
+          "pinyin_numeric": "huang3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "惚",
+          "pinyin_numeric": "hu1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "数",
+          "pinyin_numeric": "shu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "毫",
+          "pinyin_numeric": "hao2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "厘",
+          "pinyin_numeric": "li2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "毫",
+          "pinyin_numeric": "hao2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "厘",
+          "pinyin_numeric": "li2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "数",
+          "pinyin_numeric": "shu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "起",
+          "pinyin_numeric": "qi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "度",
+          "pinyin_numeric": "du4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "量",
+          "pinyin_numeric": "liang4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "千",
+          "pinyin_numeric": "qian1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "万",
+          "pinyin_numeric": "wan4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "可",
+          "pinyin_numeric": "ke3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "益",
+          "pinyin_numeric": "yi4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "推",
+          "pinyin_numeric": "tui1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "形",
+          "pinyin_numeric": "xing2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "乃",
+          "pinyin_numeric": "nai3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "制",
+          "pinyin_numeric": "zhi4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "深层规律往往从极细微的变化开始，复杂现象由细小差异不断积累而形成。经文感叹真正把握其中关键并不容易。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-007",
+      "order": 7,
+      "text": "黄帝曰：善哉！余闻精光之道，大圣之业，而宣明大道，非斋戒择吉日不敢受也。",
+      "pinyin_tone_marks": "huáng dì yuē：shàn zāi！yú wén jīng guāng zhī dào，dà shèng zhī yè，ér xuān míng dà dào，fēi zhāi jiè zé jí rì bù gǎn shòu yě。",
+      "pinyin_numeric": "huang2 di4 yue1：shan4 zai1！yu2 wen2 jing1 guang1 zhi1 dao4，da4 sheng4 zhi1 ye4，er2 xuan1 ming2 da4 dao4，fei1 zhai1 jie4 ze2 ji2 ri4 bu4 gan3 shou4 ye3。",
+      "tokens": [
+        {
+          "text": "黄",
+          "pinyin_numeric": "huang2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "帝",
+          "pinyin_numeric": "di4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "善",
+          "pinyin_numeric": "shan4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "哉",
+          "pinyin_numeric": "zai1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "余",
+          "pinyin_numeric": "yu2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "闻",
+          "pinyin_numeric": "wen2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "精",
+          "pinyin_numeric": "jing1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "光",
+          "pinyin_numeric": "guang1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "圣",
+          "pinyin_numeric": "sheng4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "业",
+          "pinyin_numeric": "ye4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "宣",
+          "pinyin_numeric": "xuan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "非",
+          "pinyin_numeric": "fei1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "斋",
+          "pinyin_numeric": "zhai1",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "戒",
+          "pinyin_numeric": "jie4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "择",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "吉",
+          "pinyin_numeric": "ji2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "敢",
+          "pinyin_numeric": "gan3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "受",
+          "pinyin_numeric": "shou4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "黄帝赞叹这套道理精深重要，表示应以庄重的态度来接受和保存。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun-seg-008",
+      "order": 8,
+      "text": "黄帝乃择吉日良兆，而藏灵兰之室以传保焉。",
+      "pinyin_tone_marks": "huáng dì nǎi zé jí rì liáng zhào，ér cáng líng lán zhī shì yǐ chuán bǎo yān。",
+      "pinyin_numeric": "huang2 di4 nai3 ze2 ji2 ri4 liang2 zhao4，er2 cang2 ling2 lan2 zhi1 shi4 yi3 chuan2 bao3 yan1。",
+      "tokens": [
+        {
+          "text": "黄",
+          "pinyin_numeric": "huang2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "帝",
+          "pinyin_numeric": "di4",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "乃",
+          "pinyin_numeric": "nai3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "择",
+          "pinyin_numeric": "ze2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "吉",
+          "pinyin_numeric": "ji2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "良",
+          "pinyin_numeric": "liang2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "兆",
+          "pinyin_numeric": "zhao4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "藏",
+          "pinyin_numeric": "cang2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "灵",
+          "pinyin_numeric": "ling2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "兰",
+          "pinyin_numeric": "lan2",
+          "pinyin_source": "curated_override"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "室",
+          "pinyin_numeric": "shi4",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "传",
+          "pinyin_numeric": "chuan2",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "保",
+          "pinyin_numeric": "bao3",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_source": "icu_han_latin_reference"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "黄帝选择吉日，把这些内容收藏在灵兰之室，希望妥善保存并传之后世。",
+      "translation_type": "modern_chinese_explanation_original_for_this_dataset"
+    }
+  ]
+}

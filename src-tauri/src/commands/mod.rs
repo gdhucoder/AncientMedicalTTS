@@ -2,11 +2,12 @@ use crate::{
     db::Database,
     error::{AppError, AppResult},
     models::{
-        Annotation, ApiUsageSummary, BatchGenerationState, BookDetail, BookExportPreflight,
-        BookGenerationPreflight, BookPronunciationAnalysisResult, BookSummary, ChapterSummary,
-        ComponentStatus, DeveloperStatus, ExportState, FfmpegStatus, ImportResult,
-        PaginatedSegments, ReaderDisplaySettings, Segment, SegmentDisplayPinyin, SegmentEditResult,
-        SegmentReader, TtsPreviewResult, WorkerPing, WorkerStatus,
+        AnnotatedImportPreflight, Annotation, ApiUsageSummary, BatchGenerationState, BookDetail,
+        BookExportPreflight, BookGenerationPreflight, BookPronunciationAnalysisResult, BookSummary,
+        ChapterSummary, ComponentStatus, DeveloperStatus, ExportState, FfmpegStatus, ImportResult,
+        ImportedTtsPreflight, PaginatedSegments, PublicationBundlePreflight,
+        PublicationExportState, ReaderDisplaySettings, Segment, SegmentDisplayPinyin,
+        SegmentEditResult, SegmentReader, TtsPreviewResult, WorkerPing, WorkerStatus,
     },
     models::{
         CredentialStatus, PronunciationRule, PronunciationRuleApplyResult,
@@ -14,9 +15,9 @@ use crate::{
     },
     security::credentials,
     services::{
-        audio_service, batch_generation_service, book_service, export_service, preview_service,
-        pronunciation_rule_service, pronunciation_service, segment_edit_service, settings_service,
-        usage_service,
+        annotated_import_service, audio_service, batch_generation_service, book_service,
+        export_service, preview_service, pronunciation_rule_service, pronunciation_service,
+        publication_service, segment_edit_service, settings_service, usage_service,
     },
     AppState,
 };
@@ -85,6 +86,46 @@ pub async fn import_txt_book(
         "批量生成期间不能导入 Book",
     )?;
     book_service::import_txt_book(&state.database()?, &path, title).await
+}
+
+#[tauri::command]
+pub async fn get_annotated_book_import_preflight(
+    _state: State<'_, AppState>,
+    path: String,
+    trust_imported_pronunciation: Option<bool>,
+) -> AppResult<AnnotatedImportPreflight> {
+    annotated_import_service::get_import_preflight(
+        &path,
+        trust_imported_pronunciation.unwrap_or(false),
+    )
+    .await
+}
+
+#[tauri::command]
+pub async fn import_annotated_book(
+    state: State<'_, AppState>,
+    path: String,
+    trust_imported_pronunciation: Option<bool>,
+) -> AppResult<ImportResult> {
+    ensure_batch_idle(
+        &state,
+        "BATCH_BOOK_MUTATION_LOCKED",
+        "批量生成期间不能导入 Book",
+    )?;
+    annotated_import_service::import_book(
+        &state.database()?,
+        &path,
+        trust_imported_pronunciation.unwrap_or(false),
+    )
+    .await
+}
+
+#[tauri::command]
+pub async fn get_imported_tts_preflight(
+    state: State<'_, AppState>,
+    book_id: String,
+) -> AppResult<ImportedTtsPreflight> {
+    annotated_import_service::get_tts_preflight(&state.database()?, &book_id).await
 }
 
 #[tauri::command]
@@ -794,6 +835,12 @@ pub async fn start_book_audio_generation(
     book_id: String,
     pronunciation_mode: Option<String>,
 ) -> AppResult<()> {
+    if state.publication.is_running() {
+        return Err(AppError::new(
+            "PUBLICATION_EXPORT_IN_PROGRESS",
+            "移动端发布包导出期间不能生成全文语音",
+        ));
+    }
     if state.export.is_running() {
         return Err(AppError::new(
             "EXPORT_IN_PROGRESS",
@@ -873,6 +920,12 @@ pub async fn export_book_audio(
     overwrite: bool,
     segment_ids: Option<Vec<String>>,
 ) -> AppResult<()> {
+    if state.publication.is_running() {
+        return Err(AppError::new(
+            "PUBLICATION_EXPORT_IN_PROGRESS",
+            "移动端发布包导出期间不能导出完整音频",
+        ));
+    }
     if state.export.is_running() {
         return Err(AppError::new(
             "EXPORT_ALREADY_RUNNING",
@@ -936,7 +989,89 @@ pub fn get_export_state(state: State<'_, AppState>) -> ExportState {
     export_service::get_export_state(&state.export)
 }
 
+#[tauri::command]
+pub async fn get_publication_bundle_preflight(
+    state: State<'_, AppState>,
+    book_id: String,
+) -> AppResult<PublicationBundlePreflight> {
+    publication_service::get_publication_bundle_preflight(&state.database()?, &book_id).await
+}
+
+#[tauri::command]
+pub async fn export_publication_bundle(
+    state: State<'_, AppState>,
+    app: AppHandle,
+    book_id: String,
+    destination_dir: String,
+) -> AppResult<()> {
+    if state.publication.is_running() {
+        return Err(AppError::new(
+            "PUBLICATION_EXPORT_ALREADY_RUNNING",
+            "已有一个移动端发布包正在导出",
+        ));
+    }
+    if state.batch.is_running() {
+        return Err(AppError::new(
+            "BATCH_GENERATION_IN_PROGRESS",
+            "全文语音生成期间不能导出移动端发布包",
+        ));
+    }
+    if state.export.is_running() {
+        return Err(AppError::new(
+            "EXPORT_IN_PROGRESS",
+            "完整音频导出期间不能导出移动端发布包",
+        ));
+    }
+    {
+        let mut busy = state
+            .tts_busy
+            .lock()
+            .map_err(|_| AppError::new("TTS_BUSY_STATE_ERROR", "TTS 状态锁不可用"))?;
+        if *busy {
+            return Err(AppError::new(
+                "TTS_ALREADY_RUNNING",
+                "已有一个语音生成操作正在运行",
+            ));
+        }
+        *busy = true;
+    }
+    let database = match state.database() {
+        Ok(database) => database,
+        Err(error) => {
+            if let Ok(mut busy) = state.tts_busy.lock() {
+                *busy = false;
+            }
+            return Err(error);
+        }
+    };
+    let result = publication_service::start_publication_export(
+        app,
+        state.publication.clone(),
+        database,
+        book_id,
+        destination_dir,
+    )
+    .await;
+    if result.is_err() {
+        if let Ok(mut busy) = state.tts_busy.lock() {
+            *busy = false;
+        }
+    }
+    result
+}
+
+#[tauri::command]
+pub fn get_publication_export_state(state: State<'_, AppState>) -> PublicationExportState {
+    publication_service::get_publication_export_state(&state.publication)
+}
+
 fn ensure_batch_idle(state: &AppState, code: &str, message: &str) -> AppResult<()> {
+    if state.publication.is_running() {
+        return Err(AppError::new(
+            "PUBLICATION_EXPORT_IN_PROGRESS",
+            "移动端发布包导出期间不能修改当前文档或发音设置",
+        ));
+    }
     if state.export.is_running() {
         return Err(AppError::new(
             "EXPORT_IN_PROGRESS",

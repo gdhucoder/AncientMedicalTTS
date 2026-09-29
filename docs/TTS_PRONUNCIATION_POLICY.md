@@ -18,12 +18,15 @@ Reader 的“严格按注音生成”是一个显式的 TTS 模式，不改变�
 
 ### 已锁定读音
 
-只有以下两类数据可以进入 TTS 的 SSML `phoneme`：
+只有以下三类数据可以进入 TTS 的 SSML `phoneme`：
 
 1. `segment_annotations.review_status = confirmed`、`source = manual`、存在 `target_pinyin` 的当前 Segment 人工确认；
 2. `segment_annotations.review_status = confirmed`、存在 `source_rule_id`，且该规则仍存在、启用并且 scope 为 `book` 或 `global` 的规则 Annotation。
+3. `segment_annotations.review_status = confirmed`、`source = imported_authoritative` 且存在 `target_pinyin` 的已注音古籍导入标注。
 
-Rust 的 `build_effective_forced_pronunciations` 统一计算这份策略。自动分析的 `needs_review`、`ignored`、`source=pypinyin`、词典命中和上下文建议都只属于参考层。
+Rust 的 `build_effective_forced_pronunciations` 统一计算这份策略。优先级为本处 manual confirmed > Book Rule > Global Rule > Imported Authoritative > TTS 默认发音。自动分析的 `needs_review`、`ignored`、`source=pypinyin`、词典命中和上下文建议都只属于参考层。
+
+已注音古籍导入有两种模式：`reference` 只写入 `source=imported_reference`，不强制 TTS；`authoritative` 或用户在导入确认页显式信任后写入 `source=imported_authoritative`，可以在不运行 analyzer 的情况下直接按导入注音生成。后续人工确认会把该处改成 `source=manual`，保留人工覆盖来源；Book/Global Rule 也可以覆盖导入基线。
 
 ## 强制策略的优先级
 
@@ -51,6 +54,8 @@ Tencent TextToVoice
 ```
 
 默认没有强制读音时，Worker 将文本原样发送；存在强制读音时，才生成 `<phoneme alphabet="py" ph="...">...</phoneme>`。严格按页面注音模式则会为全文每个汉字生成覆盖。TTS 输入仍使用 Segment 的 `effective_text = reading_text ?? original_text`，注音只控制发音，不改变文本。
+
+导入注音模式按连续已锁定 token、以标点为边界合并 phrase-level phoneme，不为每个字单独创建 SSML 节点；缺失注音的 Segment 只有在用户明确选择混合生成时才以普通文本交给腾讯云。
 
 单 Segment 生成和全文批量生成都复用 Rust AudioService，因此使用同一套策略。导出只读取当前 AudioVersion，不重新分析也不重新生成语音。
 

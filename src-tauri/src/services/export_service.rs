@@ -597,21 +597,7 @@ async fn run_export(
         let concat = build_concat_list(&segments)?;
         fs::write(&concat_path, concat).map_err(AppError::from)?;
         set_phase(controller, app, "merging", segments.len() as i64);
-        let merge_args = vec![
-            "-hide_banner".to_string(),
-            "-loglevel".to_string(),
-            "error".to_string(),
-            "-y".to_string(),
-            "-f".to_string(),
-            "concat".to_string(),
-            "-safe".to_string(),
-            "0".to_string(),
-            "-i".to_string(),
-            concat_path.to_string_lossy().to_string(),
-            "-c".to_string(),
-            "copy".to_string(),
-            merged_wav.to_string_lossy().to_string(),
-        ];
+        let merge_args = ffmpeg::concat_wav_args(&concat_path, &merged_wav);
         run_ffmpeg_stage(controller, &ffmpeg_info.path, &merge_args).await?;
         let merged_format = audio_service::read_wav_format(&merged_wav)?;
         if merged_format.sample_rate as i64 != sample_rate
@@ -625,26 +611,13 @@ async fn run_export(
         }
         let final_source = if format == "mp3" {
             set_phase(controller, app, "encoding_mp3", segments.len() as i64);
-            let encode_args = vec![
-                "-hide_banner".to_string(),
-                "-loglevel".to_string(),
-                "error".to_string(),
-                "-y".to_string(),
-                "-i".to_string(),
-                merged_wav.to_string_lossy().to_string(),
-                "-vn".to_string(),
-                "-codec:a".to_string(),
-                "libmp3lame".to_string(),
-                "-b:a".to_string(),
-                "96k".to_string(),
-                "-ar".to_string(),
-                sample_rate.to_string(),
-                "-ac".to_string(),
-                channels.to_string(),
-                "-metadata".to_string(),
-                format!("title={book_title}"),
-                output_path.to_string_lossy().to_string(),
-            ];
+            let encode_args = ffmpeg::encode_mp3_args(
+                &merged_wav,
+                &output_path,
+                sample_rate,
+                channels,
+                book_title,
+            );
             run_ffmpeg_stage(controller, &ffmpeg_info.path, &encode_args).await?;
             output_path
         } else {
@@ -853,7 +826,7 @@ async fn load_export_segments(
 }
 
 fn build_concat_list(segments: &[ExportSegment]) -> AppResult<String> {
-    let mut result = String::from("ffconcat version 1.0\n");
+    let mut paths = Vec::with_capacity(segments.len());
     for segment in segments {
         if segment.audio_path.as_os_str().is_empty() {
             return Err(AppError::new(
@@ -861,19 +834,9 @@ fn build_concat_list(segments: &[ExportSegment]) -> AppResult<String> {
                 format!("Segment {} 没有可用 current WAV", segment.id),
             ));
         }
-        let path = segment.audio_path.to_string_lossy().replace('\\', "/");
-        if path.contains('\n') || path.contains('\r') {
-            return Err(AppError::new(
-                "INVALID_EXPORT_PATH",
-                "音频路径包含换行符，无法安全写入 concat list",
-            ));
-        }
-        let escaped = path.replace('\'', "'\\''");
-        result.push_str("file '");
-        result.push_str(&escaped);
-        result.push_str("'\n");
+        paths.push(segment.audio_path.clone());
     }
-    Ok(result)
+    ffmpeg::build_concat_list(&paths)
 }
 
 fn segment_blocker(

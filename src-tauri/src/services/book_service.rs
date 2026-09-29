@@ -183,13 +183,37 @@ pub async fn list_books(database: &Database) -> AppResult<Vec<BookSummary>> {
 }
 
 pub async fn get_book(database: &Database, book_id: &str) -> AppResult<BookDetail> {
-    let row = sqlx::query_as::<_, (String, String, Option<String>, Option<String>, Option<String>, Option<String>, String, String, i64, i64)>(
-        "SELECT b.id, b.title, b.author, b.dynasty, b.edition, b.source_file, b.created_at, b.updated_at,
+    let row = sqlx::query_as::<
+        _,
+        (
+            String,
+            String,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            Option<String>,
+            String,
+            String,
+            i64,
+            i64,
+        ),
+    >(
+        "SELECT b.id, b.title, b.author, b.dynasty, b.edition, b.source_file,
+                b.import_format, b.import_format_version, b.import_pronunciation_mode,
+                b.import_dataset_id, b.imported_at, b.created_at, b.updated_at,
                 COUNT(DISTINCT c.id), COUNT(s.id)
          FROM books b LEFT JOIN chapters c ON c.book_id = b.id
          LEFT JOIN segments s ON s.chapter_id = c.id AND s.status <> 'superseded'
-         WHERE b.id = ? GROUP BY b.id")
-        .bind(book_id).fetch_optional(database.pool()).await?;
+         WHERE b.id = ? GROUP BY b.id",
+    )
+    .bind(book_id)
+    .fetch_optional(database.pool())
+    .await?;
     let (
         id,
         title,
@@ -197,6 +221,11 @@ pub async fn get_book(database: &Database, book_id: &str) -> AppResult<BookDetai
         dynasty,
         edition,
         source_file,
+        import_format,
+        import_format_version,
+        import_pronunciation_mode,
+        import_dataset_id,
+        imported_at,
         created_at,
         updated_at,
         chapter_count,
@@ -210,6 +239,11 @@ pub async fn get_book(database: &Database, book_id: &str) -> AppResult<BookDetai
             dynasty,
             edition,
             source_file,
+            import_format,
+            import_format_version,
+            import_pronunciation_mode,
+            import_dataset_id,
+            imported_at,
             created_at,
             updated_at,
         },
@@ -245,8 +279,8 @@ pub async fn get_book_text_stats(database: &Database, book_id: &str) -> AppResul
 
 pub async fn list_chapters(database: &Database, book_id: &str) -> AppResult<Vec<ChapterSummary>> {
     ensure_book_exists(database, book_id).await?;
-    let rows = sqlx::query_as::<_, (String, String, Option<String>, i64, String, String, i64)>(
-        "SELECT c.id, c.book_id, c.title, c.order_index, c.created_at, c.updated_at, COUNT(s.id)
+    let rows = sqlx::query_as::<_, (String, String, Option<String>, Option<String>, Option<String>, i64, String, String, i64)>(
+        "SELECT c.id, c.book_id, c.title, c.collection, c.subtitle, c.order_index, c.created_at, c.updated_at, COUNT(s.id)
          FROM chapters c LEFT JOIN segments s ON s.chapter_id = c.id AND s.status <> 'superseded'
          WHERE c.book_id = ? GROUP BY c.id ORDER BY c.order_index",
     )
@@ -256,12 +290,24 @@ pub async fn list_chapters(database: &Database, book_id: &str) -> AppResult<Vec<
     Ok(rows
         .into_iter()
         .map(
-            |(id, book_id, title, order_index, created_at, updated_at, segment_count)| {
+            |(
+                id,
+                book_id,
+                title,
+                collection,
+                subtitle,
+                order_index,
+                created_at,
+                updated_at,
+                segment_count,
+            )| {
                 ChapterSummary {
                     chapter: Chapter {
                         id,
                         book_id,
                         title,
+                        collection,
+                        subtitle,
                         order_index,
                         created_at,
                         updated_at,
@@ -293,8 +339,8 @@ pub async fn list_segments(
     .bind(chapter_id)
     .fetch_one(database.pool())
     .await?;
-    let rows = sqlx::query_as::<_, (String, String, i64, String, Option<String>, i64, String, Option<String>, String, String)>(
-        "SELECT id, chapter_id, order_index, original_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at
+    let rows = sqlx::query_as::<_, (String, String, i64, String, Option<String>, Option<String>, i64, String, Option<String>, String, String)>(
+        "SELECT id, chapter_id, order_index, original_text, reading_text, translation, speak_enabled, status, current_audio_id, created_at, updated_at
          FROM segments WHERE chapter_id = ? AND status <> 'superseded' ORDER BY order_index LIMIT ? OFFSET ?")
         .bind(chapter_id).bind(limit).bind(offset).fetch_all(database.pool()).await?;
     let items = rows
@@ -306,6 +352,7 @@ pub async fn list_segments(
                 order_index,
                 original_text,
                 reading_text,
+                translation,
                 speak_enabled,
                 status,
                 current_audio_id,
@@ -317,6 +364,7 @@ pub async fn list_segments(
                 order_index,
                 original_text,
                 reading_text,
+                translation,
                 speak_enabled: speak_enabled != 0,
                 status,
                 current_audio_id,
@@ -334,8 +382,8 @@ pub async fn list_segments(
 }
 
 pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Segment> {
-    let row = sqlx::query_as::<_, (String, String, i64, String, Option<String>, i64, String, Option<String>, String, String)>(
-        "SELECT id, chapter_id, order_index, original_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at FROM segments WHERE id = ? AND status <> 'superseded'")
+    let row = sqlx::query_as::<_, (String, String, i64, String, Option<String>, Option<String>, i64, String, Option<String>, String, String)>(
+        "SELECT id, chapter_id, order_index, original_text, reading_text, translation, speak_enabled, status, current_audio_id, created_at, updated_at FROM segments WHERE id = ? AND status <> 'superseded'")
         .bind(segment_id).fetch_optional(database.pool()).await?;
     row.map(
         |(
@@ -344,6 +392,7 @@ pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Seg
             order_index,
             original_text,
             reading_text,
+            translation,
             speak_enabled,
             status,
             current_audio_id,
@@ -355,6 +404,7 @@ pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Seg
             order_index,
             original_text,
             reading_text,
+            translation,
             speak_enabled: speak_enabled != 0,
             status,
             current_audio_id,

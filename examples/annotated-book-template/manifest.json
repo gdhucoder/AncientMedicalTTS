@@ -1,0 +1,24 @@
+{
+  "format": "ancient-annotated-book",
+  "format_version": "1.0",
+  "book": {
+    "id": "example-classical-text",
+    "title": "示例古籍",
+    "author": null,
+    "collection": null,
+    "language": "zh-CN",
+    "edition": null
+  },
+  "pronunciation": { "mode": "authoritative" },
+  "chapters": [
+    {
+      "id": "chapter-001",
+      "order": 1,
+      "collection": null,
+      "title": "示例篇",
+      "subtitle": null,
+      "file": "chapters/001.json"
+    }
+  ],
+  "sources": { "original": null, "pronunciation": null, "translation": null }
+}

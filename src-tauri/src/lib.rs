@@ -27,6 +27,7 @@ pub struct AppState {
     pub(crate) data_dir: Mutex<Option<PathBuf>>,
     pub(crate) batch: Arc<services::batch_generation_service::BatchGenerationController>,
     pub(crate) export: Arc<services::export_service::ExportController>,
+    pub(crate) publication: Arc<services::publication_service::PublicationExportController>,
 }
 
 #[derive(Clone)]
@@ -47,6 +48,9 @@ impl Default for AppState {
             data_dir: Mutex::new(None),
             batch: Arc::new(services::batch_generation_service::BatchGenerationController::new()),
             export: Arc::new(services::export_service::ExportController::new()),
+            publication: Arc::new(
+                services::publication_service::PublicationExportController::new(),
+            ),
         }
     }
 }
@@ -65,6 +69,9 @@ pub fn run() {
             commands::get_status,
             commands::ping_worker,
             commands::import_txt_book,
+            commands::get_annotated_book_import_preflight,
+            commands::import_annotated_book,
+            commands::get_imported_tts_preflight,
             commands::list_books,
             commands::get_book,
             commands::list_chapters,
@@ -103,6 +110,9 @@ pub fn run() {
             commands::export_book_audio,
             commands::cancel_export,
             commands::get_export_state,
+            commands::get_publication_bundle_preflight,
+            commands::export_publication_bundle,
+            commands::get_publication_export_state,
             commands::get_tts_settings,
             commands::save_tts_settings,
             commands::get_reader_display_settings,

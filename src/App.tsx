@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import type { SyntheticEvent } from "react";
 import { convertFileSrc, isTauri } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
-import { save } from "@tauri-apps/plugin-dialog";
+import { open, save } from "@tauri-apps/plugin-dialog";
 import { relaunch } from "@tauri-apps/plugin-process";
 import type { DownloadEvent, Update } from "@tauri-apps/plugin-updater";
 import { checkForAppUpdate } from "./services/updater";
-import { analyzeSegmentPronunciation, applyPronunciationRulesToBook, cancelBookAudioGeneration, cancelExport, confirmAnnotation, createManualAnnotation, createPronunciationRule, createRuleFromAnnotation, deleteTencentCredentials, disablePronunciationRule, enablePronunciationRule, exportBookAudio, generateSegmentAudio, generateTtsPreview, getApiUsageSummary, getBatchGenerationState, getBook, getBookExportPreflight, getBookGenerationPreflight, getExportState, getReaderDisplaySettings, getSegmentDisplayPinyin, getSegmentReader, getTencentVoices, getTtsCredentialStatus, getTtsSettings, ignoreAnnotation, listBooks, listBookPronunciationRules, listChapters, listGlobalPronunciationRules, listSegments, mergeSegmentWithNext, mergeSegmentWithPrevious, reanalyzeBookPronunciation, resetAnnotation, restoreSegmentReadingText, saveReaderDisplaySettings, saveTencentCredentials, saveTtsSettings, selectAudioVersion, setSegmentSpeakEnabled, splitSegment, startBookAudioGeneration, testTtsConnection, updatePronunciationRule, updateSegmentReadingText } from "./services/library";
+import { analyzeSegmentPronunciation, applyPronunciationRulesToBook, cancelBookAudioGeneration, cancelExport, confirmAnnotation, createManualAnnotation, createPronunciationRule, createRuleFromAnnotation, deleteTencentCredentials, disablePronunciationRule, enablePronunciationRule, exportBookAudio, exportPublicationBundle, generateSegmentAudio, generateTtsPreview, getApiUsageSummary, getBatchGenerationState, getBook, getBookExportPreflight, getBookGenerationPreflight, getExportState, getImportedTtsPreflight, getPublicationBundlePreflight, getPublicationExportState, getReaderDisplaySettings, getSegmentDisplayPinyin, getSegmentReader, getTencentVoices, getTtsCredentialStatus, getTtsSettings, ignoreAnnotation, listBooks, listBookPronunciationRules, listChapters, listGlobalPronunciationRules, listSegments, mergeSegmentWithNext, mergeSegmentWithPrevious, reanalyzeBookPronunciation, resetAnnotation, restoreSegmentReadingText, saveReaderDisplaySettings, saveTencentCredentials, saveTtsSettings, selectAudioVersion, setSegmentSpeakEnabled, splitSegment, startBookAudioGeneration, testTtsConnection, updatePronunciationRule, updateSegmentReadingText } from "./services/library";
 import type { TtsPronunciationMode } from "./services/library";
 import { friendlyErrorMessage } from "./services/errors";
 import { exportPhaseLabel, sanitizeExportFilename } from "./services/exportUi";
@@ -17,7 +17,7 @@ import { graphemeIndexAtCaret } from "./services/segmentEditingUi";
 import { LibraryPage } from "./pages/LibraryPage";
 import { useLibraryStore } from "./stores/libraryStore";
 import { useStatusStore } from "./stores/statusStore";
-import type { Annotation, ApiUsageRange, ApiUsageSummary, AudioVersion, BatchGenerationState, BookDetail, BookExportPreflight, BookGenerationPreflight, BookSummary, ChapterSummary, CredentialStatus, ExportState, PronunciationRule, ReaderDisplaySettings, ReaderPinyinMode, Segment, SegmentReader, TencentVoice, TtsPreviewResult, TtsSettings } from "./types/library";
+import type { Annotation, ApiUsageRange, ApiUsageSummary, AudioVersion, BatchGenerationState, BookDetail, BookExportPreflight, BookGenerationPreflight, BookSummary, ChapterSummary, CredentialStatus, ExportState, ImportedTtsPreflight, PronunciationRule, PublicationBundlePreflight, PublicationExportState, ReaderDisplaySettings, ReaderPinyinMode, Segment, SegmentReader, TencentVoice, TtsPreviewResult, TtsSettings } from "./types/library";
 import type { ComponentStatus, WorkerStatus } from "./types/status";
 
 const idleBatchState: BatchGenerationState = {
@@ -89,6 +89,47 @@ function useExportState(): ExportState {
 
 function exportIsActive(state: ExportState): boolean {
   return state.status === "running" || state.status === "cancelling";
+}
+
+const idlePublicationState: PublicationExportState = {
+  book_id: null,
+  status: "idle",
+  phase: "idle",
+  chapters_completed: 0,
+  chapters_total: 0,
+  segments_total: 0,
+  output_path: null,
+  error_code: null,
+  error_message: null,
+};
+
+function usePublicationExportState(): PublicationExportState {
+  const [state, setState] = useState<PublicationExportState>(idlePublicationState);
+  useEffect(() => {
+    let active = true;
+    let unlisten: (() => void) | undefined;
+    void getPublicationExportState().then((nextState) => { if (active) setState(nextState); }).catch(() => undefined);
+    void listen<PublicationExportState>("publication-progress", (event) => {
+      if (active) setState(event.payload);
+    }).then((cleanup) => {
+      if (active) unlisten = cleanup;
+      else cleanup();
+    });
+    return () => { active = false; unlisten?.(); };
+  }, []);
+  return state;
+}
+
+function publicationIsActive(state: PublicationExportState): boolean {
+  return state.status === "running";
+}
+
+function publicationPhaseLabel(phase: string): string {
+  if (phase === "preparing") return "正在检查";
+  if (phase === "generating_audio") return "正在生成章节音频";
+  if (phase === "writing_bundle") return "正在写入发布数据";
+  if (phase === "completed") return "已完成";
+  return phase;
 }
 
 function Indicator({ status }: { status: ComponentStatus }) {
@@ -251,8 +292,10 @@ function BooksPage() {
   const batchRunning = batchIsActive(batchState);
   const exportState = useExportState();
   const exportRunning = exportIsActive(exportState);
+  const publicationState = usePublicationExportState();
+  const publicationRunning = publicationIsActive(publicationState);
   const openBook = useLibraryStore((state) => state.openBook);
-  return <LibraryPage operationsLocked={batchRunning || exportRunning} onOpenBook={openBook} />;
+  return <LibraryPage operationsLocked={batchRunning || exportRunning || publicationRunning} onOpenBook={openBook} />;
 }
 
 function ReaderPage() {
@@ -294,7 +337,9 @@ function ReaderPage() {
   const [message, setMessage] = useState<string | null>(null);
   const batchState = useBatchGenerationState();
   const exportState = useExportState();
+  const publicationState = usePublicationExportState();
   const [preflight, setPreflight] = useState<BookGenerationPreflight | null>(null);
+  const [importedTtsPreflight, setImportedTtsPreflight] = useState<ImportedTtsPreflight | null>(null);
   const pageSize = 100;
   const displaySettingsSaveTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
   const pendingDisplaySettings = useRef<ReaderDisplaySettings | null>(null);
@@ -311,6 +356,8 @@ function ReaderPage() {
   const batchForBook = batchState.book_id === bookId;
   const exportRunning = exportIsActive(exportState);
   const exportForBook = exportState.book_id === bookId;
+  const publicationRunning = publicationIsActive(publicationState);
+  const publicationForBook = publicationState.book_id === bookId;
 
   useEffect(() => {
     let active = true;
@@ -351,6 +398,18 @@ function ReaderPage() {
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, [bookId, selectChapter]);
+
+  useEffect(() => {
+    if (!bookId || !book?.book.import_format) {
+      setImportedTtsPreflight(null);
+      return;
+    }
+    let active = true;
+    getImportedTtsPreflight(bookId)
+      .then((next) => { if (active) setImportedTtsPreflight(next); })
+      .catch((reason: unknown) => { if (active) setError(friendlyErrorMessage(reason)); });
+    return () => { active = false; };
+  }, [bookId, book?.book.import_format, book?.book.import_pronunciation_mode]);
 
   useEffect(() => {
     if (!chapterId) return;
@@ -648,7 +707,11 @@ function ReaderPage() {
         setError(nextPreflight.blockers.map((blocker) => blocker.message).join("；"));
         return;
       }
-      const modeLabel = pronunciationMode === "display" ? "严格按照页面全文注音" : "按照已锁定读音";
+      const modeLabel = pronunciationMode === "display"
+        ? "严格按照页面全文注音"
+        : pronunciationMode === "imported"
+          ? "严格按照导入注音"
+          : "按照已锁定读音";
       const confirmed = window.confirm(`将${modeLabel}串行生成《${book?.book.title ?? "当前古籍"}》的 ${nextPreflight.need_generation} 个段落。\n可复用的已有语音：${nextPreflight.generated_and_reusable} 个。\n\n过程中不会自动生成批量以外的音频，是否开始？`);
       if (!confirmed) return;
       await startBookAudioGeneration(bookId, pronunciationMode);
@@ -685,6 +748,28 @@ function ReaderPage() {
   const handleCancelExport = async () => {
     try { await cancelExport(); }
     catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
+  };
+
+  const handlePublicationExport = async () => {
+    if (!bookId || publicationRunning || batchRunning || exportRunning) return;
+    setError(null);
+    try {
+      const nextPreflight: PublicationBundlePreflight = await getPublicationBundlePreflight(bookId);
+      if (!nextPreflight.can_publish) {
+        setError(nextPreflight.blockers.slice(0, 5).map((blocker) => blocker.message).join("；"));
+        return;
+      }
+      const destination = await open({
+        directory: true,
+        multiple: false,
+        title: "选择移动端发布包保存目录",
+      });
+      if (typeof destination !== "string") return;
+      await exportPublicationBundle(bookId, destination);
+      setMessage("移动端发布包已导出，可交给 Web、iOS 或 Android 阅读端使用。");
+    } catch (reason: unknown) {
+      setError(friendlyErrorMessage(reason));
+    }
   };
 
   const handleCancelEdit = () => {
@@ -759,19 +844,21 @@ function ReaderPage() {
     <main className="reader-shell">
       <header className="reader-book-toolbar">
         <button className="reader-back-button" type="button" onClick={closeReader} aria-label="返回我的古籍">‹</button>
-        <div className="reader-book-title"><span className="brand-mark small" aria-hidden="true">古</span><div><h1>{book?.book.title ?? "正在加载…"}</h1><p>逐段校音工作台</p></div></div>
+        <div className="reader-book-title"><span className="brand-mark small" aria-hidden="true">古</span><div><h1>{book?.book.title ?? "正在加载…"}</h1><p>逐段校音工作台{book?.book.import_format === "ancient-annotated-book" && <span className="annotated-book-badge">{book?.book.import_pronunciation_mode === "authoritative" ? "注音已确认" : "参考注音"}</span>}</p></div></div>
         <div className="reader-book-stats"><span>{book?.segment_count ?? 0} 段</span><span className="stat-review"><i />{needsReviewCount} 待确认</span><span className="stat-done"><i />{generatedCount} 已完成</span><span className="stat-muted"><i />{notGeneratedCount} 未生成</span></div>
         <div className="reader-book-actions">
-          <button className="toolbar-button primary" type="button" onClick={() => void handleReanalyzeBook()} disabled={bookAnalysisBusy || batchRunning || exportRunning}>{bookAnalysisBusy ? "分析中…" : "全文分析"}</button>
-          <button className="toolbar-button" type="button" onClick={() => void (batchRunning ? handleCancelBatch() : handleStartBatch())} disabled={bookAnalysisBusy || exportRunning}>{batchRunning ? "停止生成" : "生成全文"}</button>
-          <BookExportPanel bookId={bookId} bookTitle={book?.book.title ?? "当前古籍"} selectedSegmentIds={selectedSegmentIds} state={exportForBook ? exportState : idleExportState} blockedByOtherExport={exportRunning && !exportForBook} onExport={(format, nextPreflight, segmentIds) => void handleExport(format, nextPreflight, segmentIds)} onCancel={() => void handleCancelExport()} compact />
+          <button className="toolbar-button primary" type="button" onClick={() => void handleReanalyzeBook()} disabled={bookAnalysisBusy || batchRunning || exportRunning || publicationRunning}>{bookAnalysisBusy ? "分析中…" : "全文分析"}</button>
+          <button className="toolbar-button" type="button" onClick={() => void (batchRunning ? handleCancelBatch() : handleStartBatch())} disabled={bookAnalysisBusy || exportRunning || publicationRunning}>{batchRunning ? "停止生成" : importedTtsPreflight && importedTtsPreflight.missing_han_count > 0 ? "混合生成全文" : "生成全文"}</button>
+          <BookExportPanel bookId={bookId} bookTitle={book?.book.title ?? "当前古籍"} selectedSegmentIds={selectedSegmentIds} state={exportForBook ? exportState : idleExportState} blockedByOtherExport={(exportRunning && !exportForBook) || publicationRunning} onExport={(format, nextPreflight, segmentIds) => void handleExport(format, nextPreflight, segmentIds)} onCancel={() => void handleCancelExport()} compact />
           <button className="toolbar-button more-button" type="button" onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen}>更多…</button>
-          {moreOpen && <div className="more-menu"><button type="button" onClick={() => { setMoreOpen(false); updateDisplaySettings({ pinyin_mode: "all" }); void handleStartBatch("display"); }}>严格按页面注音生成全文</button><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
+          {moreOpen && <div className="more-menu">{book?.book.import_pronunciation_mode === "authoritative" && <button type="button" onClick={() => { setMoreOpen(false); void handleStartBatch("imported"); }}>按导入注音生成全文{importedTtsPreflight && !importedTtsPreflight.can_generate_strict ? `（缺少 ${importedTtsPreflight.missing_han_count} 字）` : ""}</button>}<button type="button" onClick={() => { setMoreOpen(false); updateDisplaySettings({ pinyin_mode: "all" }); void handleStartBatch("display"); }}>严格按页面注音生成全文</button><button type="button" onClick={() => { setMoreOpen(false); void handlePublicationExport(); }} disabled={publicationRunning || batchRunning || exportRunning}>导出移动端发布包</button><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
         </div>
       </header>
+      {book?.book.import_pronunciation_mode === "authoritative" && importedTtsPreflight && importedTtsPreflight.missing_han_count > 0 && <div className="imported-pronunciation-notice" role="status">已注音覆盖 {importedTtsPreflight.covered_han_count.toLocaleString("zh-CN")} / {importedTtsPreflight.total_han_count.toLocaleString("zh-CN")} 个汉字；严格按导入注音还缺少 {importedTtsPreflight.missing_han_count} 字。点击“混合生成全文”时，缺少注音的位置将由腾讯云自动判断。</div>}
       {error && <div className="error-banner reader-error" role="alert">{error}</div>}
       {message && <div className="success-banner reader-error" role="status">{message}</div>}
       <BookBatchPanel bookTitle={book?.book.title ?? "当前古籍"} state={batchForBook ? batchState : idleBatchState} preflight={preflight} running={batchRunning && batchForBook} analyzing={bookAnalysisBusy} onCancel={() => void handleCancelBatch()} />
+      {publicationForBook && publicationState.status !== "idle" && <div className={`publication-task ${publicationState.status}`} role="status"><strong>{publicationState.status === "running" ? "正在导出移动端发布包…" : publicationState.status === "completed" ? "移动端发布包已完成" : "移动端发布包导出失败"}</strong><span>{publicationPhaseLabel(publicationState.phase)} · {publicationState.chapters_completed} / {publicationState.chapters_total} 章</span>{publicationState.output_path && <small>{publicationState.output_path}</small>}{publicationState.error_message && <small>{publicationState.error_message}</small>}</div>}
       <div className="reader-layout">
           <aside className="segment-navigator">
             <div className="navigator-heading"><div><p className="eyebrow">段落导航</p><h2>章节与段落</h2></div><span>{book?.segment_count ?? 0}</span></div>
@@ -811,7 +898,7 @@ function ReaderPage() {
               <AudioPanel reader={reader} busy={audioBusy || batchRunning || exportRunning} onGenerate={() => void handleGenerateAudio()} onGenerateStrict={() => void handleGenerateAudio("display")} onSelect={(audioId) => void handleSelectAudio(audioId)} />
             </> : <div className="subtle-empty">选择一条段落查看正文。</div>}
           </section>
-          <aside className={`inspector-panel${inspectorOpen ? " open" : ""}`}><div className="inspector-heading"><div><p className="eyebrow">发音检查器</p><h2>发音检查器</h2></div><button className="inspector-close" type="button" onClick={() => setInspectorOpen(false)}>收起</button><span className="inspector-mark" aria-hidden="true">⌁</span></div><PronunciationInspector reader={reader} annotation={selectedAnnotation} currentAudio={currentAudio} manualToken={manualToken} targetPinyin={targetPinyin} setTargetPinyin={setTargetPinyin} manualPinyin={manualPinyin} setManualPinyin={setManualPinyin} busy={analysisBusy || batchRunning || exportRunning} onAnalyze={() => void handleAnalyze()} onConfirm={() => void handleConfirm()} onIgnore={() => void handleAnnotationStatus("ignore")} onReset={() => void handleAnnotationStatus("reset")} onCreateRule={(scope) => void handleCreateRule(scope)} onManualAnnotation={() => void handleManualAnnotation()} onNextReview={navigateToNextReview} /></aside>
+          <aside className={`inspector-panel${inspectorOpen ? " open" : ""}`}><div className="inspector-heading"><div><p className="eyebrow">发音检查器</p><h2>发音检查器</h2></div><button className="inspector-close" type="button" onClick={() => setInspectorOpen(false)}>收起</button><span className="inspector-mark" aria-hidden="true">⌁</span></div><PronunciationInspector reader={reader} annotation={selectedAnnotation} currentAudio={currentAudio} manualToken={manualToken} targetPinyin={targetPinyin} setTargetPinyin={setTargetPinyin} manualPinyin={manualPinyin} setManualPinyin={setManualPinyin} busy={analysisBusy || batchRunning || exportRunning} onAnalyze={() => void handleAnalyze()} onConfirm={() => void handleConfirm()} onIgnore={() => void handleAnnotationStatus("ignore")} onReset={() => void handleAnnotationStatus("reset")} onCreateRule={(scope) => void handleCreateRule(scope)} onManualAnnotation={() => void handleManualAnnotation()} onNextReview={navigateToNextReview} />{reader?.segment.translation && <details className="inspector-translation"><summary>现代汉语解释</summary><p>{reader?.segment.translation}</p></details>}</aside>
       </div>
     </main>
   );
@@ -835,7 +922,7 @@ function BookBatchPanel({ bookTitle, state, preflight, running, analyzing, onCan
   const denominator = state.segments_requiring_generation;
   const progress = batchProgressPercent(state);
   if (!running && !analyzing && !isTerminal) return null;
-  const modeLabel = state.pronunciation_mode === "display" ? "严格按页面注音" : "锁定读音";
+  const modeLabel = state.pronunciation_mode === "display" ? "严格按页面注音" : state.pronunciation_mode === "imported" ? "严格按导入注音" : "锁定读音";
   return <div className="task-strip">{analyzing && <div><strong>正在分析《{bookTitle}》</strong><span>只更新发音标注，不会生成语音。</span></div>}{running && <div className="task-progress"><div><strong>正在生成《{bookTitle}》</strong><span>{state.processed} / {denominator} 段 · {modeLabel}</span></div><div className="progress-track"><div className="progress-value" style={{ width: `${progress}%` }} /></div><small>已生成 {state.generated} · 已复用 {state.skipped} · 失败 {state.failed}</small></div>}{isTerminal && state.book_id && <div><strong>{state.status === "completed" ? "全文生成完成" : state.status === "cancelled" ? "已停止全文生成" : "全文生成失败"}</strong><span>{modeLabel} · 生成 {state.generated} · 复用 {state.skipped} · 失败 {state.failed}</span>{state.fatal_error && <p className="stale-warning">{state.fatal_error.message}</p>}</div>}{(running || analyzing) && <button className="task-cancel" type="button" onClick={onCancel} disabled={!running || state.status === "cancelling"}>{state.status === "cancelling" ? "正在停止…" : "停止"}</button>}{preflight && !running && state.status === "idle" && preflight.blockers.length > 0 && <span className="batch-blocked">预检未通过</span>}</div>;
 }
 

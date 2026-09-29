@@ -409,6 +409,7 @@ fn segment_from_row(
         order_index,
         original_text,
         reading_text,
+        translation: None,
         speak_enabled: speak_enabled != 0,
         status,
         current_audio_id,

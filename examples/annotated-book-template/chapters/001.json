@@ -1,0 +1,18 @@
+{
+  "id": "chapter-001",
+  "order": 1,
+  "title": "示例篇",
+  "segments": [
+    {
+      "id": "chapter-001-seg-001",
+      "order": 1,
+      "text": "恶寒。",
+      "tokens": [
+        { "text": "恶", "pinyin_numeric": "wu4" },
+        { "text": "寒", "pinyin_numeric": "han2" },
+        { "text": "。", "pinyin_numeric": null }
+      ],
+      "translation": "怕冷。"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ancientmedicaltts.example/schemas/annotated-book-v1.schema.json",
+  "title": "Ancient Annotated Book Format v1",
+  "type": "object",
+  "required": ["format", "format_version", "book", "pronunciation", "chapters"],
+  "properties": {
+    "format": { "const": "ancient-annotated-book" },
+    "format_version": { "const": "1.0" },
+    "book": { "$ref": "#/$defs/book" },
+    "pronunciation": {
+      "type": "object",
+      "required": ["mode"],
+      "properties": { "mode": { "enum": ["reference", "authoritative"] } },
+      "additionalProperties": false
+    },
+    "chapters": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/chapterRef" } },
+    "sources": { "type": "object" }
+  },
+  "$defs": {
+    "book": {
+      "type": "object",
+      "required": ["id", "title", "language"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "author": { "type": ["string", "null"] },
+        "collection": { "type": ["string", "null"] },
+        "dynasty": { "type": ["string", "null"] },
+        "edition": { "type": ["string", "null"] },
+        "language": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "chapterRef": {
+      "type": "object",
+      "required": ["id", "order", "title"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "order": { "type": "integer", "minimum": 1 },
+        "collection": { "type": ["string", "null"] },
+        "title": { "type": "string" },
+        "subtitle": { "type": ["string", "null"] },
+        "file": { "type": "string" },
+        "segments": { "type": "array", "items": { "$ref": "#/$defs/segment" } }
+      },
+      "oneOf": [{ "required": ["file"] }, { "required": ["segments"] }],
+      "additionalProperties": true
+    },
+    "segment": {
+      "type": "object",
+      "required": ["id", "order", "text"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "order": { "type": "integer", "minimum": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "pinyin_numeric": { "type": ["string", "null"] },
+        "pinyin_tone_marks": { "type": ["string", "null"] },
+        "tokens": { "type": "array", "items": { "$ref": "#/$defs/token" } },
+        "translation": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "token": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "pinyin_numeric": { "type": ["string", "null"] },
+        "pinyin_tone_marks": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}
