@@ -806,11 +806,15 @@ async fn run_publication_export(
                 .filter_map(|segment| segment.end_ms)
                 .max()
                 .unwrap_or(0);
-            if (chapter_duration_ms - timeline_ms).abs() > MP3_TIMELINE_TOLERANCE_MS {
+            if !timeline_duration_matches(chapter_duration_ms, timeline_ms) {
                 return Err(AppError::new(
                     "PUBLICATION_TIMELINE_MISMATCH",
                     format!(
-                        "章节时间轴与 MP3 时长相差 {}ms，超过允许的 {}ms",
+                        "章节 {}（{}）时间轴 {}ms，MP3 {}ms，相差 {}ms，超过允许的 {}ms",
+                        chapter_number,
+                        chapter.title.as_deref().unwrap_or("未命名章节"),
+                        timeline_ms,
+                        chapter_duration_ms,
                         (chapter_duration_ms - timeline_ms).abs(),
                         MP3_TIMELINE_TOLERANCE_MS
                     ),
@@ -996,6 +1000,10 @@ fn write_json<T: Serialize>(path: &Path, value: &T) -> AppResult<()> {
     fs::write(path, data).map_err(AppError::from)
 }
 
+fn timeline_duration_matches(audio_duration_ms: i64, timeline_ms: i64) -> bool {
+    (audio_duration_ms - timeline_ms).abs() <= MP3_TIMELINE_TOLERANCE_MS
+}
+
 fn validate_bundle_directory(root: &Path) -> AppResult<()> {
     let manifest_path = root.join("manifest.json");
     let book_path = root.join("book.json");
@@ -1079,12 +1087,20 @@ fn validate_bundle_directory(root: &Path) -> AppResult<()> {
                 ));
             }
         }
-        if last_end.unwrap_or(0) > chapter_json.audio.duration_ms
-            || chapter_json.audio.duration_ms - last_end.unwrap_or(0) > MP3_TIMELINE_TOLERANCE_MS
-        {
+        let last_end = last_end.unwrap_or(0);
+        let timeline_delta_ms = chapter_json.audio.duration_ms - last_end;
+        if !timeline_duration_matches(chapter_json.audio.duration_ms, last_end) {
             return Err(AppError::new(
                 "PUBLICATION_VALIDATION_FAILED",
-                "章节末尾时间轴与音频时长差异过大",
+                format!(
+                    "章节 {}（{}）时间轴末尾 {}ms，音频 {}ms，相差 {}ms，超过允许的 {}ms",
+                    chapter.order,
+                    chapter.title,
+                    last_end,
+                    chapter_json.audio.duration_ms,
+                    timeline_delta_ms.abs(),
+                    MP3_TIMELINE_TOLERANCE_MS
+                ),
             ));
         }
     }
@@ -1255,8 +1271,9 @@ fn idle_state() -> PublicationExportState {
 #[cfg(test)]
 mod tests {
     use super::{
-        build_timeline, sanitize_bundle_directory_name, validate_relative_resource_path,
-        AudioInput, AudioSignature, PublicationExportController, PublicationSegmentPlan,
+        build_timeline, sanitize_bundle_directory_name, timeline_duration_matches,
+        validate_relative_resource_path, AudioInput, AudioSignature, PublicationExportController,
+        PublicationSegmentPlan,
     };
     use crate::db::Database;
     use crate::models::PublicationExportState;
@@ -1348,6 +1365,15 @@ mod tests {
             (Some(2500), Some(3250))
         );
         assert_eq!(result[3].text, "丙𠀀");
+    }
+
+    #[test]
+    fn timeline_validation_applies_tolerance_in_both_directions() {
+        assert!(timeline_duration_matches(42_110, 42_112));
+        assert!(timeline_duration_matches(42_112, 42_110));
+        assert!(timeline_duration_matches(42_110, 42_210));
+        assert!(!timeline_duration_matches(42_110, 42_211));
+        assert!(!timeline_duration_matches(42_211, 42_110));
     }
 
     #[test]
