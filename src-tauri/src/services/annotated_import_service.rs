@@ -27,6 +27,7 @@ use zip::ZipArchive;
 
 const FORMAT: &str = "ancient-annotated-book";
 const FORMAT_VERSION: &str = "1.0";
+const READER_SELECTED_FORMAT: &str = "ancient-medical-reader-selected-content";
 const MAX_ZIP_FILES: usize = 512;
 const MAX_ZIP_COMPRESSED_BYTES: u64 = 100 * 1024 * 1024;
 const MAX_ZIP_EXPANDED_BYTES: u64 = 200 * 1024 * 1024;
@@ -37,9 +38,14 @@ struct RawManifest {
     format_version: Option<String>,
     dataset: Option<String>,
     version: Option<String>,
+    id: Option<String>,
+    title: Option<String>,
     book: Option<RawBook>,
     pronunciation: Option<RawPronunciation>,
+    #[serde(default)]
     chapters: Vec<RawChapterRef>,
+    #[serde(default)]
+    lessons: Vec<RawLessonRef>,
     sources: Option<RawSources>,
 }
 
@@ -74,6 +80,24 @@ struct RawChapterRef {
 }
 
 #[derive(Debug, Deserialize, Default, Clone)]
+struct RawLessonRef {
+    id: Option<String>,
+    day: Option<i64>,
+    source_book: Option<String>,
+    source_chapter: Option<String>,
+    display_title: Option<String>,
+    file: Option<String>,
+}
+
+#[derive(Debug, Deserialize, Default, Clone)]
+struct RawLesson {
+    source_book: Option<String>,
+    source_chapter: Option<String>,
+    display_title: Option<String>,
+    segments: Option<Vec<RawSegment>>,
+}
+
+#[derive(Debug, Deserialize, Default, Clone)]
 struct RawSegment {
     id: Option<String>,
     order: Option<i64>,
@@ -87,6 +111,7 @@ struct RawSegment {
 #[derive(Debug, Deserialize, Default, Clone)]
 struct RawToken {
     text: String,
+    #[serde(alias = "pinyin")]
     pinyin_numeric: Option<String>,
     pinyin_tone_marks: Option<String>,
 }
@@ -409,6 +434,9 @@ fn parse_source(path: &str) -> AppResult<NormalizedDocument> {
             format!("manifest.json 无效：{error}"),
         )
     })?;
+    if manifest.format.as_deref() == Some(READER_SELECTED_FORMAT) {
+        return parse_reader_selected_source(&source, &manifest);
+    }
     let is_legacy = manifest.format.is_none();
     if !is_legacy && manifest.format.as_deref() != Some(FORMAT) {
         return Err(AppError::new(
@@ -570,6 +598,148 @@ fn parse_source(path: &str) -> AppResult<NormalizedDocument> {
     })
 }
 
+fn parse_reader_selected_source(
+    source: &SourceFiles,
+    manifest: &RawManifest,
+) -> AppResult<NormalizedDocument> {
+    let version = manifest.format_version.as_deref().unwrap_or(FORMAT_VERSION);
+    if version != FORMAT_VERSION {
+        return Err(AppError::new(
+            "ANNOTATED_UNSUPPORTED_VERSION",
+            format!("不支持的精选内容包版本：{version}"),
+        ));
+    }
+    let title = manifest
+        .title
+        .clone()
+        .or_else(|| manifest.id.clone())
+        .filter(|value| !value.trim().is_empty())
+        .ok_or_else(|| AppError::new("ANNOTATED_BOOK_TITLE_MISSING", "已注音古籍缺少书名"))?;
+    if manifest.lessons.is_empty() {
+        return Err(AppError::new(
+            "ANNOTATED_CHAPTER_MISSING",
+            "精选内容包没有 lessons",
+        ));
+    }
+
+    let mut chapters = Vec::with_capacity(manifest.lessons.len());
+    let mut chapter_ids = HashSet::new();
+    let mut chapter_orders = HashSet::new();
+    let mut all_segment_ids = HashSet::new();
+    for (lesson_index, lesson_ref) in manifest.lessons.iter().enumerate() {
+        let chapter_id = lesson_ref
+            .id
+            .clone()
+            .unwrap_or_else(|| format!("chapter-{:03}", lesson_index + 1));
+        let order = lesson_ref.day.unwrap_or(lesson_index as i64 + 1);
+        if !chapter_ids.insert(chapter_id.clone()) {
+            return Err(AppError::new(
+                "ANNOTATED_DUPLICATE_CHAPTER_ID",
+                "精选内容包 lesson ID 重复",
+            ));
+        }
+        if !chapter_orders.insert(order) {
+            return Err(AppError::new(
+                "ANNOTATED_DUPLICATE_CHAPTER_ORDER",
+                "精选内容包 lesson 顺序重复",
+            ));
+        }
+        let file = lesson_ref.file.as_deref().ok_or_else(|| {
+            AppError::new(
+                "ANNOTATED_CHAPTER_FILE_MISSING",
+                "精选内容包 lesson 缺少 file",
+            )
+        })?;
+        let file = safe_relative_path(file)?;
+        let bytes = source.files.get(&file).ok_or_else(|| {
+            AppError::new(
+                "ANNOTATED_CHAPTER_FILE_MISSING",
+                format!("找不到 lesson 文件：{file}"),
+            )
+        })?;
+        let lesson: RawLesson = serde_json::from_slice(bytes).map_err(|error| {
+            AppError::new(
+                "ANNOTATED_INVALID_CHAPTER_JSON",
+                format!("lesson {file} 无效：{error}"),
+            )
+        })?;
+        let raw_segments = lesson.segments.ok_or_else(|| {
+            AppError::new(
+                "ANNOTATED_SEGMENTS_MISSING",
+                "精选内容包 lesson 缺少 segments",
+            )
+        })?;
+        let mut segments = Vec::with_capacity(raw_segments.len());
+        let mut segment_orders = HashSet::new();
+        for (segment_index, raw_segment) in raw_segments.iter().enumerate() {
+            let segment_id = raw_segment
+                .id
+                .clone()
+                .unwrap_or_else(|| format!("{chapter_id}-seg-{:03}", segment_index + 1));
+            let segment_order = raw_segment.order.unwrap_or(segment_index as i64 + 1);
+            if !all_segment_ids.insert(segment_id) {
+                return Err(AppError::new(
+                    "ANNOTATED_DUPLICATE_SEGMENT_ID",
+                    "精选内容包 Segment ID 重复",
+                ));
+            }
+            if !segment_orders.insert(segment_order) {
+                return Err(AppError::new(
+                    "ANNOTATED_DUPLICATE_SEGMENT_ORDER",
+                    "精选内容包 Segment 顺序重复",
+                ));
+            }
+            if raw_segment.text.trim().is_empty() {
+                return Err(AppError::new(
+                    "ANNOTATED_TEXT_EMPTY",
+                    "Segment text 不能为空",
+                ));
+            }
+            segments.push(NormalizedSegment {
+                order: segment_order,
+                text: raw_segment.text.clone(),
+                translation: raw_segment.translation.clone(),
+                tokens: normalize_segment_tokens_with_legacy_neutral_tone(raw_segment)?,
+            });
+        }
+        chapters.push(NormalizedChapter {
+            order,
+            collection: lesson_ref
+                .source_book
+                .clone()
+                .or(lesson.source_book.clone()),
+            title: lesson_ref
+                .display_title
+                .clone()
+                .or(lesson.display_title.clone())
+                .or(lesson_ref.source_chapter.clone())
+                .or(lesson.source_chapter.clone())
+                .unwrap_or_else(|| format!("第{}章", order)),
+            subtitle: lesson_ref
+                .source_chapter
+                .clone()
+                .or(lesson.source_chapter.clone()),
+            segments,
+        });
+    }
+    chapters.sort_by_key(|chapter| chapter.order);
+    Ok(NormalizedDocument {
+        dataset_id: manifest.id.clone(),
+        title,
+        author: None,
+        dynasty: None,
+        edition: None,
+        pronunciation_mode: "reference".to_string(),
+        chapters,
+        warnings: vec![issue(
+            "LEGACY_READER_SELECTED_FORMAT",
+            "检测到阅读端精选内容包，已兼容为参考注音导入",
+            None,
+            None,
+        )],
+    })
+}
+
 fn normalize_segment_tokens(segment: &RawSegment) -> AppResult<Vec<NormalizedToken>> {
     let graphemes = UnicodeSegmentation::graphemes(segment.text.as_str(), true)
         .map(str::to_string)
@@ -662,6 +832,38 @@ fn normalize_segment_tokens(segment: &RawSegment) -> AppResult<Vec<NormalizedTok
         });
     }
     Ok(result)
+}
+
+/// The original reader-selected package used an unmarked syllable such as
+/// `de` for neutral tone. Keep the formal v1 importer strict, but normalize
+/// this legacy representation at the adapter boundary instead of teaching
+/// the rest of the pronunciation pipeline about the old format.
+fn normalize_segment_tokens_with_legacy_neutral_tone(
+    segment: &RawSegment,
+) -> AppResult<Vec<NormalizedToken>> {
+    let mut adapted = segment.clone();
+    if let Some(tokens) = adapted.tokens.as_mut() {
+        for token in tokens {
+            if let Some(pinyin) = token.pinyin_numeric.as_mut() {
+                if is_unmarked_ascii_syllable(pinyin) {
+                    pinyin.push('5');
+                }
+            }
+            if let Some(pinyin) = token.pinyin_tone_marks.as_mut() {
+                if is_unmarked_ascii_syllable(pinyin) {
+                    pinyin.push('5');
+                }
+            }
+        }
+    }
+    normalize_segment_tokens(&adapted)
+}
+
+fn is_unmarked_ascii_syllable(value: &str) -> bool {
+    !value.is_empty()
+        && value
+            .chars()
+            .all(|character| character.is_ascii_lowercase() || character == 'v')
 }
 
 fn parse_pinyin(value: &str) -> AppResult<Vec<String>> {
@@ -1261,6 +1463,74 @@ mod tests {
             Some("xing2")
         );
         let _ = fs::remove_file(path);
+    }
+
+    #[test]
+    fn adapts_reader_selected_content_zip_as_reference() {
+        let path = std::env::temp_dir().join(format!("reader-selected-{}.zip", Uuid::now_v7()));
+        let file = fs::File::create(&path).expect("zip");
+        let mut writer = zip::ZipWriter::new(file);
+        let options = zip::write::SimpleFileOptions::default();
+        writer
+            .start_file("reader/manifest.json", options)
+            .expect("manifest entry");
+        writer
+            .write_all(
+                r#"{
+                  "format":"ancient-medical-reader-selected-content",
+                  "format_version":"1.0",
+                  "id":"reader-selected-001","title":"精选古籍",
+                  "lessons":[{"id":"day-01","day":1,"source_book":"素问","source_chapter":"上古天真论","display_title":"养生","file":"lessons/day-01.json"}]
+                }"#
+                .as_bytes(),
+            )
+            .expect("manifest");
+        writer
+            .start_file("reader/lessons/day-01.json", options)
+            .expect("lesson entry");
+        writer
+            .write_all(
+                r#"{
+                  "id":"day-01","day":1,"source_book":"素问","source_chapter":"上古天真论","display_title":"养生",
+                  "segments":[{"id":"day-01-seg-01","order":1,"text":"恶气。","tokens":[{"text":"恶","pinyin":"e4"},{"text":"气","pinyin":"qi4"},{"text":"。","pinyin":null}],"translation":"不良之气。"}]
+                }"#
+                .as_bytes(),
+            )
+            .expect("lesson");
+        writer.finish().expect("finish zip");
+
+        let document = parse_source(path.to_str().unwrap()).expect("reader selected zip");
+        assert_eq!(document.title, "精选古籍");
+        assert_eq!(document.pronunciation_mode, "reference");
+        assert_eq!(document.chapters[0].collection.as_deref(), Some("素问"));
+        assert_eq!(document.chapters[0].title, "养生");
+        assert_eq!(
+            document.chapters[0].segments[0].tokens[0].pinyin.as_deref(),
+            Some("e4")
+        );
+        assert_eq!(
+            document.chapters[0].segments[0].translation.as_deref(),
+            Some("不良之气。")
+        );
+        assert_eq!(document.warnings[0].code, "LEGACY_READER_SELECTED_FORMAT");
+        let _ = fs::remove_file(path);
+    }
+
+    #[test]
+    #[ignore = "requires the real reader-selected dataset path"]
+    fn validates_real_reader_selected_dataset_when_requested() {
+        let path = std::env::var("ANCIENT_TTS_REAL_READER_SELECTED_DATASET")
+            .expect("ANCIENT_TTS_REAL_READER_SELECTED_DATASET");
+        let document = parse_source(&path).expect("reader-selected dataset");
+        let preflight = preflight_from_document(&document, false);
+        assert_eq!(document.title, "黄帝内经精选");
+        assert_eq!(document.chapters.len(), 12);
+        assert_eq!(preflight.segment_count, 43);
+        assert_eq!(preflight.han_character_count, 1802);
+        assert_eq!(preflight.pinyin_covered_han_count, 1802);
+        assert_eq!(preflight.translation_segment_count, 43);
+        assert_eq!(preflight.pinyin_coverage_percent, 100.0);
+        assert_eq!(document.pronunciation_mode, "reference");
     }
 
     #[test]
