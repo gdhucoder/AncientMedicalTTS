@@ -27,3 +27,8 @@ realbooks/*.mp3
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+
+# Local annotated-book archives and generated publication bundles.
+realbooks/*.zip
+realbooks/huangdi-neijing-selected-v1/
+realbooks/黄帝内经精选/
