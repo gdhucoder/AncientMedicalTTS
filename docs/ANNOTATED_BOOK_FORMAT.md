@@ -99,3 +99,5 @@ authoritative 数据支持严格模式和混合模式。严格模式要求所有
 ## Legacy 兼容
 
 现有包含 `dataset`、`version`、`chapters` 的 annotated dataset 会在 `LegacyAnnotatedDatasetAdapter` 逻辑中转换为同一内部格式。旧格式默认是 `reference`，用户必须显式信任后才会强制进入 TTS。
+
+另外，阅读端精选内容包 `ancient-medical-reader-selected-content` v1（manifest 使用 `lessons`，lesson 使用 `tokens[].pinyin`）也通过同一兼容边界导入。它默认仍是 `reference`，因此不会因为文件带有拼音就静默改变 TTS；导入确认页勾选“将文件中的注音作为最终发音”后，才会按 `imported_authoritative` 进入强制发音策略。旧包中未标声调的 ASCII 音节按轻声 `5` 兼容，正式 `ancient-annotated-book` v1 仍要求明确声调。
