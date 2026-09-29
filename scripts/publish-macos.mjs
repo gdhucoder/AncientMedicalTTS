@@ -49,7 +49,8 @@ if (!args.has("--skip-build")) {
     }
   }
 
-  const buildArgs = ["tauri:build", profile === "release" ? "--release" : "--debug", "--bundles", "app"];
+  // Tauri 2 uses release as the default; --release is not a valid build flag.
+  const buildArgs = ["tauri:build", ...(profile === "debug" ? ["--debug"] : []), "--bundles", "app"];
   console.log(`开始构建 macOS ${profile === "release" ? "Release" : "Debug"} App…`);
   execFileSync("pnpm", buildArgs, { cwd: projectRoot, env: environment, stdio: "inherit" });
 }
