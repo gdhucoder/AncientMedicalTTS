@@ -254,6 +254,7 @@ pub struct Segment {
     pub chapter_id: String,
     pub order_index: i64,
     pub original_text: String,
+    pub corrected_text: Option<String>,
     pub reading_text: Option<String>,
     pub speak_enabled: bool,
     pub status: String,
@@ -265,6 +266,13 @@ pub struct Segment {
 impl Segment {
     pub fn effective_text(&self) -> &str {
         self.reading_text
+            .as_deref()
+            .or(self.corrected_text.as_deref())
+            .unwrap_or(self.original_text.as_str())
+    }
+
+    pub fn corrected_source_text(&self) -> &str {
+        self.corrected_text
             .as_deref()
             .unwrap_or(self.original_text.as_str())
     }

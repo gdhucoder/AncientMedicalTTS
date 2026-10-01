@@ -224,20 +224,24 @@ jobs:
           intel_signature="${intel_archive}.sig"
           windows_archive="$(find release -maxdepth 1 -type f -iname '*setup.exe' -print -quit)"
           windows_signature="${windows_archive}.sig"
-          if [[ -f "$arm_archive" && -f "$arm_signature" && -f "$intel_archive" && -f "$intel_signature" && -n "$windows_archive" && -f "$windows_signature" ]]; then
-            jq -n \
-              --arg version "${tag#v}" \
-              --arg pub_date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-              --arg arm_url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/$(basename "$arm_archive")" \
-              --arg arm_sig "$(cat "$arm_signature")" \
-              --arg intel_url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/$(basename "$intel_archive")" \
-              --arg intel_sig "$(cat "$intel_signature")" \
-              --arg windows_url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/$(basename "$windows_archive")" \
-              --arg windows_sig "$(cat "$windows_signature")" \
-              '{version:$version,pub_date:$pub_date,notes:"AncientMedicalTTS 更新",platforms:{"darwin-aarch64":{url:$arm_url,signature:$arm_sig},"darwin-x86_64":{url:$intel_url,signature:$intel_sig},"windows-x86_64":{url:$windows_url,signature:$windows_sig}}}' \
-              > release/latest.json
-          else
-            echo "未找到完整的更新包或签名，跳过 latest.json；请检查更新签名密钥与打包产物。"
+          # Prereleases are for manual testing only. Never replace the public
+          # in-app updater manifest with an RC (or downgrade stable users).
+          if [[ "$tag" != *-* ]]; then
+            if [[ -f "$arm_archive" && -f "$arm_signature" && -f "$intel_archive" && -f "$intel_signature" && -n "$windows_archive" && -f "$windows_signature" ]]; then
+              jq -n \
+                --arg version "${tag#v}" \
+                --arg pub_date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+                --arg arm_url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/$(basename "$arm_archive")" \
+                --arg arm_sig "$(cat "$arm_signature")" \
+                --arg intel_url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/$(basename "$intel_archive")" \
+                --arg intel_sig "$(cat "$intel_signature")" \
+                --arg windows_url "https://github.com/${GITHUB_REPOSITORY}/releases/download/${tag}/$(basename "$windows_archive")" \
+                --arg windows_sig "$(cat "$windows_signature")" \
+                '{version:$version,pub_date:$pub_date,notes:"AncientMedicalTTS 更新",platforms:{"darwin-aarch64":{url:$arm_url,signature:$arm_sig},"darwin-x86_64":{url:$intel_url,signature:$intel_sig},"windows-x86_64":{url:$windows_url,signature:$windows_sig}}}' \
+                > release/latest.json
+            else
+              echo "未找到完整的更新包或签名，跳过 latest.json；请检查更新签名密钥与打包产物。"
+            fi
           fi
           gh release upload "$tag" release/* --repo "$GITHUB_REPOSITORY" --clobber
           if [[ -f release/latest.json ]]; then

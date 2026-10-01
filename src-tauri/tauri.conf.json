@@ -36,7 +36,8 @@
     "icon": ["icons/icon.png", "icons/icon.icns", "icons/icon.ico"],
     "macOS": {
       "signingIdentity": "-",
-      "hardenedRuntime": false
+      "hardenedRuntime": false,
+      "infoPlist": "Info.plist"
     },
     "shortDescription": "Local Chinese medical classics reading foundation",
     "longDescription": "AncientMedicalTTS — local classic-text reader, pronunciation review, Tencent TTS and complete WAV/MP3 export"

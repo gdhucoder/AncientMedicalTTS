@@ -16,11 +16,11 @@ pub async fn update_reading_text(
     reading_text: Option<&str>,
 ) -> AppResult<SegmentEditResult> {
     let segment = book_service::get_segment(database, segment_id).await?;
-    let next_reading_text = normalize_reading_text(&segment.original_text, reading_text)?;
+    let next_reading_text = normalize_reading_text(segment.corrected_source_text(), reading_text)?;
     let old_effective = segment.effective_text().to_string();
     let next_effective = next_reading_text
         .as_deref()
-        .unwrap_or(segment.original_text.as_str())
+        .unwrap_or(segment.corrected_source_text())
         .to_string();
     let now = now_rfc3339()?;
     let mut transaction = database.pool().begin().await.map_err(transaction_error)?;
@@ -31,6 +31,39 @@ pub async fn update_reading_text(
         "UPDATE segments SET reading_text = ?, updated_at = ? WHERE id = ? AND status <> ?",
     )
     .bind(&next_reading_text)
+    .bind(&now)
+    .bind(segment_id)
+    .bind(SUPERSEDED_STATUS)
+    .execute(&mut *transaction)
+    .await
+    .map_err(transaction_error)?;
+    transaction.commit().await.map_err(transaction_error)?;
+    result_for(database, segment_id, vec![segment_id.to_string()], vec![]).await
+}
+
+pub async fn update_corrected_text(
+    database: &Database,
+    segment_id: &str,
+    corrected_text: Option<&str>,
+) -> AppResult<SegmentEditResult> {
+    let segment = book_service::get_segment(database, segment_id).await?;
+    let next_corrected_text = normalize_corrected_text(&segment.original_text, corrected_text)?;
+    let old_effective = segment.effective_text().to_string();
+    let next_effective = segment
+        .reading_text
+        .as_deref()
+        .or(next_corrected_text.as_deref())
+        .unwrap_or(segment.original_text.as_str())
+        .to_string();
+    let now = now_rfc3339()?;
+    let mut transaction = database.pool().begin().await.map_err(transaction_error)?;
+    if old_effective != next_effective {
+        invalidate_segment_tx(&mut transaction, segment_id, &now).await?;
+    }
+    sqlx::query(
+        "UPDATE segments SET corrected_text = ?, updated_at = ? WHERE id = ? AND status <> ?",
+    )
+    .bind(&next_corrected_text)
     .bind(&now)
     .bind(segment_id)
     .bind(SUPERSEDED_STATUS)
@@ -95,6 +128,20 @@ pub async fn split_segment(
     let second_effective = join_tokens(&effective_tokens[token_index..]);
     let first_original = join_tokens(&original_tokens[..original_split]);
     let second_original = join_tokens(&original_tokens[original_split..]);
+    let corrected_tokens = pronunciation_service::grapheme_tokens(segment.corrected_source_text());
+    if corrected_tokens.len() < 2 {
+        return Err(AppError::new(
+            "SEGMENT_SPLIT_INVALID",
+            "校对原文不足两个字词，无法与当前分段位置对齐",
+        ));
+    }
+    let corrected_split = token_index.min(corrected_tokens.len().saturating_sub(1));
+    let first_corrected_base = join_tokens(&corrected_tokens[..corrected_split]);
+    let second_corrected_base = join_tokens(&corrected_tokens[corrected_split..]);
+    let first_corrected =
+        (first_corrected_base != first_original).then(|| first_corrected_base.clone());
+    let second_corrected =
+        (second_corrected_base != second_original).then(|| second_corrected_base.clone());
     if first_effective.is_empty()
         || second_effective.is_empty()
         || first_original.is_empty()
@@ -118,7 +165,8 @@ pub async fn split_segment(
         &segment.chapter_id,
         segment.order_index,
         &first_original,
-        reading_text_for(&first_original, &first_effective),
+        first_corrected,
+        reading_text_for(&first_corrected_base, &first_effective),
         segment.speak_enabled,
         &now,
     )
@@ -129,7 +177,8 @@ pub async fn split_segment(
         &segment.chapter_id,
         segment.order_index + 1,
         &second_original,
-        reading_text_for(&second_original, &second_effective),
+        second_corrected,
+        reading_text_for(&second_corrected_base, &second_effective),
         segment.speak_enabled,
         &now,
     )
@@ -184,6 +233,13 @@ async fn merge_adjacent(
     }
     let original_text = format!("{}{}", left.original_text, right.original_text);
     let effective_text = format!("{}{}", left.effective_text(), right.effective_text());
+    let corrected_source_text = format!(
+        "{}{}",
+        left.corrected_source_text(),
+        right.corrected_source_text()
+    );
+    let corrected_text =
+        (corrected_source_text != original_text).then(|| corrected_source_text.clone());
     if effective_text.trim().is_empty() {
         return Err(AppError::new(
             "SEGMENT_TEXT_EMPTY",
@@ -201,7 +257,8 @@ async fn merge_adjacent(
         &left.chapter_id,
         left.order_index,
         &original_text,
-        reading_text_for(&original_text, &effective_text),
+        corrected_text,
+        reading_text_for(&corrected_source_text, &effective_text),
         left.speak_enabled && right.speak_enabled,
         &now,
     )
@@ -222,8 +279,8 @@ async fn load_adjacent(
     chapter_id: &str,
     order_index: i64,
 ) -> AppResult<Segment> {
-    let row = sqlx::query_as::<_, (String, String, i64, String, Option<String>, i64, String, Option<String>, String, String)>(
-        "SELECT id, chapter_id, order_index, original_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at
+    let row = sqlx::query_as::<_, (String, String, i64, String, Option<String>, Option<String>, i64, String, Option<String>, String, String)>(
+        "SELECT id, chapter_id, order_index, original_text, corrected_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at
          FROM segments WHERE chapter_id = ? AND order_index = ? AND status <> ?",
     )
     .bind(chapter_id)
@@ -298,15 +355,17 @@ async fn insert_segment_tx(
     chapter_id: &str,
     order_index: i64,
     original_text: &str,
+    corrected_text: Option<String>,
     reading_text: Option<String>,
     speak_enabled: bool,
     now: &str,
 ) -> AppResult<()> {
-    sqlx::query("INSERT INTO segments (id, chapter_id, order_index, original_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, 'pending', NULL, ?, ?)")
+    sqlx::query("INSERT INTO segments (id, chapter_id, order_index, original_text, corrected_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', NULL, ?, ?)")
         .bind(id)
         .bind(chapter_id)
         .bind(order_index)
         .bind(original_text)
+        .bind(corrected_text)
         .bind(reading_text)
         .bind(if speak_enabled { 1_i64 } else { 0_i64 })
         .bind(now)
@@ -360,18 +419,29 @@ async fn reindex_chapter_tx(
 }
 
 fn normalize_reading_text(
-    original_text: &str,
+    corrected_source_text: &str,
     reading_text: Option<&str>,
 ) -> AppResult<Option<String>> {
-    let value = reading_text.unwrap_or(original_text);
+    let value = reading_text.unwrap_or(corrected_source_text);
     if value.trim().is_empty() {
         return Err(AppError::new("SEGMENT_TEXT_EMPTY", "朗读文本不能为空"));
+    }
+    Ok((value != corrected_source_text).then(|| value.to_string()))
+}
+
+fn normalize_corrected_text(
+    original_text: &str,
+    corrected_text: Option<&str>,
+) -> AppResult<Option<String>> {
+    let value = corrected_text.unwrap_or(original_text);
+    if value.trim().is_empty() {
+        return Err(AppError::new("SEGMENT_TEXT_EMPTY", "校对原文不能为空"));
     }
     Ok((value != original_text).then(|| value.to_string()))
 }
 
-fn reading_text_for(original_text: &str, effective_text: &str) -> Option<String> {
-    (original_text != effective_text).then(|| effective_text.to_string())
+fn reading_text_for(corrected_source_text: &str, effective_text: &str) -> Option<String> {
+    (corrected_source_text != effective_text).then(|| effective_text.to_string())
 }
 
 fn join_tokens(tokens: &[crate::models::GraphemeToken]) -> String {
@@ -384,6 +454,7 @@ fn segment_from_row(
         chapter_id,
         order_index,
         original_text,
+        corrected_text,
         reading_text,
         speak_enabled,
         status,
@@ -395,6 +466,7 @@ fn segment_from_row(
         String,
         i64,
         String,
+        Option<String>,
         Option<String>,
         i64,
         String,
@@ -408,6 +480,7 @@ fn segment_from_row(
         chapter_id,
         order_index,
         original_text,
+        corrected_text,
         reading_text,
         speak_enabled: speak_enabled != 0,
         status,

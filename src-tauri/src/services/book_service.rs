@@ -220,8 +220,8 @@ pub async fn get_book(database: &Database, book_id: &str) -> AppResult<BookDetai
 
 pub async fn get_book_text_stats(database: &Database, book_id: &str) -> AppResult<BookTextStats> {
     let detail = get_book(database, book_id).await?;
-    let texts = sqlx::query_as::<_, (String, Option<String>)>(
-        "SELECT s.original_text, s.reading_text
+    let texts = sqlx::query_as::<_, (String, Option<String>, Option<String>)>(
+        "SELECT s.original_text, s.corrected_text, s.reading_text
          FROM segments s
          JOIN chapters c ON c.id = s.chapter_id
          WHERE c.book_id = ? AND s.status <> 'superseded'
@@ -232,8 +232,13 @@ pub async fn get_book_text_stats(database: &Database, book_id: &str) -> AppResul
     .await?;
     let han_character_count = texts
         .iter()
-        .map(|(original_text, reading_text)| {
-            text_service::count_han_characters(reading_text.as_deref().unwrap_or(&original_text))
+        .map(|(original_text, corrected_text, reading_text)| {
+            text_service::count_han_characters(
+                reading_text
+                    .as_deref()
+                    .or(corrected_text.as_deref())
+                    .unwrap_or(&original_text),
+            )
         })
         .sum::<usize>() as i64;
     Ok(BookTextStats {
@@ -293,8 +298,8 @@ pub async fn list_segments(
     .bind(chapter_id)
     .fetch_one(database.pool())
     .await?;
-    let rows = sqlx::query_as::<_, (String, String, i64, String, Option<String>, i64, String, Option<String>, String, String)>(
-        "SELECT id, chapter_id, order_index, original_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at
+    let rows = sqlx::query_as::<_, (String, String, i64, String, Option<String>, Option<String>, i64, String, Option<String>, String, String)>(
+        "SELECT id, chapter_id, order_index, original_text, corrected_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at
          FROM segments WHERE chapter_id = ? AND status <> 'superseded' ORDER BY order_index LIMIT ? OFFSET ?")
         .bind(chapter_id).bind(limit).bind(offset).fetch_all(database.pool()).await?;
     let items = rows
@@ -305,6 +310,7 @@ pub async fn list_segments(
                 chapter_id,
                 order_index,
                 original_text,
+                corrected_text,
                 reading_text,
                 speak_enabled,
                 status,
@@ -316,6 +322,7 @@ pub async fn list_segments(
                 chapter_id,
                 order_index,
                 original_text,
+                corrected_text,
                 reading_text,
                 speak_enabled: speak_enabled != 0,
                 status,
@@ -334,8 +341,8 @@ pub async fn list_segments(
 }
 
 pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Segment> {
-    let row = sqlx::query_as::<_, (String, String, i64, String, Option<String>, i64, String, Option<String>, String, String)>(
-        "SELECT id, chapter_id, order_index, original_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at FROM segments WHERE id = ? AND status <> 'superseded'")
+    let row = sqlx::query_as::<_, (String, String, i64, String, Option<String>, Option<String>, i64, String, Option<String>, String, String)>(
+        "SELECT id, chapter_id, order_index, original_text, corrected_text, reading_text, speak_enabled, status, current_audio_id, created_at, updated_at FROM segments WHERE id = ? AND status <> 'superseded'")
         .bind(segment_id).fetch_optional(database.pool()).await?;
     row.map(
         |(
@@ -343,6 +350,7 @@ pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Seg
             chapter_id,
             order_index,
             original_text,
+            corrected_text,
             reading_text,
             speak_enabled,
             status,
@@ -354,6 +362,7 @@ pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Seg
             chapter_id,
             order_index,
             original_text,
+            corrected_text,
             reading_text,
             speak_enabled: speak_enabled != 0,
             status,
@@ -363,6 +372,54 @@ pub async fn get_segment(database: &Database, segment_id: &str) -> AppResult<Seg
         },
     )
     .ok_or_else(|| AppError::new("SEGMENT_NOT_FOUND", "Segment 不存在"))
+}
+
+pub async fn get_corrected_book_text(database: &Database, book_id: &str) -> AppResult<String> {
+    ensure_book_exists(database, book_id).await?;
+    let rows = sqlx::query_as::<_, (String, Option<String>, String, Option<String>)>(
+        "SELECT c.id, c.title, s.original_text, s.corrected_text
+         FROM chapters c
+         JOIN segments s ON s.chapter_id = c.id AND s.status <> 'superseded'
+         WHERE c.book_id = ?
+         ORDER BY c.order_index, s.order_index",
+    )
+    .bind(book_id)
+    .fetch_all(database.pool())
+    .await?;
+
+    let mut output = String::from("\u{feff}");
+    let mut current_chapter_id: Option<String> = None;
+    let mut wrote_content_in_chapter = false;
+    for (chapter_id, title, original_text, corrected_text) in rows {
+        if current_chapter_id.as_deref() != Some(chapter_id.as_str()) {
+            if current_chapter_id.is_some() {
+                while output.ends_with('\n') {
+                    output.pop();
+                }
+                output.push_str("\n\n");
+            }
+            current_chapter_id = Some(chapter_id);
+            wrote_content_in_chapter = false;
+            if let Some(title) = title.filter(|value| !value.trim().is_empty()) {
+                output.push_str(title.trim());
+                output.push('\n');
+                wrote_content_in_chapter = true;
+            }
+        }
+        if !original_text.is_empty() {
+            output.push_str(corrected_text.as_deref().unwrap_or(&original_text));
+            output.push('\n');
+            wrote_content_in_chapter = true;
+        }
+    }
+    if !wrote_content_in_chapter && output == "\u{feff}" {
+        return Ok(output);
+    }
+    while output.ends_with('\n') {
+        output.pop();
+    }
+    output.push('\n');
+    Ok(output)
 }
 
 pub async fn get_book_id_for_segment(database: &Database, segment_id: &str) -> AppResult<String> {

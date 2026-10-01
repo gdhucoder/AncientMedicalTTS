@@ -29,6 +29,14 @@ export function updateSegmentReadingText(segmentId: string, readingText: string 
   return invoke<SegmentEditResult>("update_segment_reading_text", { segmentId, readingText });
 }
 
+export function updateSegmentCorrectedText(segmentId: string, correctedText: string | null): Promise<SegmentEditResult> {
+  return invoke<SegmentEditResult>("update_segment_corrected_text", { segmentId, correctedText });
+}
+
+export function exportCorrectedBookText(bookId: string, destinationPath: string, overwrite: boolean): Promise<void> {
+  return invoke<void>("export_corrected_book_text", { bookId, destinationPath, overwrite });
+}
+
 export function restoreSegmentReadingText(segmentId: string): Promise<SegmentEditResult> {
   return invoke<SegmentEditResult>("restore_segment_reading_text", { segmentId });
 }

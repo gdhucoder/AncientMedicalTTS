@@ -43,6 +43,7 @@ export type Segment = {
   chapter_id: string;
   order_index: number;
   original_text: string;
+  corrected_text: string | null;
   reading_text: string | null;
   speak_enabled: boolean;
   status: string;

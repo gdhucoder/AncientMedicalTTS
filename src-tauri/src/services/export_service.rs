@@ -29,6 +29,7 @@ struct ExportSegment {
     chapter_title: Option<String>,
     order_index: i64,
     original_text: String,
+    corrected_text: Option<String>,
     reading_text: Option<String>,
     speak_enabled: bool,
     status: String,
@@ -40,6 +41,7 @@ impl ExportSegment {
     fn effective_text(&self) -> &str {
         self.reading_text
             .as_deref()
+            .or(self.corrected_text.as_deref())
             .unwrap_or(self.original_text.as_str())
     }
 }
@@ -782,8 +784,8 @@ async fn load_export_segments(
     book_id: &str,
     selected_segment_ids: Option<&[String]>,
 ) -> AppResult<Vec<ExportSegment>> {
-    let rows = sqlx::query_as::<_, (String, Option<String>, i64, String, Option<String>, i64, String, Option<String>)>(
-        "SELECT s.id, c.title, s.order_index, s.original_text, s.reading_text, s.speak_enabled, s.status, s.current_audio_id
+    let rows = sqlx::query_as::<_, (String, Option<String>, i64, String, Option<String>, Option<String>, i64, String, Option<String>)>(
+        "SELECT s.id, c.title, s.order_index, s.original_text, s.corrected_text, s.reading_text, s.speak_enabled, s.status, s.current_audio_id
          FROM segments s JOIN chapters c ON c.id = s.chapter_id
          WHERE c.book_id = ? AND s.status <> 'superseded'
          ORDER BY c.order_index ASC, s.order_index ASC",
@@ -798,6 +800,7 @@ async fn load_export_segments(
         chapter_title,
         order_index,
         original_text,
+        corrected_text,
         reading_text,
         speak_enabled,
         status,
@@ -828,6 +831,7 @@ async fn load_export_segments(
                 chapter_title,
                 order_index,
                 original_text,
+                corrected_text,
                 reading_text,
                 speak_enabled,
                 status,
@@ -840,6 +844,7 @@ async fn load_export_segments(
                 chapter_title,
                 order_index,
                 original_text,
+                corrected_text,
                 reading_text,
                 speak_enabled,
                 status,
@@ -969,6 +974,7 @@ mod tests {
             chapter_title: Some("Chapter".to_string()),
             order_index: 0,
             original_text: "腧穴".to_string(),
+            corrected_text: None,
             reading_text: None,
             speak_enabled: true,
             status: "generated".to_string(),
@@ -1000,6 +1006,7 @@ mod tests {
             chapter_title: None,
             order_index: 0,
             original_text: "甲".to_string(),
+            corrected_text: None,
             reading_text: None,
             speak_enabled: true,
             status: "generated".to_string(),
@@ -1058,6 +1065,7 @@ mod tests {
                 chapter_title: None,
                 order_index: index as i64,
                 original_text: "测".to_string(),
+                corrected_text: None,
                 reading_text: None,
                 speak_enabled: true,
                 status: "generated".to_string(),

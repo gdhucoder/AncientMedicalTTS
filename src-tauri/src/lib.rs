@@ -52,12 +52,22 @@ impl Default for AppState {
 }
 
 pub fn run() {
-    tauri::Builder::default()
+    #[cfg(target_os = "macos")]
+    clear_macos_saved_window_state();
+
+    let builder = tauri::Builder::default();
+    #[cfg(target_os = "macos")]
+    let builder = builder.activate_ignoring_other_apps(false);
+
+    builder
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .manage(AppState::default())
         .setup(|app| {
+            #[cfg(target_os = "macos")]
+            disable_macos_window_restoration(app)?;
+
             initialize_app(app).map_err(|error| Box::new(error) as Box<dyn std::error::Error>)?;
             Ok(())
         })
@@ -71,6 +81,7 @@ pub fn run() {
             commands::list_segments,
             commands::get_segment,
             commands::update_segment_reading_text,
+            commands::update_segment_corrected_text,
             commands::restore_segment_reading_text,
             commands::set_segment_speak_enabled,
             commands::split_segment,
@@ -100,6 +111,7 @@ pub fn run() {
             commands::get_batch_generation_state,
             commands::check_ffmpeg,
             commands::get_book_export_preflight,
+            commands::export_corrected_book_text,
             commands::export_book_audio,
             commands::cancel_export,
             commands::get_export_state,
@@ -120,6 +132,37 @@ pub fn run() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running AncientMedicalTTS");
+}
+
+#[cfg(target_os = "macos")]
+fn clear_macos_saved_window_state() {
+    let Some(home_dir) = std::env::var_os("HOME") else {
+        return;
+    };
+    let saved_state = Path::new(&home_dir)
+        .join("Library/Saved Application State")
+        .join("com.ancientmedical.tts.savedState");
+
+    if saved_state.exists() {
+        if let Err(error) = std::fs::remove_dir_all(&saved_state) {
+            eprintln!("Could not clear saved macOS window state: {error}");
+        }
+    }
+}
+
+#[cfg(target_os = "macos")]
+fn disable_macos_window_restoration<R: Runtime>(app: &tauri::App<R>) -> AppResult<()> {
+    use objc2_app_kit::NSWindow;
+
+    for window in app.webview_windows().values() {
+        let native_window = window
+            .ns_window()
+            .map_err(|error| AppError::new("WINDOW_ERROR", error.to_string()))?;
+        let native_window = unsafe { &*native_window.cast::<NSWindow>() };
+        native_window.setRestorable(false);
+    }
+
+    Ok(())
 }
 
 fn initialize_app<R: Runtime>(app: &tauri::App<R>) -> AppResult<()> {

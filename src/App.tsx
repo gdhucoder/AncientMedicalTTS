@@ -6,7 +6,7 @@ import { save } from "@tauri-apps/plugin-dialog";
 import { relaunch } from "@tauri-apps/plugin-process";
 import type { DownloadEvent, Update } from "@tauri-apps/plugin-updater";
 import { checkForAppUpdate } from "./services/updater";
-import { analyzeSegmentPronunciation, applyPronunciationRulesToBook, cancelBookAudioGeneration, cancelExport, confirmAnnotation, createManualAnnotation, createPronunciationRule, createRuleFromAnnotation, deleteTencentCredentials, disablePronunciationRule, enablePronunciationRule, exportBookAudio, generateSegmentAudio, generateTtsPreview, getApiUsageSummary, getBatchGenerationState, getBook, getBookExportPreflight, getBookGenerationPreflight, getExportState, getReaderDisplaySettings, getSegmentDisplayPinyin, getSegmentReader, getTencentVoices, getTtsCredentialStatus, getTtsSettings, ignoreAnnotation, listBooks, listBookPronunciationRules, listChapters, listGlobalPronunciationRules, listSegments, mergeSegmentWithNext, mergeSegmentWithPrevious, reanalyzeBookPronunciation, resetAnnotation, restoreSegmentReadingText, saveReaderDisplaySettings, saveTencentCredentials, saveTtsSettings, selectAudioVersion, setSegmentSpeakEnabled, splitSegment, startBookAudioGeneration, testTtsConnection, updatePronunciationRule, updateSegmentReadingText } from "./services/library";
+import { analyzeSegmentPronunciation, applyPronunciationRulesToBook, cancelBookAudioGeneration, cancelExport, confirmAnnotation, createManualAnnotation, createPronunciationRule, createRuleFromAnnotation, deleteTencentCredentials, disablePronunciationRule, enablePronunciationRule, exportBookAudio, exportCorrectedBookText, generateSegmentAudio, generateTtsPreview, getApiUsageSummary, getBatchGenerationState, getBook, getBookExportPreflight, getBookGenerationPreflight, getExportState, getReaderDisplaySettings, getSegmentDisplayPinyin, getSegmentReader, getTencentVoices, getTtsCredentialStatus, getTtsSettings, ignoreAnnotation, listBooks, listBookPronunciationRules, listChapters, listGlobalPronunciationRules, listSegments, mergeSegmentWithNext, mergeSegmentWithPrevious, reanalyzeBookPronunciation, resetAnnotation, restoreSegmentReadingText, saveReaderDisplaySettings, saveTencentCredentials, saveTtsSettings, selectAudioVersion, setSegmentSpeakEnabled, splitSegment, startBookAudioGeneration, testTtsConnection, updatePronunciationRule, updateSegmentCorrectedText, updateSegmentReadingText } from "./services/library";
 import type { TtsPronunciationMode } from "./services/library";
 import { friendlyErrorMessage } from "./services/errors";
 import { exportPhaseLabel, sanitizeExportFilename } from "./services/exportUi";
@@ -89,6 +89,14 @@ function useExportState(): ExportState {
 
 function exportIsActive(state: ExportState): boolean {
   return state.status === "running" || state.status === "cancelling";
+}
+
+function effectiveSegmentText(segment: Segment): string {
+  return segment.reading_text ?? segment.corrected_text ?? segment.original_text;
+}
+
+function correctedSegmentText(segment: Segment): string {
+  return segment.corrected_text ?? segment.original_text;
 }
 
 function Indicator({ status }: { status: ComponentStatus }) {
@@ -276,7 +284,10 @@ function ReaderPage() {
   const [manualTokenIndex, setManualTokenIndex] = useState<number | null>(null);
   const [cursorTokenIndex, setCursorTokenIndex] = useState<number | null>(null);
   const [readingTextDraft, setReadingTextDraft] = useState("");
+  const [correctedTextDraft, setCorrectedTextDraft] = useState("");
+  const [editLayer, setEditLayer] = useState<"proofread" | "reading">("proofread");
   const [segmentEditBusy, setSegmentEditBusy] = useState(false);
+  const [textExportBusy, setTextExportBusy] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [segmentFilter, setSegmentFilter] = useState<"all" | "needs_review" | "not_generated">("all");
   const [selectedSegmentIds, setSelectedSegmentIds] = useState<string[]>([]);
@@ -377,14 +388,14 @@ function ReaderPage() {
     setManualTokenIndex(null);
     setCursorTokenIndex(null);
     setEditMode(false);
-    getSegmentReader(segmentId).then((nextReader) => { if (active) { setReader(nextReader); setReadingTextDraft(nextReader.segment.reading_text ?? nextReader.segment.original_text); } })
+    getSegmentReader(segmentId).then((nextReader) => { if (active) { setReader(nextReader); setReadingTextDraft(effectiveSegmentText(nextReader.segment)); setCorrectedTextDraft(correctedSegmentText(nextReader.segment)); setEditLayer("proofread"); } })
       .catch((reason: unknown) => { if (active) setError(friendlyErrorMessage(reason)); });
     return () => { active = false; };
   }, [segmentId]);
 
   useEffect(() => {
     if (!segmentId || !batchForBook || !["completed", "cancelled", "failed"].includes(batchState.status)) return;
-    void getSegmentReader(segmentId).then((nextReader) => { setReader(nextReader); setReadingTextDraft(nextReader.segment.reading_text ?? nextReader.segment.original_text); }).catch(() => undefined);
+    void getSegmentReader(segmentId).then((nextReader) => { setReader(nextReader); setReadingTextDraft(effectiveSegmentText(nextReader.segment)); setCorrectedTextDraft(correctedSegmentText(nextReader.segment)); }).catch(() => undefined);
   }, [batchForBook, batchState.status, segmentId]);
 
   const selectedAnnotation = reader?.annotations.find((annotation) => annotation.id === selectedAnnotationId) ?? null;
@@ -426,7 +437,8 @@ function ReaderPage() {
 
   const updateReader = (nextReader: SegmentReader, annotationId?: string) => {
     setReader(nextReader);
-    setReadingTextDraft(nextReader.segment.reading_text ?? nextReader.segment.original_text);
+    setReadingTextDraft(effectiveSegmentText(nextReader.segment));
+    setCorrectedTextDraft(correctedSegmentText(nextReader.segment));
     setSegments((current) => current.map((segment) => segment.id === nextReader.segment.id ? nextReader.segment : segment));
     setNavigatorSegments((current) => current.map((segment) => segment.id === nextReader.segment.id ? nextReader.segment : segment));
     setManualTokenIndex(null);
@@ -468,7 +480,10 @@ function ReaderPage() {
   };
 
   const reanalyzeEditedSegments = async (result: { segment: Segment; new_segment_ids: string[] }) => {
-    for (const editedSegmentId of result.new_segment_ids) {
+    const segmentIdsToAnalyze = result.new_segment_ids.length > 0
+      ? result.new_segment_ids
+      : [result.segment.id];
+    for (const editedSegmentId of segmentIdsToAnalyze) {
       await analyzeSegmentPronunciation(editedSegmentId);
     }
     await refreshSegmentPage(result.segment.id);
@@ -483,6 +498,44 @@ function ReaderPage() {
     setSegmentEditBusy(true); setError(null); setMessage(null);
     try {
       await reanalyzeEditedSegments(await updateSegmentReadingText(reader.segment.id, readingTextDraft));
+    } catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
+    finally { setSegmentEditBusy(false); }
+  };
+
+  const handleSaveCorrectedText = async () => {
+    if (!reader || segmentEditBusy || batchRunning || exportRunning) return;
+    const previousEffective = effectiveSegmentText(reader.segment);
+    setSegmentEditBusy(true); setError(null); setMessage(null);
+    try {
+      const result = await updateSegmentCorrectedText(reader.segment.id, correctedTextDraft);
+      if (effectiveSegmentText(result.segment) !== previousEffective) {
+        await reanalyzeEditedSegments(result);
+      } else {
+        await refreshSegmentPage(result.segment.id);
+        await refreshNavigator();
+        updateReader(await getSegmentReader(result.segment.id));
+        setEditMode(false);
+        setMessage("校对原文已保存；当前朗读文本仍优先，现有语音保持有效。");
+      }
+    } catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
+    finally { setSegmentEditBusy(false); }
+  };
+
+  const handleRestoreCorrectedText = async () => {
+    if (!reader || segmentEditBusy || batchRunning || exportRunning) return;
+    const previousEffective = effectiveSegmentText(reader.segment);
+    setSegmentEditBusy(true); setError(null); setMessage(null);
+    try {
+      const result = await updateSegmentCorrectedText(reader.segment.id, null);
+      if (effectiveSegmentText(result.segment) !== previousEffective) {
+        await reanalyzeEditedSegments(result);
+      } else {
+        await refreshSegmentPage(result.segment.id);
+        await refreshNavigator();
+        updateReader(await getSegmentReader(result.segment.id));
+        setEditMode(false);
+        setMessage("已恢复为导入原文；当前朗读文本仍优先，现有语音保持有效。");
+      }
     } catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
     finally { setSegmentEditBusy(false); }
   };
@@ -513,7 +566,7 @@ function ReaderPage() {
     if (!reader || cursorTokenIndex === null || segmentEditBusy || batchRunning || exportRunning) return;
     setSegmentEditBusy(true); setError(null); setMessage(null);
     try {
-      const currentEffectiveText = reader.segment.reading_text ?? reader.segment.original_text;
+      const currentEffectiveText = effectiveSegmentText(reader.segment);
       if (readingTextDraft !== currentEffectiveText) {
         await updateSegmentReadingText(reader.segment.id, readingTextDraft);
       }
@@ -682,13 +735,37 @@ function ReaderPage() {
     }
   };
 
+  const handleExportCorrectedText = async () => {
+    if (!bookId || textExportBusy || segmentEditBusy || batchRunning) return;
+    setTextExportBusy(true); setError(null); setMessage(null);
+    try {
+      const destination = await save({
+        defaultPath: sanitizeExportFilename(book?.book.title ?? "古籍校对原文", "txt"),
+        filters: [{ name: "校对原文（UTF-8 TXT）", extensions: ["txt"] }],
+      });
+      if (typeof destination !== "string") return;
+      try {
+        await exportCorrectedBookText(bookId, destination, false);
+      } catch (reason) {
+        const errorValue = reason as { code?: string; message?: string };
+        if (errorValue.code !== "EXPORT_OUTPUT_EXISTS" || !window.confirm("目标文件已存在，是否覆盖？")) throw reason;
+        await exportCorrectedBookText(bookId, destination, true);
+      }
+      setMessage("校对原文已导出为 UTF-8 TXT。");
+    } catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
+    finally { setTextExportBusy(false); }
+  };
+
   const handleCancelExport = async () => {
     try { await cancelExport(); }
     catch (reason: unknown) { setError(friendlyErrorMessage(reason)); }
   };
 
   const handleCancelEdit = () => {
-    if (reader) setReadingTextDraft(reader.segment.reading_text ?? reader.segment.original_text);
+    if (reader) {
+      setReadingTextDraft(effectiveSegmentText(reader.segment));
+      setCorrectedTextDraft(correctedSegmentText(reader.segment));
+    }
     setEditMode(false);
   };
 
@@ -766,7 +843,7 @@ function ReaderPage() {
           <button className="toolbar-button" type="button" onClick={() => void (batchRunning ? handleCancelBatch() : handleStartBatch())} disabled={bookAnalysisBusy || exportRunning}>{batchRunning ? "停止生成" : "生成全文"}</button>
           <BookExportPanel bookId={bookId} bookTitle={book?.book.title ?? "当前古籍"} selectedSegmentIds={selectedSegmentIds} state={exportForBook ? exportState : idleExportState} blockedByOtherExport={exportRunning && !exportForBook} onExport={(format, nextPreflight, segmentIds) => void handleExport(format, nextPreflight, segmentIds)} onCancel={() => void handleCancelExport()} compact />
           <button className="toolbar-button more-button" type="button" onClick={() => setMoreOpen((open) => !open)} aria-expanded={moreOpen}>更多…</button>
-          {moreOpen && <div className="more-menu"><button type="button" onClick={() => { setMoreOpen(false); updateDisplaySettings({ pinyin_mode: "all" }); void handleStartBatch("display"); }}>严格按页面注音生成全文</button><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
+          {moreOpen && <div className="more-menu"><button type="button" onClick={() => { setMoreOpen(false); void handleExportCorrectedText(); }} disabled={textExportBusy || segmentEditBusy || batchRunning}>{textExportBusy ? "正在导出校对原文…" : "导出校对原文（TXT）"}</button><button type="button" onClick={() => { setMoreOpen(false); updateDisplaySettings({ pinyin_mode: "all" }); void handleStartBatch("display"); }}>严格按页面注音生成全文</button><button type="button" onClick={() => { setMoreOpen(false); setView("books"); closeReader(); }}>我的古籍</button><button type="button" onClick={() => { setMoreOpen(false); setView("settings"); }}>语音设置</button><button type="button" onClick={() => { setMoreOpen(false); setView("rules"); }}>发音词典</button></div>}
         </div>
       </header>
       {error && <div className="error-banner reader-error" role="alert">{error}</div>}
@@ -777,13 +854,13 @@ function ReaderPage() {
             <div className="navigator-heading"><div><p className="eyebrow">段落导航</p><h2>章节与段落</h2></div><span>{book?.segment_count ?? 0}</span></div>
             <div className="segment-filters"><button className={segmentFilter === "all" ? "active" : ""} type="button" onClick={() => setSegmentFilter("all")}>全部 <b>{book?.segment_count ?? orderedSegments.length}</b></button><button className={segmentFilter === "needs_review" ? "active" : ""} type="button" onClick={() => setSegmentFilter("needs_review")}>待确认 <b>{needsReviewCount}</b></button><button className={segmentFilter === "not_generated" ? "active" : ""} type="button" onClick={() => setSegmentFilter("not_generated")}>未生成 <b>{notGeneratedCount}</b></button></div>
             <div className="navigator-selection"><span>已选 {selectedSegmentIds.length} 段</span><button type="button" onClick={selectVisibleSegments} disabled={filteredNavigatorSegments.length === 0}>全选当前列表</button><button type="button" onClick={() => setSelectedSegmentIds([])} disabled={selectedSegmentIds.length === 0}>清空</button></div>
-            <div className="navigator-list">{chapters.map((summary) => { const chapterSegments = filteredNavigatorSegments.filter((segment) => segment.chapter_id === summary.chapter.id); return <div className="navigator-chapter" key={summary.chapter.id}><button className={summary.chapter.id === activeChapterId ? "navigator-chapter-title active" : "navigator-chapter-title"} type="button" onClick={() => { setOffset(0); selectChapter(summary.chapter.id); }}><span>{summary.chapter.title ?? `第 ${summary.chapter.order_index + 1} 章`}</span><small>{summary.segment_count}</small></button>{chapterSegments.map((segment) => <div className={`navigator-segment-row${segment.id === segmentId ? " active" : ""}`} key={segment.id}><input className="navigator-select" type="checkbox" checked={selectedSegmentIds.includes(segment.id)} onChange={() => toggleSegmentSelection(segment.id)} disabled={!segment.speak_enabled} aria-label={`选择第 ${orderedSegments.findIndex((item) => item.id === segment.id) + 1} 段`} /><button className="navigator-segment" type="button" onClick={() => navigateToSegment(segment)}><span className="navigator-index">{String(orderedSegments.findIndex((item) => item.id === segment.id) + 1).padStart(2, "0")}</span><span className="status-dot" data-status={segment.status} aria-label={reviewStatusLabel(segment.status)} /><span className="navigator-preview">{segment.reading_text ?? segment.original_text}</span>{!segment.speak_enabled && <small className="navigator-muted">不朗读</small>}</button></div>)}</div>; })}{loading && <div className="subtle-empty">正在读取段落…</div>}{!loading && filteredNavigatorSegments.length === 0 && <div className="subtle-empty">没有符合条件的段落。</div>}</div>
+            <div className="navigator-list">{chapters.map((summary) => { const chapterSegments = filteredNavigatorSegments.filter((segment) => segment.chapter_id === summary.chapter.id); return <div className="navigator-chapter" key={summary.chapter.id}><button className={summary.chapter.id === activeChapterId ? "navigator-chapter-title active" : "navigator-chapter-title"} type="button" onClick={() => { setOffset(0); selectChapter(summary.chapter.id); }}><span>{summary.chapter.title ?? `第 ${summary.chapter.order_index + 1} 章`}</span><small>{summary.segment_count}</small></button>{chapterSegments.map((segment) => <div className={`navigator-segment-row${segment.id === segmentId ? " active" : ""}`} key={segment.id}><input className="navigator-select" type="checkbox" checked={selectedSegmentIds.includes(segment.id)} onChange={() => toggleSegmentSelection(segment.id)} disabled={!segment.speak_enabled} aria-label={`选择第 ${orderedSegments.findIndex((item) => item.id === segment.id) + 1} 段`} /><button className="navigator-segment" type="button" onClick={() => navigateToSegment(segment)}><span className="navigator-index">{String(orderedSegments.findIndex((item) => item.id === segment.id) + 1).padStart(2, "0")}</span><span className="status-dot" data-status={segment.status} aria-label={reviewStatusLabel(segment.status)} /><span className="navigator-preview">{effectiveSegmentText(segment)}</span>{!segment.speak_enabled && <small className="navigator-muted">不朗读</small>}</button></div>)}</div>; })}{loading && <div className="subtle-empty">正在读取段落…</div>}{!loading && filteredNavigatorSegments.length === 0 && <div className="subtle-empty">没有符合条件的段落。</div>}</div>
           </aside>
           <section className="reader-workspace">
             <div className="workspace-navigation"><button className="text-navigation-button" type="button" onClick={() => navigateRelative(-1)} disabled={currentGlobalIndex <= 0}>← 上一段</button><span>第 <strong>{currentPosition}</strong> / {book?.segment_count ?? orderedSegments.length} 段</span><button className="text-navigation-button" type="button" onClick={() => navigateRelative(1)} disabled={currentGlobalIndex < 0 || currentGlobalIndex >= orderedSegments.length - 1}>下一段 →</button></div>
-            <div className="workspace-toolbar"><div className="font-controls"><button type="button" onClick={() => updateDisplaySettings({ font_size: Math.max(20, displaySettings.font_size - 1) })} aria-label="减小字号">A−</button><output>{displaySettings.font_size}px</output><button type="button" onClick={() => updateDisplaySettings({ font_size: Math.min(40, displaySettings.font_size + 1) })} aria-label="增大字号">A+</button></div><div className="pinyin-controls"><span>拼音：</span>{(["off", "risky", "all"] as const).map((mode) => <button key={mode} className={displaySettings.pinyin_mode === mode ? "active" : ""} type="button" onClick={() => updateDisplaySettings({ pinyin_mode: mode })}>{mode === "off" ? "关闭" : mode === "risky" ? "疑难" : "全文"}</button>)}</div><button className="toolbar-button edit-trigger" type="button" onClick={() => { if (editMode) handleCancelEdit(); else { setCursorTokenIndex(null); setEditMode(true); } }} disabled={!reader || batchRunning || exportRunning}>{editMode ? "取消编辑" : "编辑文本"}</button><button className="inspector-toggle" type="button" onClick={() => setInspectorOpen((open) => !open)} aria-expanded={inspectorOpen}>{inspectorOpen ? "收起检查器" : "发音检查器"}</button></div>
+            <div className="workspace-toolbar"><div className="font-controls"><button type="button" onClick={() => updateDisplaySettings({ font_size: Math.max(20, displaySettings.font_size - 1) })} aria-label="减小字号">A−</button><output>{displaySettings.font_size}px</output><button type="button" onClick={() => updateDisplaySettings({ font_size: Math.min(40, displaySettings.font_size + 1) })} aria-label="增大字号">A+</button></div><div className="pinyin-controls"><span>拼音：</span>{(["off", "risky", "all"] as const).map((mode) => <button key={mode} className={displaySettings.pinyin_mode === mode ? "active" : ""} type="button" onClick={() => updateDisplaySettings({ pinyin_mode: mode })}>{mode === "off" ? "关闭" : mode === "risky" ? "疑难" : "全文"}</button>)}</div><button className="toolbar-button edit-trigger" type="button" onClick={() => { if (editMode) handleCancelEdit(); else { if (reader) { setReadingTextDraft(effectiveSegmentText(reader.segment)); setCorrectedTextDraft(correctedSegmentText(reader.segment)); } setEditLayer("proofread"); setCursorTokenIndex(null); setEditMode(true); } }} disabled={!reader || batchRunning || exportRunning}>{editMode ? "取消编辑" : "编辑文本"}</button><button className="inspector-toggle" type="button" onClick={() => setInspectorOpen((open) => !open)} aria-expanded={inspectorOpen}>{inspectorOpen ? "收起检查器" : "发音检查器"}</button></div>
             {reader ? <>
-              {editMode ? <SegmentEditingPanel reader={reader} draft={readingTextDraft} onDraftChange={setReadingTextDraft} onCaretChange={(text, caretOffset) => setCursorTokenIndex(graphemeIndexAtCaret(text, caretOffset))} cursorTokenIndex={cursorTokenIndex} onSplit={() => void handleSplit()} onMergePrevious={() => void handleMerge("previous")} onMergeNext={() => void handleMerge("next")} onSave={() => void handleSaveReadingText()} onCancel={handleCancelEdit} onRestore={() => void handleRestoreReadingText()} onSpeakEnabledChange={(enabled) => void handleSpeakEnabledChange(enabled)} busy={segmentEditBusy || analysisBusy || batchRunning || exportRunning} canMergePrevious={reader.segment.order_index > 0} canMergeNext={reader.segment.order_index + 1 < total} /> : <>
+              {editMode ? <SegmentEditingPanel reader={reader} layer={editLayer} onLayerChange={setEditLayer} proofreadDraft={correctedTextDraft} onProofreadDraftChange={setCorrectedTextDraft} onSaveProofread={() => void handleSaveCorrectedText()} onRestoreProofread={() => void handleRestoreCorrectedText()} draft={readingTextDraft} onDraftChange={setReadingTextDraft} onCaretChange={(text, caretOffset) => setCursorTokenIndex(graphemeIndexAtCaret(text, caretOffset))} cursorTokenIndex={cursorTokenIndex} onSplit={() => void handleSplit()} onMergePrevious={() => void handleMerge("previous")} onMergeNext={() => void handleMerge("next")} onSave={() => void handleSaveReadingText()} onCancel={handleCancelEdit} onRestore={() => void handleRestoreReadingText()} onSpeakEnabledChange={(enabled) => void handleSpeakEnabledChange(enabled)} busy={segmentEditBusy || analysisBusy || batchRunning || exportRunning} canMergePrevious={reader.segment.order_index > 0} canMergeNext={reader.segment.order_index + 1 < total} /> : <>
                 {displaySettings.pinyin_mode === "all" && displayPinyinLoading && <p className="reader-display-loading">正在读取全文拼音…</p>}
                 <div className={displaySettings.pinyin_mode === "off" ? "reader-text" : "reader-text pinyin-enabled"} style={{ fontSize: `${displaySettings.font_size}px` }} aria-label="分词原文">{reader.tokens.map((token) => {
               const annotation = annotationForToken(reader.annotations, token.index);
@@ -817,13 +894,29 @@ function ReaderPage() {
   );
 }
 
-function SegmentEditingPanel({ reader, draft, onDraftChange, onCaretChange, cursorTokenIndex, onSplit, onMergePrevious, onMergeNext, onSave, onCancel, onRestore, onSpeakEnabledChange, busy, canMergePrevious, canMergeNext }: { reader: SegmentReader; draft: string; onDraftChange: (value: string) => void; onCaretChange: (text: string, caretOffset: number) => void; cursorTokenIndex: number | null; onSplit: () => void; onMergePrevious: () => void; onMergeNext: () => void; onSave: () => void; onCancel: () => void; onRestore: () => void; onSpeakEnabledChange: (enabled: boolean) => void; busy: boolean; canMergePrevious: boolean; canMergeNext: boolean }) {
-  const isEdited = reader.segment.reading_text !== null;
+function SegmentEditingPanel({ reader, layer, onLayerChange, proofreadDraft, onProofreadDraftChange, onSaveProofread, onRestoreProofread, draft, onDraftChange, onCaretChange, cursorTokenIndex, onSplit, onMergePrevious, onMergeNext, onSave, onCancel, onRestore, onSpeakEnabledChange, busy, canMergePrevious, canMergeNext }: { reader: SegmentReader; layer: "proofread" | "reading"; onLayerChange: (layer: "proofread" | "reading") => void; proofreadDraft: string; onProofreadDraftChange: (value: string) => void; onSaveProofread: () => void; onRestoreProofread: () => void; draft: string; onDraftChange: (value: string) => void; onCaretChange: (text: string, caretOffset: number) => void; cursorTokenIndex: number | null; onSplit: () => void; onMergePrevious: () => void; onMergeNext: () => void; onSave: () => void; onCancel: () => void; onRestore: () => void; onSpeakEnabledChange: (enabled: boolean) => void; busy: boolean; canMergePrevious: boolean; canMergeNext: boolean }) {
+  const isReadingTextEdited = reader.segment.reading_text !== null;
+  const hasProofreadText = reader.segment.corrected_text !== null;
   const updateCaret = (event: SyntheticEvent<HTMLTextAreaElement>) => {
     const textarea = event.currentTarget;
     onCaretChange(textarea.value, textarea.selectionStart);
   };
-  return <div className="segment-edit-panel" aria-label="段落编辑"><div className="segment-edit-heading"><div><p className="eyebrow">手工编辑</p><strong>朗读文本与分段</strong></div><label className="speak-toggle"><input type="checkbox" checked={reader.segment.speak_enabled} onChange={(event) => onSpeakEnabledChange(event.target.checked)} disabled={busy} />参与朗读</label></div><p className="segment-original-preview">导入原文（不可编辑）：{reader.segment.original_text}</p><label className="segment-edit-label">朗读文本 <span>原文不可变；可增加或删除标点、空格</span><textarea className="segment-edit-textarea" value={draft} onChange={(event) => { onDraftChange(event.target.value); onCaretChange(event.target.value, event.currentTarget.selectionStart); }} onSelect={updateCaret} onClick={updateCaret} onKeyUp={updateCaret} disabled={busy} rows={3} /></label><div className="segment-edit-actions"><button className="primary-button" type="button" onClick={onSave} disabled={busy || draft.trim().length === 0}>{busy ? "处理中…" : "保存朗读文本"}</button><button className="secondary-button" type="button" onClick={onCancel} disabled={busy}>取消</button><button className="secondary-button" type="button" onClick={onRestore} disabled={busy || !isEdited}>恢复为原文</button></div><div className="segment-structure-actions"><span className="segment-cursor-hint">{cursorTokenIndex === null ? "请在朗读文本中放置光标" : `将在第 ${cursorTokenIndex + 1} 个字词前分段`}</span><button className="secondary-button" type="button" onClick={onSplit} disabled={busy || cursorTokenIndex === null}>在光标处分段</button><button className="secondary-button" type="button" onClick={onMergePrevious} disabled={busy || !canMergePrevious}>与上一段合并</button><button className="secondary-button" type="button" onClick={onMergeNext} disabled={busy || !canMergeNext}>与下一段合并</button></div><p className="segment-edit-note">修改文本或分段后会清除当前发音分析并重新分析；已有语音版本保留，但需要重新生成。</p></div>;
+  return <div className="segment-edit-panel" aria-label="段落编辑">
+    <div className="segment-edit-heading"><div><p className="eyebrow">文本校对</p><strong>原文校对与朗读设置</strong></div><label className="speak-toggle"><input type="checkbox" checked={reader.segment.speak_enabled} onChange={(event) => onSpeakEnabledChange(event.target.checked)} disabled={busy} />参与朗读</label></div>
+    <div className="segment-edit-tabs" role="tablist" aria-label="编辑内容"><button type="button" role="tab" aria-selected={layer === "proofread"} className={layer === "proofread" ? "active" : ""} onClick={() => onLayerChange("proofread")}>校对原文</button><button type="button" role="tab" aria-selected={layer === "reading"} className={layer === "reading" ? "active" : ""} onClick={() => onLayerChange("reading")}>朗读文本</button></div>
+    {layer === "proofread" ? <>
+      <p className="segment-original-preview">导入底稿（保留不改）：{reader.segment.original_text}</p>
+      <label className="segment-edit-label">校对后的原文 <span>此处用于修正错字；保存后会用于阅读、发音分析和朗读。</span><textarea className="segment-edit-textarea" value={proofreadDraft} onChange={(event) => onProofreadDraftChange(event.target.value)} disabled={busy} rows={3} /></label>
+      <div className="segment-edit-actions"><button className="primary-button" type="button" onClick={onSaveProofread} disabled={busy || proofreadDraft.trim().length === 0}>{busy ? "处理中…" : "保存校对原文"}</button><button className="secondary-button" type="button" onClick={onCancel} disabled={busy}>取消</button><button className="secondary-button" type="button" onClick={onRestoreProofread} disabled={busy || !hasProofreadText}>恢复导入原文</button></div>
+      {reader.segment.reading_text !== null && <p className="segment-edit-note">本段另有独立的朗读文本；它优先用于语音合成。校对原文仍会单独保存并可导出。</p>}
+    </> : <>
+      <p className="segment-original-preview">校对原文：{correctedSegmentText(reader.segment)}</p>
+      <label className="segment-edit-label">朗读文本 <span>可在校对原文基础上调整朗读用标点、空格或措辞。</span><textarea className="segment-edit-textarea" value={draft} onChange={(event) => { onDraftChange(event.target.value); onCaretChange(event.target.value, event.currentTarget.selectionStart); }} onSelect={updateCaret} onClick={updateCaret} onKeyUp={updateCaret} disabled={busy} rows={3} /></label>
+      <div className="segment-edit-actions"><button className="primary-button" type="button" onClick={onSave} disabled={busy || draft.trim().length === 0}>{busy ? "处理中…" : "保存朗读文本"}</button><button className="secondary-button" type="button" onClick={onCancel} disabled={busy}>取消</button><button className="secondary-button" type="button" onClick={onRestore} disabled={busy || !isReadingTextEdited}>恢复为校对原文</button></div>
+      <div className="segment-structure-actions"><span className="segment-cursor-hint">{cursorTokenIndex === null ? "请在朗读文本中放置光标" : `将在第 ${cursorTokenIndex + 1} 个字词前分段`}</span><button className="secondary-button" type="button" onClick={onSplit} disabled={busy || cursorTokenIndex === null}>在光标处分段</button><button className="secondary-button" type="button" onClick={onMergePrevious} disabled={busy || !canMergePrevious}>与上一段合并</button><button className="secondary-button" type="button" onClick={onMergeNext} disabled={busy || !canMergeNext}>与下一段合并</button></div>
+    </>}
+    <p className="segment-edit-note">修改会清除受影响段落的发音分析和当前音频引用，旧音频版本保留；保存后重新分析。</p>
+  </div>;
 }
 
 function ReaderDisplaySettingsPanel({ settings, onChange }: { settings: ReaderDisplaySettings; onChange: (patch: Partial<ReaderDisplaySettings>) => void }) {
@@ -867,7 +960,7 @@ function PronunciationInspector({ reader, annotation, currentAudio, manualToken,
     const pronunciationSourceLabel = ttsLocked ? "已锁定读音 · 将用于语音合成" : "参考注音 · 仅用于页面显示";
     const realized = realizedPronunciationForText(currentAudio, annotation.surface_text);
     const visiblePinyin = ttsLocked ? annotation.target_pinyin : annotation.default_pinyin;
-    return <div className="inspector-detail"><div className="inspector-token-heading"><div><span className="inspector-surface">{annotation.surface_text}</span><span className="inspector-tone">{visiblePinyin ? pinyinToToneMarks(visiblePinyin) : "—"}</span></div><span className={`review-badge status-${annotation.review_status}`}>{reviewStatusLabel(annotation.review_status)}</span></div><div className={`pronunciation-source-badge ${ttsLocked ? "locked" : "preview"}`}><i aria-hidden="true" />{pronunciationSourceLabel}</div><div className="inspector-context"><span>上下文</span><p>{reader.segment.reading_text ?? reader.segment.original_text}</p></div><dl className="inspector-fields"><dt>参考读音</dt><dd>{annotation.default_pinyin ? pinyinToToneMarks(annotation.default_pinyin) : "无有效拼音"}<code>{annotation.default_pinyin ?? "—"}</code></dd><dt>已锁定读音</dt><dd>{ttsLocked && annotation.target_pinyin ? pinyinToToneMarks(annotation.target_pinyin) : "未强制"}</dd><dt>TTS 实际发音</dt><dd>{realized.length > 0 ? realized.map((item) => pinyinToToneMarks(item.phoneme)).join(" / ") : "当前音色未返回实际发音信息"}</dd><dt>来源</dt><dd>{annotation.source_rule_id ? "本书/全局发音规则" : annotationSourceLabel(annotation.source)}</dd><dt>规则</dt><dd>{ruleTypeLabel(annotation.rule_type)}</dd><dt>置信</dt><dd>{confidenceLabel(annotation.confidence)}</dd><dt>风险</dt><dd>{riskTypeLabel(annotation.risk_type)}</dd></dl>{annotation.candidate_pinyin.length > 0 && <div className="inspector-candidates"><p className="detail-label">候选读音</p>{annotation.candidate_pinyin.map((candidate) => <button key={candidate} className={candidate === targetPinyin ? "candidate-button selected" : "candidate-button"} type="button" onClick={() => setTargetPinyin(candidate)}>{pinyinToToneMarks(candidate)} <code>{candidate}</code></button>)}</div>}<label className="inspector-input-label">确认读音<input className="pinyin-input" value={targetPinyin} onChange={(event) => setTargetPinyin(normalizePinyinInput(event.target.value))} autoCapitalize="none" autoCorrect="off" autoComplete="off" spellCheck={false} inputMode="text" placeholder="输入 ASCII 数字拼音，例如 shu4" aria-label="目标拼音" /></label>{annotation.reason && <p className="detail-reason">{annotation.reason}</p>}<div className="inspector-actions"><button className="detail-action primary-detail-action" type="button" onClick={onConfirm} disabled={busy}>确认</button>{annotation.review_status === "needs_review" ? <button className="detail-action" type="button" onClick={onIgnore} disabled={busy}>忽略</button> : <button className="detail-action" type="button" onClick={onReset} disabled={busy}>恢复待确认</button>}</div>{annotation.review_status === "confirmed" && annotation.target_pinyin && <div className="inspector-scope"><p className="detail-label">应用范围</p><div className="scope-current">仅本处（确认后立即生效）</div><div className="inspector-scope-actions"><button className="detail-action" type="button" onClick={() => onCreateRule("book")} disabled={busy}>应用到本书</button><button className="detail-action" type="button" onClick={() => onCreateRule("global")} disabled={busy}>加入全局词典</button></div></div>}</div>;
+    return <div className="inspector-detail"><div className="inspector-token-heading"><div><span className="inspector-surface">{annotation.surface_text}</span><span className="inspector-tone">{visiblePinyin ? pinyinToToneMarks(visiblePinyin) : "—"}</span></div><span className={`review-badge status-${annotation.review_status}`}>{reviewStatusLabel(annotation.review_status)}</span></div><div className={`pronunciation-source-badge ${ttsLocked ? "locked" : "preview"}`}><i aria-hidden="true" />{pronunciationSourceLabel}</div><div className="inspector-context"><span>上下文</span><p>{effectiveSegmentText(reader.segment)}</p></div><dl className="inspector-fields"><dt>参考读音</dt><dd>{annotation.default_pinyin ? pinyinToToneMarks(annotation.default_pinyin) : "无有效拼音"}<code>{annotation.default_pinyin ?? "—"}</code></dd><dt>已锁定读音</dt><dd>{ttsLocked && annotation.target_pinyin ? pinyinToToneMarks(annotation.target_pinyin) : "未强制"}</dd><dt>TTS 实际发音</dt><dd>{realized.length > 0 ? realized.map((item) => pinyinToToneMarks(item.phoneme)).join(" / ") : "当前音色未返回实际发音信息"}</dd><dt>来源</dt><dd>{annotation.source_rule_id ? "本书/全局发音规则" : annotationSourceLabel(annotation.source)}</dd><dt>规则</dt><dd>{ruleTypeLabel(annotation.rule_type)}</dd><dt>置信</dt><dd>{confidenceLabel(annotation.confidence)}</dd><dt>风险</dt><dd>{riskTypeLabel(annotation.risk_type)}</dd></dl>{annotation.candidate_pinyin.length > 0 && <div className="inspector-candidates"><p className="detail-label">候选读音</p>{annotation.candidate_pinyin.map((candidate) => <button key={candidate} className={candidate === targetPinyin ? "candidate-button selected" : "candidate-button"} type="button" onClick={() => setTargetPinyin(candidate)}>{pinyinToToneMarks(candidate)} <code>{candidate}</code></button>)}</div>}<label className="inspector-input-label">确认读音<input className="pinyin-input" value={targetPinyin} onChange={(event) => setTargetPinyin(normalizePinyinInput(event.target.value))} autoCapitalize="none" autoCorrect="off" autoComplete="off" spellCheck={false} inputMode="text" placeholder="输入 ASCII 数字拼音，例如 shu4" aria-label="目标拼音" /></label>{annotation.reason && <p className="detail-reason">{annotation.reason}</p>}<div className="inspector-actions"><button className="detail-action primary-detail-action" type="button" onClick={onConfirm} disabled={busy}>确认</button>{annotation.review_status === "needs_review" ? <button className="detail-action" type="button" onClick={onIgnore} disabled={busy}>忽略</button> : <button className="detail-action" type="button" onClick={onReset} disabled={busy}>恢复待确认</button>}</div>{annotation.review_status === "confirmed" && annotation.target_pinyin && <div className="inspector-scope"><p className="detail-label">应用范围</p><div className="scope-current">仅本处（确认后立即生效）</div><div className="inspector-scope-actions"><button className="detail-action" type="button" onClick={() => onCreateRule("book")} disabled={busy}>应用到本书</button><button className="detail-action" type="button" onClick={() => onCreateRule("global")} disabled={busy}>加入全局词典</button></div></div>}</div>;
   }
   if (manualToken) {
     const realized = realizedPronunciationForText(currentAudio, manualToken.text);

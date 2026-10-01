@@ -28,6 +28,7 @@ struct BatchSegment {
     chapter_title: Option<String>,
     order_index: i64,
     original_text: String,
+    corrected_text: Option<String>,
     reading_text: Option<String>,
     speak_enabled: bool,
     status: String,
@@ -37,6 +38,7 @@ impl BatchSegment {
     fn effective_text(&self) -> &str {
         self.reading_text
             .as_deref()
+            .or(self.corrected_text.as_deref())
             .unwrap_or(self.original_text.as_str())
     }
 }
@@ -540,8 +542,8 @@ async fn generate_with_retry(
 }
 
 async fn load_book_segments(database: &Database, book_id: &str) -> AppResult<Vec<BatchSegment>> {
-    let rows = sqlx::query_as::<_, (String, Option<String>, i64, String, Option<String>, i64, String)>(
-        "SELECT s.id, c.title, s.order_index, s.original_text, s.reading_text, s.speak_enabled, s.status
+    let rows = sqlx::query_as::<_, (String, Option<String>, i64, String, Option<String>, Option<String>, i64, String)>(
+        "SELECT s.id, c.title, s.order_index, s.original_text, s.corrected_text, s.reading_text, s.speak_enabled, s.status
          FROM segments s JOIN chapters c ON c.id = s.chapter_id
          WHERE c.book_id = ? AND s.status <> 'superseded' ORDER BY c.order_index, s.order_index",
     )
@@ -556,6 +558,7 @@ async fn load_book_segments(database: &Database, book_id: &str) -> AppResult<Vec
                 chapter_title,
                 order_index,
                 original_text,
+                corrected_text,
                 reading_text,
                 speak_enabled,
                 status,
@@ -564,6 +567,7 @@ async fn load_book_segments(database: &Database, book_id: &str) -> AppResult<Vec
                 chapter_title,
                 order_index,
                 original_text,
+                corrected_text,
                 reading_text,
                 speak_enabled: speak_enabled != 0,
                 status,

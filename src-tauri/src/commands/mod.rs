@@ -140,6 +140,25 @@ pub async fn update_segment_reading_text(
 }
 
 #[tauri::command]
+pub async fn update_segment_corrected_text(
+    state: State<'_, AppState>,
+    segment_id: String,
+    corrected_text: Option<String>,
+) -> AppResult<SegmentEditResult> {
+    ensure_segment_edit_idle(
+        &state,
+        "BATCH_BOOK_MUTATION_LOCKED",
+        "批量生成期间不能修改 Segment",
+    )?;
+    segment_edit_service::update_corrected_text(
+        &state.database()?,
+        &segment_id,
+        corrected_text.as_deref(),
+    )
+    .await
+}
+
+#[tauri::command]
 pub async fn restore_segment_reading_text(
     state: State<'_, AppState>,
     segment_id: String,
@@ -861,6 +880,31 @@ pub async fn get_book_export_preflight(
 ) -> AppResult<BookExportPreflight> {
     export_service::get_book_export_preflight(&state.database()?, &book_id, segment_ids.as_deref())
         .await
+}
+
+#[tauri::command]
+pub async fn export_corrected_book_text(
+    state: State<'_, AppState>,
+    book_id: String,
+    destination_path: String,
+    overwrite: bool,
+) -> AppResult<()> {
+    if std::path::Path::new(&destination_path)
+        .extension()
+        .and_then(|value| value.to_str())
+        .is_none_or(|value| !value.eq_ignore_ascii_case("txt"))
+    {
+        return Err(AppError::new(
+            "INVALID_EXPORT_PATH",
+            "校对原文只能导出为 TXT 文件",
+        ));
+    }
+    if std::path::Path::new(&destination_path).exists() && !overwrite {
+        return Err(AppError::new("EXPORT_OUTPUT_EXISTS", "目标文件已存在"));
+    }
+    let text = book_service::get_corrected_book_text(&state.database()?, &book_id).await?;
+    std::fs::write(destination_path, text)?;
+    Ok(())
 }
 
 #[tauri::command]

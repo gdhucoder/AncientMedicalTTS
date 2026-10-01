@@ -390,8 +390,8 @@ async fn apply_book_tx(
     result: &mut PronunciationRuleApplyResult,
 ) -> AppResult<()> {
     let rules = active_rules_for_book_tx(transaction, book_id).await?;
-    let segments = sqlx::query_as::<_, (String, String, i64, String, Option<String>, i64, String, Option<String>, String, String)>(
-        "SELECT s.id, s.chapter_id, s.order_index, s.original_text, s.reading_text, s.speak_enabled, s.status, s.current_audio_id, s.created_at, s.updated_at
+    let segments = sqlx::query_as::<_, (String, String, i64, String, Option<String>, Option<String>, i64, String, Option<String>, String, String)>(
+        "SELECT s.id, s.chapter_id, s.order_index, s.original_text, s.corrected_text, s.reading_text, s.speak_enabled, s.status, s.current_audio_id, s.created_at, s.updated_at
          FROM segments s JOIN chapters c ON c.id = s.chapter_id
          WHERE c.book_id = ? AND s.status <> 'superseded' ORDER BY c.order_index, s.order_index",
     )
@@ -404,6 +404,7 @@ async fn apply_book_tx(
         chapter_id,
         order_index,
         original_text,
+        corrected_text,
         reading_text,
         speak_enabled,
         status,
@@ -417,6 +418,7 @@ async fn apply_book_tx(
             chapter_id,
             order_index,
             original_text,
+            corrected_text,
             reading_text,
             speak_enabled: speak_enabled != 0,
             status,

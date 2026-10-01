@@ -226,6 +226,9 @@ button:disabled { cursor: default; opacity: .55; }
 .reader-display-settings select { border: 1px solid #d8d2c7; border-radius: 6px; padding: 5px 7px; color: #4a4941; background: #fffdf9; font: inherit; }
 .segment-edit-panel { display: grid; gap: 10px; margin: 0 0 16px; border: 1px solid #d9ded8; border-radius: 10px; padding: 12px; color: #59564e; background: rgba(251, 250, 247, .86); font-family: ui-sans-serif, sans-serif; font-size: 12px; }
 .segment-edit-heading, .segment-edit-actions, .segment-structure-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.segment-edit-tabs { display: flex; width: fit-content; gap: 4px; border-radius: 8px; padding: 3px; background: #eeece5; }
+.segment-edit-tabs button { border: 0; border-radius: 6px; padding: 7px 12px; color: #716b60; background: transparent; font: inherit; font-size: 12px; }
+.segment-edit-tabs button.active { color: #304b3b; background: #fffdf9; box-shadow: 0 1px 3px rgba(55, 50, 40, .1); }
 .segment-edit-heading > div { margin-right: auto; }
 .segment-edit-heading strong { color: #4a4941; font-size: 13px; }
 .segment-original-preview { margin: 0; color: #8a857a; line-height: 1.5; }

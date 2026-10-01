@@ -1,6 +1,6 @@
 import type { ExportState } from "../types/library";
 
-export function sanitizeExportFilename(title: string, format: "mp3" | "wav"): string {
+export function sanitizeExportFilename(title: string, format: "mp3" | "wav" | "txt"): string {
   const safeTitle = title.replace(/[<>:"/\\|?*]/g, "_").replace(/[. _]+$/g, "").trim() || "ancient-medical-tts";
   return `${safeTitle}.${format}`;
 }
