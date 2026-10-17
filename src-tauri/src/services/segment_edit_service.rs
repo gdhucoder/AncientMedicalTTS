@@ -482,6 +482,7 @@ fn segment_from_row(
         original_text,
         corrected_text,
         reading_text,
+        translation: None,
         speak_enabled: speak_enabled != 0,
         status,
         current_audio_id,

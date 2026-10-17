@@ -55,6 +55,123 @@ pub(crate) fn spawn(path: &Path, args: &[String]) -> AppResult<Child> {
         .map_err(|error| AppError::new("FFMPEG_NOT_AVAILABLE", format!("无法启动 FFmpeg: {error}")))
 }
 
+pub(crate) fn run_output(path: &Path, args: &[String]) -> AppResult<Output> {
+    let mut command = Command::new(path);
+    command
+        .args(args)
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::piped());
+    hide_console_window(&mut command);
+    command.output().map_err(|error| {
+        AppError::new(
+            "FFMPEG_NOT_AVAILABLE",
+            format!("无法启动应用内置 FFmpeg: {error}"),
+        )
+    })
+}
+
+pub(crate) fn build_concat_list(paths: &[PathBuf]) -> AppResult<String> {
+    if paths.is_empty() {
+        return Err(AppError::new("AUDIO_FILE_MISSING", "没有可拼接的音频片段"));
+    }
+    let mut result = String::from("ffconcat version 1.0\n");
+    for path in paths {
+        let path = path.to_string_lossy().replace('\\', "/");
+        if path.contains('\n') || path.contains('\r') {
+            return Err(AppError::new(
+                "INVALID_EXPORT_PATH",
+                "音频路径包含换行符，无法安全写入 concat list",
+            ));
+        }
+        let escaped = path.replace('\'', "'\\''");
+        result.push_str("file '");
+        result.push_str(&escaped);
+        result.push_str("'\n");
+    }
+    Ok(result)
+}
+
+pub(crate) fn concat_wav_args(concat_path: &Path, output_path: &Path) -> Vec<String> {
+    vec![
+        "-hide_banner".to_string(),
+        "-loglevel".to_string(),
+        "error".to_string(),
+        "-y".to_string(),
+        "-f".to_string(),
+        "concat".to_string(),
+        "-safe".to_string(),
+        "0".to_string(),
+        "-i".to_string(),
+        concat_path.to_string_lossy().to_string(),
+        "-c".to_string(),
+        "copy".to_string(),
+        output_path.to_string_lossy().to_string(),
+    ]
+}
+
+pub(crate) fn encode_mp3_args(
+    input_path: &Path,
+    output_path: &Path,
+    sample_rate: i64,
+    channels: i64,
+    title: &str,
+) -> Vec<String> {
+    vec![
+        "-hide_banner".to_string(),
+        "-loglevel".to_string(),
+        "error".to_string(),
+        "-y".to_string(),
+        "-i".to_string(),
+        input_path.to_string_lossy().to_string(),
+        "-vn".to_string(),
+        "-codec:a".to_string(),
+        "libmp3lame".to_string(),
+        "-b:a".to_string(),
+        "96k".to_string(),
+        "-ar".to_string(),
+        sample_rate.to_string(),
+        "-ac".to_string(),
+        channels.to_string(),
+        "-metadata".to_string(),
+        format!("title={title}"),
+        output_path.to_string_lossy().to_string(),
+    ]
+}
+
+pub(crate) fn parse_duration_ms(stderr: &[u8]) -> Option<i64> {
+    let text = String::from_utf8_lossy(stderr);
+    let marker = "Duration: ";
+    let start = text.find(marker)? + marker.len();
+    let value = text[start..].split([',', '\n', '\r']).next()?.trim();
+    let mut parts = value.split(':');
+    let hours = parts.next()?.parse::<i64>().ok()?;
+    let minutes = parts.next()?.parse::<i64>().ok()?;
+    let seconds = parts.next()?.parse::<f64>().ok()?;
+    if hours < 0 || minutes < 0 || !(0.0..60.0).contains(&seconds) {
+        return None;
+    }
+    Some(((hours * 3600 + minutes * 60) as f64 * 1000.0 + seconds * 1000.0).round() as i64)
+}
+
+pub(crate) fn probe_duration_ms(path: &Path, ffmpeg_path: &Path) -> AppResult<i64> {
+    let args = vec![
+        "-hide_banner".to_string(),
+        "-i".to_string(),
+        path.to_string_lossy().to_string(),
+        "-f".to_string(),
+        "null".to_string(),
+        "-".to_string(),
+    ];
+    let output = run_output(ffmpeg_path, &args)?;
+    parse_duration_ms(&output.stderr).ok_or_else(|| {
+        AppError::new(
+            "PUBLICATION_AUDIO_DURATION_UNAVAILABLE",
+            "FFmpeg 未返回可解析的章节音频时长",
+        )
+    })
+}
+
 fn run_probe(path: &Path, args: &[&str]) -> AppResult<Output> {
     let mut command = Command::new(path);
     command.args(args);
@@ -163,5 +280,20 @@ mod tests {
     #[test]
     fn target_triple_is_supported_on_the_current_build_target() {
         assert_ne!(super::target_triple(), "unsupported-target");
+    }
+
+    #[test]
+    fn concat_list_escapes_paths_and_duration_parser_is_millisecond_based() {
+        let paths = vec![std::path::PathBuf::from(
+            "C:\\Users\\测试\\Sean's Book\\001.wav",
+        )];
+        assert_eq!(
+            super::build_concat_list(&paths).expect("concat list"),
+            "ffconcat version 1.0\nfile 'C:/Users/测试/Sean'\\''s Book/001.wav'\n"
+        );
+        assert_eq!(
+            super::parse_duration_ms(b"Duration: 01:02:03.450, start: 0.000000"),
+            Some(3_723_450)
+        );
     }
 }

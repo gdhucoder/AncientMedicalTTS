@@ -25,7 +25,9 @@ export function normalizePinyinInput(value: string): string {
 export function isTtsLockedAnnotation(annotation: Annotation): boolean {
   return annotation.review_status === "confirmed"
     && annotation.target_pinyin !== null
-    && (annotation.source_rule_id !== null || annotation.source === "manual");
+    && (annotation.source_rule_id !== null
+      || annotation.source === "manual"
+      || annotation.source === "imported_authoritative");
 }
 
 export function realizedPronunciationForText(audio: AudioVersion | null, surfaceText: string): TtsRealizedPronunciationItem[] {
@@ -118,6 +120,8 @@ export function annotationSourceLabel(source: string | null): string {
   if (source === "rare_classical_lexicon") return "古籍词典";
   if (source === "knowledge_conflict") return "知识冲突检查";
   if (source === "high_risk_polyphone") return "高风险多音字表";
+  if (source === "imported_authoritative") return "导入已确认注音";
+  if (source === "imported_reference") return "导入参考注音";
   if (source === "rare_character") return "生僻字表";
   if (source === "variant_mapping") return "异体映射";
   if (source === "pypinyin") return "拼音分析器";

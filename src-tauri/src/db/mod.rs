@@ -126,7 +126,30 @@ mod tests {
                 .await
                 .expect("schema version should exist")
         });
-        assert_eq!(schema_version, 14);
+        assert_eq!(schema_version, 15);
+        let book_columns: Vec<String> = tauri::async_runtime::block_on(async {
+            sqlx::query_scalar("SELECT name FROM pragma_table_info('books')")
+                .fetch_all(database.pool())
+                .await
+                .expect("book columns should exist")
+        });
+        assert!(book_columns.contains(&"import_format".to_string()));
+        assert!(book_columns.contains(&"import_pronunciation_mode".to_string()));
+        let chapter_columns: Vec<String> = tauri::async_runtime::block_on(async {
+            sqlx::query_scalar("SELECT name FROM pragma_table_info('chapters')")
+                .fetch_all(database.pool())
+                .await
+                .expect("chapter columns should exist")
+        });
+        assert!(chapter_columns.contains(&"collection".to_string()));
+        let segment_columns: Vec<String> = tauri::async_runtime::block_on(async {
+            sqlx::query_scalar("SELECT name FROM pragma_table_info('segments')")
+                .fetch_all(database.pool())
+                .await
+                .expect("segment columns should exist")
+        });
+        assert!(segment_columns.contains(&"corrected_text".to_string()));
+        assert!(segment_columns.contains(&"translation".to_string()));
         let annotation_columns: Vec<String> = tauri::async_runtime::block_on(async {
             sqlx::query_scalar("SELECT name FROM pragma_table_info('segment_annotations')")
                 .fetch_all(database.pool())
@@ -152,6 +175,94 @@ mod tests {
                 > 0
         );
         drop(reopened);
+        let _ = std::fs::remove_file(&path);
+        let _ = std::fs::remove_file(&backup_path);
+        let _ = std::fs::remove_file(path.with_extension("sqlite-wal"));
+        let _ = std::fs::remove_file(path.with_extension("sqlite-shm"));
+    }
+
+    #[test]
+    fn upgrades_schema_v14_and_preserves_existing_segment_text() {
+        let path = std::env::temp_dir().join(format!(
+            "ancient-medical-v14-upgrade-{}.sqlite",
+            Uuid::now_v7()
+        ));
+        let database = tauri::async_runtime::block_on(Database::open(&path))
+            .expect("database should initialize at the latest schema");
+        tauri::async_runtime::block_on(async {
+            sqlx::query(
+                "INSERT INTO books (id, title, created_at, updated_at) VALUES ('book-v14', '迁移测试', 'now', 'now')",
+            )
+            .execute(database.pool())
+            .await
+            .expect("book should be inserted");
+            sqlx::query(
+                "INSERT INTO chapters (id, book_id, title, order_index, created_at, updated_at) VALUES ('chapter-v14', 'book-v14', '正文', 0, 'now', 'now')",
+            )
+            .execute(database.pool())
+            .await
+            .expect("chapter should be inserted");
+            sqlx::query(
+                "INSERT INTO segments (id, chapter_id, order_index, original_text, corrected_text, created_at, updated_at) VALUES ('segment-v14', 'chapter-v14', 0, '原文', '校对原文', 'now', 'now')",
+            )
+            .execute(database.pool())
+            .await
+            .expect("segment should be inserted");
+
+            // Recreate the v0.1.0-rc9 schema: migration 0014 is present, but
+            // the newly added 0015 annotated-import columns are not.
+            for statement in [
+                "ALTER TABLE books DROP COLUMN import_format",
+                "ALTER TABLE books DROP COLUMN import_format_version",
+                "ALTER TABLE books DROP COLUMN import_pronunciation_mode",
+                "ALTER TABLE books DROP COLUMN import_dataset_id",
+                "ALTER TABLE books DROP COLUMN imported_at",
+                "ALTER TABLE chapters DROP COLUMN collection",
+                "ALTER TABLE chapters DROP COLUMN subtitle",
+                "ALTER TABLE segments DROP COLUMN translation",
+                "DELETE FROM _sqlx_migrations WHERE version = 15",
+                "UPDATE app_meta SET schema_version = 14",
+            ] {
+                sqlx::query(statement)
+                    .execute(database.pool())
+                    .await
+                    .expect("v14 schema should be recreated");
+            }
+        });
+        drop(database);
+
+        let upgraded = tauri::async_runtime::block_on(Database::open(&path))
+            .expect("v14 database should upgrade to v15");
+        let (schema_version, original_text, corrected_text): (i64, String, Option<String>) =
+            tauri::async_runtime::block_on(async {
+                sqlx::query_as(
+                    "SELECT app_meta.schema_version, segments.original_text, segments.corrected_text
+                     FROM app_meta CROSS JOIN segments WHERE segments.id = 'segment-v14'",
+                )
+                .fetch_one(upgraded.pool())
+                .await
+                .expect("existing segment should remain after migration")
+            });
+        assert_eq!(schema_version, 15);
+        assert_eq!(original_text, "原文");
+        assert_eq!(corrected_text.as_deref(), Some("校对原文"));
+        let translation_column: Option<String> = tauri::async_runtime::block_on(async {
+            sqlx::query_scalar(
+                "SELECT name FROM pragma_table_info('segments') WHERE name = 'translation'",
+            )
+            .fetch_optional(upgraded.pool())
+            .await
+            .expect("translation column should be queryable")
+        });
+        assert_eq!(translation_column.as_deref(), Some("translation"));
+        drop(upgraded);
+
+        let backup_path = path.with_file_name(format!(
+            "{}.backup",
+            path.file_name()
+                .and_then(|name| name.to_str())
+                .unwrap_or_default()
+        ));
         let _ = std::fs::remove_file(&path);
         let _ = std::fs::remove_file(&backup_path);
         let _ = std::fs::remove_file(path.with_extension("sqlite-wal"));

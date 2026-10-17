@@ -16,6 +16,7 @@ use uuid::Uuid;
 pub(crate) const ALLOWED_STATUS: &[&str] = &["analyzed", "ready", "generated"];
 pub(crate) const PRONUNCIATION_MODE_LOCKED: &str = "locked";
 pub(crate) const PRONUNCIATION_MODE_DISPLAY: &str = "display";
+pub(crate) const PRONUNCIATION_MODE_IMPORTED: &str = "imported";
 
 pub async fn generate_segment_audio(
     state: &AppState,
@@ -52,7 +53,7 @@ pub(crate) async fn generate_segment_audio_with_settings_and_mode(
 ) -> AppResult<SegmentReader> {
     if !matches!(
         pronunciation_mode,
-        PRONUNCIATION_MODE_LOCKED | PRONUNCIATION_MODE_DISPLAY
+        PRONUNCIATION_MODE_LOCKED | PRONUNCIATION_MODE_DISPLAY | PRONUNCIATION_MODE_IMPORTED
     ) {
         return Err(AppError::new(
             "INVALID_TTS_PRONUNCIATION_MODE",
@@ -434,6 +435,55 @@ pub(crate) fn read_wav_format(path: &Path) -> AppResult<WavFormat> {
         return Err(AppError::new("AUDIO_FORMAT_MISMATCH", "WAV 音频参数无效"));
     }
     Ok(format)
+}
+
+pub(crate) fn read_wav_duration_ms(path: &Path) -> AppResult<i64> {
+    let bytes = fs::read(path).map_err(|error| {
+        AppError::new("AUDIO_FILE_MISSING", format!("无法读取 WAV 文件: {error}"))
+    })?;
+    let format = read_wav_format(path)?;
+    if format.audio_format != 1 {
+        return Err(AppError::new(
+            "AUDIO_FORMAT_MISMATCH",
+            "发布包时间轴只支持 PCM WAV",
+        ));
+    }
+    let mut cursor = 12_usize;
+    let mut data_bytes = None;
+    while cursor + 8 <= bytes.len() {
+        let chunk_id = &bytes[cursor..cursor + 4];
+        let chunk_size = u32::from_le_bytes([
+            bytes[cursor + 4],
+            bytes[cursor + 5],
+            bytes[cursor + 6],
+            bytes[cursor + 7],
+        ]) as usize;
+        let data_start = cursor + 8;
+        let data_end = data_start
+            .checked_add(chunk_size)
+            .ok_or_else(|| AppError::new("AUDIO_FORMAT_MISMATCH", "WAV chunk 长度无效"))?;
+        if data_end > bytes.len() {
+            return Err(AppError::new(
+                "AUDIO_FORMAT_MISMATCH",
+                "WAV chunk 超出文件范围",
+            ));
+        }
+        if chunk_id == b"data" {
+            data_bytes = Some(chunk_size as u64);
+            break;
+        }
+        cursor = data_end
+            .checked_add(chunk_size % 2)
+            .ok_or_else(|| AppError::new("AUDIO_FORMAT_MISMATCH", "WAV chunk 长度无效"))?;
+    }
+    let data_bytes = data_bytes
+        .ok_or_else(|| AppError::new("AUDIO_FORMAT_MISMATCH", "WAV 缺少有效 data chunk"))?;
+    let bytes_per_frame = u64::from(format.channels)
+        .checked_mul(u64::from(format.bits_per_sample / 8))
+        .filter(|value| *value > 0)
+        .ok_or_else(|| AppError::new("AUDIO_FORMAT_MISMATCH", "WAV frame 参数无效"))?;
+    let sample_count = data_bytes / bytes_per_frame;
+    Ok((sample_count.saturating_mul(1000) / u64::from(format.sample_rate)) as i64)
 }
 
 pub fn cleanup_book_audio(data_dir: &Path, book_id: &str) -> AppResult<()> {

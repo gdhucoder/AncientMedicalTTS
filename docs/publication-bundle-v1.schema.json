@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gdhucoder.github.io/AncientMedicalTTS/publication-bundle-v1.schema.json",
+  "title": "AncientMedicalTTS Publication Bundle v1",
+  "type": "object",
+  "description": "This document describes the JSON documents inside a Publication Bundle v1.",
+  "oneOf": [
+    {
+      "title": "manifest.json",
+      "properties": {
+        "format": { "const": "ancient-medical-publication-bundle" },
+        "format_version": { "const": "1.0" },
+        "generator": {
+          "type": "object",
+          "required": ["name", "version"],
+          "properties": { "name": { "type": "string" }, "version": { "type": "string" } }
+        },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "book": { "const": "book.json" }
+      },
+      "required": ["format", "format_version", "generator", "generated_at", "book"]
+    },
+    {
+      "title": "book.json",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "author": { "type": ["string", "null"] },
+        "dynasty": { "type": ["string", "null"] },
+        "edition": { "type": ["string", "null"] },
+        "language": { "const": "zh-CN" },
+        "reading_mode": { "const": "modern_standard_mandarin" },
+        "audio": { "type": "object", "required": ["format"], "properties": { "format": { "const": "mp3" } } },
+        "chapters": { "type": "array", "items": { "$ref": "#/$defs/chapterRef" }, "minItems": 1 }
+      },
+      "required": ["id", "title", "author", "dynasty", "edition", "language", "reading_mode", "audio", "chapters"]
+    },
+    {
+      "title": "chapter.json",
+      "properties": {
+        "id": { "type": "string" },
+        "order": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string" },
+        "collection": { "type": ["string", "null"] },
+        "subtitle": { "type": ["string", "null"] },
+        "audio": { "$ref": "#/$defs/audio" },
+        "segments": { "type": "array", "items": { "$ref": "#/$defs/segment" }, "minItems": 1 }
+      },
+      "required": ["id", "order", "title", "audio", "segments"]
+    }
+  ],
+  "$defs": {
+    "chapterRef": {
+      "type": "object",
+      "required": ["id", "order", "title", "content", "audio"],
+      "properties": {
+        "id": { "type": "string" },
+        "order": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string" },
+        "content": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*(^|/)\\.\\.?(/|$))" },
+        "audio": { "type": "string", "pattern": "^(?!/)(?!.*\\\\)(?!.*(^|/)\\.\\.?(/|$))" }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "required": ["src", "duration_ms", "format"],
+      "properties": {
+        "src": { "type": "string" },
+        "duration_ms": { "type": "integer", "minimum": 0 },
+        "format": { "const": "mp3" }
+      }
+    },
+    "segment": {
+      "type": "object",
+      "required": ["id", "order", "text", "speak_enabled", "start_ms", "end_ms", "duration_ms"],
+      "properties": {
+        "id": { "type": "string" },
+        "order": { "type": "integer", "minimum": 1 },
+        "text": { "type": "string" },
+        "translation": { "type": ["string", "null"] },
+        "speak_enabled": { "type": "boolean" },
+        "start_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "end_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "duration_ms": { "type": ["integer", "null"], "minimum": 0 },
+        "pronunciation": {
+          "type": ["object", "null"],
+          "properties": {
+            "tokens": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "required": ["text", "reference_pinyin", "confirmed_pinyin", "forced"],
+                "properties": {
+                  "text": { "type": "string" },
+                  "reference_pinyin": { "type": ["string", "null"] },
+                  "confirmed_pinyin": { "type": ["string", "null"] },
+                  "forced": { "type": "boolean" }
+                }
+              }
+            },
+            "tts_actual": { "type": ["array", "null"] }
+          }
+        }
+      }
+    }
+  }
+}

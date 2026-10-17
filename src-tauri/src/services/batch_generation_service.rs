@@ -159,7 +159,9 @@ pub async fn get_book_generation_preflight(
 ) -> AppResult<BookGenerationPreflight> {
     if !matches!(
         pronunciation_mode,
-        audio_service::PRONUNCIATION_MODE_LOCKED | audio_service::PRONUNCIATION_MODE_DISPLAY
+        audio_service::PRONUNCIATION_MODE_LOCKED
+            | audio_service::PRONUNCIATION_MODE_DISPLAY
+            | audio_service::PRONUNCIATION_MODE_IMPORTED
     ) {
         return Err(AppError::new(
             "INVALID_TTS_PRONUNCIATION_MODE",
@@ -170,6 +172,36 @@ pub async fn get_book_generation_preflight(
     let segments = load_book_segments(database, book_id).await?;
     let settings = settings_service::get_tts_settings(database).await.ok();
     let mut blockers = Vec::new();
+
+    if pronunciation_mode == audio_service::PRONUNCIATION_MODE_IMPORTED {
+        let imported =
+            crate::services::annotated_import_service::get_tts_preflight(database, book_id).await?;
+        if !imported.can_generate_strict {
+            blockers.push(BatchGenerationBlocker {
+                code: "IMPORTED_PRONUNCIATION_INCOMPLETE".to_string(),
+                message: format!(
+                    "严格按导入注音生成还缺少 {} 个汉字的强制读音",
+                    imported.missing_han_count
+                ),
+                segment_id: imported
+                    .missing_segments
+                    .first()
+                    .map(|item| item.segment_id.clone()),
+                chapter_title: imported
+                    .missing_segments
+                    .first()
+                    .and_then(|item| item.chapter_title.clone()),
+                segment_order: imported
+                    .missing_segments
+                    .first()
+                    .map(|item| item.segment_order),
+                preview: imported
+                    .missing_segments
+                    .first()
+                    .map(|item| item.preview.clone()),
+            });
+        }
+    }
 
     if stats.han_character_count as usize > text_service::MAX_BOOK_HAN_CHARACTERS {
         blockers.push(BatchGenerationBlocker {
@@ -691,7 +723,7 @@ mod tests {
     };
     use crate::{
         db::Database,
-        services::{audio_service, book_service},
+        services::{annotated_import_service, audio_service, book_service},
     };
     use uuid::Uuid;
 
@@ -778,5 +810,80 @@ mod tests {
             let _ = std::fs::remove_dir_all(data_dir);
         });
         let _ = std::fs::remove_file(path);
+    }
+
+    #[test]
+    fn strict_imported_batch_blocks_gaps_while_mixed_mode_allows_tts_fallback() {
+        let database = temp_db();
+        let source_path = std::env::temp_dir().join(format!(
+            "ancient-tts-partial-annotated-{}.json",
+            Uuid::now_v7()
+        ));
+        let data_dir = std::env::temp_dir().join(format!(
+            "ancient-tts-partial-annotated-data-{}",
+            Uuid::now_v7()
+        ));
+        std::fs::write(
+            &source_path,
+            r#"{
+              "format":"ancient-annotated-book","format_version":"1.0",
+              "book":{"id":"partial-book","title":"部分注音测试"},
+              "pronunciation":{"mode":"authoritative"},
+              "chapters":[{"id":"chapter-1","order":1,"title":"正文","segments":[
+                {"id":"segment-1","order":1,"text":"恶寒。","tokens":[
+                  {"text":"恶","pinyin_numeric":"e4"},
+                  {"text":"寒","pinyin_numeric":null},
+                  {"text":"。","pinyin_numeric":null}
+                ]}
+              ]}]
+            }"#,
+        )
+        .expect("partial annotated fixture should write");
+
+        tauri::async_runtime::block_on(async {
+            let imported = annotated_import_service::import_book(
+                &database,
+                source_path.to_str().expect("source path"),
+                false,
+            )
+            .await
+            .expect("partial authoritative book should import");
+
+            let strict = get_book_generation_preflight(
+                &database,
+                &imported.book.book.id,
+                &data_dir,
+                audio_service::PRONUNCIATION_MODE_IMPORTED,
+            )
+            .await
+            .expect("strict preflight should report missing imported pronunciation");
+            assert!(strict
+                .blockers
+                .iter()
+                .any(|blocker| { blocker.code == "IMPORTED_PRONUNCIATION_INCOMPLETE" }));
+
+            // The UI's explicit mixed mode uses locked pronunciation: known
+            // imported annotations stay forced, while uncovered text is sent
+            // as plain text for Tencent to pronounce.
+            let mixed = get_book_generation_preflight(
+                &database,
+                &imported.book.book.id,
+                &data_dir,
+                audio_service::PRONUNCIATION_MODE_LOCKED,
+            )
+            .await
+            .expect("mixed-mode preflight should succeed");
+            assert!(!mixed.blockers.iter().any(|blocker| {
+                blocker.code == "IMPORTED_PRONUNCIATION_INCOMPLETE"
+                    || blocker.code == "SEGMENT_HAS_UNRESOLVED_PRONUNCIATION"
+                    || blocker.code == "SEGMENT_PRONUNCIATION_PENDING"
+            }));
+            assert!(mixed
+                .blockers
+                .iter()
+                .any(|blocker| blocker.code == "TTS_CREDENTIALS_MISSING"));
+        });
+        let _ = std::fs::remove_file(source_path);
+        let _ = std::fs::remove_dir_all(data_dir);
     }
 }

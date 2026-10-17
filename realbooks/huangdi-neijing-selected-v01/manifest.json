@@ -1,0 +1,67 @@
+{
+  "dataset": "huangdi-neijing-selected-v01",
+  "version": "0.1.0",
+  "language": "zh-CN",
+  "purpose": "AncientMedicalTTS source material / ancient-medical-reader first curated content set",
+  "selection": "普通读者优先：养生、四时、阳气与自然、脏腑比喻、精神情志、生命历程",
+  "chapters": [
+    {
+      "id": "suwen-01-shang-gu-tian-zhen-lun",
+      "order": 1,
+      "collection": "素问",
+      "title": "上古天真论",
+      "reader_subtitle": "人应该怎样活",
+      "file": "chapters/01-suwen-01-shang-gu-tian-zhen-lun.json",
+      "segment_count": 17
+    },
+    {
+      "id": "suwen-02-si-qi-tiao-shen-da-lun",
+      "order": 2,
+      "collection": "素问",
+      "title": "四气调神大论",
+      "reader_subtitle": "顺着四季生活",
+      "file": "chapters/02-suwen-02-si-qi-tiao-shen-da-lun.json",
+      "segment_count": 11
+    },
+    {
+      "id": "suwen-03-sheng-qi-tong-tian-lun",
+      "order": 3,
+      "collection": "素问",
+      "title": "生气通天论",
+      "reader_subtitle": "人与天地之气",
+      "file": "chapters/03-suwen-03-sheng-qi-tong-tian-lun.json",
+      "segment_count": 16
+    },
+    {
+      "id": "suwen-08-ling-lan-mi-dian-lun",
+      "order": 4,
+      "collection": "素问",
+      "title": "灵兰秘典论",
+      "reader_subtitle": "身体里的“十二官”",
+      "file": "chapters/04-suwen-08-ling-lan-mi-dian-lun.json",
+      "segment_count": 8
+    },
+    {
+      "id": "lingshu-08-ben-shen",
+      "order": 5,
+      "collection": "灵枢",
+      "title": "本神",
+      "reader_subtitle": "什么是精、神、魂、魄",
+      "file": "chapters/05-lingshu-08-ben-shen.json",
+      "segment_count": 10
+    },
+    {
+      "id": "lingshu-54-tian-nian",
+      "order": 6,
+      "collection": "灵枢",
+      "title": "天年",
+      "reader_subtitle": "人的一生",
+      "file": "chapters/06-lingshu-54-tian-nian.json",
+      "segment_count": 9
+    }
+  ],
+  "sources": {
+    "primary_reference": "古文之家 https://www.cngwzj.com/",
+    "note": "原文属于古籍公版内容；站点用于底本与注音核对。现代汉语解释为本数据包重新整理。"
+  }
+}
