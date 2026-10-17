@@ -1,0 +1,6553 @@
+{
+  "id": "chapter-001-yingdiwang",
+  "order": 1,
+  "collection": "内篇",
+  "title": "应帝王",
+  "segments": [
+    {
+      "id": "yingdiwang-seg-001",
+      "order": 1,
+      "text": "啮缺问于王倪，四问而四不知。啮缺因跃而大喜，行以告蒲衣子。蒲衣子曰：“而乃今知之乎？有虞氏不及泰氏。有虞氏其犹藏仁以要人，亦得人矣，而未始出于非人。泰氏其卧徐徐，其觉于于。一以己为马，一以己为牛。其知情信，其德甚真，而未始入于非人。”",
+      "tokens": [
+        {
+          "text": "啮",
+          "pinyin_numeric": "nie4",
+          "pinyin_tone_marks": "niè"
+        },
+        {
+          "text": "缺",
+          "pinyin_numeric": "que1",
+          "pinyin_tone_marks": "quē"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "王",
+          "pinyin_numeric": "wang2",
+          "pinyin_tone_marks": "wáng"
+        },
+        {
+          "text": "倪",
+          "pinyin_numeric": "ni2",
+          "pinyin_tone_marks": "ní"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "四",
+          "pinyin_numeric": "si4",
+          "pinyin_tone_marks": "sì"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "四",
+          "pinyin_numeric": "si4",
+          "pinyin_tone_marks": "sì"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "啮",
+          "pinyin_numeric": "nie4",
+          "pinyin_tone_marks": "niè"
+        },
+        {
+          "text": "缺",
+          "pinyin_numeric": "que1",
+          "pinyin_tone_marks": "quē"
+        },
+        {
+          "text": "因",
+          "pinyin_numeric": "yin1",
+          "pinyin_tone_marks": "yīn"
+        },
+        {
+          "text": "跃",
+          "pinyin_numeric": "yue4",
+          "pinyin_tone_marks": "yuè"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "大",
+          "pinyin_numeric": "da4",
+          "pinyin_tone_marks": "dà"
+        },
+        {
+          "text": "喜",
+          "pinyin_numeric": "xi3",
+          "pinyin_tone_marks": "xǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "行",
+          "pinyin_numeric": "xing2",
+          "pinyin_tone_marks": "xíng"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "告",
+          "pinyin_numeric": "gao4",
+          "pinyin_tone_marks": "gào"
+        },
+        {
+          "text": "蒲",
+          "pinyin_numeric": "pu2",
+          "pinyin_tone_marks": "pú"
+        },
+        {
+          "text": "衣",
+          "pinyin_numeric": "yi1",
+          "pinyin_tone_marks": "yī"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "蒲",
+          "pinyin_numeric": "pu2",
+          "pinyin_tone_marks": "pú"
+        },
+        {
+          "text": "衣",
+          "pinyin_numeric": "yi1",
+          "pinyin_tone_marks": "yī"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "乃",
+          "pinyin_numeric": "nai3",
+          "pinyin_tone_marks": "nǎi"
+        },
+        {
+          "text": "今",
+          "pinyin_numeric": "jin1",
+          "pinyin_tone_marks": "jīn"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "虞",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "氏",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "及",
+          "pinyin_numeric": "ji2",
+          "pinyin_tone_marks": "jí"
+        },
+        {
+          "text": "泰",
+          "pinyin_numeric": "tai4",
+          "pinyin_tone_marks": "tài"
+        },
+        {
+          "text": "氏",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "虞",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "氏",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "犹",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "藏",
+          "pinyin_numeric": "cang2",
+          "pinyin_tone_marks": "cáng"
+        },
+        {
+          "text": "仁",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "要",
+          "pinyin_numeric": "yao1",
+          "pinyin_tone_marks": "yāo"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "亦",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "得",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "未",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "始",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "非",
+          "pinyin_numeric": "fei1",
+          "pinyin_tone_marks": "fēi"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "泰",
+          "pinyin_numeric": "tai4",
+          "pinyin_tone_marks": "tài"
+        },
+        {
+          "text": "氏",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "卧",
+          "pinyin_numeric": "wo4",
+          "pinyin_tone_marks": "wò"
+        },
+        {
+          "text": "徐",
+          "pinyin_numeric": "xu2",
+          "pinyin_tone_marks": "xú"
+        },
+        {
+          "text": "徐",
+          "pinyin_numeric": "xu2",
+          "pinyin_tone_marks": "xú"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "觉",
+          "pinyin_numeric": "jiao4",
+          "pinyin_tone_marks": "jiào"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "一",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "己",
+          "pinyin_numeric": "ji3",
+          "pinyin_tone_marks": "jǐ"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "马",
+          "pinyin_numeric": "ma3",
+          "pinyin_tone_marks": "mǎ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "一",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "己",
+          "pinyin_numeric": "ji3",
+          "pinyin_tone_marks": "jǐ"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "牛",
+          "pinyin_numeric": "niu2",
+          "pinyin_tone_marks": "niú"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "情",
+          "pinyin_numeric": "qing2",
+          "pinyin_tone_marks": "qíng"
+        },
+        {
+          "text": "信",
+          "pinyin_numeric": "xin4",
+          "pinyin_tone_marks": "xìn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "德",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "甚",
+          "pinyin_numeric": "shen4",
+          "pinyin_tone_marks": "shèn"
+        },
+        {
+          "text": "真",
+          "pinyin_numeric": "zhen1",
+          "pinyin_tone_marks": "zhēn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "未",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "始",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "入",
+          "pinyin_numeric": "ru4",
+          "pinyin_tone_marks": "rù"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "非",
+          "pinyin_numeric": "fei1",
+          "pinyin_tone_marks": "fēi"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "啮缺问王倪四次都得到“不知道”，反而欣喜；蒲衣子借此对比有虞氏的仁治与泰氏顺其自然。"
+    },
+    {
+      "id": "yingdiwang-seg-002",
+      "order": 2,
+      "text": "肩吾见狂接舆。狂接舆曰：“日中始何以语女？”肩吾曰：“告我：君人者以己出经式义度，人孰敢不听而化诸！”狂接舆曰：“是欺德也。其于治天下也，犹涉海凿河而使蚊负山也。夫圣人之治也，治外夫？正而后行，确乎能其事者而已矣。且鸟高飞以避矰弋之害，鼷鼠深穴乎神丘之下以避熏凿之患，而曾二虫之无知？”",
+      "tokens": [
+        {
+          "text": "肩",
+          "pinyin_numeric": "jian1",
+          "pinyin_tone_marks": "jiān"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "狂",
+          "pinyin_numeric": "kuang2",
+          "pinyin_tone_marks": "kuáng"
+        },
+        {
+          "text": "接",
+          "pinyin_numeric": "jie1",
+          "pinyin_tone_marks": "jiē"
+        },
+        {
+          "text": "舆",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "狂",
+          "pinyin_numeric": "kuang2",
+          "pinyin_tone_marks": "kuáng"
+        },
+        {
+          "text": "接",
+          "pinyin_numeric": "jie1",
+          "pinyin_tone_marks": "jiē"
+        },
+        {
+          "text": "舆",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "中",
+          "pinyin_numeric": "zhong1",
+          "pinyin_tone_marks": "zhōng"
+        },
+        {
+          "text": "始",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "何",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "语",
+          "pinyin_numeric": "yu4",
+          "pinyin_tone_marks": "yù"
+        },
+        {
+          "text": "女",
+          "pinyin_numeric": "ru3",
+          "pinyin_tone_marks": "rǔ"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "肩",
+          "pinyin_numeric": "jian1",
+          "pinyin_tone_marks": "jiān"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "告",
+          "pinyin_numeric": "gao4",
+          "pinyin_tone_marks": "gào"
+        },
+        {
+          "text": "我",
+          "pinyin_numeric": "wo3",
+          "pinyin_tone_marks": "wǒ"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "君",
+          "pinyin_numeric": "jun1",
+          "pinyin_tone_marks": "jūn"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "己",
+          "pinyin_numeric": "ji3",
+          "pinyin_tone_marks": "jǐ"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "经",
+          "pinyin_numeric": "jing1",
+          "pinyin_tone_marks": "jīng"
+        },
+        {
+          "text": "式",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "义",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "度",
+          "pinyin_numeric": "du4",
+          "pinyin_tone_marks": "dù"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "孰",
+          "pinyin_numeric": "shu2",
+          "pinyin_tone_marks": "shú"
+        },
+        {
+          "text": "敢",
+          "pinyin_numeric": "gan3",
+          "pinyin_tone_marks": "gǎn"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "听",
+          "pinyin_numeric": "ting1",
+          "pinyin_tone_marks": "tīng"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "化",
+          "pinyin_numeric": "hua4",
+          "pinyin_tone_marks": "huà"
+        },
+        {
+          "text": "诸",
+          "pinyin_numeric": "zhu1",
+          "pinyin_tone_marks": "zhū"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "狂",
+          "pinyin_numeric": "kuang2",
+          "pinyin_tone_marks": "kuáng"
+        },
+        {
+          "text": "接",
+          "pinyin_numeric": "jie1",
+          "pinyin_tone_marks": "jiē"
+        },
+        {
+          "text": "舆",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "欺",
+          "pinyin_numeric": "qi1",
+          "pinyin_tone_marks": "qī"
+        },
+        {
+          "text": "德",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_tone_marks": "xià"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "犹",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "涉",
+          "pinyin_numeric": "she4",
+          "pinyin_tone_marks": "shè"
+        },
+        {
+          "text": "海",
+          "pinyin_numeric": "hai3",
+          "pinyin_tone_marks": "hǎi"
+        },
+        {
+          "text": "凿",
+          "pinyin_numeric": "zao2",
+          "pinyin_tone_marks": "záo"
+        },
+        {
+          "text": "河",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "使",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "蚊",
+          "pinyin_numeric": "wen2",
+          "pinyin_tone_marks": "wén"
+        },
+        {
+          "text": "负",
+          "pinyin_numeric": "fu4",
+          "pinyin_tone_marks": "fù"
+        },
+        {
+          "text": "山",
+          "pinyin_numeric": "shan1",
+          "pinyin_tone_marks": "shān"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "夫",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "圣",
+          "pinyin_numeric": "sheng4",
+          "pinyin_tone_marks": "shèng"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "外",
+          "pinyin_numeric": "wai4",
+          "pinyin_tone_marks": "wài"
+        },
+        {
+          "text": "夫",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "正",
+          "pinyin_numeric": "zheng4",
+          "pinyin_tone_marks": "zhèng"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "后",
+          "pinyin_numeric": "hou4",
+          "pinyin_tone_marks": "hòu"
+        },
+        {
+          "text": "行",
+          "pinyin_numeric": "xing2",
+          "pinyin_tone_marks": "xíng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "确",
+          "pinyin_numeric": "que4",
+          "pinyin_tone_marks": "què"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "能",
+          "pinyin_numeric": "neng2",
+          "pinyin_tone_marks": "néng"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "事",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "已",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "且",
+          "pinyin_numeric": "qie3",
+          "pinyin_tone_marks": "qiě"
+        },
+        {
+          "text": "鸟",
+          "pinyin_numeric": "niao3",
+          "pinyin_tone_marks": "niǎo"
+        },
+        {
+          "text": "高",
+          "pinyin_numeric": "gao1",
+          "pinyin_tone_marks": "gāo"
+        },
+        {
+          "text": "飞",
+          "pinyin_numeric": "fei1",
+          "pinyin_tone_marks": "fēi"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "避",
+          "pinyin_numeric": "bi4",
+          "pinyin_tone_marks": "bì"
+        },
+        {
+          "text": "矰",
+          "pinyin_numeric": "zeng1",
+          "pinyin_tone_marks": "zēng"
+        },
+        {
+          "text": "弋",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "害",
+          "pinyin_numeric": "hai4",
+          "pinyin_tone_marks": "hài"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "鼷",
+          "pinyin_numeric": "xi1",
+          "pinyin_tone_marks": "xī"
+        },
+        {
+          "text": "鼠",
+          "pinyin_numeric": "shu3",
+          "pinyin_tone_marks": "shǔ"
+        },
+        {
+          "text": "深",
+          "pinyin_numeric": "shen1",
+          "pinyin_tone_marks": "shēn"
+        },
+        {
+          "text": "穴",
+          "pinyin_numeric": "xue2",
+          "pinyin_tone_marks": "xué"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "神",
+          "pinyin_numeric": "shen2",
+          "pinyin_tone_marks": "shén"
+        },
+        {
+          "text": "丘",
+          "pinyin_numeric": "qiu1",
+          "pinyin_tone_marks": "qiū"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_tone_marks": "xià"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "避",
+          "pinyin_numeric": "bi4",
+          "pinyin_tone_marks": "bì"
+        },
+        {
+          "text": "熏",
+          "pinyin_numeric": "xun1",
+          "pinyin_tone_marks": "xūn"
+        },
+        {
+          "text": "凿",
+          "pinyin_numeric": "zao2",
+          "pinyin_tone_marks": "záo"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "患",
+          "pinyin_numeric": "huan4",
+          "pinyin_tone_marks": "huàn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "曾",
+          "pinyin_numeric": "zeng1",
+          "pinyin_tone_marks": "zēng"
+        },
+        {
+          "text": "二",
+          "pinyin_numeric": "er4",
+          "pinyin_tone_marks": "èr"
+        },
+        {
+          "text": "虫",
+          "pinyin_numeric": "chong2",
+          "pinyin_tone_marks": "chóng"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "狂接舆批评日中始主张君主制定规范使人听从，认为这像强迫万物负担，鸟鼠尚知躲避祸害。"
+    },
+    {
+      "id": "yingdiwang-seg-003",
+      "order": 3,
+      "text": "天根游于殷阳，至蓼水之上，适遭无名人而问焉，曰：“请问为天下。”无名人曰：“去！汝鄙人也，何问之不豫也！予方将与造物者为人，厌则又乘夫莽眇之鸟，以出六极之外，而游无何有之乡，以处圹埌之野。汝又何帠以治天下感予之心为？”又复问，无名人曰：“汝游心于淡，合气于漠，顺物自然而无容私焉，而天下治矣。”",
+      "tokens": [
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "根",
+          "pinyin_numeric": "gen1",
+          "pinyin_tone_marks": "gēn"
+        },
+        {
+          "text": "游",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "殷",
+          "pinyin_numeric": "yin1",
+          "pinyin_tone_marks": "yīn"
+        },
+        {
+          "text": "阳",
+          "pinyin_numeric": "yang2",
+          "pinyin_tone_marks": "yáng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "至",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "蓼",
+          "pinyin_numeric": "liao3",
+          "pinyin_tone_marks": "liǎo"
+        },
+        {
+          "text": "水",
+          "pinyin_numeric": "shui3",
+          "pinyin_tone_marks": "shuǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "上",
+          "pinyin_numeric": "shang4",
+          "pinyin_tone_marks": "shàng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "适",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "遭",
+          "pinyin_numeric": "zao1",
+          "pinyin_tone_marks": "zāo"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "请",
+          "pinyin_numeric": "qing3",
+          "pinyin_tone_marks": "qǐng"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_tone_marks": "xià"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "去",
+          "pinyin_numeric": "qu4",
+          "pinyin_tone_marks": "qù"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "汝",
+          "pinyin_numeric": "ru3",
+          "pinyin_tone_marks": "rǔ"
+        },
+        {
+          "text": "鄙",
+          "pinyin_numeric": "bi3",
+          "pinyin_tone_marks": "bǐ"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "何",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "豫",
+          "pinyin_numeric": "yu4",
+          "pinyin_tone_marks": "yù"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "予",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "方",
+          "pinyin_numeric": "fang1",
+          "pinyin_tone_marks": "fāng"
+        },
+        {
+          "text": "将",
+          "pinyin_numeric": "jiang1",
+          "pinyin_tone_marks": "jiāng"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "造",
+          "pinyin_numeric": "zao4",
+          "pinyin_tone_marks": "zào"
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_tone_marks": "wù"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "厌",
+          "pinyin_numeric": "yan4",
+          "pinyin_tone_marks": "yàn"
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_tone_marks": "zé"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "乘",
+          "pinyin_numeric": "cheng2",
+          "pinyin_tone_marks": "chéng"
+        },
+        {
+          "text": "夫",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "莽",
+          "pinyin_numeric": "mang3",
+          "pinyin_tone_marks": "mǎng"
+        },
+        {
+          "text": "眇",
+          "pinyin_numeric": "miao3",
+          "pinyin_tone_marks": "miǎo"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "鸟",
+          "pinyin_numeric": "niao3",
+          "pinyin_tone_marks": "niǎo"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "六",
+          "pinyin_numeric": "liu4",
+          "pinyin_tone_marks": "liù"
+        },
+        {
+          "text": "极",
+          "pinyin_numeric": "ji2",
+          "pinyin_tone_marks": "jí"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "外",
+          "pinyin_numeric": "wai4",
+          "pinyin_tone_marks": "wài"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "游",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "何",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "乡",
+          "pinyin_numeric": "xiang1",
+          "pinyin_tone_marks": "xiāng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "处",
+          "pinyin_numeric": "chu3",
+          "pinyin_tone_marks": "chǔ"
+        },
+        {
+          "text": "圹",
+          "pinyin_numeric": "kuang4",
+          "pinyin_tone_marks": "kuàng"
+        },
+        {
+          "text": "埌",
+          "pinyin_numeric": "lang4",
+          "pinyin_tone_marks": "làng"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "野",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "汝",
+          "pinyin_numeric": "ru3",
+          "pinyin_tone_marks": "rǔ"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "何",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "帠",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_tone_marks": "xià"
+        },
+        {
+          "text": "感",
+          "pinyin_numeric": "gan3",
+          "pinyin_tone_marks": "gǎn"
+        },
+        {
+          "text": "予",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "心",
+          "pinyin_numeric": "xin1",
+          "pinyin_tone_marks": "xīn"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "复",
+          "pinyin_numeric": "fu4",
+          "pinyin_tone_marks": "fù"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "汝",
+          "pinyin_numeric": "ru3",
+          "pinyin_tone_marks": "rǔ"
+        },
+        {
+          "text": "游",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "心",
+          "pinyin_numeric": "xin1",
+          "pinyin_tone_marks": "xīn"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "淡",
+          "pinyin_numeric": "dan4",
+          "pinyin_tone_marks": "dàn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "合",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "气",
+          "pinyin_numeric": "qi4",
+          "pinyin_tone_marks": "qì"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "漠",
+          "pinyin_numeric": "mo4",
+          "pinyin_tone_marks": "mò"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "顺",
+          "pinyin_numeric": "shun4",
+          "pinyin_tone_marks": "shùn"
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_tone_marks": "wù"
+        },
+        {
+          "text": "自",
+          "pinyin_numeric": "zi4",
+          "pinyin_tone_marks": "zì"
+        },
+        {
+          "text": "然",
+          "pinyin_numeric": "ran2",
+          "pinyin_tone_marks": "rán"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "容",
+          "pinyin_numeric": "rong2",
+          "pinyin_tone_marks": "róng"
+        },
+        {
+          "text": "私",
+          "pinyin_numeric": "si1",
+          "pinyin_tone_marks": "sī"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_tone_marks": "xià"
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "天根请教治天下，无名人先拒绝人为治理，继而指出心境淡泊、顺物自然、不夹私意，天下自会安定。"
+    },
+    {
+      "id": "yingdiwang-seg-004",
+      "order": 4,
+      "text": "阳子居见老聃，曰：“有人于此，向疾强梁，物彻疏明，学道不倦，如是者，可比明王乎？”老聃曰：“是於圣人也，胥易技系，劳形怵心者也。且也虎豹之文来田，猨狙之便执嫠之狗来藉。如是者，可比明王乎？”阳子居蹴然曰：“敢问明王之治。”老聃曰：“明王之治：功盖天下而似不自己，化贷万物而民弗恃。有莫举名，使物自喜。",
+      "tokens": [
+        {
+          "text": "阳",
+          "pinyin_numeric": "yang2",
+          "pinyin_tone_marks": "yáng"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "居",
+          "pinyin_numeric": "ju1",
+          "pinyin_tone_marks": "jū"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "老",
+          "pinyin_numeric": "lao3",
+          "pinyin_tone_marks": "lǎo"
+        },
+        {
+          "text": "聃",
+          "pinyin_numeric": "dan1",
+          "pinyin_tone_marks": "dān"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "此",
+          "pinyin_numeric": "ci3",
+          "pinyin_tone_marks": "cǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "向",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "疾",
+          "pinyin_numeric": "ji2",
+          "pinyin_tone_marks": "jí"
+        },
+        {
+          "text": "强",
+          "pinyin_numeric": "qiang2",
+          "pinyin_tone_marks": "qiáng"
+        },
+        {
+          "text": "梁",
+          "pinyin_numeric": "liang2",
+          "pinyin_tone_marks": "liáng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_tone_marks": "wù"
+        },
+        {
+          "text": "彻",
+          "pinyin_numeric": "che4",
+          "pinyin_tone_marks": "chè"
+        },
+        {
+          "text": "疏",
+          "pinyin_numeric": "shu1",
+          "pinyin_tone_marks": "shū"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "学",
+          "pinyin_numeric": "xue2",
+          "pinyin_tone_marks": "xué"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_tone_marks": "dào"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "倦",
+          "pinyin_numeric": "juan4",
+          "pinyin_tone_marks": "juàn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "如",
+          "pinyin_numeric": "ru2",
+          "pinyin_tone_marks": "rú"
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "可",
+          "pinyin_numeric": "ke3",
+          "pinyin_tone_marks": "kě"
+        },
+        {
+          "text": "比",
+          "pinyin_numeric": "bi3",
+          "pinyin_tone_marks": "bǐ"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "王",
+          "pinyin_numeric": "wang2",
+          "pinyin_tone_marks": "wáng"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "老",
+          "pinyin_numeric": "lao3",
+          "pinyin_tone_marks": "lǎo"
+        },
+        {
+          "text": "聃",
+          "pinyin_numeric": "dan1",
+          "pinyin_tone_marks": "dān"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "於",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "圣",
+          "pinyin_numeric": "sheng4",
+          "pinyin_tone_marks": "shèng"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "胥",
+          "pinyin_numeric": "xu1",
+          "pinyin_tone_marks": "xū"
+        },
+        {
+          "text": "易",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "技",
+          "pinyin_numeric": "ji4",
+          "pinyin_tone_marks": "jì"
+        },
+        {
+          "text": "系",
+          "pinyin_numeric": "xi4",
+          "pinyin_tone_marks": "xì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "劳",
+          "pinyin_numeric": "lao2",
+          "pinyin_tone_marks": "láo"
+        },
+        {
+          "text": "形",
+          "pinyin_numeric": "xing2",
+          "pinyin_tone_marks": "xíng"
+        },
+        {
+          "text": "怵",
+          "pinyin_numeric": "chu4",
+          "pinyin_tone_marks": "chù"
+        },
+        {
+          "text": "心",
+          "pinyin_numeric": "xin1",
+          "pinyin_tone_marks": "xīn"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "且",
+          "pinyin_numeric": "qie3",
+          "pinyin_tone_marks": "qiě"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "虎",
+          "pinyin_numeric": "hu3",
+          "pinyin_tone_marks": "hǔ"
+        },
+        {
+          "text": "豹",
+          "pinyin_numeric": "bao4",
+          "pinyin_tone_marks": "bào"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "文",
+          "pinyin_numeric": "wen2",
+          "pinyin_tone_marks": "wén"
+        },
+        {
+          "text": "来",
+          "pinyin_numeric": "lai2",
+          "pinyin_tone_marks": "lái"
+        },
+        {
+          "text": "田",
+          "pinyin_numeric": "tian2",
+          "pinyin_tone_marks": "tián"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "猨",
+          "pinyin_numeric": "yuan2",
+          "pinyin_tone_marks": "yuán"
+        },
+        {
+          "text": "狙",
+          "pinyin_numeric": "ju1",
+          "pinyin_tone_marks": "jū"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "便",
+          "pinyin_numeric": "bian4",
+          "pinyin_tone_marks": "biàn"
+        },
+        {
+          "text": "执",
+          "pinyin_numeric": "zhi2",
+          "pinyin_tone_marks": "zhí"
+        },
+        {
+          "text": "嫠",
+          "pinyin_numeric": "li2",
+          "pinyin_tone_marks": "lí"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "狗",
+          "pinyin_numeric": "gou3",
+          "pinyin_tone_marks": "gǒu"
+        },
+        {
+          "text": "来",
+          "pinyin_numeric": "lai2",
+          "pinyin_tone_marks": "lái"
+        },
+        {
+          "text": "藉",
+          "pinyin_numeric": "ji2",
+          "pinyin_tone_marks": "jí"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "如",
+          "pinyin_numeric": "ru2",
+          "pinyin_tone_marks": "rú"
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "可",
+          "pinyin_numeric": "ke3",
+          "pinyin_tone_marks": "kě"
+        },
+        {
+          "text": "比",
+          "pinyin_numeric": "bi3",
+          "pinyin_tone_marks": "bǐ"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "王",
+          "pinyin_numeric": "wang2",
+          "pinyin_tone_marks": "wáng"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "阳",
+          "pinyin_numeric": "yang2",
+          "pinyin_tone_marks": "yáng"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "居",
+          "pinyin_numeric": "ju1",
+          "pinyin_tone_marks": "jū"
+        },
+        {
+          "text": "蹴",
+          "pinyin_numeric": "cu4",
+          "pinyin_tone_marks": "cù"
+        },
+        {
+          "text": "然",
+          "pinyin_numeric": "ran2",
+          "pinyin_tone_marks": "rán"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "敢",
+          "pinyin_numeric": "gan3",
+          "pinyin_tone_marks": "gǎn"
+        },
+        {
+          "text": "问",
+          "pinyin_numeric": "wen4",
+          "pinyin_tone_marks": "wèn"
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "王",
+          "pinyin_numeric": "wang2",
+          "pinyin_tone_marks": "wáng"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "老",
+          "pinyin_numeric": "lao3",
+          "pinyin_tone_marks": "lǎo"
+        },
+        {
+          "text": "聃",
+          "pinyin_numeric": "dan1",
+          "pinyin_tone_marks": "dān"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "王",
+          "pinyin_numeric": "wang2",
+          "pinyin_tone_marks": "wáng"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "治",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "功",
+          "pinyin_numeric": "gong1",
+          "pinyin_tone_marks": "gōng"
+        },
+        {
+          "text": "盖",
+          "pinyin_numeric": "gai4",
+          "pinyin_tone_marks": "gài"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "下",
+          "pinyin_numeric": "xia4",
+          "pinyin_tone_marks": "xià"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "似",
+          "pinyin_numeric": "si4",
+          "pinyin_tone_marks": "sì"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "自",
+          "pinyin_numeric": "zi4",
+          "pinyin_tone_marks": "zì"
+        },
+        {
+          "text": "己",
+          "pinyin_numeric": "ji3",
+          "pinyin_tone_marks": "jǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "化",
+          "pinyin_numeric": "hua4",
+          "pinyin_tone_marks": "huà"
+        },
+        {
+          "text": "贷",
+          "pinyin_numeric": "dai4",
+          "pinyin_tone_marks": "dài"
+        },
+        {
+          "text": "万",
+          "pinyin_numeric": "wan4",
+          "pinyin_tone_marks": "wàn"
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_tone_marks": "wù"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "民",
+          "pinyin_numeric": "min2",
+          "pinyin_tone_marks": "mín"
+        },
+        {
+          "text": "弗",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "恃",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "莫",
+          "pinyin_numeric": "mo4",
+          "pinyin_tone_marks": "mò"
+        },
+        {
+          "text": "举",
+          "pinyin_numeric": "ju3",
+          "pinyin_tone_marks": "jǔ"
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "使",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_tone_marks": "wù"
+        },
+        {
+          "text": "自",
+          "pinyin_numeric": "zi4",
+          "pinyin_tone_marks": "zì"
+        },
+        {
+          "text": "喜",
+          "pinyin_numeric": "xi3",
+          "pinyin_tone_marks": "xǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "阳子居询问明王，老聃说逞能求名只会劳形伤心；明王的功业不自居，使万物自然变化。"
+    },
+    {
+      "id": "yingdiwang-seg-005",
+      "order": 5,
+      "text": "立乎不测，而游于无有者也。”",
+      "tokens": [
+        {
+          "text": "立",
+          "pinyin_numeric": "li4",
+          "pinyin_tone_marks": "lì"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "测",
+          "pinyin_numeric": "ce4",
+          "pinyin_tone_marks": "cè"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "游",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": null
+    },
+    {
+      "id": "yingdiwang-seg-006",
+      "order": 6,
+      "text": "郑有神巫曰季咸，知人之死生存亡祸福寿夭，期以岁月旬日若神。郑人见之，皆弃而走。列子见之而心醉，归，以告壶子，曰：“始吾以夫子之道为至矣，则又有至焉者矣。”壶子曰：“吾与汝既其文，未既其实。而固得道与？众雌而无雄，而又奚卵焉！而以道与世亢，必信，夫故使人得而相汝。尝试与来，以予示之。”",
+      "tokens": [
+        {
+          "text": "郑",
+          "pinyin_numeric": "zheng4",
+          "pinyin_tone_marks": "zhèng"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "神",
+          "pinyin_numeric": "shen2",
+          "pinyin_tone_marks": "shén"
+        },
+        {
+          "text": "巫",
+          "pinyin_numeric": "wu1",
+          "pinyin_tone_marks": "wū"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "季",
+          "pinyin_numeric": "ji4",
+          "pinyin_tone_marks": "jì"
+        },
+        {
+          "text": "咸",
+          "pinyin_numeric": "xian2",
+          "pinyin_tone_marks": "xián"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "死",
+          "pinyin_numeric": "si3",
+          "pinyin_tone_marks": "sǐ"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_tone_marks": "shēng"
+        },
+        {
+          "text": "存",
+          "pinyin_numeric": "cun2",
+          "pinyin_tone_marks": "cún"
+        },
+        {
+          "text": "亡",
+          "pinyin_numeric": "wang2",
+          "pinyin_tone_marks": "wáng"
+        },
+        {
+          "text": "祸",
+          "pinyin_numeric": "huo4",
+          "pinyin_tone_marks": "huò"
+        },
+        {
+          "text": "福",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "寿",
+          "pinyin_numeric": "shou4",
+          "pinyin_tone_marks": "shòu"
+        },
+        {
+          "text": "夭",
+          "pinyin_numeric": "yao1",
+          "pinyin_tone_marks": "yāo"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "期",
+          "pinyin_numeric": "qi1",
+          "pinyin_tone_marks": "qī"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "岁",
+          "pinyin_numeric": "sui4",
+          "pinyin_tone_marks": "suì"
+        },
+        {
+          "text": "月",
+          "pinyin_numeric": "yue4",
+          "pinyin_tone_marks": "yuè"
+        },
+        {
+          "text": "旬",
+          "pinyin_numeric": "xun2",
+          "pinyin_tone_marks": "xún"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "若",
+          "pinyin_numeric": "ruo4",
+          "pinyin_tone_marks": "ruò"
+        },
+        {
+          "text": "神",
+          "pinyin_numeric": "shen2",
+          "pinyin_tone_marks": "shén"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "郑",
+          "pinyin_numeric": "zheng4",
+          "pinyin_tone_marks": "zhèng"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "皆",
+          "pinyin_numeric": "jie1",
+          "pinyin_tone_marks": "jiē"
+        },
+        {
+          "text": "弃",
+          "pinyin_numeric": "qi4",
+          "pinyin_tone_marks": "qì"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "走",
+          "pinyin_numeric": "zou3",
+          "pinyin_tone_marks": "zǒu"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "心",
+          "pinyin_numeric": "xin1",
+          "pinyin_tone_marks": "xīn"
+        },
+        {
+          "text": "醉",
+          "pinyin_numeric": "zui4",
+          "pinyin_tone_marks": "zuì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "归",
+          "pinyin_numeric": "gui1",
+          "pinyin_tone_marks": "guī"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "告",
+          "pinyin_numeric": "gao4",
+          "pinyin_tone_marks": "gào"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "始",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "夫",
+          "pinyin_numeric": "fu1",
+          "pinyin_tone_marks": "fū"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_tone_marks": "dào"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "至",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "则",
+          "pinyin_numeric": "ze2",
+          "pinyin_tone_marks": "zé"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "至",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "汝",
+          "pinyin_numeric": "ru3",
+          "pinyin_tone_marks": "rǔ"
+        },
+        {
+          "text": "既",
+          "pinyin_numeric": "ji4",
+          "pinyin_tone_marks": "jì"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "文",
+          "pinyin_numeric": "wen2",
+          "pinyin_tone_marks": "wén"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "未",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "既",
+          "pinyin_numeric": "ji4",
+          "pinyin_tone_marks": "jì"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "实",
+          "pinyin_numeric": "shi2",
+          "pinyin_tone_marks": "shí"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "固",
+          "pinyin_numeric": "gu4",
+          "pinyin_tone_marks": "gù"
+        },
+        {
+          "text": "得",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_tone_marks": "dào"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "？",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "众",
+          "pinyin_numeric": "zhong4",
+          "pinyin_tone_marks": "zhòng"
+        },
+        {
+          "text": "雌",
+          "pinyin_numeric": "ci2",
+          "pinyin_tone_marks": "cí"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "雄",
+          "pinyin_numeric": "xiong2",
+          "pinyin_tone_marks": "xióng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "奚",
+          "pinyin_numeric": "xi1",
+          "pinyin_tone_marks": "xī"
+        },
+        {
+          "text": "卵",
+          "pinyin_numeric": "luan3",
+          "pinyin_tone_marks": "luǎn"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "道",
+          "pinyin_numeric": "dao4",
+          "pinyin_tone_marks": "dào"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "世",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "亢",
+          "pinyin_numeric": "kang4",
+          "pinyin_tone_marks": "kàng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "必",
+          "pinyin_numeric": "bi4",
+          "pinyin_tone_marks": "bì"
+        },
+        {
+          "text": "信",
+          "pinyin_numeric": "xin4",
+          "pinyin_tone_marks": "xìn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "夫",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "故",
+          "pinyin_numeric": "gu4",
+          "pinyin_tone_marks": "gù"
+        },
+        {
+          "text": "使",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "得",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "汝",
+          "pinyin_numeric": "ru3",
+          "pinyin_tone_marks": "rǔ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "尝",
+          "pinyin_numeric": "chang2",
+          "pinyin_tone_marks": "cháng"
+        },
+        {
+          "text": "试",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "来",
+          "pinyin_numeric": "lai2",
+          "pinyin_tone_marks": "lái"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "予",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "示",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "郑国神巫季咸能预言祸福，列子因此动摇；壶子说列子只学到外在形式，还未领会真实。"
+    },
+    {
+      "id": "yingdiwang-seg-007",
+      "order": 7,
+      "text": "明日，列子与之见壶子。出而谓列子曰：“嘻！子之先生死矣！弗活矣！不以旬数矣！吾见怪焉，见湿灰焉。”列子入，泣涕沾襟以告壶子。壶子曰：“乡吾示之以地文，萌乎不震不正，是殆见吾杜德机也。尝又与来。”明日，又与之见壶子。出而谓列子曰：“幸矣！子之先生遇我也，有瘳矣！全然有生矣！吾见其杜权矣！",
+      "tokens": [
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "谓",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "嘻",
+          "pinyin_numeric": "xi1",
+          "pinyin_tone_marks": "xī"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "先",
+          "pinyin_numeric": "xian1",
+          "pinyin_tone_marks": "xiān"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_tone_marks": "shēng"
+        },
+        {
+          "text": "死",
+          "pinyin_numeric": "si3",
+          "pinyin_tone_marks": "sǐ"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "弗",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "活",
+          "pinyin_numeric": "huo2",
+          "pinyin_tone_marks": "huó"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "旬",
+          "pinyin_numeric": "xun2",
+          "pinyin_tone_marks": "xún"
+        },
+        {
+          "text": "数",
+          "pinyin_numeric": "shu3",
+          "pinyin_tone_marks": "shǔ"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "怪",
+          "pinyin_numeric": "guai4",
+          "pinyin_tone_marks": "guài"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "湿",
+          "pinyin_numeric": "shi1",
+          "pinyin_tone_marks": "shī"
+        },
+        {
+          "text": "灰",
+          "pinyin_numeric": "hui1",
+          "pinyin_tone_marks": "huī"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "入",
+          "pinyin_numeric": "ru4",
+          "pinyin_tone_marks": "rù"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "泣",
+          "pinyin_numeric": "qi4",
+          "pinyin_tone_marks": "qì"
+        },
+        {
+          "text": "涕",
+          "pinyin_numeric": "ti4",
+          "pinyin_tone_marks": "tì"
+        },
+        {
+          "text": "沾",
+          "pinyin_numeric": "zhan1",
+          "pinyin_tone_marks": "zhān"
+        },
+        {
+          "text": "襟",
+          "pinyin_numeric": "jin1",
+          "pinyin_tone_marks": "jīn"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "告",
+          "pinyin_numeric": "gao4",
+          "pinyin_tone_marks": "gào"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "乡",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "示",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "地",
+          "pinyin_numeric": "di4",
+          "pinyin_tone_marks": "dì"
+        },
+        {
+          "text": "文",
+          "pinyin_numeric": "wen2",
+          "pinyin_tone_marks": "wén"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "萌",
+          "pinyin_numeric": "meng2",
+          "pinyin_tone_marks": "méng"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "震",
+          "pinyin_numeric": "zhen4",
+          "pinyin_tone_marks": "zhèn"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "正",
+          "pinyin_numeric": "zheng4",
+          "pinyin_tone_marks": "zhèng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "殆",
+          "pinyin_numeric": "dai4",
+          "pinyin_tone_marks": "dài"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "杜",
+          "pinyin_numeric": "du4",
+          "pinyin_tone_marks": "dù"
+        },
+        {
+          "text": "德",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "机",
+          "pinyin_numeric": "ji1",
+          "pinyin_tone_marks": "jī"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "尝",
+          "pinyin_numeric": "chang2",
+          "pinyin_tone_marks": "cháng"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "来",
+          "pinyin_numeric": "lai2",
+          "pinyin_tone_marks": "lái"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "谓",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "幸",
+          "pinyin_numeric": "xing4",
+          "pinyin_tone_marks": "xìng"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "先",
+          "pinyin_numeric": "xian1",
+          "pinyin_tone_marks": "xiān"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_tone_marks": "shēng"
+        },
+        {
+          "text": "遇",
+          "pinyin_numeric": "yu4",
+          "pinyin_tone_marks": "yù"
+        },
+        {
+          "text": "我",
+          "pinyin_numeric": "wo3",
+          "pinyin_tone_marks": "wǒ"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "瘳",
+          "pinyin_numeric": "chou1",
+          "pinyin_tone_marks": "chōu"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "全",
+          "pinyin_numeric": "quan2",
+          "pinyin_tone_marks": "quán"
+        },
+        {
+          "text": "然",
+          "pinyin_numeric": "ran2",
+          "pinyin_tone_marks": "rán"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_tone_marks": "shēng"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "杜",
+          "pinyin_numeric": "du4",
+          "pinyin_tone_marks": "dù"
+        },
+        {
+          "text": "权",
+          "pinyin_numeric": "quan2",
+          "pinyin_tone_marks": "quán"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "壶子数次以不同气象示巫，巫的判断随之改变，最后逃走；列子由此回归朴素生活，不再执着外在技巧。"
+    },
+    {
+      "id": "yingdiwang-seg-008",
+      "order": 8,
+      "text": "”列子入，以告壶子。壶子曰：“乡吾示之以天壤，名实不入，而机发于踵。是殆见吾善者机也。尝又与来。”明日，又与之见壶子。出而谓列子曰：“子之先生不齐，吾无得而相焉。试齐，且复相之。”列子入，以告壶子。壶子曰：“吾乡示之以以太冲莫胜，是殆见吾衡气机也。鲵桓之审为渊，止水之审为渊，流水之审为渊。",
+      "tokens": [
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "入",
+          "pinyin_numeric": "ru4",
+          "pinyin_tone_marks": "rù"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "告",
+          "pinyin_numeric": "gao4",
+          "pinyin_tone_marks": "gào"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "乡",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "示",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "壤",
+          "pinyin_numeric": "rang3",
+          "pinyin_tone_marks": "rǎng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "实",
+          "pinyin_numeric": "shi2",
+          "pinyin_tone_marks": "shí"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "入",
+          "pinyin_numeric": "ru4",
+          "pinyin_tone_marks": "rù"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "机",
+          "pinyin_numeric": "ji1",
+          "pinyin_tone_marks": "jī"
+        },
+        {
+          "text": "发",
+          "pinyin_numeric": "fa1",
+          "pinyin_tone_marks": "fā"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "踵",
+          "pinyin_numeric": "zhong3",
+          "pinyin_tone_marks": "zhǒng"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "殆",
+          "pinyin_numeric": "dai4",
+          "pinyin_tone_marks": "dài"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "善",
+          "pinyin_numeric": "shan4",
+          "pinyin_tone_marks": "shàn"
+        },
+        {
+          "text": "者",
+          "pinyin_numeric": "zhe3",
+          "pinyin_tone_marks": "zhě"
+        },
+        {
+          "text": "机",
+          "pinyin_numeric": "ji1",
+          "pinyin_tone_marks": "jī"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "尝",
+          "pinyin_numeric": "chang2",
+          "pinyin_tone_marks": "cháng"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "来",
+          "pinyin_numeric": "lai2",
+          "pinyin_tone_marks": "lái"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "谓",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "先",
+          "pinyin_numeric": "xian1",
+          "pinyin_tone_marks": "xiān"
+        },
+        {
+          "text": "生",
+          "pinyin_numeric": "sheng1",
+          "pinyin_tone_marks": "shēng"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "齐",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "得",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "试",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "齐",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "且",
+          "pinyin_numeric": "qie3",
+          "pinyin_tone_marks": "qiě"
+        },
+        {
+          "text": "复",
+          "pinyin_numeric": "fu4",
+          "pinyin_tone_marks": "fù"
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "入",
+          "pinyin_numeric": "ru4",
+          "pinyin_tone_marks": "rù"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "告",
+          "pinyin_numeric": "gao4",
+          "pinyin_tone_marks": "gào"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "乡",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "示",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "太",
+          "pinyin_numeric": "tai4",
+          "pinyin_tone_marks": "tài"
+        },
+        {
+          "text": "冲",
+          "pinyin_numeric": "chong1",
+          "pinyin_tone_marks": "chōng"
+        },
+        {
+          "text": "莫",
+          "pinyin_numeric": "mo4",
+          "pinyin_tone_marks": "mò"
+        },
+        {
+          "text": "胜",
+          "pinyin_numeric": "sheng4",
+          "pinyin_tone_marks": "shèng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "殆",
+          "pinyin_numeric": "dai4",
+          "pinyin_tone_marks": "dài"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "衡",
+          "pinyin_numeric": "heng2",
+          "pinyin_tone_marks": "héng"
+        },
+        {
+          "text": "气",
+          "pinyin_numeric": "qi4",
+          "pinyin_tone_marks": "qì"
+        },
+        {
+          "text": "机",
+          "pinyin_numeric": "ji1",
+          "pinyin_tone_marks": "jī"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "鲵",
+          "pinyin_numeric": "ni2",
+          "pinyin_tone_marks": "ní"
+        },
+        {
+          "text": "桓",
+          "pinyin_numeric": "huan2",
+          "pinyin_tone_marks": "huán"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "审",
+          "pinyin_numeric": "shen3",
+          "pinyin_tone_marks": "shěn"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "渊",
+          "pinyin_numeric": "yuan1",
+          "pinyin_tone_marks": "yuān"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "止",
+          "pinyin_numeric": "zhi3",
+          "pinyin_tone_marks": "zhǐ"
+        },
+        {
+          "text": "水",
+          "pinyin_numeric": "shui3",
+          "pinyin_tone_marks": "shuǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "审",
+          "pinyin_numeric": "shen3",
+          "pinyin_tone_marks": "shěn"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "渊",
+          "pinyin_numeric": "yuan1",
+          "pinyin_tone_marks": "yuān"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "流",
+          "pinyin_numeric": "liu2",
+          "pinyin_tone_marks": "liú"
+        },
+        {
+          "text": "水",
+          "pinyin_numeric": "shui3",
+          "pinyin_tone_marks": "shuǐ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "审",
+          "pinyin_numeric": "shen3",
+          "pinyin_tone_marks": "shěn"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "渊",
+          "pinyin_numeric": "yuan1",
+          "pinyin_tone_marks": "yuān"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": null
+    },
+    {
+      "id": "yingdiwang-seg-009",
+      "order": 9,
+      "text": "渊有九名，此处三焉。尝又与来。”明日，又与之见壶子。立未定，自失而走。壶子曰：“追之！”列子追之不及。反，以报壶子曰：“已灭矣，已失矣，吾弗及已。”壶子曰：“乡吾示之以未始出吾宗。吾与之虚而委蛇，不知其谁何，因以为弟靡，因以为波流，故逃也。”然后列子自以为未始学而归。",
+      "tokens": [
+        {
+          "text": "渊",
+          "pinyin_numeric": "yuan1",
+          "pinyin_tone_marks": "yuān"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "九",
+          "pinyin_numeric": "jiu3",
+          "pinyin_tone_marks": "jiǔ"
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "此",
+          "pinyin_numeric": "ci3",
+          "pinyin_tone_marks": "cǐ"
+        },
+        {
+          "text": "处",
+          "pinyin_numeric": "chu3",
+          "pinyin_tone_marks": "chǔ"
+        },
+        {
+          "text": "三",
+          "pinyin_numeric": "san1",
+          "pinyin_tone_marks": "sān"
+        },
+        {
+          "text": "焉",
+          "pinyin_numeric": "yan1",
+          "pinyin_tone_marks": "yān"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "尝",
+          "pinyin_numeric": "chang2",
+          "pinyin_tone_marks": "cháng"
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "来",
+          "pinyin_numeric": "lai2",
+          "pinyin_tone_marks": "lái"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "明",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "又",
+          "pinyin_numeric": "you4",
+          "pinyin_tone_marks": "yòu"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "立",
+          "pinyin_numeric": "li4",
+          "pinyin_tone_marks": "lì"
+        },
+        {
+          "text": "未",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "定",
+          "pinyin_numeric": "ding4",
+          "pinyin_tone_marks": "dìng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "自",
+          "pinyin_numeric": "zi4",
+          "pinyin_tone_marks": "zì"
+        },
+        {
+          "text": "失",
+          "pinyin_numeric": "shi1",
+          "pinyin_tone_marks": "shī"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "走",
+          "pinyin_numeric": "zou3",
+          "pinyin_tone_marks": "zǒu"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "追",
+          "pinyin_numeric": "zhui1",
+          "pinyin_tone_marks": "zhuī"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "追",
+          "pinyin_numeric": "zhui1",
+          "pinyin_tone_marks": "zhuī"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "及",
+          "pinyin_numeric": "ji2",
+          "pinyin_tone_marks": "jí"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "反",
+          "pinyin_numeric": "fan3",
+          "pinyin_tone_marks": "fǎn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "报",
+          "pinyin_numeric": "bao4",
+          "pinyin_tone_marks": "bào"
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "已",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "灭",
+          "pinyin_numeric": "mie4",
+          "pinyin_tone_marks": "miè"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "已",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "失",
+          "pinyin_numeric": "shi1",
+          "pinyin_tone_marks": "shī"
+        },
+        {
+          "text": "矣",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "弗",
+          "pinyin_numeric": "fu2",
+          "pinyin_tone_marks": "fú"
+        },
+        {
+          "text": "及",
+          "pinyin_numeric": "ji2",
+          "pinyin_tone_marks": "jí"
+        },
+        {
+          "text": "已",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "壶",
+          "pinyin_numeric": "hu2",
+          "pinyin_tone_marks": "hú"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "乡",
+          "pinyin_numeric": "xiang4",
+          "pinyin_tone_marks": "xiàng"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "示",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "未",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "始",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "宗",
+          "pinyin_numeric": "zong1",
+          "pinyin_tone_marks": "zōng"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "吾",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "虚",
+          "pinyin_numeric": "xu1",
+          "pinyin_tone_marks": "xū"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "委",
+          "pinyin_numeric": "wei1",
+          "pinyin_tone_marks": "wēi"
+        },
+        {
+          "text": "蛇",
+          "pinyin_numeric": "yi2",
+          "pinyin_tone_marks": "yí"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "谁",
+          "pinyin_numeric": "shui2",
+          "pinyin_tone_marks": "shuí"
+        },
+        {
+          "text": "何",
+          "pinyin_numeric": "he2",
+          "pinyin_tone_marks": "hé"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "因",
+          "pinyin_numeric": "yin1",
+          "pinyin_tone_marks": "yīn"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "弟",
+          "pinyin_numeric": "tui2",
+          "pinyin_tone_marks": "tuí"
+        },
+        {
+          "text": "靡",
+          "pinyin_numeric": "mi2",
+          "pinyin_tone_marks": "mí"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "因",
+          "pinyin_numeric": "yin1",
+          "pinyin_tone_marks": "yīn"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "波",
+          "pinyin_numeric": "bo1",
+          "pinyin_tone_marks": "bō"
+        },
+        {
+          "text": "流",
+          "pinyin_numeric": "liu2",
+          "pinyin_tone_marks": "liú"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "故",
+          "pinyin_numeric": "gu4",
+          "pinyin_tone_marks": "gù"
+        },
+        {
+          "text": "逃",
+          "pinyin_numeric": "tao2",
+          "pinyin_tone_marks": "táo"
+        },
+        {
+          "text": "也",
+          "pinyin_numeric": "ye3",
+          "pinyin_tone_marks": "yě"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "然",
+          "pinyin_numeric": "ran2",
+          "pinyin_tone_marks": "rán"
+        },
+        {
+          "text": "后",
+          "pinyin_numeric": "hou4",
+          "pinyin_tone_marks": "hòu"
+        },
+        {
+          "text": "列",
+          "pinyin_numeric": "lie4",
+          "pinyin_tone_marks": "liè"
+        },
+        {
+          "text": "子",
+          "pinyin_numeric": "zi3",
+          "pinyin_tone_marks": "zǐ"
+        },
+        {
+          "text": "自",
+          "pinyin_numeric": "zi4",
+          "pinyin_tone_marks": "zì"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "未",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "始",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "学",
+          "pinyin_numeric": "xue2",
+          "pinyin_tone_marks": "xué"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "归",
+          "pinyin_numeric": "gui1",
+          "pinyin_tone_marks": "guī"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": null
+    },
+    {
+      "id": "yingdiwang-seg-010",
+      "order": 10,
+      "text": "三年不出，为其妻爨，食豕如食人，于事无与亲。雕琢复朴，块然独以其形立。纷而封哉，一以是终。",
+      "tokens": [
+        {
+          "text": "三",
+          "pinyin_numeric": "san1",
+          "pinyin_tone_marks": "sān"
+        },
+        {
+          "text": "年",
+          "pinyin_numeric": "nian2",
+          "pinyin_tone_marks": "nián"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "出",
+          "pinyin_numeric": "chu1",
+          "pinyin_tone_marks": "chū"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei4",
+          "pinyin_tone_marks": "wèi"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "妻",
+          "pinyin_numeric": "qi1",
+          "pinyin_tone_marks": "qī"
+        },
+        {
+          "text": "爨",
+          "pinyin_numeric": "cuan4",
+          "pinyin_tone_marks": "cuàn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "食",
+          "pinyin_numeric": "si4",
+          "pinyin_tone_marks": "sì"
+        },
+        {
+          "text": "豕",
+          "pinyin_numeric": "shi3",
+          "pinyin_tone_marks": "shǐ"
+        },
+        {
+          "text": "如",
+          "pinyin_numeric": "ru2",
+          "pinyin_tone_marks": "rú"
+        },
+        {
+          "text": "食",
+          "pinyin_numeric": "si4",
+          "pinyin_tone_marks": "sì"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "事",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "亲",
+          "pinyin_numeric": "qin1",
+          "pinyin_tone_marks": "qīn"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "雕",
+          "pinyin_numeric": "diao1",
+          "pinyin_tone_marks": "diāo"
+        },
+        {
+          "text": "琢",
+          "pinyin_numeric": "zhuo2",
+          "pinyin_tone_marks": "zhuó"
+        },
+        {
+          "text": "复",
+          "pinyin_numeric": "fu4",
+          "pinyin_tone_marks": "fù"
+        },
+        {
+          "text": "朴",
+          "pinyin_numeric": "pu3",
+          "pinyin_tone_marks": "pǔ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "块",
+          "pinyin_numeric": "kuai4",
+          "pinyin_tone_marks": "kuài"
+        },
+        {
+          "text": "然",
+          "pinyin_numeric": "ran2",
+          "pinyin_tone_marks": "rán"
+        },
+        {
+          "text": "独",
+          "pinyin_numeric": "du2",
+          "pinyin_tone_marks": "dú"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "形",
+          "pinyin_numeric": "xing2",
+          "pinyin_tone_marks": "xíng"
+        },
+        {
+          "text": "立",
+          "pinyin_numeric": "li4",
+          "pinyin_tone_marks": "lì"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "纷",
+          "pinyin_numeric": "fen1",
+          "pinyin_tone_marks": "fēn"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "封",
+          "pinyin_numeric": "feng1",
+          "pinyin_tone_marks": "fēng"
+        },
+        {
+          "text": "哉",
+          "pinyin_numeric": "zai1",
+          "pinyin_tone_marks": "zāi"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "一",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "是",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "终",
+          "pinyin_numeric": "zhong1",
+          "pinyin_tone_marks": "zhōng"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": null
+    },
+    {
+      "id": "yingdiwang-seg-011",
+      "order": 11,
+      "text": "无为名尸，无为谋府，无为事任，无为知主。体尽无穷，而游无朕。尽其所受乎天而无见得，亦虚而已！至人之用心若镜，不将不逆，应而不藏，故能胜物而不伤。",
+      "tokens": [
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "名",
+          "pinyin_numeric": "ming2",
+          "pinyin_tone_marks": "míng"
+        },
+        {
+          "text": "尸",
+          "pinyin_numeric": "shi1",
+          "pinyin_tone_marks": "shī"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "谋",
+          "pinyin_numeric": "mou2",
+          "pinyin_tone_marks": "móu"
+        },
+        {
+          "text": "府",
+          "pinyin_numeric": "fu3",
+          "pinyin_tone_marks": "fǔ"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "事",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "任",
+          "pinyin_numeric": "ren4",
+          "pinyin_tone_marks": "rèn"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "知",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "主",
+          "pinyin_numeric": "zhu3",
+          "pinyin_tone_marks": "zhǔ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "体",
+          "pinyin_numeric": "ti3",
+          "pinyin_tone_marks": "tǐ"
+        },
+        {
+          "text": "尽",
+          "pinyin_numeric": "jin4",
+          "pinyin_tone_marks": "jìn"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "穷",
+          "pinyin_numeric": "qiong2",
+          "pinyin_tone_marks": "qióng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "游",
+          "pinyin_numeric": "you2",
+          "pinyin_tone_marks": "yóu"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "朕",
+          "pinyin_numeric": "zhen4",
+          "pinyin_tone_marks": "zhèn"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "尽",
+          "pinyin_numeric": "jin4",
+          "pinyin_tone_marks": "jìn"
+        },
+        {
+          "text": "其",
+          "pinyin_numeric": "qi2",
+          "pinyin_tone_marks": "qí"
+        },
+        {
+          "text": "所",
+          "pinyin_numeric": "suo3",
+          "pinyin_tone_marks": "suǒ"
+        },
+        {
+          "text": "受",
+          "pinyin_numeric": "shou4",
+          "pinyin_tone_marks": "shòu"
+        },
+        {
+          "text": "乎",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "天",
+          "pinyin_numeric": "tian1",
+          "pinyin_tone_marks": "tiān"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "见",
+          "pinyin_numeric": "jian4",
+          "pinyin_tone_marks": "jiàn"
+        },
+        {
+          "text": "得",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "亦",
+          "pinyin_numeric": "yi4",
+          "pinyin_tone_marks": "yì"
+        },
+        {
+          "text": "虚",
+          "pinyin_numeric": "xu1",
+          "pinyin_tone_marks": "xū"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "已",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "！",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "至",
+          "pinyin_numeric": "zhi4",
+          "pinyin_tone_marks": "zhì"
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "用",
+          "pinyin_numeric": "yong4",
+          "pinyin_tone_marks": "yòng"
+        },
+        {
+          "text": "心",
+          "pinyin_numeric": "xin1",
+          "pinyin_tone_marks": "xīn"
+        },
+        {
+          "text": "若",
+          "pinyin_numeric": "ruo4",
+          "pinyin_tone_marks": "ruò"
+        },
+        {
+          "text": "镜",
+          "pinyin_numeric": "jing4",
+          "pinyin_tone_marks": "jìng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "将",
+          "pinyin_numeric": "jiang1",
+          "pinyin_tone_marks": "jiāng"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu2",
+          "pinyin_tone_marks": "bú"
+        },
+        {
+          "text": "逆",
+          "pinyin_numeric": "ni4",
+          "pinyin_tone_marks": "nì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "应",
+          "pinyin_numeric": "ying4",
+          "pinyin_tone_marks": "yìng"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "藏",
+          "pinyin_numeric": "cang2",
+          "pinyin_tone_marks": "cáng"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "故",
+          "pinyin_numeric": "gu4",
+          "pinyin_tone_marks": "gù"
+        },
+        {
+          "text": "能",
+          "pinyin_numeric": "neng2",
+          "pinyin_tone_marks": "néng"
+        },
+        {
+          "text": "胜",
+          "pinyin_numeric": "sheng4",
+          "pinyin_tone_marks": "shèng"
+        },
+        {
+          "text": "物",
+          "pinyin_numeric": "wu4",
+          "pinyin_tone_marks": "wù"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "不",
+          "pinyin_numeric": "bu4",
+          "pinyin_tone_marks": "bù"
+        },
+        {
+          "text": "伤",
+          "pinyin_numeric": "shang1",
+          "pinyin_tone_marks": "shāng"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "至人不把名声当主宰、不把谋略当仓库；心如镜子，回应来物却不留藏，因此不受外物损伤。"
+    },
+    {
+      "id": "yingdiwang-seg-012",
+      "order": 12,
+      "text": "南海之帝为儵，北海之帝为忽，中央之帝为浑沌。儵与忽时相与遇于浑沌之地，浑沌待之甚善。儵与忽谋报浑沌之德，曰：“人皆有七窍以视听食息此独无有，尝试凿之。”日凿一窍，七日而浑沌死。",
+      "tokens": [
+        {
+          "text": "南",
+          "pinyin_numeric": "nan2",
+          "pinyin_tone_marks": "nán"
+        },
+        {
+          "text": "海",
+          "pinyin_numeric": "hai3",
+          "pinyin_tone_marks": "hǎi"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "帝",
+          "pinyin_numeric": "di4",
+          "pinyin_tone_marks": "dì"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "儵",
+          "pinyin_numeric": "shu1",
+          "pinyin_tone_marks": "shū"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "北",
+          "pinyin_numeric": "bei3",
+          "pinyin_tone_marks": "běi"
+        },
+        {
+          "text": "海",
+          "pinyin_numeric": "hai3",
+          "pinyin_tone_marks": "hǎi"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "帝",
+          "pinyin_numeric": "di4",
+          "pinyin_tone_marks": "dì"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "忽",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "中",
+          "pinyin_numeric": "zhong1",
+          "pinyin_tone_marks": "zhōng"
+        },
+        {
+          "text": "央",
+          "pinyin_numeric": "yang1",
+          "pinyin_tone_marks": "yāng"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "帝",
+          "pinyin_numeric": "di4",
+          "pinyin_tone_marks": "dì"
+        },
+        {
+          "text": "为",
+          "pinyin_numeric": "wei2",
+          "pinyin_tone_marks": "wéi"
+        },
+        {
+          "text": "浑",
+          "pinyin_numeric": "hun2",
+          "pinyin_tone_marks": "hún"
+        },
+        {
+          "text": "沌",
+          "pinyin_numeric": "dun4",
+          "pinyin_tone_marks": "dùn"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "儵",
+          "pinyin_numeric": "shu1",
+          "pinyin_tone_marks": "shū"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "忽",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "时",
+          "pinyin_numeric": "shi2",
+          "pinyin_tone_marks": "shí"
+        },
+        {
+          "text": "相",
+          "pinyin_numeric": "xiang1",
+          "pinyin_tone_marks": "xiāng"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "遇",
+          "pinyin_numeric": "yu4",
+          "pinyin_tone_marks": "yù"
+        },
+        {
+          "text": "于",
+          "pinyin_numeric": "yu2",
+          "pinyin_tone_marks": "yú"
+        },
+        {
+          "text": "浑",
+          "pinyin_numeric": "hun2",
+          "pinyin_tone_marks": "hún"
+        },
+        {
+          "text": "沌",
+          "pinyin_numeric": "dun4",
+          "pinyin_tone_marks": "dùn"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "地",
+          "pinyin_numeric": "di4",
+          "pinyin_tone_marks": "dì"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "浑",
+          "pinyin_numeric": "hun2",
+          "pinyin_tone_marks": "hún"
+        },
+        {
+          "text": "沌",
+          "pinyin_numeric": "dun4",
+          "pinyin_tone_marks": "dùn"
+        },
+        {
+          "text": "待",
+          "pinyin_numeric": "dai4",
+          "pinyin_tone_marks": "dài"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "甚",
+          "pinyin_numeric": "shen4",
+          "pinyin_tone_marks": "shèn"
+        },
+        {
+          "text": "善",
+          "pinyin_numeric": "shan4",
+          "pinyin_tone_marks": "shàn"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "儵",
+          "pinyin_numeric": "shu1",
+          "pinyin_tone_marks": "shū"
+        },
+        {
+          "text": "与",
+          "pinyin_numeric": "yu3",
+          "pinyin_tone_marks": "yǔ"
+        },
+        {
+          "text": "忽",
+          "pinyin_numeric": "hu1",
+          "pinyin_tone_marks": "hū"
+        },
+        {
+          "text": "谋",
+          "pinyin_numeric": "mou2",
+          "pinyin_tone_marks": "móu"
+        },
+        {
+          "text": "报",
+          "pinyin_numeric": "bao4",
+          "pinyin_tone_marks": "bào"
+        },
+        {
+          "text": "浑",
+          "pinyin_numeric": "hun2",
+          "pinyin_tone_marks": "hún"
+        },
+        {
+          "text": "沌",
+          "pinyin_numeric": "dun4",
+          "pinyin_tone_marks": "dùn"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "德",
+          "pinyin_numeric": "de2",
+          "pinyin_tone_marks": "dé"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "曰",
+          "pinyin_numeric": "yue1",
+          "pinyin_tone_marks": "yuē"
+        },
+        {
+          "text": "：",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "“",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "人",
+          "pinyin_numeric": "ren2",
+          "pinyin_tone_marks": "rén"
+        },
+        {
+          "text": "皆",
+          "pinyin_numeric": "jie1",
+          "pinyin_tone_marks": "jiē"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "七",
+          "pinyin_numeric": "qi1",
+          "pinyin_tone_marks": "qī"
+        },
+        {
+          "text": "窍",
+          "pinyin_numeric": "qiao4",
+          "pinyin_tone_marks": "qiào"
+        },
+        {
+          "text": "以",
+          "pinyin_numeric": "yi3",
+          "pinyin_tone_marks": "yǐ"
+        },
+        {
+          "text": "视",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "听",
+          "pinyin_numeric": "ting1",
+          "pinyin_tone_marks": "tīng"
+        },
+        {
+          "text": "食",
+          "pinyin_numeric": "shi2",
+          "pinyin_tone_marks": "shí"
+        },
+        {
+          "text": "息",
+          "pinyin_numeric": "xi1",
+          "pinyin_tone_marks": "xī"
+        },
+        {
+          "text": "此",
+          "pinyin_numeric": "ci3",
+          "pinyin_tone_marks": "cǐ"
+        },
+        {
+          "text": "独",
+          "pinyin_numeric": "du2",
+          "pinyin_tone_marks": "dú"
+        },
+        {
+          "text": "无",
+          "pinyin_numeric": "wu2",
+          "pinyin_tone_marks": "wú"
+        },
+        {
+          "text": "有",
+          "pinyin_numeric": "you3",
+          "pinyin_tone_marks": "yǒu"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "尝",
+          "pinyin_numeric": "chang2",
+          "pinyin_tone_marks": "cháng"
+        },
+        {
+          "text": "试",
+          "pinyin_numeric": "shi4",
+          "pinyin_tone_marks": "shì"
+        },
+        {
+          "text": "凿",
+          "pinyin_numeric": "zao2",
+          "pinyin_tone_marks": "záo"
+        },
+        {
+          "text": "之",
+          "pinyin_numeric": "zhi1",
+          "pinyin_tone_marks": "zhī"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "”",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "凿",
+          "pinyin_numeric": "zao2",
+          "pinyin_tone_marks": "záo"
+        },
+        {
+          "text": "一",
+          "pinyin_numeric": "yi2",
+          "pinyin_tone_marks": "yí"
+        },
+        {
+          "text": "窍",
+          "pinyin_numeric": "qiao4",
+          "pinyin_tone_marks": "qiào"
+        },
+        {
+          "text": "，",
+          "pinyin_numeric": null
+        },
+        {
+          "text": "七",
+          "pinyin_numeric": "qi1",
+          "pinyin_tone_marks": "qī"
+        },
+        {
+          "text": "日",
+          "pinyin_numeric": "ri4",
+          "pinyin_tone_marks": "rì"
+        },
+        {
+          "text": "而",
+          "pinyin_numeric": "er2",
+          "pinyin_tone_marks": "ér"
+        },
+        {
+          "text": "浑",
+          "pinyin_numeric": "hun2",
+          "pinyin_tone_marks": "hún"
+        },
+        {
+          "text": "沌",
+          "pinyin_numeric": "dun4",
+          "pinyin_tone_marks": "dùn"
+        },
+        {
+          "text": "死",
+          "pinyin_numeric": "si3",
+          "pinyin_tone_marks": "sǐ"
+        },
+        {
+          "text": "。",
+          "pinyin_numeric": null
+        }
+      ],
+      "translation": "儵、忽为报浑沌厚待，每天替他凿开一个孔窍；七天之后，浑沌因此死去。"
+    }
+  ]
+}

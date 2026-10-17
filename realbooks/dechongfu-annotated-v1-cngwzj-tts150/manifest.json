@@ -1,0 +1,31 @@
+{
+  "format": "ancient-annotated-book",
+  "format_version": "1.0",
+  "book": {
+    "id": "zhuangzi-dechongfu",
+    "title": "庄子·德充符",
+    "author": "庄子",
+    "collection": "庄子·内篇",
+    "dynasty": "战国",
+    "edition": null,
+    "language": "zh-CN"
+  },
+  "pronunciation": {
+    "mode": "reference"
+  },
+  "chapters": [
+    {
+      "id": "chapter-001-dechongfu",
+      "order": 1,
+      "collection": "内篇",
+      "title": "德充符",
+      "subtitle": null,
+      "file": "chapters/001.json"
+    }
+  ],
+  "sources": {
+    "original": "https://www.cngwzj.com/gushi/XianQin/87607/",
+    "pronunciation": "https://www.cngwzj.com/pygushi/XianQin/87607/",
+    "translation": "https://www.cngwzj.com/gushi/XianQin/87607/"
+  }
+}
